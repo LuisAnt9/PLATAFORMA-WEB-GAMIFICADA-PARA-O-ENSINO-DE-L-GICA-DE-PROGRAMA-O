@@ -46,7 +46,11 @@ export default function CodeEditor({
         theme={dark ? "dark" : "light"}
         height="16rem"
         aria-label="Editor de código"
-        basicSetup={{ lineNumbers: true, foldGutter: false, highlightActiveLine: true }}
+        basicSetup={{
+          lineNumbers: true,
+          foldGutter: false,
+          highlightActiveLine: true,
+        }}
       />
     </div>
   );

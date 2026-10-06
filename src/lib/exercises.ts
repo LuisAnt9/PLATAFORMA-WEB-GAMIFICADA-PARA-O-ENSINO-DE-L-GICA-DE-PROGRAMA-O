@@ -32,9 +32,21 @@ export const XP_BY_DIFFICULTY: Record<Difficulty, number> = {
 };
 
 export const modules: Module[] = [
-  { id: "fundamentos", title: "Fundamentos", focus: "Traduzir um problema em passos e operações" },
-  { id: "condicionais", title: "Condicionais", focus: "Tomar decisões no fluxo do algoritmo" },
-  { id: "repeticao", title: "Estruturas de repetição", focus: "Compreender o passo a passo de um laço" },
+  {
+    id: "fundamentos",
+    title: "Fundamentos",
+    focus: "Traduzir um problema em passos e operações",
+  },
+  {
+    id: "condicionais",
+    title: "Condicionais",
+    focus: "Tomar decisões no fluxo do algoritmo",
+  },
+  {
+    id: "repeticao",
+    title: "Estruturas de repetição",
+    focus: "Compreender o passo a passo de um laço",
+  },
   { id: "vetores", title: "Vetores", focus: "Manipular coleções de dados" },
 ];
 
@@ -44,7 +56,8 @@ export const exercises: Exercise[] = [
     moduleId: "fundamentos",
     title: "Somar dois números",
     difficulty: "facil",
-    statement: "Escreva a função `soma(a, b)` que retorna a soma de dois números.",
+    statement:
+      "Escreva a função `soma(a, b)` que retorna a soma de dois números.",
     functionName: "soma",
     starterCode: "function soma(a, b) {\n  // seu código aqui\n}\n",
     tests: [
@@ -59,7 +72,8 @@ export const exercises: Exercise[] = [
     moduleId: "fundamentos",
     title: "Média aritmética",
     difficulty: "facil",
-    statement: "Escreva `media(a, b, c)` que retorna a média aritmética de três números.",
+    statement:
+      "Escreva `media(a, b, c)` que retorna a média aritmética de três números.",
     functionName: "media",
     starterCode: "function media(a, b, c) {\n  // seu código aqui\n}\n",
     tests: [
@@ -89,7 +103,8 @@ export const exercises: Exercise[] = [
     moduleId: "condicionais",
     title: "Maior de três",
     difficulty: "medio",
-    statement: "Escreva `maiorDeTres(a, b, c)` que retorna o maior dos três números, sem usar `Math.max`.",
+    statement:
+      "Escreva `maiorDeTres(a, b, c)` que retorna o maior dos três números, sem usar `Math.max`.",
     functionName: "maiorDeTres",
     starterCode: "function maiorDeTres(a, b, c) {\n  // seu código aqui\n}\n",
     tests: [
@@ -105,7 +120,8 @@ export const exercises: Exercise[] = [
     moduleId: "repeticao",
     title: "Somatório de 1 até n",
     difficulty: "facil",
-    statement: "Escreva `somatorio(n)` que retorna 1 + 2 + ... + n usando um laço. Para n = 0, retorna 0.",
+    statement:
+      "Escreva `somatorio(n)` que retorna 1 + 2 + ... + n usando um laço. Para n = 0, retorna 0.",
     functionName: "somatorio",
     starterCode: "function somatorio(n) {\n  // seu código aqui\n}\n",
     tests: [
@@ -137,7 +153,8 @@ export const exercises: Exercise[] = [
     moduleId: "vetores",
     title: "Soma dos elementos",
     difficulty: "medio",
-    statement: "Escreva `somaVetor(v)` que retorna a soma de todos os elementos do vetor `v`.",
+    statement:
+      "Escreva `somaVetor(v)` que retorna a soma de todos os elementos do vetor `v`.",
     functionName: "somaVetor",
     starterCode: "function somaVetor(v) {\n  // seu código aqui\n}\n",
     tests: [
@@ -169,9 +186,11 @@ export const exercises: Exercise[] = [
     moduleId: "fundamentos",
     title: "Celsius para Fahrenheit",
     difficulty: "facil",
-    statement: "Escreva `celsiusParaFahrenheit(c)` que converte graus Celsius para Fahrenheit (F = C × 9/5 + 32).",
+    statement:
+      "Escreva `celsiusParaFahrenheit(c)` que converte graus Celsius para Fahrenheit (F = C × 9/5 + 32).",
     functionName: "celsiusParaFahrenheit",
-    starterCode: "function celsiusParaFahrenheit(c) {\n  // seu código aqui\n}\n",
+    starterCode:
+      "function celsiusParaFahrenheit(c) {\n  // seu código aqui\n}\n",
     tests: [
       { args: [0], expected: 32 },
       { args: [100], expected: 212 },
@@ -185,9 +204,11 @@ export const exercises: Exercise[] = [
     moduleId: "fundamentos",
     title: "Área do retângulo",
     difficulty: "facil",
-    statement: "Escreva `areaRetangulo(base, altura)` que retorna a área do retângulo.",
+    statement:
+      "Escreva `areaRetangulo(base, altura)` que retorna a área do retângulo.",
     functionName: "areaRetangulo",
-    starterCode: "function areaRetangulo(base, altura) {\n  // seu código aqui\n}\n",
+    starterCode:
+      "function areaRetangulo(base, altura) {\n  // seu código aqui\n}\n",
     tests: [
       { args: [3, 4], expected: 12 },
       { args: [1, 1], expected: 1 },
@@ -201,7 +222,8 @@ export const exercises: Exercise[] = [
     moduleId: "condicionais",
     title: "Situação do aluno",
     difficulty: "medio",
-    statement: "Escreva `situacao(nota)` que retorna \"aprovado\" se nota >= 7, \"recuperacao\" se nota >= 5, ou \"reprovado\" caso contrário.",
+    statement:
+      'Escreva `situacao(nota)` que retorna "aprovado" se nota >= 7, "recuperacao" se nota >= 5, ou "reprovado" caso contrário.',
     functionName: "situacao",
     starterCode: "function situacao(nota) {\n  // seu código aqui\n}\n",
     tests: [
@@ -218,7 +240,8 @@ export const exercises: Exercise[] = [
     moduleId: "condicionais",
     title: "Ano bissexto",
     difficulty: "dificil",
-    statement: "Escreva `ehBissexto(ano)` que retorna true se o ano é bissexto: divisível por 4, exceto os divisíveis por 100, a menos que também sejam divisíveis por 400.",
+    statement:
+      "Escreva `ehBissexto(ano)` que retorna true se o ano é bissexto: divisível por 4, exceto os divisíveis por 100, a menos que também sejam divisíveis por 400.",
     functionName: "ehBissexto",
     starterCode: "function ehBissexto(ano) {\n  // seu código aqui\n}\n",
     tests: [
@@ -235,7 +258,8 @@ export const exercises: Exercise[] = [
     moduleId: "repeticao",
     title: "Tabuada",
     difficulty: "facil",
-    statement: "Escreva `tabuada(n)` que retorna um vetor com n×1, n×2, ..., n×10.",
+    statement:
+      "Escreva `tabuada(n)` que retorna um vetor com n×1, n×2, ..., n×10.",
     functionName: "tabuada",
     starterCode: "function tabuada(n) {\n  // seu código aqui\n}\n",
     tests: [
@@ -250,7 +274,8 @@ export const exercises: Exercise[] = [
     moduleId: "repeticao",
     title: "Número primo",
     difficulty: "dificil",
-    statement: "Escreva `ehPrimo(n)` que retorna true se n é primo (maior que 1 e divisível apenas por 1 e por ele mesmo).",
+    statement:
+      "Escreva `ehPrimo(n)` que retorna true se n é primo (maior que 1 e divisível apenas por 1 e por ele mesmo).",
     functionName: "ehPrimo",
     starterCode: "function ehPrimo(n) {\n  // seu código aqui\n}\n",
     tests: [
@@ -268,7 +293,8 @@ export const exercises: Exercise[] = [
     moduleId: "vetores",
     title: "Maior elemento",
     difficulty: "medio",
-    statement: "Escreva `maiorElemento(v)` que retorna o maior número de um vetor não vazio, sem usar `Math.max`.",
+    statement:
+      "Escreva `maiorElemento(v)` que retorna o maior número de um vetor não vazio, sem usar `Math.max`.",
     functionName: "maiorElemento",
     starterCode: "function maiorElemento(v) {\n  // seu código aqui\n}\n",
     tests: [
@@ -283,7 +309,8 @@ export const exercises: Exercise[] = [
     moduleId: "vetores",
     title: "Busca linear",
     difficulty: "medio",
-    statement: "Escreva `buscar(v, x)` que retorna o índice da primeira ocorrência de x no vetor, ou -1 se não existir. Não use `indexOf`.",
+    statement:
+      "Escreva `buscar(v, x)` que retorna o índice da primeira ocorrência de x no vetor, ou -1 se não existir. Não use `indexOf`.",
     functionName: "buscar",
     starterCode: "function buscar(v, x) {\n  // seu código aqui\n}\n",
     tests: [
@@ -299,7 +326,8 @@ export const exercises: Exercise[] = [
     moduleId: "vetores",
     title: "Ordenar vetor",
     difficulty: "dificil",
-    statement: "Escreva `ordenar(v)` que retorna um NOVO vetor de números em ordem crescente, sem usar `sort`.",
+    statement:
+      "Escreva `ordenar(v)` que retorna um NOVO vetor de números em ordem crescente, sem usar `sort`.",
     functionName: "ordenar",
     starterCode: "function ordenar(v) {\n  // seu código aqui\n}\n",
     tests: [

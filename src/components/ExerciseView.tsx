@@ -5,21 +5,28 @@ import CodeEditor from "./CodeEditor";
 import { useState } from "react";
 import { exercises, type Exercise } from "@/lib/exercises";
 import { earnedBadges, recordAttempt, totalXp } from "@/lib/gamification";
-import { getProgress, saveProgress, useProgress } from "@/lib/progress-store";
+import { getProgress, saveExercise, useProgress } from "@/lib/progress-store";
+import { useAuth } from "./AuthProvider";
 import { runExercise, type RunResult } from "@/lib/runner";
 
-const show = (v: unknown) => (v === undefined ? "undefined" : JSON.stringify(v));
+const show = (v: unknown) =>
+  v === undefined ? "undefined" : JSON.stringify(v);
 
 export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const progress = useProgress();
+  const { profile } = useAuth();
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [code, setCode] = useState(exercise.starterCode);
   const [result, setResult] = useState<RunResult | null>(null);
   const [running, setRunning] = useState(false);
-  const [gain, setGain] = useState<{ xp: number; badges: string[] } | null>(null);
+  const [gain, setGain] = useState<{ xp: number; badges: string[] } | null>(
+    null,
+  );
   const [showHint, setShowHint] = useState(false);
 
   const solved = progress[exercise.id]?.solved;
-  const nextExercise = exercises[exercises.findIndex((e) => e.id === exercise.id) + 1];
+  const nextExercise =
+    exercises[exercises.findIndex((e) => e.id === exercise.id) + 1];
 
   async function submit() {
     setRunning(true);
@@ -30,12 +37,24 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
 
     const before = getProgress();
     const after = recordAttempt(before, exercise.id, res.passed);
-    if (after !== before) saveProgress(after);
+    setSaveError(null);
+    if (after !== before && profile) {
+      try {
+        await saveExercise(profile.id, exercise.id, after[exercise.id]);
+      } catch {
+        setSaveError(
+          "Não foi possível salvar seu progresso. Verifique a conexão e tente executar de novo.",
+        );
+        return;
+      }
+    }
     if (res.passed && !before[exercise.id]?.solved) {
       const had = new Set(earnedBadges(before).map((b) => b.id));
       setGain({
         xp: totalXp(after) - totalXp(before),
-        badges: earnedBadges(after).filter((b) => !had.has(b.id)).map((b) => b.name),
+        badges: earnedBadges(after)
+          .filter((b) => !had.has(b.id))
+          .map((b) => b.name),
       });
     }
   }
@@ -69,7 +88,9 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
       </div>
 
       {showHint && (
-        <p className="rounded-lg bg-amber-50 p-3 text-sm dark:bg-amber-950">💡 {exercise.hint}</p>
+        <p className="rounded-lg bg-amber-50 p-3 text-sm dark:bg-amber-950">
+          💡 {exercise.hint}
+        </p>
       )}
 
       {result && (
@@ -90,10 +111,13 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
                   <li
                     key={i}
                     className={`rounded p-2 font-mono ${
-                      t.passed ? "bg-emerald-50 dark:bg-emerald-950" : "bg-red-50 dark:bg-red-950"
+                      t.passed
+                        ? "bg-emerald-50 dark:bg-emerald-950"
+                        : "bg-red-50 dark:bg-red-950"
                     }`}
                   >
-                    {t.passed ? "✓" : "✗"} {exercise.functionName}({t.args.map(show).join(", ")})
+                    {t.passed ? "✓" : "✗"} {exercise.functionName}(
+                    {t.args.map(show).join(", ")})
                     {!t.passed &&
                       (t.error
                         ? ` → erro: ${t.error}`
@@ -103,13 +127,26 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
               </ul>
             </>
           )}
+          {saveError && (
+            <p
+              role="alert"
+              className="rounded-lg bg-red-50 p-3 text-sm text-red-800 dark:bg-red-950 dark:text-red-200"
+            >
+              {saveError}
+            </p>
+          )}
           {gain && (
             <p className="rounded-lg bg-emerald-100 p-3 text-sm dark:bg-emerald-900">
-              +{gain.xp} XP{gain.badges.length > 0 && ` · 🏅 Nova medalha: ${gain.badges.join(", ")}`}
+              +{gain.xp} XP
+              {gain.badges.length > 0 &&
+                ` · 🏅 Nova medalha: ${gain.badges.join(", ")}`}
             </p>
           )}
           {result.passed && nextExercise && (
-            <Link href={`/exercicio/${nextExercise.id}`} className="inline-block text-emerald-700 hover:underline">
+            <Link
+              href={`/exercicio/${nextExercise.id}`}
+              className="inline-block text-emerald-700 hover:underline"
+            >
               Próximo: {nextExercise.title} →
             </Link>
           )}

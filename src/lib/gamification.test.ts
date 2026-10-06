@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { exercises } from "./exercises";
-import { badges, earnedBadges, levelInfo, recordAttempt, totalXp, xpFor, type Progress } from "./gamification";
+import {
+  badges,
+  earnedBadges,
+  levelInfo,
+  recordAttempt,
+  totalXp,
+  xpFor,
+  type Progress,
+} from "./gamification";
 
 describe("xpFor", () => {
   it("dá bônus de 50% para acerto na primeira tentativa", () => {
@@ -76,7 +84,8 @@ describe("medalhas", () => {
 describe("exercícios", () => {
   it("ids únicos e função declarada no código inicial", () => {
     expect(new Set(exercises.map((e) => e.id)).size).toBe(exercises.length);
-    for (const e of exercises) expect(e.starterCode).toContain(`function ${e.functionName}(`);
+    for (const e of exercises)
+      expect(e.starterCode).toContain(`function ${e.functionName}(`);
   });
   it("todo exercício tem ao menos 3 casos de teste", () => {
     for (const e of exercises) expect(e.tests.length).toBeGreaterThanOrEqual(3);

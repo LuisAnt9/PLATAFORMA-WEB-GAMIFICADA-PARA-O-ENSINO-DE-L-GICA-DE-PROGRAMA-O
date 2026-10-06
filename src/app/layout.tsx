@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import AuthProvider from "@/components/AuthProvider";
 import Header from "@/components/Header";
 import "./globals.css";
 
@@ -15,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Lógica Gamificada",
-  description: "Plataforma web gamificada para o ensino de lógica de programação.",
+  description:
+    "Plataforma web gamificada para o ensino de lógica de programação.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -25,8 +27,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8">{children}</main>
+        <AuthProvider>
+          <Header />
+          <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

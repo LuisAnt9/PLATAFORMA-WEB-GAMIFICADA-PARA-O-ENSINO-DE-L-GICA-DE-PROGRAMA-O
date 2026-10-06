@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useAuth } from "./AuthProvider";
 import { earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
 export default function Header() {
   const progress = useProgress();
+  const { profile, signOut } = useAuth();
   const xp = totalXp(progress);
   const { level, next, progress: pct } = levelInfo(xp);
 
@@ -15,20 +17,34 @@ export default function Header() {
         <Link href="/" className="font-semibold">
           Lógica Gamificada
         </Link>
-        <div className="flex items-center gap-4 text-sm">
-          <span title="Medalhas conquistadas">🏅 {earnedBadges(progress).length}</span>
-          <div className="w-40">
-            <div className="flex justify-between text-xs">
-              <span className="font-medium">Nível {level}</span>
-              <span>
-                {xp}/{next} XP
-              </span>
+        {profile && (
+          <div className="flex items-center gap-4 text-sm">
+            <span className="hidden sm:inline">{profile.name}</span>
+            <span title="Medalhas conquistadas">
+              🏅 {earnedBadges(progress).length}
+            </span>
+            <div className="w-40">
+              <div className="flex justify-between text-xs">
+                <span className="font-medium">Nível {level}</span>
+                <span>
+                  {xp}/{next} XP
+                </span>
+              </div>
+              <div className="mt-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800">
+                <div
+                  className="h-2 rounded bg-emerald-500"
+                  style={{ width: `${Math.round(pct * 100)}%` }}
+                />
+              </div>
             </div>
-            <div className="mt-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800">
-              <div className="h-2 rounded bg-emerald-500" style={{ width: `${Math.round(pct * 100)}%` }} />
-            </div>
+            <button
+              onClick={() => void signOut()}
+              className="text-zinc-500 hover:underline"
+            >
+              Sair
+            </button>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

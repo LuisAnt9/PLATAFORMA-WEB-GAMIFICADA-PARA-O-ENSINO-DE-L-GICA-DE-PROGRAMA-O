@@ -19,7 +19,8 @@ export interface Badge {
   earned: (p: Progress) => boolean;
 }
 
-const solvedCount = (p: Progress) => Object.values(p).filter((e) => e.solved).length;
+const solvedCount = (p: Progress) =>
+  Object.values(p).filter((e) => e.solved).length;
 
 export const badges: Badge[] = [
   {
@@ -33,7 +34,8 @@ export const badges: Badge[] = [
     id: "persistente",
     name: "Persistente",
     description: "Acerte um exercício depois de errar 3 ou mais vezes.",
-    purpose: "Tratar o erro como parte do aprendizado, não como motivo de desistência.",
+    purpose:
+      "Tratar o erro como parte do aprendizado, não como motivo de desistência.",
     earned: (p) => Object.values(p).some((e) => e.solved && e.attempts >= 4),
   },
   {
@@ -41,7 +43,8 @@ export const badges: Badge[] = [
     name: "De primeira",
     description: "Acerte 3 exercícios na primeira tentativa.",
     purpose: "Reconhecer a evolução do raciocínio lógico.",
-    earned: (p) => Object.values(p).filter((e) => e.solved && e.firstTry).length >= 3,
+    earned: (p) =>
+      Object.values(p).filter((e) => e.solved && e.firstTry).length >= 3,
   },
   ...modules.map<Badge>((m) => ({
     id: `modulo-${m.id}`,
@@ -85,14 +88,28 @@ export function earnedBadges(p: Progress): Badge[] {
 }
 
 /** Registra o resultado de uma tentativa, devolvendo o novo progresso. */
-export function recordAttempt(p: Progress, exerciseId: string, passed: boolean): Progress {
-  const prev = p[exerciseId] ?? { attempts: 0, solved: false, firstTry: false, xp: 0 };
+export function recordAttempt(
+  p: Progress,
+  exerciseId: string,
+  passed: boolean,
+): Progress {
+  const prev = p[exerciseId] ?? {
+    attempts: 0,
+    solved: false,
+    firstTry: false,
+    xp: 0,
+  };
   if (prev.solved) return p; // já resolvido: não altera XP
   const attempts = prev.attempts + 1;
   return {
     ...p,
     [exerciseId]: passed
-      ? { attempts, solved: true, firstTry: attempts === 1, xp: xpFor(exerciseId, attempts) }
+      ? {
+          attempts,
+          solved: true,
+          firstTry: attempts === 1,
+          xp: xpFor(exerciseId, attempts),
+        }
       : { ...prev, attempts },
   };
 }

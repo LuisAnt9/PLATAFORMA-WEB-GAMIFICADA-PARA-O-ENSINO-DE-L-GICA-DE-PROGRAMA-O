@@ -6,7 +6,9 @@ export function generateStaticParams() {
   return exercises.map((e) => ({ id: e.id }));
 }
 
-export default async function ExercisePage({ params }: PageProps<"/exercicio/[id]">) {
+export default async function ExercisePage({
+  params,
+}: PageProps<"/exercicio/[id]">) {
   const { id } = await params;
   const exercise = getExercise(id);
   if (!exercise) notFound();

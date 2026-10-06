@@ -48,9 +48,14 @@ function deepEqual(a: unknown, b: unknown): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
 }
 
-export function runExercise(exercise: Exercise, code: string): Promise<RunResult> {
+export function runExercise(
+  exercise: Exercise,
+  code: string,
+): Promise<RunResult> {
   return new Promise((resolve) => {
-    const url = URL.createObjectURL(new Blob([WORKER_SOURCE], { type: "text/javascript" }));
+    const url = URL.createObjectURL(
+      new Blob([WORKER_SOURCE], { type: "text/javascript" }),
+    );
     const worker = new Worker(url);
     const cleanup = () => {
       worker.terminate();
@@ -62,7 +67,8 @@ export function runExercise(exercise: Exercise, code: string): Promise<RunResult
       resolve({
         passed: false,
         tests: [],
-        fatal: "Tempo esgotado: seu código demorou demais. Verifique se há um laço infinito.",
+        fatal:
+          "Tempo esgotado: seu código demorou demais. Verifique se há um laço infinito.",
       });
     }, TIMEOUT_MS);
 
@@ -84,7 +90,11 @@ export function runExercise(exercise: Exercise, code: string): Promise<RunResult
     worker.onerror = (e) => {
       clearTimeout(timer);
       cleanup();
-      resolve({ passed: false, tests: [], fatal: "Erro ao executar: " + e.message });
+      resolve({
+        passed: false,
+        tests: [],
+        fatal: "Erro ao executar: " + e.message,
+      });
     };
 
     worker.postMessage({

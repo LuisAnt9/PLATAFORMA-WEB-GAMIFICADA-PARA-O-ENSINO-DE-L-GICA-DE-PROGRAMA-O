@@ -5,7 +5,11 @@ import { exercisesOf, modules, type Difficulty } from "@/lib/exercises";
 import { badges, earnedBadges } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
-const LABEL: Record<Difficulty, string> = { facil: "Fácil", medio: "Médio", dificil: "Difícil" };
+const LABEL: Record<Difficulty, string> = {
+  facil: "Fácil",
+  medio: "Médio",
+  dificil: "Difícil",
+};
 
 export default function Trail() {
   const progress = useProgress();
@@ -38,9 +42,14 @@ export default function Trail() {
                     >
                       <div>
                         <div className="font-medium">{e.title}</div>
-                        <div className="text-xs text-zinc-500">{LABEL[e.difficulty]}</div>
+                        <div className="text-xs text-zinc-500">
+                          {LABEL[e.difficulty]}
+                        </div>
                       </div>
-                      <span className="text-lg" aria-label={p?.solved ? "Resolvido" : "Pendente"}>
+                      <span
+                        className="text-lg"
+                        aria-label={p?.solved ? "Resolvido" : "Pendente"}
+                      >
                         {p?.solved ? "✅" : "▫️"}
                       </span>
                     </Link>

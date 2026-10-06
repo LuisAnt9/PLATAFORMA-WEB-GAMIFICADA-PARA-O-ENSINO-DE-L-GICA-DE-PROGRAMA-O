@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CodeEditor from "./CodeEditor";
 import { useState } from "react";
 import { exercises, type Exercise } from "@/lib/exercises";
 import { earnedBadges, recordAttempt, totalXp } from "@/lib/gamification";
@@ -49,13 +50,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
       </h1>
       <p>{exercise.statement}</p>
 
-      <textarea
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        spellCheck={false}
-        aria-label="Editor de código"
-        className="h-64 w-full rounded-lg border border-zinc-300 bg-zinc-50 p-3 font-mono text-sm dark:border-zinc-700 dark:bg-zinc-900"
-      />
+      <CodeEditor value={code} onChange={setCode} onRun={submit} />
 
       <div className="flex gap-2">
         <button
@@ -63,7 +58,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
           disabled={running}
           className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
         >
-          {running ? "Executando..." : "Executar testes"}
+          {running ? "Executando..." : "Executar testes (Ctrl+Enter)"}
         </button>
         <button
           onClick={() => setShowHint((v) => !v)}

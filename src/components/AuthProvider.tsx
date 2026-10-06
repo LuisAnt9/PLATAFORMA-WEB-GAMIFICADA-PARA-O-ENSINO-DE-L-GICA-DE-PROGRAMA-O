@@ -30,6 +30,7 @@ interface AuthState {
     password: string,
   ) => Promise<{ error: string | null; needsConfirmation: boolean }>;
   signOut: () => Promise<void>;
+  updateName: (name: string) => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -142,6 +143,16 @@ export default function AuthProvider({
       },
       signOut: async () => {
         await getSupabase().auth.signOut();
+      },
+      updateName: async (name) => {
+        if (!profile) return "Sessão expirada.";
+        const { error } = await getSupabase()
+          .from("profiles")
+          .update({ name })
+          .eq("id", profile.id);
+        if (error) return authMessage(error.message);
+        setProfile({ ...profile, name });
+        return null;
       },
     }),
     [loading, profile, loadError],

@@ -5,6 +5,7 @@ import {
   earnedBadges,
   levelInfo,
   recordAttempt,
+  statsOf,
   totalXp,
   xpFor,
   type Progress,
@@ -89,5 +90,28 @@ describe("exercícios", () => {
   });
   it("todo exercício tem ao menos 3 casos de teste", () => {
     for (const e of exercises) expect(e.tests.length).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe("statsOf", () => {
+  it("zera tudo sem progresso", () => {
+    expect(statsOf({})).toEqual({
+      solved: 0,
+      total: exercises.length,
+      attempts: 0,
+      firstTryRate: 0,
+      xp: 0,
+    });
+  });
+  it("calcula tentativas, XP e taxa de acerto de primeira", () => {
+    let p: Progress = recordAttempt({}, "soma", true); // primeira
+    p = recordAttempt(p, "media", false);
+    p = recordAttempt(p, "media", true); // segunda
+    expect(statsOf(p)).toMatchObject({
+      solved: 2,
+      attempts: 3,
+      firstTryRate: 0.5,
+      xp: 25,
+    });
   });
 });

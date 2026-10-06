@@ -13,7 +13,7 @@ npm run dev                  # http://localhost:3000
 ### Banco de dados (Supabase)
 
 1. Crie um projeto no Supabase (plano Free).
-2. No **SQL Editor**, execute `supabase/migrations/0001_init.sql`.
+2. No **SQL Editor**, execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql`, `0002_leaderboard.sql`, ...).
 3. Em **Authentication → Sign In / Providers → Email**, desative *Confirm email* durante o piloto
    (o envio de e-mails do plano gratuito tem limite baixo por hora).
 4. Todo cadastro novo é **aluno**. Para promover um professor, no SQL Editor:
@@ -35,11 +35,12 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 - Gamificação: XP, níveis e medalhas (`src/lib/gamification.ts`). Cada medalha declara a dificuldade de aprendizagem a que responde.
 - Editor com destaque de sintaxe (CodeMirror) e atalho Ctrl+Enter.
 - Testes automatizados (Vitest): regras de gamificação e validação de todos os exercícios contra soluções de referência.
+- Ranking anonimizado (nome abreviado) e página de perfil com estatísticas, medalhas e histórico.
 - Cadastro e login (Supabase Auth); progresso por usuário no Postgres com RLS (`supabase/migrations`).
 
 ## Próximos passos
 
-1. Ranking e perfil do aluno.
+1. Painel do professor (criar exercícios, turmas, acompanhar desempenho).
 2. Verificação de acertos no servidor (hoje o código roda no navegador).
 3. Painel do professor (criar exercícios, acompanhar a turma).
 4. Questionários SUS e Likert para a avaliação.

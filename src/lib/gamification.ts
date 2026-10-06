@@ -113,3 +113,25 @@ export function recordAttempt(
       : { ...prev, attempts },
   };
 }
+
+export interface Stats {
+  solved: number;
+  total: number;
+  attempts: number;
+  firstTryRate: number; // 0..1, sobre os exercícios resolvidos
+  xp: number;
+}
+
+export function statsOf(p: Progress): Stats {
+  const entries = Object.values(p);
+  const solvedEntries = entries.filter((e) => e.solved);
+  return {
+    solved: solvedEntries.length,
+    total: exercises.length,
+    attempts: entries.reduce((n, e) => n + e.attempts, 0),
+    firstTryRate: solvedEntries.length
+      ? solvedEntries.filter((e) => e.firstTry).length / solvedEntries.length
+      : 0,
+    xp: totalXp(p),
+  };
+}

@@ -49,7 +49,7 @@ function deepEqual(a: unknown, b: unknown): boolean {
 }
 
 export function runExercise(
-  exercise: Exercise,
+  exercise: Pick<Exercise, "functionName" | "tests">,
   code: string,
 ): Promise<RunResult> {
   return new Promise((resolve) => {

@@ -13,7 +13,6 @@ import {
   renameClass,
 } from "@/lib/classes";
 import { CatalogGate, useCatalog } from "./CatalogProvider";
-import ProfessorOnly from "./ProfessorOnly";
 
 function Content({ id }: { id: string }) {
   const router = useRouter();
@@ -258,10 +257,8 @@ function Content({ id }: { id: string }) {
 
 export default function ClassDetail({ id }: { id: string }) {
   return (
-    <ProfessorOnly>
-      <CatalogGate>
-        <Content id={id} />
-      </CatalogGate>
-    </ProfessorOnly>
+    <CatalogGate>
+      <Content id={id} />
+    </CatalogGate>
   );
 }

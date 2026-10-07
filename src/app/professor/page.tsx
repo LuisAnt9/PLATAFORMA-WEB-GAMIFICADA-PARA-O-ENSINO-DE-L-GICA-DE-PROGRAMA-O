@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useCallback, useState } from "react";
 import { useLoader } from "@/lib/use-loader";
 import { useAuth } from "@/components/AuthProvider";
-import ProfessorOnly from "@/components/ProfessorOnly";
 import { createClass, listTeacherClasses } from "@/lib/classes";
 
 function Classes() {
@@ -108,9 +107,5 @@ function Classes() {
 }
 
 export default function ProfessorPage() {
-  return (
-    <ProfessorOnly>
-      <Classes />
-    </ProfessorOnly>
-  );
+  return <Classes />;
 }

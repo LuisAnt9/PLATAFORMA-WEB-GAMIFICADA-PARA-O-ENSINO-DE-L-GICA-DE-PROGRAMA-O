@@ -13,7 +13,7 @@ npm run dev                  # http://localhost:3000
 ### Banco de dados (Supabase)
 
 1. Crie um projeto no Supabase (plano Free).
-2. No **SQL Editor**, execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql`, `0002_leaderboard.sql`, ...).
+2. No **SQL Editor**, execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql`, `0002_leaderboard.sql`, `0003_teacher_classes.sql`, ...).
 3. Em **Authentication → Sign In / Providers → Email**, desative *Confirm email* durante o piloto
    (o envio de e-mails do plano gratuito tem limite baixo por hora).
 4. Todo cadastro novo é **aluno**. Para promover um professor, no SQL Editor:

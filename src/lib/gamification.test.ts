@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { exercises } from "./exercises";
+import type { Catalog, Exercise } from "./catalog";
 import {
-  badges,
+  badgesFor,
   earnedBadges,
   levelInfo,
   recordAttempt,
@@ -11,13 +11,46 @@ import {
   type Progress,
 } from "./gamification";
 
+const ex = (
+  id: string,
+  moduleId: string,
+  difficulty: Exercise["difficulty"] = "facil",
+  published = true,
+): Exercise => ({
+  id,
+  moduleId,
+  title: id,
+  difficulty,
+  statement: "",
+  functionName: id,
+  starterCode: "",
+  tests: [],
+  hint: "",
+  position: 1,
+  published,
+});
+
+const catalog: Catalog = {
+  modules: [
+    { id: "m1", title: "Um", focus: "foco um", position: 1 },
+    { id: "m2", title: "Dois", focus: "foco dois", position: 2 },
+  ],
+  exercises: [
+    ex("a", "m1"),
+    ex("b", "m1", "medio"),
+    ex("c", "m2", "dificil"),
+    ex("rascunho", "m2", "facil", false),
+  ],
+};
+const A = catalog.exercises[0];
+const B = catalog.exercises[1];
+const C = catalog.exercises[2];
+
 describe("xpFor", () => {
   it("dá bônus de 50% para acerto na primeira tentativa", () => {
-    expect(xpFor("soma", 1)).toBe(15);
-    expect(xpFor("soma", 2)).toBe(10);
-  });
-  it("retorna 0 para exercício inexistente", () => {
-    expect(xpFor("nao-existe", 1)).toBe(0);
+    expect(xpFor("facil", 1)).toBe(15);
+    expect(xpFor("facil", 2)).toBe(10);
+    expect(xpFor("dificil", 1)).toBe(53);
   });
 });
 
@@ -41,77 +74,85 @@ describe("levelInfo", () => {
 
 describe("recordAttempt", () => {
   it("conta tentativas erradas sem dar XP", () => {
-    const p = recordAttempt({}, "soma", false);
-    expect(p.soma).toMatchObject({ attempts: 1, solved: false, xp: 0 });
+    const p = recordAttempt({}, A, false);
+    expect(p.a).toMatchObject({ attempts: 1, solved: false, xp: 0 });
     expect(totalXp(p)).toBe(0);
   });
   it("marca acerto de primeira", () => {
-    const p = recordAttempt({}, "soma", true);
-    expect(p.soma).toMatchObject({ solved: true, firstTry: true, xp: 15 });
+    expect(recordAttempt({}, A, true).a).toMatchObject({
+      solved: true,
+      firstTry: true,
+      xp: 15,
+    });
   });
-  it("acerto após erros dá XP sem bônus", () => {
-    let p: Progress = recordAttempt({}, "soma", false);
-    p = recordAttempt(p, "soma", true);
-    expect(p.soma).toMatchObject({ attempts: 2, firstTry: false, xp: 10 });
+  it("acerto após erros dá XP sem bônus, conforme a dificuldade", () => {
+    let p: Progress = recordAttempt({}, B, false);
+    p = recordAttempt(p, B, true);
+    expect(p.b).toMatchObject({ attempts: 2, firstTry: false, xp: 20 });
   });
   it("não altera exercício já resolvido (sem XP duplicado)", () => {
-    const solved = recordAttempt({}, "soma", true);
-    expect(recordAttempt(solved, "soma", true)).toBe(solved);
+    const solved = recordAttempt({}, A, true);
+    expect(recordAttempt(solved, A, true)).toBe(solved);
   });
 });
 
 describe("medalhas", () => {
-  it("ids são únicos", () => {
-    const ids = badges.map((b) => b.id);
-    expect(new Set(ids).size).toBe(ids.length);
+  it("ids únicos e propósito pedagógico declarado", () => {
+    const list = badgesFor(catalog);
+    expect(new Set(list.map((b) => b.id)).size).toBe(list.length);
+    for (const b of list) expect(b.purpose.length).toBeGreaterThan(5);
   });
-  it("toda medalha declara seu propósito pedagógico", () => {
-    for (const b of badges) expect(b.purpose.length).toBeGreaterThan(5);
+  it("uma medalha por módulo, mais as fixas e a da trilha", () => {
+    expect(badgesFor(catalog)).toHaveLength(3 + 2 + 1);
   });
   it("persistente exige acerto após 3+ erros", () => {
     let p: Progress = {};
-    for (let i = 0; i < 3; i++) p = recordAttempt(p, "soma", false);
-    expect(earnedBadges(p).map((b) => b.id)).not.toContain("persistente");
-    p = recordAttempt(p, "soma", true);
-    expect(earnedBadges(p).map((b) => b.id)).toContain("persistente");
+    for (let i = 0; i < 3; i++) p = recordAttempt(p, A, false);
+    expect(earnedBadges(p, catalog).map((b) => b.id)).not.toContain(
+      "persistente",
+    );
+    p = recordAttempt(p, A, true);
+    expect(earnedBadges(p, catalog).map((b) => b.id)).toContain("persistente");
   });
-  it("trilha completa ao resolver todos", () => {
+  it("medalha do módulo e da trilha ignoram rascunhos", () => {
     let p: Progress = {};
-    for (const e of exercises) p = recordAttempt(p, e.id, true);
-    expect(earnedBadges(p).map((b) => b.id)).toContain("trilha-completa");
+    for (const e of [A, B]) p = recordAttempt(p, e, true);
+    expect(earnedBadges(p, catalog).map((b) => b.id)).toContain("modulo-m1");
+    expect(earnedBadges(p, catalog).map((b) => b.id)).not.toContain(
+      "trilha-completa",
+    );
+    p = recordAttempt(p, C, true);
+    const ids = earnedBadges(p, catalog).map((b) => b.id);
+    expect(ids).toContain("modulo-m2"); // m2 só tem "c" publicado
+    expect(ids).toContain("trilha-completa");
   });
-});
-
-describe("exercícios", () => {
-  it("ids únicos e função declarada no código inicial", () => {
-    expect(new Set(exercises.map((e) => e.id)).size).toBe(exercises.length);
-    for (const e of exercises)
-      expect(e.starterCode).toContain(`function ${e.functionName}(`);
-  });
-  it("todo exercício tem ao menos 3 casos de teste", () => {
-    for (const e of exercises) expect(e.tests.length).toBeGreaterThanOrEqual(3);
+  it("catálogo vazio não concede medalhas de conclusão", () => {
+    const ids = earnedBadges({}, { modules: [], exercises: [] }).map(
+      (b) => b.id,
+    );
+    expect(ids).toEqual([]);
   });
 });
 
 describe("statsOf", () => {
-  it("zera tudo sem progresso", () => {
-    expect(statsOf({})).toEqual({
+  it("zera tudo sem progresso e não conta rascunhos no total", () => {
+    expect(statsOf({}, catalog)).toEqual({
       solved: 0,
-      total: exercises.length,
+      total: 3,
       attempts: 0,
       firstTryRate: 0,
       xp: 0,
     });
   });
   it("calcula tentativas, XP e taxa de acerto de primeira", () => {
-    let p: Progress = recordAttempt({}, "soma", true); // primeira
-    p = recordAttempt(p, "media", false);
-    p = recordAttempt(p, "media", true); // segunda
-    expect(statsOf(p)).toMatchObject({
+    let p: Progress = recordAttempt({}, A, true);
+    p = recordAttempt(p, B, false);
+    p = recordAttempt(p, B, true);
+    expect(statsOf(p, catalog)).toMatchObject({
       solved: 2,
       attempts: 3,
       firstTryRate: 0.5,
-      xp: 25,
+      xp: 35,
     });
   });
 });

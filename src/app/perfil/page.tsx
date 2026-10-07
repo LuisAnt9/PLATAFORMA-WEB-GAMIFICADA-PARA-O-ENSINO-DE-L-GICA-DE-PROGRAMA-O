@@ -3,21 +3,29 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
-import { exercises, exercisesOf, modules } from "@/lib/exercises";
-import { badges, earnedBadges, levelInfo, statsOf } from "@/lib/gamification";
+import { exercisesOf } from "@/lib/catalog";
+import MyClasses from "@/components/MyClasses";
+import { CatalogGate, useCatalog } from "@/components/CatalogProvider";
+import {
+  badgesFor,
+  earnedBadges,
+  levelInfo,
+  statsOf,
+} from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
-export default function PerfilPage() {
+function PerfilContent() {
   const { profile, updateName } = useAuth();
+  const { catalog } = useCatalog();
   const progress = useProgress();
   const [name, setName] = useState(profile?.name ?? "");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
   if (!profile) return null;
-  const stats = statsOf(progress);
+  const stats = statsOf(progress, catalog);
   const { level, floor, next, progress: pct } = levelInfo(stats.xp);
-  const earned = new Set(earnedBadges(progress).map((b) => b.id));
+  const earned = new Set(earnedBadges(progress, catalog).map((b) => b.id));
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -76,35 +84,41 @@ export default function PerfilPage() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Progresso por módulo</h2>
         <ul className="space-y-3">
-          {modules.map((m) => {
-            const list = exercisesOf(m.id);
-            const done = list.filter((e) => progress[e.id]?.solved).length;
-            return (
-              <li key={m.id}>
-                <div className="flex justify-between text-sm">
-                  <span>{m.title}</span>
-                  <span className="text-zinc-500">
-                    {done}/{list.length}
-                  </span>
-                </div>
-                <div className="mt-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800">
-                  <div
-                    className="h-2 rounded bg-emerald-500"
-                    style={{ width: `${(done / list.length) * 100}%` }}
-                  />
-                </div>
-              </li>
-            );
-          })}
+          {[...catalog.modules]
+            .sort((a, b) => a.position - b.position)
+            .map((m) => {
+              const list = exercisesOf(catalog, m.id).filter(
+                (e) => e.published,
+              );
+              const done = list.filter((e) => progress[e.id]?.solved).length;
+              return (
+                <li key={m.id}>
+                  <div className="flex justify-between text-sm">
+                    <span>{m.title}</span>
+                    <span className="text-zinc-500">
+                      {done}/{list.length}
+                    </span>
+                  </div>
+                  <div className="mt-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800">
+                    <div
+                      className="h-2 rounded bg-emerald-500"
+                      style={{
+                        width: `${list.length ? (done / list.length) * 100 : 0}%`,
+                      }}
+                    />
+                  </div>
+                </li>
+              );
+            })}
         </ul>
       </section>
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">
-          Medalhas ({earned.size}/{badges.length})
+          Medalhas ({earned.size}/{badgesFor(catalog).length})
         </h2>
         <ul className="grid gap-2 sm:grid-cols-2">
-          {badges.map((b) => (
+          {badgesFor(catalog).map((b) => (
             <li
               key={b.id}
               className={`rounded-lg border p-3 text-sm ${
@@ -136,7 +150,7 @@ export default function PerfilPage() {
           </p>
         ) : (
           <ul className="divide-y divide-zinc-200 text-sm dark:divide-zinc-800">
-            {exercises
+            {catalog.exercises
               .filter((e) => progress[e.id])
               .map((e) => {
                 const p = progress[e.id];
@@ -162,6 +176,8 @@ export default function PerfilPage() {
           </ul>
         )}
       </section>
+
+      {profile.role === "aluno" && <MyClasses />}
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">Conta</h2>
@@ -198,5 +214,13 @@ export default function PerfilPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function PerfilPage() {
+  return (
+    <CatalogGate>
+      <PerfilContent />
+    </CatalogGate>
   );
 }

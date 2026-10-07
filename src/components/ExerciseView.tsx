@@ -3,10 +3,11 @@
 import Link from "next/link";
 import CodeEditor from "./CodeEditor";
 import { useState } from "react";
-import { exercises, type Exercise } from "@/lib/exercises";
+import { nextExercise as findNext, type Exercise } from "@/lib/catalog";
 import { earnedBadges, recordAttempt, totalXp } from "@/lib/gamification";
 import { getProgress, saveExercise, useProgress } from "@/lib/progress-store";
 import { useAuth } from "./AuthProvider";
+import { useCatalog } from "./CatalogProvider";
 import { runExercise, type RunResult } from "@/lib/runner";
 
 const show = (v: unknown) =>
@@ -15,6 +16,7 @@ const show = (v: unknown) =>
 export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const progress = useProgress();
   const { profile } = useAuth();
+  const { catalog } = useCatalog();
   const [saveError, setSaveError] = useState<string | null>(null);
   const [code, setCode] = useState(exercise.starterCode);
   const [result, setResult] = useState<RunResult | null>(null);
@@ -25,8 +27,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const [showHint, setShowHint] = useState(false);
 
   const solved = progress[exercise.id]?.solved;
-  const nextExercise =
-    exercises[exercises.findIndex((e) => e.id === exercise.id) + 1];
+  const nextExercise = findNext(catalog, exercise.id);
 
   async function submit() {
     setRunning(true);
@@ -36,7 +37,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     setRunning(false);
 
     const before = getProgress();
-    const after = recordAttempt(before, exercise.id, res.passed);
+    const after = recordAttempt(before, exercise, res.passed);
     setSaveError(null);
     if (after !== before && profile) {
       try {
@@ -49,10 +50,10 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
       }
     }
     if (res.passed && !before[exercise.id]?.solved) {
-      const had = new Set(earnedBadges(before).map((b) => b.id));
+      const had = new Set(earnedBadges(before, catalog).map((b) => b.id));
       setGain({
         xp: totalXp(after) - totalXp(before),
-        badges: earnedBadges(after)
+        badges: earnedBadges(after, catalog)
           .filter((b) => !had.has(b.id))
           .map((b) => b.name),
       });

@@ -1,25 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { exercisesOf, modules, type Difficulty } from "@/lib/exercises";
-import { badges, earnedBadges } from "@/lib/gamification";
+import { DIFFICULTY_LABEL, exercisesOf } from "@/lib/catalog";
+import { badgesFor, earnedBadges } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
+import { useAuth } from "./AuthProvider";
+import { CatalogGate, useCatalog } from "./CatalogProvider";
 
-const LABEL: Record<Difficulty, string> = {
-  facil: "Fácil",
-  medio: "Médio",
-  dificil: "Difícil",
-};
-
-export default function Trail() {
+function TrailContent() {
   const progress = useProgress();
-  const earned = new Set(earnedBadges(progress).map((b) => b.id));
+  const { catalog } = useCatalog();
+  const { profile } = useAuth();
+  const earned = new Set(earnedBadges(progress, catalog).map((b) => b.id));
+  const modules = [...catalog.modules].sort((a, b) => a.position - b.position);
 
   return (
     <div className="space-y-10">
       {modules.map((m) => {
-        const list = exercisesOf(m.id);
-        const done = list.filter((e) => progress[e.id]?.solved).length;
+        const list = exercisesOf(catalog, m.id);
+        const visible = list.filter((e) => e.published);
+        const done = visible.filter((e) => progress[e.id]?.solved).length;
+        if (list.length === 0) return null;
         return (
           <section key={m.id}>
             <div className="mb-3 flex items-baseline justify-between">
@@ -28,7 +29,7 @@ export default function Trail() {
                 <p className="text-sm text-zinc-500">{m.focus}</p>
               </div>
               <span className="text-sm text-zinc-500">
-                {done}/{list.length}
+                {done}/{visible.length}
               </span>
             </div>
             <ul className="grid gap-2 sm:grid-cols-2">
@@ -43,15 +44,20 @@ export default function Trail() {
                       <div>
                         <div className="font-medium">{e.title}</div>
                         <div className="text-xs text-zinc-500">
-                          {LABEL[e.difficulty]}
+                          {DIFFICULTY_LABEL[e.difficulty]}
+                          {!e.published &&
+                            profile?.role === "professor" &&
+                            " · rascunho"}
                         </div>
                       </div>
-                      <span
-                        className="text-lg"
-                        aria-label={p?.solved ? "Resolvido" : "Pendente"}
-                      >
-                        {p?.solved ? "✅" : "▫️"}
-                      </span>
+                      {p?.solved ? (
+                        <span aria-label="Resolvido">✅</span>
+                      ) : (
+                        <span
+                          aria-label="Pendente"
+                          className="inline-block h-4 w-4 rounded-full border-2 border-zinc-300 dark:border-zinc-600"
+                        />
+                      )}
                     </Link>
                   </li>
                 );
@@ -64,7 +70,7 @@ export default function Trail() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Medalhas</h2>
         <ul className="grid gap-2 sm:grid-cols-2">
-          {badges.map((b) => (
+          {badgesFor(catalog).map((b) => (
             <li
               key={b.id}
               className={`rounded-lg border p-3 text-sm ${
@@ -82,5 +88,13 @@ export default function Trail() {
         </ul>
       </section>
     </div>
+  );
+}
+
+export default function Trail() {
+  return (
+    <CatalogGate>
+      <TrailContent />
+    </CatalogGate>
   );
 }

@@ -1,4 +1,9 @@
-import { exercises, exercisesOf, modules, XP_BY_DIFFICULTY } from "./exercises";
+import {
+  XP_BY_DIFFICULTY,
+  exercisesOf,
+  type Catalog,
+  type Difficulty,
+} from "./catalog";
 
 export interface ExerciseProgress {
   attempts: number;
@@ -16,19 +21,19 @@ export interface Badge {
   description: string;
   /** Dificuldade de aprendizagem à qual a medalha responde (não é só estética). */
   purpose: string;
-  earned: (p: Progress) => boolean;
+  earned: (p: Progress, c: Catalog) => boolean;
 }
 
-const solvedCount = (p: Progress) =>
-  Object.values(p).filter((e) => e.solved).length;
+const solvedIn = (p: Progress, ids: string[]) =>
+  ids.length > 0 && ids.every((id) => p[id]?.solved);
 
-export const badges: Badge[] = [
+const FIXED_BADGES: Badge[] = [
   {
     id: "primeiro-passo",
     name: "Primeiro passo",
     description: "Resolva seu primeiro exercício.",
     purpose: "Reduzir a barreira de início.",
-    earned: (p) => solvedCount(p) >= 1,
+    earned: (p) => Object.values(p).some((e) => e.solved),
   },
   {
     id: "persistente",
@@ -46,27 +51,45 @@ export const badges: Badge[] = [
     earned: (p) =>
       Object.values(p).filter((e) => e.solved && e.firstTry).length >= 3,
   },
-  ...modules.map<Badge>((m) => ({
-    id: `modulo-${m.id}`,
-    name: `Módulo: ${m.title}`,
-    description: `Conclua todos os exercícios de ${m.title}.`,
-    purpose: m.focus,
-    earned: (p) => exercisesOf(m.id).every((e) => p[e.id]?.solved),
-  })),
-  {
-    id: "trilha-completa",
-    name: "Trilha completa",
-    description: "Resolva todos os exercícios.",
-    purpose: "Marcar a conclusão da trilha.",
-    earned: (p) => exercises.every((e) => p[e.id]?.solved),
-  },
 ];
 
+/** Medalhas fixas + uma por módulo + a da trilha completa (dependem do catálogo atual). */
+export function badgesFor(c: Catalog): Badge[] {
+  const published = c.exercises.filter((e) => e.published);
+  return [
+    ...FIXED_BADGES,
+    ...[...c.modules]
+      .sort((a, b) => a.position - b.position)
+      .map<Badge>((m) => ({
+        id: `modulo-${m.id}`,
+        name: `Módulo: ${m.title}`,
+        description: `Conclua todos os exercícios de ${m.title}.`,
+        purpose: m.focus,
+        earned: (p, cat) =>
+          solvedIn(
+            p,
+            exercisesOf(cat, m.id)
+              .filter((e) => e.published)
+              .map((e) => e.id),
+          ),
+      })),
+    {
+      id: "trilha-completa",
+      name: "Trilha completa",
+      description: "Resolva todos os exercícios.",
+      purpose: "Marcar a conclusão da trilha.",
+      earned: (p) =>
+        solvedIn(
+          p,
+          published.map((e) => e.id),
+        ),
+    },
+  ];
+}
+
 /** XP ganho ao resolver: bônus de 50% para acerto na primeira tentativa. */
-export function xpFor(exerciseId: string, attempts: number): number {
-  const ex = exercises.find((e) => e.id === exerciseId);
-  if (!ex) return 0;
-  const base = XP_BY_DIFFICULTY[ex.difficulty];
+export function xpFor(difficulty: Difficulty, attempts: number): number {
+  const base = XP_BY_DIFFICULTY[difficulty];
   return attempts <= 1 ? Math.round(base * 1.5) : base;
 }
 
@@ -83,17 +106,17 @@ export function levelInfo(xp: number) {
   return { level, floor, next, progress: (xp - floor) / (next - floor) };
 }
 
-export function earnedBadges(p: Progress): Badge[] {
-  return badges.filter((b) => b.earned(p));
+export function earnedBadges(p: Progress, c: Catalog): Badge[] {
+  return badgesFor(c).filter((b) => b.earned(p, c));
 }
 
 /** Registra o resultado de uma tentativa, devolvendo o novo progresso. */
 export function recordAttempt(
   p: Progress,
-  exerciseId: string,
+  exercise: { id: string; difficulty: Difficulty },
   passed: boolean,
 ): Progress {
-  const prev = p[exerciseId] ?? {
+  const prev = p[exercise.id] ?? {
     attempts: 0,
     solved: false,
     firstTry: false,
@@ -103,12 +126,12 @@ export function recordAttempt(
   const attempts = prev.attempts + 1;
   return {
     ...p,
-    [exerciseId]: passed
+    [exercise.id]: passed
       ? {
           attempts,
           solved: true,
           firstTry: attempts === 1,
-          xp: xpFor(exerciseId, attempts),
+          xp: xpFor(exercise.difficulty, attempts),
         }
       : { ...prev, attempts },
   };
@@ -122,12 +145,12 @@ export interface Stats {
   xp: number;
 }
 
-export function statsOf(p: Progress): Stats {
+export function statsOf(p: Progress, c: Catalog): Stats {
   const entries = Object.values(p);
   const solvedEntries = entries.filter((e) => e.solved);
   return {
-    solved: solvedEntries.length,
-    total: exercises.length,
+    solved: c.exercises.filter((e) => e.published && p[e.id]?.solved).length,
+    total: c.exercises.filter((e) => e.published).length,
     attempts: entries.reduce((n, e) => n + e.attempts, 0),
     firstTryRate: solvedEntries.length
       ? solvedEntries.filter((e) => e.firstTry).length / solvedEntries.length

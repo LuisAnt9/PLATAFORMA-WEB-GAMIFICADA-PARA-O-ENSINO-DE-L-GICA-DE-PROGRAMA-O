@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
+import { useCatalog } from "./CatalogProvider";
 import { earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
@@ -10,12 +11,14 @@ const NAV = [
   { href: "/", label: "Trilha" },
   { href: "/ranking", label: "Ranking" },
   { href: "/perfil", label: "Perfil" },
+  { href: "/professor", label: "Professor", onlyProfessor: true },
 ];
 
 export default function Header() {
   const progress = useProgress();
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
+  const { catalog } = useCatalog();
   const xp = totalXp(progress);
   const { level, next, progress: pct } = levelInfo(xp);
 
@@ -28,7 +31,9 @@ export default function Header() {
           </Link>
           {profile && (
             <nav aria-label="Principal" className="flex gap-4 text-sm">
-              {NAV.map((n) => {
+              {NAV.filter(
+                (n) => !n.onlyProfessor || profile.role === "professor",
+              ).map((n) => {
                 const active =
                   n.href === "/"
                     ? pathname === "/" || pathname.startsWith("/exercicio")
@@ -54,7 +59,7 @@ export default function Header() {
         {profile && (
           <div className="flex items-center gap-4 text-sm">
             <span title="Medalhas conquistadas">
-              🏅 {earnedBadges(progress).length}
+              🏅 {earnedBadges(progress, catalog).length}
             </span>
             <div className="w-36">
               <div className="flex justify-between text-xs">

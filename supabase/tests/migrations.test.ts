@@ -1,12 +1,10 @@
-import { PGlite } from "@electric-sql/pglite";
-import fs from "node:fs";
-import path from "node:path";
+import type { PGlite } from "@electric-sql/pglite";
 import { beforeAll, describe, expect, it } from "vitest";
+import { createDb } from "./helpers";
 
 // Aplica todas as migrations num Postgres embutido que imita o essencial do Supabase
 // (schema auth, auth.uid(), papéis anon/authenticated) e testa as regras de segurança.
 
-const dir = path.resolve(import.meta.dirname, "../migrations");
 let db: PGlite;
 let ana: string, bia: string, caio: string, prof: string;
 
@@ -40,17 +38,7 @@ async function newUser(email: string, name?: string) {
 }
 
 beforeAll(async () => {
-  db = new PGlite();
-  await db.exec(`
-    create role anon nologin; create role authenticated nologin;
-    grant usage on schema public to anon, authenticated;
-    create schema auth;
-    create table auth.users (id uuid primary key default gen_random_uuid(), email text, raw_user_meta_data jsonb default '{}');
-    create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
-    grant usage on schema auth to authenticated, anon; grant execute on function auth.uid() to authenticated, anon;
-  `);
-  for (const f of fs.readdirSync(dir).sort())
-    await db.exec(fs.readFileSync(path.join(dir, f), "utf8"));
+  db = await createDb();
 
   ana = await newUser("ana@x.com", "Ana Souza Lima");
   bia = await newUser("bia@x.com");
@@ -207,35 +195,67 @@ describe("0002: ranking", () => {
 
 describe("0003: catálogo", () => {
   it("a migration traz os 4 módulos e 17 exercícios", async () => {
-    const m = await db.query<{ n: number }>("select count(*)::int as n from public.modules");
-    const e = await db.query<{ n: number }>("select count(*)::int as n from public.exercises");
+    const m = await db.query<{ n: number }>(
+      "select count(*)::int as n from public.modules",
+    );
+    const e = await db.query<{ n: number }>(
+      "select count(*)::int as n from public.exercises",
+    );
     expect(m.rows[0].n).toBe(4);
     expect(e.rows[0].n).toBe(17);
   });
   it("aluno lê só exercícios publicados; professor lê todos", async () => {
-    await db.exec("update public.exercises set published=false where id='ordenar'");
-    expect((await as(bia, "select id from public.exercises")).rows).toHaveLength(16);
-    expect((await as(prof, "select id from public.exercises")).rows).toHaveLength(17);
-    await db.exec("update public.exercises set published=true where id='ordenar'");
+    await db.exec(
+      "update public.exercises set published=false where id='ordenar'",
+    );
+    expect(
+      (await as(bia, "select id from public.exercises")).rows,
+    ).toHaveLength(16);
+    expect(
+      (await as(prof, "select id from public.exercises")).rows,
+    ).toHaveLength(17);
+    await db.exec(
+      "update public.exercises set published=true where id='ordenar'",
+    );
   });
   it("aluno não cria nem edita exercícios e módulos", async () => {
-    expect((await as(bia, "update public.exercises set title='x' where id='soma' returning id")).rows).toHaveLength(0);
+    expect(
+      (
+        await as(
+          bia,
+          "update public.exercises set title='x' where id='soma' returning id",
+        )
+      ).rows,
+    ).toHaveLength(0);
     const ins = `insert into public.exercises(id,module_id,title,difficulty,statement,function_name,starter_code,tests,created_by) values ('novo','fundamentos','N','facil','e','f','', '[{"args":[],"expected":1}]','${bia}')`;
     expect((await as(bia, ins)).ok).toBe(false);
-    expect((await as(bia, "update public.modules set title='x' where id='vetores' returning id")).rows).toHaveLength(0);
+    expect(
+      (
+        await as(
+          bia,
+          "update public.modules set title='x' where id='vetores' returning id",
+        )
+      ).rows,
+    ).toHaveLength(0);
   });
   it("professor cria exercício em seu nome, mas não em nome de outro", async () => {
-    const mk = (by: string) => `insert into public.exercises(id,module_id,title,difficulty,statement,function_name,starter_code,tests,created_by) values ('dobro','fundamentos','Dobro','facil','Dobre','dobro','', '[{"args":[2],"expected":4}]','${by}')`;
+    const mk = (by: string) =>
+      `insert into public.exercises(id,module_id,title,difficulty,statement,function_name,starter_code,tests,created_by) values ('dobro','fundamentos','Dobro','facil','Dobre','dobro','', '[{"args":[2],"expected":4}]','${by}')`;
     expect((await as(prof, mk(ana))).ok).toBe(false);
     expect((await as(prof, mk(prof))).ok).toBe(true);
   });
   it("validações rejeitam nome de função perigoso e testes vazios", async () => {
-    const mk = (fn: string, tests: string) => `insert into public.exercises(id,module_id,title,difficulty,statement,function_name,starter_code,tests,created_by) values ('x-'||md5(random()::text),'fundamentos','T','facil','e','${fn}','', '${tests}','${prof}')`;
-    expect((await as(prof, mk("f(){}", '[{"args":[],"expected":1}]'))).ok).toBe(false);
+    const mk = (fn: string, tests: string) =>
+      `insert into public.exercises(id,module_id,title,difficulty,statement,function_name,starter_code,tests,created_by) values ('x-'||md5(random()::text),'fundamentos','T','facil','e','${fn}','', '${tests}','${prof}')`;
+    expect((await as(prof, mk("f(){}", '[{"args":[],"expected":1}]'))).ok).toBe(
+      false,
+    );
     expect((await as(prof, mk("ok", "[]"))).ok).toBe(false);
   });
   it("exercícios não podem ser apagados pela API", async () => {
-    expect((await as(prof, "delete from public.exercises where id='soma'")).ok).toBe(false);
+    expect(
+      (await as(prof, "delete from public.exercises where id='soma'")).ok,
+    ).toBe(false);
   });
 });
 
@@ -244,66 +264,170 @@ describe("0003: turmas", () => {
 
   beforeAll(async () => {
     prof2 = await newUser("prof2@x.com", "Outra Prof");
-    await db.exec(`update public.profiles set role='professor' where id='${prof2}'`);
+    await db.exec(
+      `update public.profiles set role='professor' where id='${prof2}'`,
+    );
   });
 
   it("aluno não cria turma; professor cria e recebe código de 6 caracteres", async () => {
-    expect((await as(ana, "select * from public.create_class('Minha')")).ok).toBe(false);
+    expect(
+      (await as(ana, "select * from public.create_class('Minha')")).ok,
+    ).toBe(false);
     const r = await as(prof, "select * from public.create_class('ADS 2026.1')");
     expect(r.ok).toBe(true);
     turma = r.rows[0].id as string;
     codigo = r.rows[0].code as string;
     expect(codigo).toMatch(/^[A-HJ-NP-Z2-9]{6}$/);
-    const r2 = await as(prof2, "select * from public.create_class('Outra turma')");
+    const r2 = await as(
+      prof2,
+      "select * from public.create_class('Outra turma')",
+    );
     turma2 = r2.rows[0].id as string;
   });
   it("não dá para criar turma por INSERT direto", async () => {
-    expect((await as(prof, `insert into public.classes(name,code,teacher_id) values ('Hack','AAAAAA','${prof}')`)).ok).toBe(false);
+    expect(
+      (
+        await as(
+          prof,
+          `insert into public.classes(name,code,teacher_id) values ('Hack','AAAAAA','${prof}')`,
+        )
+      ).ok,
+    ).toBe(false);
   });
   it("aluno não enxerga turmas nem códigos antes de entrar", async () => {
-    expect((await as(ana, "select * from public.classes")).rows).toHaveLength(0);
+    expect((await as(ana, "select * from public.classes")).rows).toHaveLength(
+      0,
+    );
   });
   it("código inválido é recusado; professor não entra em turma", async () => {
-    expect((await as(ana, "select * from public.join_class('ZZZZZZ')")).ok).toBe(false);
-    expect((await as(prof2, `select * from public.join_class('${codigo}')`)).ok).toBe(false);
+    expect(
+      (await as(ana, "select * from public.join_class('ZZZZZZ')")).ok,
+    ).toBe(false);
+    expect(
+      (await as(prof2, `select * from public.join_class('${codigo}')`)).ok,
+    ).toBe(false);
   });
   it("aluno entra com o código (minúsculo e com espaços também) e é idempotente", async () => {
-    expect((await as(ana, `select * from public.join_class('  ${codigo.toLowerCase()} ')`)).ok).toBe(true);
-    expect((await as(ana, `select * from public.join_class('${codigo}')`)).ok).toBe(true);
-    expect((await as(caio, `select * from public.join_class('${codigo}')`)).ok).toBe(true);
-    const n = await db.query<{ n: number }>(`select count(*)::int as n from public.class_members where class_id='${turma}'`);
+    expect(
+      (
+        await as(
+          ana,
+          `select * from public.join_class('  ${codigo.toLowerCase()} ')`,
+        )
+      ).ok,
+    ).toBe(true);
+    expect(
+      (await as(ana, `select * from public.join_class('${codigo}')`)).ok,
+    ).toBe(true);
+    expect(
+      (await as(caio, `select * from public.join_class('${codigo}')`)).ok,
+    ).toBe(true);
+    const n = await db.query<{ n: number }>(
+      `select count(*)::int as n from public.class_members where class_id='${turma}'`,
+    );
     expect(n.rows[0].n).toBe(2);
   });
   it("aluno vê a própria turma, mas não a lista de colegas", async () => {
-    expect((await as(ana, "select * from public.classes")).rows).toHaveLength(1);
-    expect((await as(ana, "select * from public.class_members")).rows).toHaveLength(1);
+    expect((await as(ana, "select * from public.classes")).rows).toHaveLength(
+      1,
+    );
+    expect(
+      (await as(ana, "select * from public.class_members")).rows,
+    ).toHaveLength(1);
   });
   it("professor vê os alunos e o progresso da própria turma", async () => {
-    const perfis = (await as(prof, "select name from public.profiles order by name")).rows.map((r) => r.name);
+    const perfis = (
+      await as(prof, "select name from public.profiles order by name")
+    ).rows.map((r) => r.name);
     expect(perfis).toEqual(["Ana Souza Lima", "Caio", "Prof Lima"]);
-    expect((await as(prof, "select * from public.exercise_progress")).rows.length).toBeGreaterThan(0);
-    expect((await as(prof, "select * from public.class_members")).rows).toHaveLength(2);
+    expect(
+      (await as(prof, "select * from public.exercise_progress")).rows.length,
+    ).toBeGreaterThan(0);
+    expect(
+      (await as(prof, "select * from public.class_members")).rows,
+    ).toHaveLength(2);
   });
   it("professor NÃO vê alunos de outro professor nem alunos sem turma", async () => {
-    expect((await as(prof2, "select * from public.profiles")).rows).toHaveLength(1);
-    expect((await as(prof2, "select * from public.exercise_progress")).rows).toHaveLength(0);
-    expect((await as(prof2, "select * from public.class_members where class_id='" + turma + "'")).rows).toHaveLength(0);
-    expect((await as(prof, `select * from public.profiles where id='${bia}'`)).rows).toHaveLength(0);
+    expect(
+      (await as(prof2, "select * from public.profiles")).rows,
+    ).toHaveLength(1);
+    expect(
+      (await as(prof2, "select * from public.exercise_progress")).rows,
+    ).toHaveLength(0);
+    expect(
+      (
+        await as(
+          prof2,
+          "select * from public.class_members where class_id='" + turma + "'",
+        )
+      ).rows,
+    ).toHaveLength(0);
+    expect(
+      (await as(prof, `select * from public.profiles where id='${bia}'`)).rows,
+    ).toHaveLength(0);
   });
   it("professor renomeia só a própria turma e não troca o código", async () => {
-    expect((await as(prof, `update public.classes set name='ADS 2026.2' where id='${turma}' returning id`)).rows).toHaveLength(1);
-    expect((await as(prof2, `update public.classes set name='x' where id='${turma}' returning id`)).rows).toHaveLength(0);
-    expect((await as(prof, `update public.classes set code='AAAAAA' where id='${turma}'`)).ok).toBe(false);
+    expect(
+      (
+        await as(
+          prof,
+          `update public.classes set name='ADS 2026.2' where id='${turma}' returning id`,
+        )
+      ).rows,
+    ).toHaveLength(1);
+    expect(
+      (
+        await as(
+          prof2,
+          `update public.classes set name='x' where id='${turma}' returning id`,
+        )
+      ).rows,
+    ).toHaveLength(0);
+    expect(
+      (
+        await as(
+          prof,
+          `update public.classes set code='AAAAAA' where id='${turma}'`,
+        )
+      ).ok,
+    ).toBe(false);
   });
   it("aluno sai da turma; professor remove aluno; outro professor não remove", async () => {
-    expect((await as(prof2, `delete from public.class_members where class_id='${turma}' returning student_id`)).rows).toHaveLength(0);
-    expect((await as(caio, `delete from public.class_members where class_id='${turma}' and student_id='${caio}' returning student_id`)).rows).toHaveLength(1);
-    expect((await as(prof, `delete from public.class_members where class_id='${turma}' and student_id='${ana}' returning student_id`)).rows).toHaveLength(1);
-    expect((await as(prof, "select * from public.profiles")).rows).toHaveLength(1);
+    expect(
+      (
+        await as(
+          prof2,
+          `delete from public.class_members where class_id='${turma}' returning student_id`,
+        )
+      ).rows,
+    ).toHaveLength(0);
+    expect(
+      (
+        await as(
+          caio,
+          `delete from public.class_members where class_id='${turma}' and student_id='${caio}' returning student_id`,
+        )
+      ).rows,
+    ).toHaveLength(1);
+    expect(
+      (
+        await as(
+          prof,
+          `delete from public.class_members where class_id='${turma}' and student_id='${ana}' returning student_id`,
+        )
+      ).rows,
+    ).toHaveLength(1);
+    expect((await as(prof, "select * from public.profiles")).rows).toHaveLength(
+      1,
+    );
   });
   it("anônimo não executa as funções de turma", async () => {
-    expect((await as(null, "select * from public.create_class('x')")).ok).toBe(false);
-    expect((await as(null, "select * from public.join_class('AAAAAA')")).ok).toBe(false);
+    expect((await as(null, "select * from public.create_class('x')")).ok).toBe(
+      false,
+    );
+    expect(
+      (await as(null, "select * from public.join_class('AAAAAA')")).ok,
+    ).toBe(false);
     expect(turma2).toBeTruthy();
   });
 });

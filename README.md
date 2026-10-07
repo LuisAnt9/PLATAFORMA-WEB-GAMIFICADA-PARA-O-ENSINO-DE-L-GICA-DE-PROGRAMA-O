@@ -29,18 +29,21 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 
 ## Estado atual
 
-- Trilha de 17 exercícios em JavaScript, organizada em 4 módulos (`src/lib/exercises.ts`).
+- Trilha de exercícios em JavaScript organizada em módulos, **carregada do banco** (`modules`/`exercises`). A migration 0003 traz os 17 exercícios iniciais.
 - Correção automática no navegador, em Web Worker com limite de 2 s (`src/lib/runner.ts`).
 - Feedback imediato por caso de teste.
 - Gamificação: XP, níveis e medalhas (`src/lib/gamification.ts`). Cada medalha declara a dificuldade de aprendizagem a que responde.
 - Editor com destaque de sintaxe (CodeMirror) e atalho Ctrl+Enter.
-- Testes automatizados (Vitest): regras de gamificação e validação de todos os exercícios contra soluções de referência.
+- Turmas: o professor cria a turma e recebe um código de 6 caracteres; o aluno entra pelo Perfil. O professor só enxerga alunos das próprias turmas (RLS).
+- Área do professor (`/professor`): turmas, código de entrada e tabela de desempenho dos alunos.
+- Testes automatizados (Vitest): regras de gamificação, políticas de acesso do banco (PGlite) e validação dos exercícios da migration contra soluções de referência.
 - Ranking anonimizado (nome abreviado) e página de perfil com estatísticas, medalhas e histórico.
 - Cadastro e login (Supabase Auth); progresso por usuário no Postgres com RLS (`supabase/migrations`).
 
 ## Próximos passos
 
-1. Painel do professor (criar exercícios, turmas, acompanhar desempenho).
-2. Verificação de acertos no servidor (hoje o código roda no navegador).
+1. Editor de exercícios do professor (criar, editar e publicar pelo site).
+2. Painel de análise da turma (exercícios mais difíceis, alunos em risco).
+3. Verificação de acertos no servidor (hoje o código roda no navegador).
 3. Painel do professor (criar exercícios, acompanhar a turma).
 4. Questionários SUS e Likert para a avaliação.

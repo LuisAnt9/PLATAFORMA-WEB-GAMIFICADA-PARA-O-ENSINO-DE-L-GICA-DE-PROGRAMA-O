@@ -1,4 +1,4 @@
-import type { Exercise } from "./exercises";
+import type { Exercise } from "./catalog";
 
 export interface TestResult {
   args: unknown[];

@@ -13,7 +13,7 @@ npm run dev                  # http://localhost:3000
 ### Banco de dados (Supabase)
 
 1. Crie um projeto no Supabase (plano Free).
-2. No **SQL Editor**, para um projeto novo, cole e rode o arquivo único `supabase/setup-completo.sql` (gerado por `npm run db:bundle`). Ou execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql` a `0006_exercicios_extras.sql`).
+2. No **SQL Editor**, para um projeto novo, cole e rode o arquivo único `supabase/setup-completo.sql` (gerado por `npm run db:bundle`). Ou execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql` a `0007_ping.sql`).
 3. Em **Authentication → Sign In / Providers → Email**, desative *Confirm email* durante o piloto
    (o envio de e-mails do plano gratuito tem limite baixo por hora).
 4. Todo cadastro novo é **aluno**. Para promover um professor, no SQL Editor:
@@ -49,5 +49,5 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.
 2. Verificação de acertos no servidor (hoje a correção roda no navegador e as respostas ficam legíveis).
-3. Rotina para manter o projeto Supabase ativo (o plano gratuito pausa após ~7 dias sem uso).
+3. (feito) Rotina diária que mantém o Supabase ativo: `.github/workflows/keep-alive.yml` + migration 0007.
 4. Passada de design e acessibilidade.

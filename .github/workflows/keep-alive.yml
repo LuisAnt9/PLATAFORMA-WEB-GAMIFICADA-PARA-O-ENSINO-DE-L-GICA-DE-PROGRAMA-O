@@ -1,0 +1,39 @@
+name: Manter o Supabase ativo
+
+# O plano gratuito do Supabase pausa o projeto após cerca de 7 dias sem uso.
+# Esta rotina chama a função public.ping() (migration 0007) uma vez por dia.
+#
+# Observações:
+# - Agendamentos do GitHub só rodam na branch padrão do repositório.
+# - O GitHub desativa agendamentos de repositórios sem nenhuma atividade por 60 dias;
+#   se isso acontecer, reative em Actions > "Manter o Supabase ativo" > Enable workflow.
+# - A URL e a chave publishable são públicas por natureza (estão no site). Para trocar de projeto sem
+#   editar este arquivo, crie as variáveis SUPABASE_URL e SUPABASE_PUBLISHABLE_KEY em
+#   Settings > Secrets and variables > Actions > Variables.
+
+on:
+  schedule:
+    - cron: "17 9 * * *" # todo dia às 09:17 UTC (06:17 em Brasília)
+  workflow_dispatch: # permite rodar na mão pela aba Actions
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_URL: ${{ vars.SUPABASE_URL || 'https://shmdjhfleduxefoodrfm.supabase.co' }}
+      SUPABASE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_uLeVA5OfJXA-XHHg9-qeFw_vC5zjpOS' }}
+    steps:
+      - name: Chamar public.ping()
+        run: |
+          set -euo pipefail
+          resp=$(curl --fail --silent --show-error --max-time 30 --retry 3 --retry-delay 10 \
+            -X POST "$SUPABASE_URL/rest/v1/rpc/ping" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{}')
+          echo "Resposta do banco: $resp"
+          test "$resp" = "1"

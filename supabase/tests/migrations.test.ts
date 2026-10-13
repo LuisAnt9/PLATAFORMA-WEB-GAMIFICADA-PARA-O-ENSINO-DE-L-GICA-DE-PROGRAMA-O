@@ -583,3 +583,23 @@ describe("0005: tipos de exercício", () => {
     ).toBe(false);
   });
 });
+
+describe("0007: ping para manter o projeto ativo", () => {
+  it("responde 1 para visitante e para logado, sem expor nada", async () => {
+    expect((await as(null, "select public.ping() as v")).rows[0].v).toBe(1);
+    expect((await as(ana, "select public.ping() as v")).rows[0].v).toBe(1);
+  });
+  it("só existe esse ponto de entrada anônimo novo: nenhuma tabela ficou legível sem login", async () => {
+    for (const t of [
+      "profiles",
+      "exercise_progress",
+      "exercises",
+      "modules",
+      "classes",
+      "class_members",
+      "daily_activity",
+    ]) {
+      expect((await as(null, `select * from public.${t}`)).ok, t).toBe(false);
+    }
+  });
+});

@@ -13,7 +13,7 @@ npm run dev                  # http://localhost:3000
 ### Banco de dados (Supabase)
 
 1. Crie um projeto no Supabase (plano Free).
-2. No **SQL Editor**, execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql` a `0005_exercise_kinds.sql`).
+2. No **SQL Editor**, execute, em ordem, os arquivos de `supabase/migrations/` (`0001_init.sql` a `0006_exercicios_extras.sql`).
 3. Em **Authentication → Sign In / Providers → Email**, desative *Confirm email* durante o piloto
    (o envio de e-mails do plano gratuito tem limite baixo por hora).
 4. Todo cadastro novo é **aluno**. Para promover um professor, no SQL Editor:
@@ -39,6 +39,7 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 - Análise da turma (`/professor/turmas/[id]`): visão geral (alunos ativos, conclusão média, alertas de inatividade e de alunos travados, gráfico de resolvidos por dia), grade aluno × exercício e estatísticas por exercício (taxa de acerto, tentativas, mais difíceis).
 - Três tipos de exercício: **código** (testes em JavaScript), **múltipla escolha** e **completar a lacuna**, cada um com mini-explicação opcional ("Antes de começar") e explicação ao acertar.
 - **Sequência diária** (streak) e medalhas de constância, em `daily_activity` (migration 0004).
+- 31 exercícios extras prontos como **rascunho** (migration 0006), em 7 módulos; as soluções dos de código estão em `docs/gabarito-exercicios-extras.md`.
 - Editor de exercícios (`/professor/exercicios`): criar/editar com testes em JSON, validar com uma solução de referência (não salva) antes de publicar, rascunho, despublicar, reordenar e gerenciar módulos.
 - Testes automatizados (Vitest): regras de gamificação, políticas de acesso do banco (PGlite) e validação dos exercícios da migration contra soluções de referência.
 - Ranking anonimizado (nome abreviado) e página de perfil com estatísticas, medalhas e histórico.

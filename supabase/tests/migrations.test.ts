@@ -194,15 +194,15 @@ describe("0002: ranking", () => {
 });
 
 describe("0003: catálogo", () => {
-  it("a migration traz os módulos e os 17 exercícios de código originais", async () => {
+  it("as migrations trazem os módulos e os exercícios de código", async () => {
     const m = await db.query<{ n: number }>(
       "select count(*)::int as n from public.modules",
     );
     const e = await db.query<{ n: number }>(
       "select count(*)::int as n from public.exercises where kind = 'code'",
     );
-    expect(m.rows[0].n).toBe(5); // 4 originais + "Primeiros passos" (0005)
-    expect(e.rows[0].n).toBe(17);
+    expect(m.rows[0].n).toBe(7); // 4 originais + "Primeiros passos" (0005) + "Funções" e "Textos" (0006)
+    expect(e.rows[0].n).toBe(33); // 17 originais + 16 extras (0006)
   });
   it("aluno lê só exercícios publicados; professor lê todos", async () => {
     await db.exec(
@@ -210,10 +210,10 @@ describe("0003: catálogo", () => {
     );
     expect(
       (await as(bia, "select id from public.exercises")).rows,
-    ).toHaveLength(21);
+    ).toHaveLength(21); // 22 publicados, menos o "ordenar" despublicado no teste
     expect(
       (await as(prof, "select id from public.exercises")).rows,
-    ).toHaveLength(22);
+    ).toHaveLength(53); // todos: 22 publicados + 31 rascunhos da 0006
     await db.exec(
       "update public.exercises set published=true where id='ordenar'",
     );

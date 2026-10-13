@@ -1,10 +1,11 @@
 import type { PGlite } from "@electric-sql/pglite";
 import { beforeAll, describe, expect, it } from "vitest";
 import { gradeBlanks, gradeChoice } from "../../src/lib/grading";
+import { extraSolutions } from "./extras-solutions";
 import { createDb } from "./helpers";
 
 // Soluções de referência dos exercícios da migration. Ficam só aqui (nunca no site) para não irem ao navegador do aluno.
-const solutions: Record<string, string> = {
+const originalSolutions: Record<string, string> = {
   soma: "function soma(a,b){return a+b}",
   media: "function media(a,b,c){return (a+b+c)/3}",
   celsius: "function celsiusParaFahrenheit(c){return c*9/5+32}",
@@ -31,6 +32,11 @@ const solutions: Record<string, string> = {
     "function buscar(v,x){for(let i=0;i<v.length;i++)if(v[i]===x)return i;return -1}",
   ordenar:
     "function ordenar(v){const r=[...v];for(let i=0;i<r.length;i++)for(let j=0;j<r.length-1-i;j++)if(r[j]>r[j+1]){const t=r[j];r[j]=r[j+1];r[j+1]=t}return r}",
+};
+
+const solutions: Record<string, string> = {
+  ...originalSolutions,
+  ...extraSolutions,
 };
 
 interface Row {
@@ -143,5 +149,63 @@ describe("exercícios de múltipla escolha e lacunas da migration", () => {
         ).toBe(false);
       }
     }
+  });
+});
+
+describe("conteúdo extra (migration 0006)", () => {
+  it("todos os exercícios extras entram como rascunho e os 17+5 originais continuam publicados", async () => {
+    const drafts = await db.query<{ n: number }>(
+      "select count(*)::int as n from public.exercises where published = false",
+    );
+    const live = await db.query<{ n: number }>(
+      "select count(*)::int as n from public.exercises where published = true",
+    );
+    expect(drafts.rows[0].n).toBe(31);
+    expect(live.rows[0].n).toBe(22);
+  });
+  it("módulos novos existem, na ordem certa (depois de Vetores)", async () => {
+    const r = await db.query<{ id: string }>(
+      "select id from public.modules order by position",
+    );
+    expect(r.rows.map((m) => m.id)).toEqual([
+      "primeiros-passos",
+      "fundamentos",
+      "condicionais",
+      "repeticao",
+      "vetores",
+      "funcoes",
+      "textos",
+    ]);
+  });
+  it("alternativas de cada múltipla escolha são diferentes entre si", async () => {
+    const r = await db.query<{ id: string; config: { options: string[] } }>(
+      "select id, config from public.exercises where kind = 'choice'",
+    );
+    for (const row of r.rows) {
+      const lower = row.config.options.map((o) => o.toLowerCase());
+      expect(new Set(lower).size, row.id).toBe(lower.length);
+    }
+  });
+  it("lacunas numeradas em sequência e com gabarito para cada uma", async () => {
+    const r = await db.query<{
+      id: string;
+      config: { template: string; blanks: { answers: string[] }[] };
+    }>("select id, config from public.exercises where kind = 'blank'");
+    for (const row of r.rows) {
+      const nums = [...row.config.template.matchAll(/\{\{(\d+)\}\}/g)]
+        .map((m) => Number(m[1]))
+        .sort((a, b) => a - b);
+      expect(nums, row.id).toEqual(row.config.blanks.map((_, i) => i + 1));
+    }
+  });
+  it("exercícios de código têm ao menos 3 casos de teste, e não há posições repetidas num módulo", async () => {
+    const r = await db.query<{ id: string; n: number }>(
+      "select id, jsonb_array_length(tests)::int as n from public.exercises where kind = 'code'",
+    );
+    for (const row of r.rows) expect(row.n, row.id).toBeGreaterThanOrEqual(3);
+    const dup = await db.query(
+      "select module_id, position from public.exercises group by module_id, position having count(*) > 1",
+    );
+    expect(dup.rows).toEqual([]);
   });
 });

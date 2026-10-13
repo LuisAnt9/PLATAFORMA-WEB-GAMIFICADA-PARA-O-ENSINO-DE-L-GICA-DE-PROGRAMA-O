@@ -15,13 +15,21 @@ export interface ExerciseProgress {
 
 export type Progress = Record<string, ExerciseProgress>;
 
+/** Tudo de que uma medalha pode depender. */
+export interface BadgeContext {
+  progress: Progress;
+  catalog: Catalog;
+  /** Maior sequência de dias seguidos já alcançada. */
+  bestStreak: number;
+}
+
 export interface Badge {
   id: string;
   name: string;
   description: string;
   /** Dificuldade de aprendizagem à qual a medalha responde (não é só estética). */
   purpose: string;
-  earned: (p: Progress, c: Catalog) => boolean;
+  earned: (ctx: BadgeContext) => boolean;
 }
 
 const solvedIn = (p: Progress, ids: string[]) =>
@@ -33,7 +41,7 @@ const FIXED_BADGES: Badge[] = [
     name: "Primeiro passo",
     description: "Resolva seu primeiro exercício.",
     purpose: "Reduzir a barreira de início.",
-    earned: (p) => Object.values(p).some((e) => e.solved),
+    earned: ({ progress: p }) => Object.values(p).some((e) => e.solved),
   },
   {
     id: "persistente",
@@ -41,15 +49,32 @@ const FIXED_BADGES: Badge[] = [
     description: "Acerte um exercício depois de errar 3 ou mais vezes.",
     purpose:
       "Tratar o erro como parte do aprendizado, não como motivo de desistência.",
-    earned: (p) => Object.values(p).some((e) => e.solved && e.attempts >= 4),
+    earned: ({ progress: p }) =>
+      Object.values(p).some((e) => e.solved && e.attempts >= 4),
   },
   {
     id: "de-primeira",
     name: "De primeira",
     description: "Acerte 3 exercícios na primeira tentativa.",
     purpose: "Reconhecer a evolução do raciocínio lógico.",
-    earned: (p) =>
+    earned: ({ progress: p }) =>
       Object.values(p).filter((e) => e.solved && e.firstTry).length >= 3,
+  },
+  {
+    id: "constancia-3",
+    name: "Constância",
+    description: "Pratique 3 dias seguidos.",
+    purpose:
+      "Criar o hábito de estudar um pouco todo dia, em vez de acumular tudo antes da prova.",
+    earned: ({ bestStreak }) => bestStreak >= 3,
+  },
+  {
+    id: "constancia-7",
+    name: "Uma semana inteira",
+    description: "Pratique 7 dias seguidos.",
+    purpose:
+      "Consolidar a rotina de estudo, que sustenta a evolução em programação.",
+    earned: ({ bestStreak }) => bestStreak >= 7,
   },
 ];
 
@@ -65,7 +90,7 @@ export function badgesFor(c: Catalog): Badge[] {
         name: `Módulo: ${m.title}`,
         description: `Conclua todos os exercícios de ${m.title}.`,
         purpose: m.focus,
-        earned: (p, cat) =>
+        earned: ({ progress: p, catalog: cat }) =>
           solvedIn(
             p,
             exercisesOf(cat, m.id)
@@ -78,7 +103,7 @@ export function badgesFor(c: Catalog): Badge[] {
       name: "Trilha completa",
       description: "Resolva todos os exercícios.",
       purpose: "Marcar a conclusão da trilha.",
-      earned: (p) =>
+      earned: ({ progress: p }) =>
         solvedIn(
           p,
           published.map((e) => e.id),
@@ -106,8 +131,8 @@ export function levelInfo(xp: number) {
   return { level, floor, next, progress: (xp - floor) / (next - floor) };
 }
 
-export function earnedBadges(p: Progress, c: Catalog): Badge[] {
-  return badgesFor(c).filter((b) => b.earned(p, c));
+export function earnedBadges(ctx: BadgeContext): Badge[] {
+  return badgesFor(ctx.catalog).filter((b) => b.earned(ctx));
 }
 
 /** Registra o resultado de uma tentativa, devolvendo o novo progresso. */

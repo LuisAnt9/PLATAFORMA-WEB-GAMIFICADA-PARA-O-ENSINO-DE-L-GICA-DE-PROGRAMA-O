@@ -1,4 +1,11 @@
-import type { Difficulty, Exercise, TestCase } from "./catalog";
+import type {
+  Difficulty,
+  Exercise,
+  ExerciseConfig,
+  ExerciseKind,
+  TestCase,
+} from "./catalog";
+import { placeholderNumbers } from "./grading";
 
 /** Um teste como o professor o digita: texto JSON para as entradas e para o resultado esperado. */
 export interface DraftTest {
@@ -7,6 +14,21 @@ export interface DraftTest {
 }
 
 export interface Draft {
+  kind: ExerciseKind;
+  /** Mini-explicação mostrada antes do enunciado (opcional). */
+  lesson: string;
+  // --- múltipla escolha ---
+  options: string[];
+  /** Índice da alternativa correta (null = ainda não escolhida). */
+  correct: number | null;
+  // --- completar a lacuna ---
+  /** Modelo com lacunas {{1}}, {{2}}... */
+  template: string;
+  /** Respostas aceitas por lacuna: um texto por lacuna, uma resposta por linha. */
+  blankAnswers: string[];
+  /** Mostrada ao acertar (múltipla escolha e lacunas). */
+  explanation: string;
+  // --- comuns / código ---
   title: string;
   moduleId: string;
   difficulty: Difficulty;
@@ -31,6 +53,13 @@ export const ARGS_HELP =
 
 export function emptyDraft(moduleId = ""): Draft {
   return {
+    kind: "code",
+    lesson: "",
+    options: ["", ""],
+    correct: null,
+    template: "",
+    blankAnswers: [],
+    explanation: "",
     title: "",
     moduleId,
     difficulty: "facil",
@@ -50,7 +79,19 @@ export function draftFromExercise(e: Exercise): Draft {
   const m = /function\s+[A-Za-z_$][A-Za-z0-9_$]*\s*\(([^)]*)\)/.exec(
     e.starterCode,
   );
+  const c = e.config;
   return {
+    kind: e.kind,
+    lesson: e.lesson ?? "",
+    options: e.kind === "choice" && c.options ? [...c.options] : ["", ""],
+    correct:
+      e.kind === "choice" && typeof c.correct === "number" ? c.correct : null,
+    template: e.kind === "blank" ? (c.template ?? "") : "",
+    blankAnswers:
+      e.kind === "blank"
+        ? (c.blanks ?? []).map((b) => b.answers.join("\n"))
+        : [],
+    explanation: c.explanation ?? "",
     title: e.title,
     moduleId: e.moduleId,
     difficulty: e.difficulty,
@@ -104,6 +145,62 @@ export interface DraftValidation {
   testErrors: (string | null)[];
   /** Testes já convertidos; só confiável quando `errors` está vazio. */
   tests: TestCase[];
+  /** Configuração dos tipos sem código; só confiável quando `errors` está vazio. */
+  config: ExerciseConfig;
+}
+
+function validateChoice(
+  d: Draft,
+  errors: string[],
+): Pick<DraftValidation, "errors" | "config"> {
+  const options = d.options.map((o) => o.trim());
+  if (options.length < 2) errors.push("Inclua pelo menos 2 alternativas.");
+  if (options.length > 6) errors.push("No máximo 6 alternativas.");
+  if (options.some((o) => o === ""))
+    errors.push("Preencha ou remova as alternativas vazias.");
+  if (new Set(options.map((o) => o.toLowerCase())).size !== options.length)
+    errors.push("Há alternativas repetidas.");
+  if (d.correct === null || d.correct < 0 || d.correct >= options.length)
+    errors.push("Marque qual alternativa é a correta.");
+  const config: ExerciseConfig = { options, correct: d.correct ?? 0 };
+  if (d.explanation.trim()) config.explanation = d.explanation.trim();
+  return { errors, config };
+}
+
+function validateBlank(
+  d: Draft,
+  errors: string[],
+): Pick<DraftValidation, "errors" | "config"> {
+  const template = d.template.replace(/\s+$/, "");
+  if (template.trim() === "") errors.push("Escreva o modelo com as lacunas.");
+  if (template.length > 2000) errors.push("O modelo passa de 2000 caracteres.");
+  const nums = placeholderNumbers(template);
+  const n = nums.length;
+  if (template.trim() !== "" && n === 0)
+    errors.push(
+      "O modelo precisa de pelo menos uma lacuna, escrita como {{1}}.",
+    );
+  if (n > 10) errors.push("No máximo 10 lacunas.");
+  const sorted = [...nums].sort((a, b) => a - b);
+  if (n > 0 && sorted.some((v, i) => v !== i + 1))
+    errors.push(
+      "Numere as lacunas em sequência, sem repetir: {{1}}, {{2}}, {{3}}...",
+    );
+
+  const blanks = Array.from({ length: Math.min(n, 10) }, (_, i) => {
+    const answers = (d.blankAnswers[i] ?? "")
+      .split("\n")
+      .map((a) => a.trim())
+      .filter(Boolean);
+    if (answers.length === 0)
+      errors.push(
+        `Informe pelo menos uma resposta aceita para a lacuna ${i + 1}.`,
+      );
+    return { answers };
+  });
+  const config: ExerciseConfig = { template, blanks };
+  if (d.explanation.trim()) config.explanation = d.explanation.trim();
+  return { errors, config };
 }
 
 export function validateDraft(d: Draft): DraftValidation {
@@ -117,6 +214,18 @@ export function validateDraft(d: Draft): DraftValidation {
   if (statement.length > 2000)
     errors.push("O enunciado passa de 2000 caracteres.");
   if (d.hint.length > 500) errors.push("A dica passa de 500 caracteres.");
+
+  if (d.lesson.length > 1500)
+    errors.push("A mini-explicação passa de 1500 caracteres.");
+  if (d.explanation.length > 500)
+    errors.push("A explicação da resposta passa de 500 caracteres.");
+
+  if (d.kind === "choice") {
+    return { ...validateChoice(d, errors), tests: [], testErrors: [] };
+  }
+  if (d.kind === "blank") {
+    return { ...validateBlank(d, errors), tests: [], testErrors: [] };
+  }
 
   const fn = d.functionName.trim();
   if (!IDENT.test(fn) || fn.length > 40)
@@ -158,7 +267,7 @@ export function validateDraft(d: Draft): DraftValidation {
   if (testErrors.some(Boolean))
     errors.push("Corrija os casos de teste destacados.");
 
-  return { errors, testErrors, tests };
+  return { errors, testErrors, tests, config: {} };
 }
 
 /** Remove acentos e deixa só [a-z0-9-]. */

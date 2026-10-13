@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
-import { useCatalog } from "./CatalogProvider";
+import { useStreak } from "@/lib/activity-store";
+import { useBadgeContext } from "./useBadgeContext";
 import { earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
@@ -18,7 +19,8 @@ export default function Header() {
   const progress = useProgress();
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
-  const { catalog } = useCatalog();
+  const badgeCtx = useBadgeContext();
+  const streak = useStreak();
   const xp = totalXp(progress);
   const { level, next, progress: pct } = levelInfo(xp);
 
@@ -58,8 +60,21 @@ export default function Header() {
         </div>
         {profile && (
           <div className="flex items-center gap-4 text-sm">
+            {streak.available && (
+              <span
+                title={
+                  streak.current > 0
+                    ? `${streak.current} ${streak.current === 1 ? "dia seguido" : "dias seguidos"}${streak.activeToday ? "" : " — pratique hoje para manter"}`
+                    : "Pratique hoje para começar uma sequência"
+                }
+                aria-label={`Sequência: ${streak.current} ${streak.current === 1 ? "dia" : "dias"}`}
+                className={streak.current > 0 ? "" : "opacity-40 grayscale"}
+              >
+                🔥 {streak.current}
+              </span>
+            )}
             <span title="Medalhas conquistadas">
-              🏅 {earnedBadges(progress, catalog).length}
+              🏅 {earnedBadges(badgeCtx).length}
             </span>
             <div className="w-36">
               <div className="flex justify-between text-xs">

@@ -6,6 +6,9 @@ import { useAuth } from "@/components/AuthProvider";
 import { exercisesOf } from "@/lib/catalog";
 import MyClasses from "@/components/MyClasses";
 import { CatalogGate, useCatalog } from "@/components/CatalogProvider";
+import { useBadgeContext } from "@/components/useBadgeContext";
+import { useStreak } from "@/lib/activity-store";
+import { localDay, recentDays } from "@/lib/streak";
 import {
   badgesFor,
   earnedBadges,
@@ -17,6 +20,9 @@ import { useProgress } from "@/lib/progress-store";
 function PerfilContent() {
   const { profile, updateName } = useAuth();
   const { catalog } = useCatalog();
+  const badgeCtx = useBadgeContext();
+  const streak = useStreak();
+  const [today] = useState(() => localDay());
   const progress = useProgress();
   const [name, setName] = useState(profile?.name ?? "");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -25,7 +31,7 @@ function PerfilContent() {
   if (!profile) return null;
   const stats = statsOf(progress, catalog);
   const { level, floor, next, progress: pct } = levelInfo(stats.xp);
-  const earned = new Set(earnedBadges(progress, catalog).map((b) => b.id));
+  const earned = new Set(earnedBadges(badgeCtx).map((b) => b.id));
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -80,6 +86,43 @@ function PerfilContent() {
           </div>
         </div>
       </section>
+
+      {streak.available && (
+        <section aria-label="Sequência diária">
+          <h2 className="mb-3 text-lg font-semibold">Sequência diária</h2>
+          <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
+            <div>
+              <span className="text-3xl font-semibold">
+                🔥 {streak.current}
+              </span>{" "}
+              <span className="text-sm text-zinc-500">
+                {streak.current === 1 ? "dia seguido" : "dias seguidos"}
+              </span>
+            </div>
+            <div className="text-sm text-zinc-500">
+              Melhor sequência:{" "}
+              <strong className="text-foreground">{streak.best}</strong>
+            </div>
+          </div>
+          <p className="mt-2 text-sm text-zinc-500">
+            {streak.activeToday
+              ? "Você já praticou hoje. Volte amanhã para continuar a sequência."
+              : streak.current > 0
+                ? "Pratique hoje para não perder a sua sequência."
+                : "Resolva um exercício hoje para começar uma sequência."}
+          </p>
+          <ul aria-label="Últimos 14 dias" className="mt-3 flex gap-1">
+            {recentDays(streak.days, today, 14).map((d) => (
+              <li
+                key={d.day}
+                title={`${d.day.slice(8, 10)}/${d.day.slice(5, 7)}: ${d.active ? "praticou" : "não praticou"}`}
+                aria-label={`${d.day.slice(8, 10)}/${d.day.slice(5, 7)}: ${d.active ? "praticou" : "não praticou"}`}
+                className={`h-5 w-5 rounded-full ${d.active ? "bg-emerald-600" : "bg-zinc-200 dark:bg-zinc-800"}`}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">Progresso por módulo</h2>

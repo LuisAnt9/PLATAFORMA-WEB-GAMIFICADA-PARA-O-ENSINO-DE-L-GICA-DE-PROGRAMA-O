@@ -18,6 +18,9 @@ const ex = (
   published = true,
 ): Exercise => ({
   id,
+  kind: "code",
+  lesson: null,
+  config: {},
   moduleId,
   title: id,
   difficulty,
@@ -103,34 +106,52 @@ describe("medalhas", () => {
     for (const b of list) expect(b.purpose.length).toBeGreaterThan(5);
   });
   it("uma medalha por módulo, mais as fixas e a da trilha", () => {
-    expect(badgesFor(catalog)).toHaveLength(3 + 2 + 1);
+    expect(badgesFor(catalog)).toHaveLength(5 + 2 + 1); // fixas (inclui 2 de constância) + módulos + trilha
   });
   it("persistente exige acerto após 3+ erros", () => {
     let p: Progress = {};
     for (let i = 0; i < 3; i++) p = recordAttempt(p, A, false);
-    expect(earnedBadges(p, catalog).map((b) => b.id)).not.toContain(
-      "persistente",
-    );
+    expect(
+      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
+    ).not.toContain("persistente");
     p = recordAttempt(p, A, true);
-    expect(earnedBadges(p, catalog).map((b) => b.id)).toContain("persistente");
+    expect(
+      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
+    ).toContain("persistente");
   });
   it("medalha do módulo e da trilha ignoram rascunhos", () => {
     let p: Progress = {};
     for (const e of [A, B]) p = recordAttempt(p, e, true);
-    expect(earnedBadges(p, catalog).map((b) => b.id)).toContain("modulo-m1");
-    expect(earnedBadges(p, catalog).map((b) => b.id)).not.toContain(
-      "trilha-completa",
-    );
+    expect(
+      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
+    ).toContain("modulo-m1");
+    expect(
+      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
+    ).not.toContain("trilha-completa");
     p = recordAttempt(p, C, true);
-    const ids = earnedBadges(p, catalog).map((b) => b.id);
+    const ids = earnedBadges({ progress: p, catalog, bestStreak: 0 }).map(
+      (b) => b.id,
+    );
     expect(ids).toContain("modulo-m2"); // m2 só tem "c" publicado
     expect(ids).toContain("trilha-completa");
   });
   it("catálogo vazio não concede medalhas de conclusão", () => {
-    const ids = earnedBadges({}, { modules: [], exercises: [] }).map(
-      (b) => b.id,
-    );
+    const ids = earnedBadges({
+      progress: {},
+      catalog: { modules: [], exercises: [] },
+      bestStreak: 0,
+    }).map((b) => b.id);
     expect(ids).toEqual([]);
+  });
+});
+
+describe("medalhas de constância", () => {
+  const ids = (bestStreak: number) =>
+    earnedBadges({ progress: {}, catalog, bestStreak }).map((b) => b.id);
+  it("3 e 7 dias seguidos, usando a MELHOR sequência (não some se quebrar)", () => {
+    expect(ids(2)).toEqual([]);
+    expect(ids(3)).toEqual(["constancia-3"]);
+    expect(ids(7)).toEqual(["constancia-3", "constancia-7"]);
   });
 });
 

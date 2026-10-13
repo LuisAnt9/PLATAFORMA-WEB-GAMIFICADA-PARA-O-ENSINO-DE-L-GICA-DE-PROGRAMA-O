@@ -1,8 +1,18 @@
-import type { Exercise, TestCase } from "./catalog";
-import { buildStarterCode, type Draft } from "./exercise-draft";
+import type { Exercise } from "./catalog";
+import {
+  buildStarterCode,
+  type Draft,
+  type DraftValidation,
+} from "./exercise-draft";
 import { getSupabase } from "./supabase";
 
 function fail(error: { message: string }): never {
+  // PostgREST responde assim quando uma coluna não existe (migration ainda não aplicada).
+  if (/column|schema cache/i.test(error.message)) {
+    throw new Error(
+      "O banco ainda não tem os recursos deste exercício. Rode as migrations mais recentes (0005) no SQL Editor do Supabase.",
+    );
+  }
   throw new Error(`Não foi possível salvar: ${error.message}`);
 }
 
@@ -15,17 +25,43 @@ function nextPosition(exercises: Exercise[], moduleId: string): number {
   );
 }
 
-function fields(d: Draft, tests: TestCase[], published: boolean) {
-  return {
+/**
+ * Colunas a gravar. As colunas novas (kind, config, lesson) só vão quando necessárias, para que
+ * exercícios de código comuns continuem salvando mesmo em um banco sem a migration 0005.
+ */
+function fields(
+  d: Draft,
+  v: DraftValidation,
+  published: boolean,
+  previousLesson: string | null = null,
+) {
+  const common = {
     module_id: d.moduleId,
     title: d.title.trim(),
     difficulty: d.difficulty,
     statement: d.statement.trim(),
-    function_name: d.functionName.trim(),
-    starter_code: buildStarterCode(d.functionName.trim(), d.params),
-    tests,
     hint: d.hint.trim(),
     published,
+    ...(d.lesson.trim() || previousLesson
+      ? { lesson: d.lesson.trim() || null }
+      : {}),
+  };
+  if (d.kind === "code") {
+    const name = d.functionName.trim();
+    return {
+      ...common,
+      function_name: name,
+      starter_code: buildStarterCode(name, d.params),
+      tests: v.tests,
+    };
+  }
+  return {
+    ...common,
+    kind: d.kind,
+    config: v.config,
+    function_name: null,
+    starter_code: "",
+    tests: [],
   };
 }
 
@@ -33,7 +69,7 @@ export async function createExercise(
   id: string,
   userId: string,
   d: Draft,
-  tests: TestCase[],
+  v: DraftValidation,
   published: boolean,
   all: Exercise[],
 ): Promise<void> {
@@ -43,7 +79,7 @@ export async function createExercise(
       id,
       created_by: userId,
       position: nextPosition(all, d.moduleId),
-      ...fields(d, tests, published),
+      ...fields(d, v, published),
     });
   if (error) fail(error);
 }
@@ -51,7 +87,7 @@ export async function createExercise(
 export async function updateExercise(
   existing: Exercise,
   d: Draft,
-  tests: TestCase[],
+  v: DraftValidation,
   published: boolean,
   all: Exercise[],
 ): Promise<void> {
@@ -59,7 +95,7 @@ export async function updateExercise(
   const { error } = await getSupabase()
     .from("exercises")
     .update({
-      ...fields(d, tests, published),
+      ...fields(d, v, published, existing.lesson),
       ...(moved ? { position: nextPosition(all, d.moduleId) } : {}),
     })
     .eq("id", existing.id);

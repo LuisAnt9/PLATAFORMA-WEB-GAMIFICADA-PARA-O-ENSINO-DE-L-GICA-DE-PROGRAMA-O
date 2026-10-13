@@ -115,6 +115,9 @@ describe("validateDraft", () => {
 describe("draftFromExercise <-> buildStarterCode", () => {
   const e: Exercise = {
     id: "soma",
+    kind: "code",
+    lesson: null,
+    config: {},
     moduleId: "m1",
     title: "Somar",
     difficulty: "medio",
@@ -170,5 +173,189 @@ describe("ids", () => {
     const dup = newExerciseId(long, new Set([free]), () => 0.1, 40);
     expect(dup.length).toBeLessThanOrEqual(40);
     expect(dup).not.toBe(free);
+  });
+});
+
+describe("validateDraft: múltipla escolha", () => {
+  const choice = (over: Partial<Draft> = {}): Draft => ({
+    ...emptyDraft("m1"),
+    kind: "choice",
+    title: "Pergunta",
+    statement: "Qual?",
+    options: ["Um", "Dois", "Três"],
+    correct: 1,
+    ...over,
+  });
+  it("aceita e monta a configuração (sem função nem testes)", () => {
+    const r = validateDraft(choice({ explanation: " Porque sim. " }));
+    expect(r.errors).toEqual([]);
+    expect(r.config).toEqual({
+      options: ["Um", "Dois", "Três"],
+      correct: 1,
+      explanation: "Porque sim.",
+    });
+    expect(r.tests).toEqual([]);
+  });
+  it("não exige nome de função nem testes", () => {
+    expect(
+      validateDraft(choice({ functionName: "", tests: [] })).errors,
+    ).toEqual([]);
+  });
+  it("exige gabarito marcado e dentro do intervalo", () => {
+    expect(validateDraft(choice({ correct: null })).errors.join()).toContain(
+      "correta",
+    );
+    expect(validateDraft(choice({ correct: 5 })).errors.join()).toContain(
+      "correta",
+    );
+  });
+  it("exige entre 2 e 6 alternativas, preenchidas e diferentes", () => {
+    expect(
+      validateDraft(choice({ options: ["Só uma"], correct: 0 })).errors.join(),
+    ).toContain("pelo menos 2");
+    expect(
+      validateDraft(
+        choice({ options: ["a", "b", "c", "d", "e", "f", "g"] }),
+      ).errors.join(),
+    ).toContain("No máximo 6");
+    expect(
+      validateDraft(choice({ options: ["a", " "], correct: 0 })).errors.join(),
+    ).toContain("vazias");
+    expect(
+      validateDraft(
+        choice({ options: ["Sim", "sim"], correct: 0 }),
+      ).errors.join(),
+    ).toContain("repetidas");
+  });
+  it("continua exigindo título, módulo e enunciado", () => {
+    expect(
+      validateDraft(choice({ title: "", moduleId: "", statement: "" })).errors
+        .length,
+    ).toBe(3);
+  });
+});
+
+describe("validateDraft: completar a lacuna", () => {
+  const blank = (over: Partial<Draft> = {}): Draft => ({
+    ...emptyDraft("m1"),
+    kind: "blank",
+    title: "Complete",
+    statement: "Complete.",
+    template: "{{1}} (x) { } {{2}} { }",
+    blankAnswers: ["if", "else\nelse  "],
+    ...over,
+  });
+  it("aceita e monta a configuração, uma resposta aceita por linha", () => {
+    const r = validateDraft(blank());
+    expect(r.errors).toEqual([]);
+    expect(r.config).toEqual({
+      template: "{{1}} (x) { } {{2}} { }",
+      blanks: [{ answers: ["if"] }, { answers: ["else", "else"] }],
+    });
+  });
+  it("exige lacunas numeradas em sequência, sem repetir", () => {
+    expect(
+      validateDraft(
+        blank({ template: "sem lacunas", blankAnswers: [] }),
+      ).errors.join(),
+    ).toContain("pelo menos uma lacuna");
+    expect(
+      validateDraft(
+        blank({ template: "{{1}} {{3}}", blankAnswers: ["a", "b"] }),
+      ).errors.join(),
+    ).toContain("em sequência");
+    expect(
+      validateDraft(
+        blank({ template: "{{1}} {{1}}", blankAnswers: ["a"] }),
+      ).errors.join(),
+    ).toContain("em sequência");
+    expect(
+      validateDraft(
+        blank({ template: "{{2}} {{1}}", blankAnswers: ["a", "b"] }),
+      ).errors,
+    ).toEqual([]); // ordem no texto é livre
+  });
+  it("exige ao menos uma resposta aceita em cada lacuna", () => {
+    expect(
+      validateDraft(blank({ blankAnswers: ["if", "  \n "] })).errors.join(),
+    ).toContain("lacuna 2");
+    expect(
+      validateDraft(blank({ blankAnswers: ["if"] })).errors.join(),
+    ).toContain("lacuna 2");
+  });
+  it("limita o número de lacunas e o tamanho do modelo", () => {
+    const many = Array.from({ length: 11 }, (_, i) => `{{${i + 1}}}`).join(" ");
+    expect(
+      validateDraft(
+        blank({ template: many, blankAnswers: Array(11).fill("a") }),
+      ).errors.join(),
+    ).toContain("No máximo 10");
+    expect(
+      validateDraft(
+        blank({ template: "{{1}}" + "x".repeat(2001), blankAnswers: ["a"] }),
+      ).errors.join(),
+    ).toContain("2000");
+  });
+  it("não exige nome de função nem testes", () => {
+    expect(
+      validateDraft(blank({ functionName: "", tests: [] })).errors,
+    ).toEqual([]);
+  });
+});
+
+describe("mini-explicação e explicação", () => {
+  it("limites de tamanho", () => {
+    expect(
+      validateDraft(valid({ lesson: "x".repeat(1501) })).errors.join(),
+    ).toContain("1500");
+    expect(
+      validateDraft(valid({ explanation: "x".repeat(501) })).errors.join(),
+    ).toContain("500");
+    expect(validateDraft(valid({ lesson: "x".repeat(1500) })).errors).toEqual(
+      [],
+    );
+  });
+});
+
+describe("draftFromExercise: tipos sem código", () => {
+  const base = {
+    id: "x",
+    lesson: "Aula",
+    moduleId: "m",
+    title: "T",
+    difficulty: "facil" as const,
+    statement: "s",
+    functionName: "",
+    starterCode: "",
+    tests: [],
+    hint: "",
+    position: 1,
+    published: true,
+  };
+  it("múltipla escolha volta idêntica ao ser reaberta no editor", () => {
+    const e: Exercise = {
+      ...base,
+      kind: "choice",
+      config: { options: ["a", "b"], correct: 1, explanation: "ok" },
+    };
+    const d = draftFromExercise(e);
+    expect(d).toMatchObject({
+      kind: "choice",
+      lesson: "Aula",
+      options: ["a", "b"],
+      correct: 1,
+      explanation: "ok",
+    });
+    expect(validateDraft(d).config).toEqual(e.config);
+  });
+  it("lacunas voltam idênticas (respostas aceitas, uma por linha)", () => {
+    const e: Exercise = {
+      ...base,
+      kind: "blank",
+      config: { template: "i{{1}}", blanks: [{ answers: ["++", "+= 1"] }] },
+    };
+    const d = draftFromExercise(e);
+    expect(d.blankAnswers).toEqual(["++\n+= 1"]);
+    expect(validateDraft(d).config).toEqual(e.config);
   });
 });

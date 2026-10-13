@@ -5,13 +5,38 @@ export interface TestCase {
   expected: unknown;
 }
 
+export type ExerciseKind = "code" | "choice" | "blank";
+
+export const KIND_LABEL: Record<ExerciseKind, string> = {
+  code: "Código",
+  choice: "Múltipla escolha",
+  blank: "Completar a lacuna",
+};
+
+/**
+ * Dados específicos de cada tipo (vêm do banco, escritos por professores, então são tratados
+ * com cuidado em `grading.ts`). Múltipla escolha: options + correct. Lacunas: template + blanks.
+ */
+export interface ExerciseConfig {
+  options?: string[];
+  correct?: number;
+  template?: string;
+  blanks?: { answers: string[] }[];
+  /** Mostrada ao acertar. */
+  explanation?: string;
+}
+
 export interface Exercise {
   id: string;
+  kind: ExerciseKind;
+  /** Mini-explicação mostrada antes do enunciado. */
+  lesson: string | null;
+  config: ExerciseConfig;
   moduleId: string;
   title: string;
   difficulty: Difficulty;
   statement: string;
-  /** Nome da função que o aluno deve implementar. */
+  /** Nome da função que o aluno deve implementar (vazio nos tipos sem código). */
   functionName: string;
   starterCode: string;
   tests: TestCase[];
@@ -82,11 +107,15 @@ export interface ModuleRow {
 
 export interface ExerciseRow {
   id: string;
+  // Colunas das migrations 0005+: podem não existir se o banco ainda não as recebeu.
+  kind?: ExerciseKind;
+  lesson?: string | null;
+  config?: ExerciseConfig | null;
   module_id: string;
   title: string;
   difficulty: Difficulty;
   statement: string;
-  function_name: string;
+  function_name: string | null;
   starter_code: string;
   tests: TestCase[];
   hint: string;
@@ -95,8 +124,8 @@ export interface ExerciseRow {
 }
 
 export const MODULE_COLUMNS = "id, title, focus, position";
-export const EXERCISE_COLUMNS =
-  "id, module_id, title, difficulty, statement, function_name, starter_code, tests, hint, position, published";
+// "*" em vez de lista fixa: o site continua funcionando se uma migration nova ainda não foi aplicada.
+export const EXERCISE_COLUMNS = "*";
 
 export function moduleFromRow(r: ModuleRow): Module {
   return { id: r.id, title: r.title, focus: r.focus, position: r.position };
@@ -105,13 +134,16 @@ export function moduleFromRow(r: ModuleRow): Module {
 export function exerciseFromRow(r: ExerciseRow): Exercise {
   return {
     id: r.id,
+    kind: r.kind ?? "code",
+    lesson: r.lesson ?? null,
+    config: r.config ?? {},
     moduleId: r.module_id,
     title: r.title,
     difficulty: r.difficulty,
     statement: r.statement,
-    functionName: r.function_name,
+    functionName: r.function_name ?? "",
     starterCode: r.starter_code,
-    tests: r.tests,
+    tests: r.tests ?? [],
     hint: r.hint,
     position: r.position,
     published: r.published,

@@ -194,14 +194,14 @@ describe("0002: ranking", () => {
 });
 
 describe("0003: catálogo", () => {
-  it("a migration traz os 4 módulos e 17 exercícios", async () => {
+  it("a migration traz os módulos e os 17 exercícios de código originais", async () => {
     const m = await db.query<{ n: number }>(
       "select count(*)::int as n from public.modules",
     );
     const e = await db.query<{ n: number }>(
-      "select count(*)::int as n from public.exercises",
+      "select count(*)::int as n from public.exercises where kind = 'code'",
     );
-    expect(m.rows[0].n).toBe(4);
+    expect(m.rows[0].n).toBe(5); // 4 originais + "Primeiros passos" (0005)
     expect(e.rows[0].n).toBe(17);
   });
   it("aluno lê só exercícios publicados; professor lê todos", async () => {
@@ -210,10 +210,10 @@ describe("0003: catálogo", () => {
     );
     expect(
       (await as(bia, "select id from public.exercises")).rows,
-    ).toHaveLength(16);
+    ).toHaveLength(21);
     expect(
       (await as(prof, "select id from public.exercises")).rows,
-    ).toHaveLength(17);
+    ).toHaveLength(22);
     await db.exec(
       "update public.exercises set published=true where id='ordenar'",
     );
@@ -429,5 +429,157 @@ describe("0003: turmas", () => {
       (await as(null, "select * from public.join_class('AAAAAA')")).ok,
     ).toBe(false);
     expect(turma2).toBeTruthy();
+  });
+});
+
+describe("0004: sequência diária", () => {
+  const today = () => new Date().toISOString().slice(0, 10);
+  const shift = (days: number) =>
+    new Date(Date.now() + days * 86_400_000).toISOString().slice(0, 10);
+
+  it("log_activity cria o dia e acumula tentativas e resolvidos", async () => {
+    expect(
+      (await as(ana, `select public.log_activity('${today()}', false)`)).ok,
+    ).toBe(true);
+    expect(
+      (await as(ana, `select public.log_activity('${today()}', true)`)).ok,
+    ).toBe(true);
+    const r = await as(
+      ana,
+      "select day::text, attempts, solved from public.daily_activity",
+    );
+    expect(r.rows).toHaveLength(1);
+    expect(r.rows[0]).toMatchObject({ attempts: 2, solved: 1 });
+  });
+  it("recusa datas muito distantes de hoje (impede inventar dias)", async () => {
+    expect(
+      (await as(ana, `select public.log_activity('${shift(-5)}', false)`)).ok,
+    ).toBe(false);
+    expect(
+      (await as(ana, `select public.log_activity('${shift(5)}', false)`)).ok,
+    ).toBe(false);
+    expect(
+      (await as(ana, `select public.log_activity('${shift(-1)}', false)`)).ok,
+    ).toBe(true); // fuso: ontem é aceito
+  });
+  it("não dá para escrever direto na tabela, nem forjar atividade de outro", async () => {
+    expect(
+      (
+        await as(
+          ana,
+          `insert into public.daily_activity(user_id, day, attempts) values ('${ana}', '${shift(-1)}', 99)`,
+        )
+      ).ok,
+    ).toBe(false);
+    expect(
+      (await as(ana, `update public.daily_activity set attempts = 999`)).ok,
+    ).toBe(false);
+  });
+  it("cada aluno vê só a própria atividade; anônimo não executa", async () => {
+    await as(bia, `select public.log_activity('${today()}', false)`);
+    expect(
+      (await as(bia, "select * from public.daily_activity")).rows,
+    ).toHaveLength(1);
+    expect(
+      (await as(null, `select public.log_activity('${today()}', false)`)).ok,
+    ).toBe(false);
+    expect((await as(null, "select * from public.daily_activity")).ok).toBe(
+      false,
+    );
+  });
+  it("professor lê a atividade dos alunos das suas turmas, e só deles", async () => {
+    const t = await as(
+      prof,
+      "select * from public.create_class('Turma streak')",
+    );
+    const code = t.rows[0].code as string;
+    expect(
+      (await as(prof, "select * from public.daily_activity")).rows,
+    ).toHaveLength(0);
+    await as(bia, `select * from public.join_class('${code}')`);
+    const seen = (
+      await as(prof, "select user_id from public.daily_activity")
+    ).rows.map((r) => r.user_id);
+    expect(seen.length).toBeGreaterThan(0);
+    expect(new Set(seen)).toEqual(new Set([bia]));
+  });
+});
+
+describe("0005: tipos de exercício", () => {
+  const base = (over: Record<string, string>) => {
+    const f = {
+      id: "'t-' || md5(random()::text)",
+      kind: "'choice'",
+      function_name: "null",
+      tests: "'[]'::jsonb",
+      config: `'{"options":["a","b"],"correct":0}'::jsonb`,
+      ...over,
+    };
+    return `insert into public.exercises(id,module_id,kind,title,difficulty,statement,function_name,starter_code,tests,config,created_by) values (${f.id},'fundamentos',${f.kind},'T','facil','e',${f.function_name},'',${f.tests},${f.config},'${prof}')`;
+  };
+  it("aceita múltipla escolha e lacunas válidas", async () => {
+    expect((await as(prof, base({}))).ok).toBe(true);
+    const blank = `'{"template":"{{1}} x","blanks":[{"answers":["if"]}]}'::jsonb`;
+    expect((await as(prof, base({ kind: "'blank'", config: blank }))).ok).toBe(
+      true,
+    );
+  });
+  it("rejeita múltipla escolha malformada", async () => {
+    const bad = [
+      `'{"options":["a"],"correct":0}'`, // só 1 alternativa
+      `'{"options":["a","b"],"correct":2}'`, // gabarito fora do intervalo
+      `'{"options":["a","b"],"correct":-1}'`,
+      `'{"options":["a","b"]}'`, // sem gabarito
+      `'{"options":["1","2","3","4","5","6","7"],"correct":0}'`, // 7 alternativas
+    ];
+    for (const c of bad)
+      expect((await as(prof, base({ config: `${c}::jsonb` }))).ok, c).toBe(
+        false,
+      );
+  });
+  it("rejeita lacunas malformadas", async () => {
+    const bad = [
+      `'{"template":"","blanks":[{"answers":["a"]}]}'`,
+      `'{"template":"x","blanks":[]}'`,
+      `'{"template":"x"}'`,
+    ];
+    for (const c of bad)
+      expect(
+        (await as(prof, base({ kind: "'blank'", config: `${c}::jsonb` }))).ok,
+        c,
+      ).toBe(false);
+  });
+  it("tipos sem código não têm função nem testes; o de código exige os dois", async () => {
+    expect((await as(prof, base({ function_name: "'soma'" }))).ok).toBe(false);
+    expect(
+      (await as(prof, base({ tests: `'[{"args":[],"expected":1}]'::jsonb` })))
+        .ok,
+    ).toBe(false);
+    const code = base({
+      kind: "'code'",
+      function_name: "null",
+      tests: `'[{"args":[],"expected":1}]'::jsonb`,
+      config: "'{}'::jsonb",
+    });
+    expect((await as(prof, code)).ok).toBe(false); // código sem função
+    const code2 = base({
+      kind: "'code'",
+      function_name: "'f'",
+      tests: "'[]'::jsonb",
+      config: "'{}'::jsonb",
+    });
+    expect((await as(prof, code2)).ok).toBe(false); // código sem testes
+  });
+  it("tipo desconhecido e mini-explicação longa demais são recusados", async () => {
+    expect((await as(prof, base({ kind: "'quiz'" }))).ok).toBe(false);
+    const long = base({})
+      .replace("created_by)", "created_by, lesson)")
+      .replace(`'${prof}')`, `'${prof}', '${"x".repeat(1501)}')`);
+    expect((await as(prof, long)).ok).toBe(false);
+  });
+  it("aluno ainda não cria exercícios de nenhum tipo", async () => {
+    expect(
+      (await as(ana, base({}).replace(`'${prof}')`, `'${ana}')`))).ok,
+    ).toBe(false);
   });
 });

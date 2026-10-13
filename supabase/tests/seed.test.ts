@@ -1,5 +1,6 @@
 import type { PGlite } from "@electric-sql/pglite";
 import { beforeAll, describe, expect, it } from "vitest";
+import { gradeBlanks, gradeChoice } from "../../src/lib/grading";
 import { createDb } from "./helpers";
 
 // Soluções de referência dos exercícios da migration. Ficam só aqui (nunca no site) para não irem ao navegador do aluno.
@@ -46,14 +47,14 @@ beforeAll(async () => {
   db = await createDb();
   rows = (
     await db.query<Row>(
-      "select id, function_name, starter_code, tests from public.exercises order by position",
+      "select id, function_name, starter_code, tests from public.exercises where kind = 'code' order by position",
     )
   ).rows;
 });
 
 const json = (v: unknown) => JSON.stringify(v);
 
-describe("exercícios da migration", () => {
+describe("exercícios de código da migration", () => {
   it("há uma solução para cada exercício, e só para eles", () => {
     expect(Object.keys(solutions).sort()).toEqual(rows.map((r) => r.id).sort());
   });
@@ -82,6 +83,65 @@ describe("exercícios da migration", () => {
         all,
         `o código inicial de "${r.id}" não deveria passar sozinho`,
       ).toBe(false);
+    }
+  });
+});
+
+interface OtherRow {
+  id: string;
+  kind: "choice" | "blank";
+  lesson: string | null;
+  config: {
+    options?: string[];
+    correct?: number;
+    template?: string;
+    blanks?: { answers: string[] }[];
+    explanation?: string;
+  };
+}
+
+describe("exercícios de múltipla escolha e lacunas da migration", () => {
+  let others: OtherRow[];
+  beforeAll(async () => {
+    others = (
+      await db.query<OtherRow>(
+        "select id, kind, lesson, config from public.exercises where kind <> 'code' order by position",
+      )
+    ).rows;
+  });
+
+  it("existem exemplos dos dois tipos, cada um com a mini-explicação", () => {
+    expect(others.some((o) => o.kind === "choice")).toBe(true);
+    expect(others.some((o) => o.kind === "blank")).toBe(true);
+    for (const o of others)
+      expect(o.lesson?.length ?? 0, o.id).toBeGreaterThan(20);
+  });
+  it("o gabarito acerta e uma resposta errada não passa (mesma lógica do site)", () => {
+    for (const o of others) {
+      if (o.kind === "choice") {
+        const { options, correct } = o.config;
+        expect(gradeChoice(o.config, correct!), o.id).toBe(true);
+        for (let i = 0; i < options!.length; i++)
+          if (i !== correct)
+            expect(gradeChoice(o.config, i), `${o.id}/${i}`).toBe(false);
+      } else {
+        const right = o.config.blanks!.map((b) => b.answers[0]);
+        expect(gradeBlanks(o.config, right).passed, o.id).toBe(true);
+        expect(
+          gradeBlanks(
+            o.config,
+            right.map(() => "xyz"),
+          ).passed,
+          o.id,
+        ).toBe(false);
+        expect(
+          gradeBlanks(
+            o.config,
+            o.config.blanks!.map(() => ""),
+          ).passed,
+          o.id,
+        ).toBe(false);
+      }
     }
   });
 });

@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { DIFFICULTY_LABEL, exercisesOf } from "@/lib/catalog";
+import { DIFFICULTY_LABEL, KIND_LABEL, exercisesOf } from "@/lib/catalog";
 import { badgesFor, earnedBadges } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 import { useAuth } from "./AuthProvider";
 import { CatalogGate, useCatalog } from "./CatalogProvider";
+import { useBadgeContext } from "./useBadgeContext";
 
 function TrailContent() {
   const progress = useProgress();
   const { catalog } = useCatalog();
+  const badgeCtx = useBadgeContext();
   const { profile } = useAuth();
-  const earned = new Set(earnedBadges(progress, catalog).map((b) => b.id));
+  const earned = new Set(earnedBadges(badgeCtx).map((b) => b.id));
   const modules = [...catalog.modules].sort((a, b) => a.position - b.position);
 
   return (
@@ -44,6 +46,7 @@ function TrailContent() {
                       <div>
                         <div className="font-medium">{e.title}</div>
                         <div className="text-xs text-zinc-500">
+                          {KIND_LABEL[e.kind]} ·{" "}
                           {DIFFICULTY_LABEL[e.difficulty]}
                           {!e.published &&
                             profile?.role === "professor" &&

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   DIFFICULTY_LABEL,
+  KIND_LABEL,
   exercisesOf,
   type Exercise,
   type Module,
@@ -242,8 +243,10 @@ function Content() {
                       <div className="min-w-40 flex-1">
                         <div className="font-medium">{e.title}</div>
                         <div className="text-xs text-zinc-500">
-                          {DIFFICULTY_LABEL[e.difficulty]} · {e.tests.length}{" "}
-                          {e.tests.length === 1 ? "teste" : "testes"}
+                          {KIND_LABEL[e.kind]} ·{" "}
+                          {DIFFICULTY_LABEL[e.difficulty]}
+                          {e.kind === "code" &&
+                            ` · ${e.tests.length} ${e.tests.length === 1 ? "teste" : "testes"}`}
                         </div>
                       </div>
                       {tag(e)}

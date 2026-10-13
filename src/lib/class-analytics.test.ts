@@ -24,6 +24,9 @@ const daysAgo = (n: number, hour = 12) => {
 
 const ex = (id: string, position: number): Exercise => ({
   id,
+  kind: "code",
+  lesson: null,
+  config: {},
   moduleId: "m",
   title: `Ex ${id}`,
   difficulty: "facil",

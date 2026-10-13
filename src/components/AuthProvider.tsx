@@ -10,6 +10,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { clearActivity, loadActivity } from "@/lib/activity-store";
 import { clearProgress, loadProgress } from "@/lib/progress-store";
 import { getSupabase } from "@/lib/supabase";
 
@@ -78,6 +79,7 @@ export default function AuthProvider({
     if (!s) {
       setProfile(null);
       clearProgress();
+      clearActivity();
       setLoading(false);
       return;
     }
@@ -89,6 +91,7 @@ export default function AuthProvider({
         .single();
       if (error) throw new Error(error.message);
       await loadProgress(s.user.id);
+      await loadActivity(s.user.id); // nunca lança: sem a migration 0004 só esconde a sequência
       setProfile(data as Profile);
       setLoadError(null);
     } catch (e) {

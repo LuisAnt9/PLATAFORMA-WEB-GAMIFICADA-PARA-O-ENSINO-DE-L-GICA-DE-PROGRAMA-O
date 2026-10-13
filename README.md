@@ -36,6 +36,7 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 - Editor com destaque de sintaxe (CodeMirror) e atalho Ctrl+Enter.
 - Turmas: o professor cria a turma e recebe um código de 6 caracteres; o aluno entra pelo Perfil. O professor só enxerga alunos das próprias turmas (RLS).
 - Área do professor (`/professor`): turmas, código de entrada e tabela de desempenho dos alunos.
+- Análise da turma (`/professor/turmas/[id]`): visão geral (alunos ativos, conclusão média, alertas de inatividade e de alunos travados, gráfico de resolvidos por dia), grade aluno × exercício e estatísticas por exercício (taxa de acerto, tentativas, mais difíceis).
 - Editor de exercícios (`/professor/exercicios`): criar/editar com testes em JSON, validar com uma solução de referência (não salva) antes de publicar, rascunho, despublicar, reordenar e gerenciar módulos.
 - Testes automatizados (Vitest): regras de gamificação, políticas de acesso do banco (PGlite) e validação dos exercícios da migration contra soluções de referência.
 - Ranking anonimizado (nome abreviado) e página de perfil com estatísticas, medalhas e histórico.
@@ -43,7 +44,7 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 
 ## Próximos passos
 
-1. Painel de análise da turma (exercícios mais difíceis, alunos em risco).
+1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.
 2. Verificação de acertos no servidor (hoje o código roda no navegador).
 3. Painel do professor (criar exercícios, acompanhar a turma).
 4. Questionários SUS e Likert para a avaliação.

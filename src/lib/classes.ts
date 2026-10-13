@@ -148,7 +148,7 @@ export async function loadClassData(classId: string): Promise<ClassData> {
     supabase
       .from("exercise_progress")
       .select(
-        "user_id, exercise_id, attempts, solved, first_try, xp, updated_at",
+        "user_id, exercise_id, attempts, solved, first_try, xp, solved_at, updated_at",
       )
       .in("user_id", ids),
   ]);

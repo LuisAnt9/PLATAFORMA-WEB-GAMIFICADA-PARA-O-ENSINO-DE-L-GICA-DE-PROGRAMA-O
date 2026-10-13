@@ -14,6 +14,7 @@ const data: ClassData = {
       solved: true,
       first_try: true,
       xp: 15,
+      solved_at: null,
       updated_at: "2026-10-03T10:00:00Z",
     },
     {
@@ -23,6 +24,7 @@ const data: ClassData = {
       solved: false,
       first_try: false,
       xp: 0,
+      solved_at: null,
       updated_at: "2026-10-05T10:00:00Z",
     },
     {
@@ -32,6 +34,7 @@ const data: ClassData = {
       solved: true,
       first_try: true,
       xp: 15,
+      solved_at: null,
       updated_at: "2026-10-02T10:00:00Z",
     },
   ],

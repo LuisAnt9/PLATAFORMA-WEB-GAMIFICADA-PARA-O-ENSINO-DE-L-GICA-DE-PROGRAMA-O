@@ -11,6 +11,7 @@ export interface ProgressRow {
   solved: boolean;
   first_try: boolean;
   xp: number;
+  solved_at: string | null;
   updated_at: string;
 }
 

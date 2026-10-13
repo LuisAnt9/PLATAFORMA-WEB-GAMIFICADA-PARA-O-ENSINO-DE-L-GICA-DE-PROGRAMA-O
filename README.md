@@ -46,5 +46,5 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.
 2. Verificação de acertos no servidor (hoje o código roda no navegador).
-3. Painel do professor (criar exercícios, acompanhar a turma).
-4. Questionários SUS e Likert para a avaliação.
+3. Rotina para manter o projeto Supabase ativo (o plano gratuito pausa após ~7 dias sem uso).
+4. Passada de design e acessibilidade.

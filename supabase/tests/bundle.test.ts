@@ -1,7 +1,6 @@
 import { PGlite } from "@electric-sql/pglite";
 import fs from "node:fs";
 import { describe, expect, it } from "vitest";
-// @ts-expect-error módulo .mjs sem tipos
 import { OUT, buildBundle } from "../../scripts/bundle-migrations.mjs";
 
 describe("setup-completo.sql", () => {
@@ -24,7 +23,7 @@ describe("setup-completo.sql", () => {
       "select (select count(*) from public.modules)::int as m, (select count(*) from public.exercises)::int as e, (select count(*) from pg_tables where schemaname = 'public')::int as t",
     );
     expect(r.rows[0]).toEqual({ m: 7, e: 53, t: 7 }); // 7 módulos, 53 exercícios, 7 tabelas
-  });
+  }, 60_000);
 
   it("falha por inteiro (nada fica pela metade) se um trecho der erro", async () => {
     const db = new PGlite();

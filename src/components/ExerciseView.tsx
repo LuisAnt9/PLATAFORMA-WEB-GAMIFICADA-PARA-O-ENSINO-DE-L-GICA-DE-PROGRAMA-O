@@ -1,5 +1,6 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
 import { getStreak, logActivity } from "@/lib/activity-store";
@@ -24,6 +25,7 @@ const show = (v: unknown) =>
   v === undefined ? "undefined" : JSON.stringify(v);
 
 export default function ExerciseView({ exercise }: { exercise: Exercise }) {
+  usePageTitle(exercise.title);
   const progress = useProgress();
   const { profile } = useAuth();
   const { catalog } = useCatalog();
@@ -115,7 +117,10 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
 
   return (
     <div className="space-y-4">
-      <Link href="/" className="text-sm text-zinc-500 hover:underline">
+      <Link
+        href="/"
+        className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+      >
         ← Voltar à trilha
       </Link>
       <h1 className="text-2xl font-semibold">
@@ -151,7 +156,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             <button
               onClick={submitCode}
               disabled={busy}
-              className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+              className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
             >
               {busy ? "Executando..." : "Executar testes (Ctrl+Enter)"}
             </button>

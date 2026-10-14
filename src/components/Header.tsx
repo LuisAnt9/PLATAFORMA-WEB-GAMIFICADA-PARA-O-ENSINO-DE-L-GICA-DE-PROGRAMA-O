@@ -27,8 +27,8 @@ export default function Header() {
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800">
       <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="font-semibold">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+          <Link href="/" className="whitespace-nowrap font-semibold">
             Lógica Gamificada
           </Link>
           {profile && (
@@ -48,7 +48,7 @@ export default function Header() {
                     className={
                       active
                         ? "font-medium text-emerald-700 dark:text-emerald-400"
-                        : "text-zinc-500 hover:text-foreground"
+                        : "text-zinc-500 dark:text-zinc-400 hover:text-foreground"
                     }
                   >
                     {n.label}
@@ -68,7 +68,7 @@ export default function Header() {
                     : "Pratique hoje para começar uma sequência"
                 }
                 aria-label={`Sequência: ${streak.current} ${streak.current === 1 ? "dia" : "dias"}`}
-                className={streak.current > 0 ? "" : "opacity-40 grayscale"}
+                className={streak.current > 0 ? "" : "grayscale"}
               >
                 🔥 {streak.current}
               </span>
@@ -92,7 +92,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => void signOut()}
-              className="text-zinc-500 hover:underline"
+              className="text-zinc-500 dark:text-zinc-400 hover:underline"
             >
               Sair
             </button>

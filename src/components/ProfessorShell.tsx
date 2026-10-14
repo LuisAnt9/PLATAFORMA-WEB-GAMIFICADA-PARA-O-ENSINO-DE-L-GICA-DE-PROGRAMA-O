@@ -35,7 +35,7 @@ export default function ProfessorShell({
               className={`-mb-px border-b-2 px-1 pb-2 ${
                 active
                   ? "border-emerald-600 font-medium text-emerald-700 dark:text-emerald-400"
-                  : "border-transparent text-zinc-500 hover:text-foreground"
+                  : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-foreground"
               }`}
             >
               {t.label}

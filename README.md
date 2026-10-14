@@ -25,7 +25,7 @@ where id = (select id from auth.users where email = 'professor@exemplo.com');
 
 Use somente a chave **publishable**; a `secret`/`service_role` nunca deve ir ao código nem ao navegador.
 
-Outros comandos: `npm run lint`, `npm test`, `npm run build`.
+Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (testes de fluxo e acessibilidade; veja `e2e/README.md`).
 
 ## Estado atual
 
@@ -50,4 +50,4 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`.
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.
 2. Verificação de acertos no servidor (hoje a correção roda no navegador e as respostas ficam legíveis).
 3. (feito) Rotina diária que mantém o Supabase ativo: `.github/workflows/keep-alive.yml` + migration 0007.
-4. Passada de design e acessibilidade.
+4. (feito) Passada de design e acessibilidade: contraste, foco visível, alvos de toque de 44 px, link "pular para o conteúdo", títulos de página, cabeçalho adaptado ao celular, editor acessível com tema escuro e `prefers-reduced-motion`. Auditoria com axe-core em 60 combinações (telas × celular/computador × claro/escuro) sem violações.

@@ -164,7 +164,10 @@ export default function AuthProvider({
   if (loading || (!session && !isPublic) || (session && isPublic)) {
     return (
       <AuthContext.Provider value={value}>
-        <p className="p-8 text-center text-zinc-500" role="status">
+        <p
+          className="p-8 text-center text-zinc-500 dark:text-zinc-400"
+          role="status"
+        >
           Carregando...
         </p>
       </AuthContext.Provider>

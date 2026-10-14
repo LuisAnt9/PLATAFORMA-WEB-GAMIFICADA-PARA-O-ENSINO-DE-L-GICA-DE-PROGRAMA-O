@@ -1,5 +1,6 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -77,7 +78,7 @@ function ModuleForm({
       <button
         type="submit"
         disabled={busy}
-        className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+        className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
       >
         {submitLabel}
       </button>
@@ -85,7 +86,7 @@ function ModuleForm({
         <button
           type="button"
           onClick={onCancel}
-          className="px-2 py-2 text-sm text-zinc-500 hover:underline"
+          className="px-2 py-2 text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
         >
           Cancelar
         </button>
@@ -103,6 +104,7 @@ function ModuleForm({
 }
 
 function Content() {
+  usePageTitle("Exercícios");
   const { catalog, reload } = useCatalog();
   const [editing, setEditing] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -159,14 +161,14 @@ function Content() {
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Exercícios</h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             {catalog.exercises.length} exercícios em {modules.length} módulos.
             Só os publicados aparecem para os alunos.
           </p>
         </div>
         <Link
           href="/professor/exercicios/novo"
-          className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700"
+          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800"
         >
           Novo exercício
         </Link>
@@ -199,20 +201,20 @@ function Content() {
                 <div className="mb-2 flex items-baseline justify-between gap-3">
                   <div>
                     <h2 className="text-lg font-semibold">{m.title}</h2>
-                    <p className="text-sm text-zinc-500">
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       {m.focus || "Sem descrição"}
                     </p>
                   </div>
                   <button
                     onClick={() => setEditing(m.id)}
-                    className="text-sm text-zinc-500 hover:underline"
+                    className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
                   >
                     Editar módulo
                   </button>
                 </div>
               )}
               {list.length === 0 ? (
-                <p className="text-sm text-zinc-500">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   Nenhum exercício neste módulo.
                 </p>
               ) : (
@@ -227,7 +229,7 @@ function Content() {
                           aria-label={`Subir ${e.title}`}
                           disabled={i === 0}
                           onClick={() => void move(list, i, -1)}
-                          className="text-xs leading-none text-zinc-500 hover:text-foreground disabled:opacity-20"
+                          className="text-xs leading-none text-zinc-500 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
                         >
                           ▲
                         </button>
@@ -235,14 +237,14 @@ function Content() {
                           aria-label={`Descer ${e.title}`}
                           disabled={i === list.length - 1}
                           onClick={() => void move(list, i, 1)}
-                          className="text-xs leading-none text-zinc-500 hover:text-foreground disabled:opacity-20"
+                          className="text-xs leading-none text-zinc-500 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
                         >
                           ▼
                         </button>
                       </div>
                       <div className="min-w-40 flex-1">
                         <div className="font-medium">{e.title}</div>
-                        <div className="text-xs text-zinc-500">
+                        <div className="text-xs text-zinc-500 dark:text-zinc-400">
                           {KIND_LABEL[e.kind]} ·{" "}
                           {DIFFICULTY_LABEL[e.difficulty]}
                           {e.kind === "code" &&
@@ -259,7 +261,7 @@ function Content() {
                         </Link>
                         <Link
                           href={`/exercicio/${e.id}`}
-                          className="text-zinc-500 hover:underline"
+                          className="text-zinc-500 dark:text-zinc-400 hover:underline"
                         >
                           Ver como aluno
                         </Link>
@@ -268,7 +270,7 @@ function Content() {
                             onClick={() =>
                               void run(() => setPublished(e.id, false))
                             }
-                            className="text-zinc-500 hover:underline"
+                            className="text-zinc-500 dark:text-zinc-400 hover:underline"
                           >
                             Despublicar
                           </button>

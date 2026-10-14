@@ -1,5 +1,6 @@
 "use client";
 
+import ScrollRegion from "./ScrollRegion";
 import type { Exercise } from "@/lib/catalog";
 import type { Cell, MatrixRow } from "@/lib/class-analytics";
 
@@ -16,7 +17,7 @@ const STYLE: Record<Cell["state"], string> = {
   none: "bg-zinc-100 text-zinc-400 dark:bg-zinc-900 dark:text-zinc-600",
   trying:
     "bg-emerald-200 text-emerald-950 dark:bg-emerald-900 dark:text-emerald-100",
-  solved: "bg-emerald-600 text-white",
+  solved: "bg-emerald-700 text-white",
 };
 
 export default function ProgressMatrix({
@@ -28,7 +29,10 @@ export default function ProgressMatrix({
 }) {
   return (
     <div>
-      <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+      <ScrollRegion
+        label="Grade de progresso dos alunos"
+        className="rounded-lg border border-zinc-200 dark:border-zinc-800"
+      >
         <table className="w-full border-separate border-spacing-0.5 text-xs">
           <caption className="sr-only">
             Progresso de cada aluno em cada exercício
@@ -37,7 +41,7 @@ export default function ProgressMatrix({
             <tr>
               <th
                 scope="col"
-                className="sticky left-0 z-10 bg-background px-3 py-1 text-left font-normal text-zinc-500"
+                className="sticky left-0 z-10 bg-background px-3 py-1 text-left font-normal text-zinc-500 dark:text-zinc-400"
               >
                 Aluno
               </th>
@@ -46,7 +50,7 @@ export default function ProgressMatrix({
                   key={e.id}
                   scope="col"
                   title={e.title}
-                  className="px-0 py-1 text-center font-normal tabular-nums text-zinc-500"
+                  className="px-0 py-1 text-center font-normal tabular-nums text-zinc-500 dark:text-zinc-400"
                 >
                   {i + 1}
                 </th>
@@ -82,12 +86,12 @@ export default function ProgressMatrix({
             ))}
           </tbody>
         </table>
-      </div>
-      <p className="mt-2 text-xs text-zinc-500">
+      </ScrollRegion>
+      <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
         ✓ resolvido · número = tentativas ainda sem acertar · vazio = não
         tentou. Passe o mouse (ou foque) para ver o nome do exercício.
       </p>
-      <ol className="mt-2 grid gap-x-6 gap-y-0.5 text-xs text-zinc-500 sm:grid-cols-2">
+      <ol className="mt-2 grid gap-x-6 gap-y-0.5 text-xs text-zinc-500 dark:text-zinc-400 sm:grid-cols-2">
         {exercises.map((e, i) => (
           <li key={e.id}>
             <span className="tabular-nums">{i + 1}.</span> {e.title}

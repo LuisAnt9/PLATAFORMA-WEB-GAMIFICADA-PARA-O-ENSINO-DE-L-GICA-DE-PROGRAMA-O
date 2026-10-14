@@ -1,5 +1,6 @@
 "use client";
 
+import ScrollRegion from "./ScrollRegion";
 import { useState } from "react";
 import { niceMax, type DayCount } from "@/lib/class-analytics";
 
@@ -30,21 +31,26 @@ export default function ActivityChart({
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
         <figcaption>
           <span className="font-medium">{title}</span>
-          <span className="ml-2 text-sm text-zinc-500">{total} no período</span>
+          <span className="block text-sm text-zinc-500 dark:text-zinc-400">
+            {total} no período
+          </span>
         </figcaption>
         <button
           onClick={() => setAsTable((v) => !v)}
-          className="text-sm text-zinc-500 hover:underline"
+          className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
         >
           {asTable ? "Ver como gráfico" : "Ver como tabela"}
         </button>
       </div>
 
       {asTable ? (
-        <div className="max-h-64 overflow-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <ScrollRegion
+          label="Resolvidos por dia (tabela)"
+          className="max-h-64 overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800"
+        >
           <table className="w-full text-sm">
             <caption className="sr-only">{title}</caption>
-            <thead className="bg-zinc-50 text-left text-zinc-500 dark:bg-zinc-900">
+            <thead className="bg-zinc-50 text-left text-zinc-500 dark:text-zinc-400 dark:bg-zinc-900">
               <tr>
                 <th scope="col" className="px-4 py-2">
                   Dia
@@ -70,13 +76,13 @@ export default function ActivityChart({
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       ) : (
         <div className="flex gap-2 pt-7" onMouseLeave={() => setActive(null)}>
           {/* eixo y */}
           <div
             aria-hidden
-            className="relative h-40 w-6 shrink-0 text-right text-xs text-zinc-500"
+            className="relative h-40 w-6 shrink-0 text-right text-xs text-zinc-500 dark:text-zinc-400"
           >
             {[top, top / 2, 0].map((v, i) => (
               <span
@@ -150,7 +156,10 @@ export default function ActivityChart({
               </ul>
             </div>
             {/* eixo x: rótulos esparsos para não colidir em telas estreitas */}
-            <ul aria-hidden className="mt-1 flex gap-1 text-xs text-zinc-500">
+            <ul
+              aria-hidden
+              className="mt-1 flex gap-1 text-xs text-zinc-500 dark:text-zinc-400"
+            >
               {data.map((d, i) => (
                 <li key={d.date} className="relative h-4 min-w-0 flex-1">
                   {i % 3 === last % 3 && (

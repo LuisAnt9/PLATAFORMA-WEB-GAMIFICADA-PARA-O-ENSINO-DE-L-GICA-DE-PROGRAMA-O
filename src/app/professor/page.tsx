@@ -1,5 +1,6 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { useLoader } from "@/lib/use-loader";
@@ -7,6 +8,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { createClass, listTeacherClasses } from "@/lib/classes";
 
 function Classes() {
+  usePageTitle("Turmas");
   const { profile } = useAuth();
   const userId = profile?.id ?? "";
   const load = useCallback(() => listTeacherClasses(userId), [userId]);
@@ -37,7 +39,7 @@ function Classes() {
   return (
     <>
       <h1 className="mb-1 text-2xl font-semibold">Minhas turmas</h1>
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Crie uma turma e passe o código aos alunos. Eles entram pela página{" "}
         <strong>Perfil</strong>.
       </p>
@@ -61,7 +63,7 @@ function Classes() {
         <button
           type="submit"
           disabled={busy}
-          className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           Criar turma
         </button>
@@ -75,9 +77,13 @@ function Classes() {
           {error}
         </p>
       )}
-      {classes === null && <p className="text-zinc-500">Carregando...</p>}
+      {classes === null && (
+        <p className="text-zinc-500 dark:text-zinc-400">Carregando...</p>
+      )}
       {classes && classes.length === 0 && (
-        <p className="text-zinc-500">Você ainda não criou nenhuma turma.</p>
+        <p className="text-zinc-500 dark:text-zinc-400">
+          Você ainda não criou nenhuma turma.
+        </p>
       )}
       {classes && classes.length > 0 && (
         <ul className="grid gap-3 sm:grid-cols-2">
@@ -88,10 +94,10 @@ function Classes() {
                 className="block rounded-lg border border-zinc-200 p-4 hover:border-emerald-500 dark:border-zinc-800"
               >
                 <div className="font-medium">{c.name}</div>
-                <div className="mt-1 text-sm text-zinc-500">
+                <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                   {c.members} {c.members === 1 ? "aluno" : "alunos"}
                 </div>
-                <div className="mt-3 text-xs text-zinc-500">
+                <div className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
                   Código de entrada
                 </div>
                 <div className="font-mono text-xl tracking-widest">

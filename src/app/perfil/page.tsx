@@ -1,5 +1,6 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
@@ -18,6 +19,7 @@ import {
 import { useProgress } from "@/lib/progress-store";
 
 function PerfilContent() {
+  usePageTitle("Perfil");
   const { profile, updateName } = useAuth();
   const { catalog } = useCatalog();
   const badgeCtx = useBadgeContext();
@@ -49,7 +51,7 @@ function PerfilContent() {
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-semibold">{profile.name}</h1>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           {profile.role === "professor" ? "Professor" : "Aluno"}
         </p>
       </header>
@@ -63,25 +65,29 @@ function PerfilContent() {
               style={{ width: `${Math.round(pct * 100)}%` }}
             />
           </div>
-          <div className="mt-1 text-xs text-zinc-500">
+          <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
             {stats.xp - floor}/{next - floor} XP para o próximo
           </div>
         </div>
         <div className={card}>
           <div className="text-2xl font-semibold">{stats.xp}</div>
-          <div className="text-xs text-zinc-500">XP total</div>
+          <div className="text-xs text-zinc-500 dark:text-zinc-400">
+            XP total
+          </div>
         </div>
         <div className={card}>
           <div className="text-2xl font-semibold">
             {stats.solved}/{stats.total}
           </div>
-          <div className="text-xs text-zinc-500">exercícios resolvidos</div>
+          <div className="text-xs text-zinc-500 dark:text-zinc-400">
+            exercícios resolvidos
+          </div>
         </div>
         <div className={card}>
           <div className="text-2xl font-semibold">
             {Math.round(stats.firstTryRate * 100)}%
           </div>
-          <div className="text-xs text-zinc-500">
+          <div className="text-xs text-zinc-500 dark:text-zinc-400">
             acertos de primeira · {stats.attempts} tentativas
           </div>
         </div>
@@ -95,16 +101,16 @@ function PerfilContent() {
               <span className="text-3xl font-semibold">
                 🔥 {streak.current}
               </span>{" "}
-              <span className="text-sm text-zinc-500">
+              <span className="text-sm text-zinc-500 dark:text-zinc-400">
                 {streak.current === 1 ? "dia seguido" : "dias seguidos"}
               </span>
             </div>
-            <div className="text-sm text-zinc-500">
+            <div className="text-sm text-zinc-500 dark:text-zinc-400">
               Melhor sequência:{" "}
               <strong className="text-foreground">{streak.best}</strong>
             </div>
           </div>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
             {streak.activeToday
               ? "Você já praticou hoje. Volte amanhã para continuar a sequência."
               : streak.current > 0
@@ -138,7 +144,7 @@ function PerfilContent() {
                 <li key={m.id}>
                   <div className="flex justify-between text-sm">
                     <span>{m.title}</span>
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-500 dark:text-zinc-400">
                       {done}/{list.length}
                     </span>
                   </div>
@@ -167,13 +173,15 @@ function PerfilContent() {
               className={`rounded-lg border p-3 text-sm ${
                 earned.has(b.id)
                   ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950"
-                  : "border-zinc-200 opacity-60 dark:border-zinc-800"
+                  : "border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
               }`}
             >
               <div className="font-medium">
                 {earned.has(b.id) ? "🏅" : "🔒"} {b.name}
               </div>
-              <div className="text-zinc-500">{b.description}</div>
+              <div className="text-zinc-500 dark:text-zinc-400">
+                {b.description}
+              </div>
             </li>
           ))}
         </ul>
@@ -182,7 +190,7 @@ function PerfilContent() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Histórico</h2>
         {Object.keys(progress).length === 0 ? (
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
             Você ainda não tentou nenhum exercício.{" "}
             <Link
               href="/"
@@ -208,7 +216,7 @@ function PerfilContent() {
                     >
                       {e.title}
                     </Link>
-                    <span className="text-zinc-500">
+                    <span className="text-zinc-500 dark:text-zinc-400">
                       {p.solved ? `✅ ${p.xp} XP` : "em andamento"} ·{" "}
                       {p.attempts}{" "}
                       {p.attempts === 1 ? "tentativa" : "tentativas"}
@@ -242,7 +250,7 @@ function PerfilContent() {
           <button
             type="submit"
             disabled={busy || name.trim() === profile.name}
-            className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+            className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
           >
             Salvar
           </button>

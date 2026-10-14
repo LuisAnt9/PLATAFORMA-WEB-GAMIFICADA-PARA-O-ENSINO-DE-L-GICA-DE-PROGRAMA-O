@@ -1,5 +1,7 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
+import ScrollRegion from "@/components/ScrollRegion";
 import { useEffect, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
 
@@ -14,6 +16,7 @@ interface Row {
 const MEDAL = ["🥇", "🥈", "🥉"];
 
 export default function RankingPage() {
+  usePageTitle("Ranking");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,7 +45,7 @@ export default function RankingPage() {
   return (
     <>
       <h1 className="mb-1 text-2xl font-semibold">Ranking</h1>
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Os 20 primeiros por XP. Os nomes aparecem abreviados para preservar a
         privacidade.
       </p>
@@ -56,19 +59,24 @@ export default function RankingPage() {
         </p>
       )}
       {!rows && !error && (
-        <p role="status" className="text-zinc-500">
+        <p role="status" className="text-zinc-500 dark:text-zinc-400">
           Carregando...
         </p>
       )}
       {rows && rows.length === 0 && (
-        <p className="text-zinc-500">Ninguém pontuou ainda. Seja o primeiro!</p>
+        <p className="text-zinc-500 dark:text-zinc-400">
+          Ninguém pontuou ainda. Seja o primeiro!
+        </p>
       )}
 
       {rows && rows.length > 0 && (
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <ScrollRegion
+          label="Ranking de alunos"
+          className="rounded-lg border border-zinc-200 dark:border-zinc-800"
+        >
           <table className="w-full text-sm">
             <caption className="sr-only">Ranking de alunos por XP</caption>
-            <thead className="bg-zinc-50 text-left text-zinc-500 dark:bg-zinc-900">
+            <thead className="bg-zinc-50 text-left text-zinc-500 dark:text-zinc-400 dark:bg-zinc-900">
               <tr>
                 <th scope="col" className="w-16 px-4 py-2">
                   #
@@ -105,7 +113,7 @@ export default function RankingPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       )}
     </>
   );

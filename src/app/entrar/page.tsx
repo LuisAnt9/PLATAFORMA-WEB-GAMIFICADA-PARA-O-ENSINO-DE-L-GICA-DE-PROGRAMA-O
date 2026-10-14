@@ -1,9 +1,11 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 
 export default function EntrarPage() {
+  usePageTitle("Entrar");
   const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState<"entrar" | "cadastrar">("entrar");
   const [name, setName] = useState("");
@@ -41,7 +43,7 @@ export default function EntrarPage() {
       <h1 className="mb-1 text-2xl font-semibold">
         {mode === "entrar" ? "Entrar" : "Criar conta"}
       </h1>
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Plataforma de lógica de programação — IFPI Campus Picos.
       </p>
 
@@ -106,7 +108,7 @@ export default function EntrarPage() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+          className="w-full rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           {busy ? "Aguarde..." : mode === "entrar" ? "Entrar" : "Cadastrar"}
         </button>

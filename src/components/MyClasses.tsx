@@ -55,13 +55,15 @@ export default function MyClasses() {
   return (
     <section>
       <h2 className="mb-1 text-lg font-semibold">Minhas turmas</h2>
-      <p className="mb-3 text-sm text-zinc-500">
+      <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
         Ao entrar em uma turma, o professor passa a acompanhar seu progresso nos
         exercícios.
       </p>
 
       {classes === null && !error && (
-        <p className="text-sm text-zinc-500">Carregando...</p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          Carregando...
+        </p>
       )}
       {error && (
         <p role="alert" className="mb-3 text-sm text-red-700 dark:text-red-300">
@@ -69,7 +71,7 @@ export default function MyClasses() {
         </p>
       )}
       {classes && classes.length === 0 && (
-        <p className="mb-3 text-sm text-zinc-500">
+        <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
           Você ainda não está em nenhuma turma.
         </p>
       )}
@@ -83,7 +85,7 @@ export default function MyClasses() {
               <span>{c.name}</span>
               <button
                 onClick={() => void leave(c)}
-                className="text-zinc-500 hover:underline"
+                className="text-zinc-500 dark:text-zinc-400 hover:underline"
               >
                 Sair da turma
               </button>
@@ -110,7 +112,7 @@ export default function MyClasses() {
         <button
           type="submit"
           disabled={busy || code.trim().length !== 6}
-          className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           Entrar
         </button>

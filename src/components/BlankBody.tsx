@@ -59,7 +59,7 @@ export default function BlankBody({
         })}
       </pre>
       {result && !result.passed && (
-        <p role="status" className="text-sm text-zinc-500">
+        <p role="status" className="text-sm text-zinc-500 dark:text-zinc-400">
           {result.correct.filter(Boolean).length} de {result.correct.length}{" "}
           lacunas corretas. Confira as marcadas em vermelho.
         </p>
@@ -67,7 +67,7 @@ export default function BlankBody({
       <button
         type="submit"
         disabled={disabled}
-        className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+        className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
       >
         Verificar respostas
       </button>

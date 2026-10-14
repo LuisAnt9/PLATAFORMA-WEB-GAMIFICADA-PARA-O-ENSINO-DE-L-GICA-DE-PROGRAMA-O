@@ -1,5 +1,6 @@
 "use client";
 
+import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { DIFFICULTY_LABEL, KIND_LABEL, exercisesOf } from "@/lib/catalog";
 import { badgesFor, earnedBadges } from "@/lib/gamification";
@@ -9,6 +10,7 @@ import { CatalogGate, useCatalog } from "./CatalogProvider";
 import { useBadgeContext } from "./useBadgeContext";
 
 function TrailContent() {
+  usePageTitle("Trilha");
   const progress = useProgress();
   const { catalog } = useCatalog();
   const badgeCtx = useBadgeContext();
@@ -28,9 +30,11 @@ function TrailContent() {
             <div className="mb-3 flex items-baseline justify-between">
               <div>
                 <h2 className="text-lg font-semibold">{m.title}</h2>
-                <p className="text-sm text-zinc-500">{m.focus}</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  {m.focus}
+                </p>
               </div>
-              <span className="text-sm text-zinc-500">
+              <span className="text-sm text-zinc-500 dark:text-zinc-400">
                 {done}/{visible.length}
               </span>
             </div>
@@ -45,7 +49,7 @@ function TrailContent() {
                     >
                       <div>
                         <div className="font-medium">{e.title}</div>
-                        <div className="text-xs text-zinc-500">
+                        <div className="text-xs text-zinc-500 dark:text-zinc-400">
                           {KIND_LABEL[e.kind]} ·{" "}
                           {DIFFICULTY_LABEL[e.difficulty]}
                           {!e.published &&
@@ -79,13 +83,15 @@ function TrailContent() {
               className={`rounded-lg border p-3 text-sm ${
                 earned.has(b.id)
                   ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950"
-                  : "border-zinc-200 opacity-60 dark:border-zinc-800"
+                  : "border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
               }`}
             >
               <div className="font-medium">
                 {earned.has(b.id) ? "🏅" : "🔒"} {b.name}
               </div>
-              <div className="text-zinc-500">{b.description}</div>
+              <div className="text-zinc-500 dark:text-zinc-400">
+                {b.description}
+              </div>
             </li>
           ))}
         </ul>

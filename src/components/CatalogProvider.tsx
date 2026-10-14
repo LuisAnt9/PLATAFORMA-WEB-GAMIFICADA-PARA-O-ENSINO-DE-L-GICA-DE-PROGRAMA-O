@@ -84,7 +84,7 @@ export function CatalogGate({ children }: { children: React.ReactNode }) {
   }
   if (loading) {
     return (
-      <p role="status" className="text-zinc-500">
+      <p role="status" className="text-zinc-500 dark:text-zinc-400">
         Carregando...
       </p>
     );

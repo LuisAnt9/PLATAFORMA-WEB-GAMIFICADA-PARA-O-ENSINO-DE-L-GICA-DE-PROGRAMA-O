@@ -83,7 +83,7 @@ async function newCtx(role){
   p.on("dialog",d=>d.accept());
   await p.goto(BASE+"/");
   await p.waitForSelector("text=Somar dois números",{timeout:10000});
-  ok("professor vê rascunho marcado na trilha", (await p.locator("main").innerText()).includes("rascunho"));
+  ok("professor vê rascunho marcado na trilha", (await p.locator("main").innerText()).toLowerCase().includes("rascunho"));
   await p.click("nav >> text=Professor");
   await p.waitForSelector("text=ADS 2026.1");
   ok("lista turmas com código e nº de alunos", (await p.locator("main").innerText()).includes("ABC234") && (await p.locator("main").innerText()).includes("2 alunos"));

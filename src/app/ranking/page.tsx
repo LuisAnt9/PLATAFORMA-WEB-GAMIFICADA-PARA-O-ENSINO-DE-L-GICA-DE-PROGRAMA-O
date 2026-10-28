@@ -44,7 +44,7 @@ export default function RankingPage() {
 
   return (
     <>
-      <h1 className="mb-1 text-2xl font-semibold">Ranking</h1>
+      <h1 className="mb-1 text-2xl font-semibold tracking-tight">Ranking</h1>
       <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Os 20 primeiros por XP. Os nomes aparecem abreviados para preservar a
         privacidade.
@@ -72,7 +72,7 @@ export default function RankingPage() {
       {rows && rows.length > 0 && (
         <ScrollRegion
           label="Ranking de alunos"
-          className="rounded-lg border border-zinc-200 dark:border-zinc-800"
+          className="rounded-2xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
         >
           <table className="w-full text-sm">
             <caption className="sr-only">Ranking de alunos por XP</caption>

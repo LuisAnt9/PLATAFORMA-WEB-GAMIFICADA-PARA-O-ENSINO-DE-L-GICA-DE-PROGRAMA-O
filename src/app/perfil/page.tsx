@@ -45,12 +45,15 @@ function PerfilContent() {
     setBusy(false);
   }
 
-  const card = "rounded-lg border border-zinc-200 p-4 dark:border-zinc-800";
+  const card =
+    "rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900";
 
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-semibold">{profile.name}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {profile.name}
+        </h1>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           {profile.role === "professor" ? "Professor" : "Aluno"}
         </p>
@@ -170,7 +173,7 @@ function PerfilContent() {
           {badgesFor(catalog).map((b) => (
             <li
               key={b.id}
-              className={`rounded-lg border p-3 text-sm ${
+              className={`rounded-2xl border p-4 text-sm ${
                 earned.has(b.id)
                   ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950"
                   : "border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
@@ -244,13 +247,13 @@ function PerfilContent() {
               required
               minLength={2}
               maxLength={80}
-              className="mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
+              className="mt-1 w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 dark:border-zinc-700 dark:bg-zinc-950"
             />
           </label>
           <button
             type="submit"
             disabled={busy || name.trim() === profile.name}
-            className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+            className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
           >
             Salvar
           </button>

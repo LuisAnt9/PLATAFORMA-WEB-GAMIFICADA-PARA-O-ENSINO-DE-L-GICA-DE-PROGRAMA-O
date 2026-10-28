@@ -5,7 +5,13 @@ import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
 import { getStreak, logActivity } from "@/lib/activity-store";
-import { nextExercise as findNext, type Exercise } from "@/lib/catalog";
+import {
+  DIFFICULTY_LABEL,
+  KIND_LABEL,
+  XP_BY_DIFFICULTY,
+  nextExercise as findNext,
+  type Exercise,
+} from "@/lib/catalog";
 import { earnedBadges, recordAttempt, totalXp } from "@/lib/gamification";
 import {
   blankView,
@@ -154,25 +160,50 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     <div className="space-y-4">
       <Link
         href="/"
-        className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+        className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
       >
-        ← Voltar à trilha
+        <span aria-hidden>←</span> Voltar à trilha
       </Link>
-      <h1 className="text-2xl font-semibold">
-        {exercise.title} {solved && "✅"}
-      </h1>
+
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {exercise.title}
+          {solved && (
+            <span role="img" aria-label="Resolvido">
+              {" "}
+              ✅
+            </span>
+          )}
+        </h1>
+        <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+          <span className="rounded-full bg-zinc-200 px-2.5 py-1 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+            {KIND_LABEL[exercise.kind]}
+          </span>
+          <span className="rounded-full bg-zinc-200 px-2.5 py-1 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+            {DIFFICULTY_LABEL[exercise.difficulty]}
+          </span>
+          <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
+            até {Math.round(XP_BY_DIFFICULTY[exercise.difficulty] * 1.5)} XP
+          </span>
+        </div>
+      </div>
 
       {exercise.lesson && (
         <aside
           aria-label="Antes de começar"
-          className="rounded-lg border-l-4 border-emerald-500 bg-emerald-50 p-4 text-sm dark:bg-emerald-950"
+          className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm dark:border-emerald-900 dark:bg-emerald-950"
         >
           <div className="mb-1 font-medium">Antes de começar</div>
           <p className="whitespace-pre-line">{exercise.lesson}</p>
         </aside>
       )}
 
-      <p className="whitespace-pre-line">{exercise.statement}</p>
+      <section
+        aria-label="Enunciado"
+        className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+      >
+        <p className="whitespace-pre-line">{exercise.statement}</p>
+      </section>
 
       {broken && (
         <p
@@ -191,7 +222,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             <button
               onClick={submitCode}
               disabled={busy}
-              className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+              className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
             >
               {busy ? "Executando..." : "Executar testes (Ctrl+Enter)"}
             </button>
@@ -329,7 +360,7 @@ function HintButton({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="rounded-lg border border-zinc-300 px-4 py-2 dark:border-zinc-700"
+      className="rounded-xl border border-zinc-300 bg-white px-5 py-2.5 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
     >
       Dica
     </button>

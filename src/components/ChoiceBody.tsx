@@ -32,16 +32,16 @@ export default function ChoiceBody({
           const chosen = selected === i;
           const state =
             chosen && result === true
-              ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950"
+              ? "border-emerald-500 !bg-emerald-50 dark:!bg-emerald-950"
               : chosen && result === false
-                ? "border-red-400 bg-red-50 dark:bg-red-950"
+                ? "border-red-400 !bg-red-50 dark:!bg-red-950"
                 : chosen
                   ? "border-emerald-500"
                   : "border-zinc-200 hover:border-zinc-400 dark:border-zinc-800 dark:hover:border-zinc-600";
           return (
             <label
               key={i}
-              className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 ${state}`}
+              className={`flex cursor-pointer items-start gap-3 rounded-xl border bg-white p-4 dark:bg-zinc-900 ${state}`}
             >
               <input
                 type="radio"
@@ -58,7 +58,7 @@ export default function ChoiceBody({
       <button
         type="submit"
         disabled={disabled || selected === null}
-        className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+        className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
       >
         Verificar resposta
       </button>

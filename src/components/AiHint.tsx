@@ -57,7 +57,7 @@ export default function AiHint({ exerciseId, getContext }: Props) {
         type="button"
         onClick={() => void ask()}
         disabled={busy}
-        className="rounded-lg border border-emerald-700 px-4 py-2 text-emerald-800 hover:bg-emerald-50 disabled:opacity-50 dark:border-emerald-500 dark:text-emerald-300 dark:hover:bg-emerald-950"
+        className="rounded-xl border border-emerald-700 bg-white px-5 py-2.5 text-emerald-800 hover:bg-emerald-50 disabled:opacity-50 dark:border-emerald-500 dark:bg-zinc-900 dark:text-emerald-300 dark:hover:bg-emerald-950"
       >
         {busy ? "Pensando..." : "✨ Dica com IA"}
       </button>

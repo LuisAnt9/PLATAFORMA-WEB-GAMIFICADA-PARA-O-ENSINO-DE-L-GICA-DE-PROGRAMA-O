@@ -36,14 +36,20 @@ export default function EntrarPage() {
   }
 
   const field =
-    "w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700";
+    "mt-1 w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 dark:border-zinc-700 dark:bg-zinc-950";
 
   return (
-    <div className="mx-auto max-w-sm">
-      <h1 className="mb-1 text-2xl font-semibold">
+    <div className="mx-auto mt-4 max-w-sm rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 sm:mt-10 sm:p-8">
+      <span
+        aria-hidden
+        className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-700 font-mono text-white"
+      >
+        {"</>"}
+      </span>
+      <h1 className="mb-1 text-2xl font-semibold tracking-tight">
         {mode === "entrar" ? "Entrar" : "Criar conta"}
       </h1>
-      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
         Plataforma de lógica de programação — IFPI Campus Picos.
       </p>
 
@@ -108,7 +114,7 @@ export default function EntrarPage() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+          className="w-full rounded-xl bg-emerald-700 px-4 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           {busy ? "Aguarde..." : mode === "entrar" ? "Entrar" : "Cadastrar"}
         </button>

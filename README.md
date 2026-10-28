@@ -45,6 +45,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 - Ranking anonimizado (nome abreviado) e página de perfil com estatísticas, medalhas e histórico.
 - Cadastro e login (Supabase Auth); progresso por usuário no Postgres com RLS (`supabase/migrations`).
 
+- **Dica com IA (Gemini)**: botão "✨ Dica com IA" em cada exercício. Rota `/api/dica` no servidor (a chave `GEMINI_API_KEY` nunca vai ao navegador), pista sem a resposta pronta, limite de 10 dicas por aluno por dia e histórico em `ai_hints` (migration 0008) para a avaliação.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

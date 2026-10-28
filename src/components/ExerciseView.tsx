@@ -1,5 +1,6 @@
 "use client";
 
+import type { HintContext } from "@/lib/ai-hint";
 import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,6 +20,7 @@ import { useAuth } from "./AuthProvider";
 import BlankBody from "./BlankBody";
 import { useCatalog } from "./CatalogProvider";
 import ChoiceBody from "./ChoiceBody";
+import AiHint from "./AiHint";
 import CodeEditor from "./CodeEditor";
 
 const show = (v: unknown) =>
@@ -115,6 +117,39 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     setBusy(false);
   }
 
+  /** O que o aluno tem na tela agora, para a dica com IA. */
+  function hintContext(): HintContext {
+    if (exercise.kind === "code") {
+      const failed = codeResult?.fatal
+        ? codeResult.fatal
+        : (codeResult?.tests ?? [])
+            .filter((t) => !t.passed)
+            .map(
+              (t) =>
+                `${exercise.functionName}(${t.args.map(show).join(", ")}) → ` +
+                (t.error
+                  ? `erro: ${t.error}`
+                  : `esperado ${show(t.expected)}, recebido ${show(t.received)}`),
+            )
+            .join("\n");
+      return { code, attempt: failed || undefined };
+    }
+    if (exercise.kind === "choice") {
+      const opt = selected === null ? undefined : choice?.options[selected];
+      return {
+        attempt: opt
+          ? `Marcou: ${opt} (${choiceResult === false ? "errada" : "ainda não conferida"})`
+          : undefined,
+      };
+    }
+    const filled = answers.filter(Boolean);
+    return {
+      attempt: filled.length
+        ? `Lacunas preenchidas: ${answers.map((a, i) => `${i + 1}=${a || "(vazia)"}`).join(", ")}`
+        : undefined,
+    };
+  }
+
   return (
     <div className="space-y-4">
       <Link
@@ -208,6 +243,8 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
           💡 {exercise.hint}
         </p>
       )}
+
+      {!broken && <AiHint exerciseId={exercise.id} getContext={hintContext} />}
 
       <div aria-live="polite" className="space-y-2">
         {codeResult &&

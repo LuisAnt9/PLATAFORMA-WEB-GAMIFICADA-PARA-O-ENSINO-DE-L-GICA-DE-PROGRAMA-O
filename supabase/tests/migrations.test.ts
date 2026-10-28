@@ -598,8 +598,68 @@ describe("0007: ping para manter o projeto ativo", () => {
       "classes",
       "class_members",
       "daily_activity",
+      "ai_hints",
     ]) {
       expect((await as(null, `select * from public.${t}`)).ok, t).toBe(false);
     }
+  });
+});
+
+describe("0008: dicas com IA (cota diária)", () => {
+  const use = (uid: string | null, limit = 3) =>
+    as(uid, `select * from public.use_ai_hint('soma-dois', ${limit})`);
+  let exId: string;
+  beforeAll(async () => {
+    exId = (
+      await db.query<{ id: string }>(
+        "select id from public.exercises where published limit 1",
+      )
+    ).rows[0].id;
+  });
+  const use2 = (uid: string | null, limit = 3) =>
+    as(uid, `select * from public.use_ai_hint('${exId}', ${limit})`);
+
+  it("visitante não consegue usar", async () => {
+    expect((await use2(null)).ok).toBe(false);
+  });
+  it("conta as dicas e barra no limite, por aluno", async () => {
+    const r1 = await use2(ana);
+    expect(r1.rows[0].remaining).toBe(2);
+    expect((await use2(ana)).rows[0].remaining).toBe(1);
+    expect((await use2(ana)).rows[0].remaining).toBe(0);
+    const over = await use2(ana);
+    expect(over.ok).toBe(false);
+    expect(over.error).toContain("LIMITE_DIARIO");
+    expect((await use2(bia)).ok).toBe(true); // o limite é individual
+  });
+  it("exercício inexistente é recusado", async () => {
+    expect((await use("ana-x" as never)).ok).toBe(false);
+  });
+  it("estorno devolve a dica só do próprio aluno", async () => {
+    const id = (await use2(caio)).rows[0].hint_id;
+    await as(bia, `select public.refund_ai_hint(${id})`); // outro aluno: não apaga
+    expect(
+      (await as(caio, "select count(*)::int as n from public.ai_hints")).rows[0]
+        .n,
+    ).toBe(1);
+    await as(caio, `select public.refund_ai_hint(${id})`);
+    expect(
+      (await as(caio, "select count(*)::int as n from public.ai_hints")).rows[0]
+        .n,
+    ).toBe(0);
+  });
+  it("aluno não lê nem escreve o uso de outros; não insere direto", async () => {
+    expect(
+      (await as(bia, "select count(*)::int as n from public.ai_hints")).rows[0]
+        .n,
+    ).toBe(1); // só a dele
+    expect(
+      (
+        await as(
+          bia,
+          `insert into public.ai_hints (user_id, exercise_id) values ('${bia}', '${exId}')`,
+        )
+      ).ok,
+    ).toBe(false);
   });
 });

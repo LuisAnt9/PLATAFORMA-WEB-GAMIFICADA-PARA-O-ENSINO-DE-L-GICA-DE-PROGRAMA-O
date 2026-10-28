@@ -22,7 +22,7 @@ describe("setup-completo.sql", () => {
     const r = await db.query<{ m: number; e: number; t: number }>(
       "select (select count(*) from public.modules)::int as m, (select count(*) from public.exercises)::int as e, (select count(*) from pg_tables where schemaname = 'public')::int as t",
     );
-    expect(r.rows[0]).toEqual({ m: 7, e: 53, t: 7 }); // 7 módulos, 53 exercícios, 7 tabelas
+    expect(r.rows[0]).toEqual({ m: 7, e: 53, t: 8 }); // 7 módulos, 53 exercícios, 8 tabelas
   }, 60_000);
 
   it("falha por inteiro (nada fica pela metade) se um trecho der erro", async () => {

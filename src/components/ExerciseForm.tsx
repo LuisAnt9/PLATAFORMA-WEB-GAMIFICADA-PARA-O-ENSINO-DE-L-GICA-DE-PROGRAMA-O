@@ -28,7 +28,7 @@ import { useCatalog } from "./CatalogProvider";
 import CodeEditor from "./CodeEditor";
 
 const input =
-  "mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700";
+  "mt-1 w-full rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 dark:border-zinc-700";
 const mono = "font-mono text-sm";
 const show = (v: unknown) =>
   v === undefined ? "undefined" : JSON.stringify(v);
@@ -184,11 +184,11 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
     <div className="space-y-8">
       <Link
         href="/professor/exercicios"
-        className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+        className="text-sm text-zinc-600 dark:text-zinc-400 hover:underline"
       >
         ← Exercícios
       </Link>
-      <h1 className="text-2xl font-semibold">
+      <h1 className="text-2xl font-semibold tracking-tight">
         {existing ? "Editar exercício" : "Novo exercício"}
       </h1>
 
@@ -209,14 +209,14 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 onChange={() => set("kind", k)}
               />
               <span className="font-medium">{KIND_LABEL[k]}</span>
-              <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
+              <span className="mt-1 block text-xs text-zinc-600 dark:text-zinc-400">
                 {KIND_HELP[k]}
               </span>
             </label>
           ))}
         </div>
         {existing && (
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+          <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
             O tipo não pode ser mudado depois de criado.
           </p>
         )}
@@ -262,7 +262,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
         </label>
         <label className="text-sm sm:col-span-2">
           Antes de começar (opcional)
-          <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="block text-xs text-zinc-600 dark:text-zinc-400">
             Uma mini-explicação curta do conceito, mostrada acima do enunciado.
           </span>
           <textarea
@@ -295,7 +295,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
       {draft.kind === "choice" && (
         <section>
           <h2 className="mb-1 text-lg font-semibold">Alternativas</h2>
-          <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
             Marque a correta. As respostas ficam legíveis para os alunos, pois a
             correção roda no navegador.
           </p>
@@ -313,7 +313,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 <input
                   aria-label={`Texto da alternativa ${i + 1}`}
                   placeholder={`Alternativa ${i + 1}`}
-                  className="min-w-0 flex-1 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
+                  className="min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 dark:border-zinc-700"
                   value={o}
                   onChange={(e) => setOption(i, e.target.value)}
                 />
@@ -322,7 +322,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                   aria-label={`Remover alternativa ${i + 1}`}
                   disabled={draft.options.length <= 2}
                   onClick={() => removeOption(i)}
-                  className="px-2 text-zinc-500 dark:text-zinc-400 hover:text-red-700 disabled:opacity-30"
+                  className="px-2 text-zinc-600 dark:text-zinc-400 hover:text-red-700 disabled:opacity-30"
                 >
                   ✕
                 </button>
@@ -346,7 +346,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
         <section className="space-y-4">
           <div>
             <h2 className="mb-1 text-lg font-semibold">Modelo com lacunas</h2>
-            <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-400">
               Escreva o trecho de código e marque cada lacuna com{" "}
               <code>{"{{1}}"}</code>, <code>{"{{2}}"}</code>... (numeradas em
               sequência).
@@ -366,7 +366,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
           {blankCount > 0 && (
             <div>
               <h3 className="mb-1 font-medium">Respostas aceitas</h3>
-              <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-400">
                 Uma resposta por linha (por exemplo, <code>++</code> e{" "}
                 <code>+= 1</code>). Maiúsculas e minúsculas contam; espaços
                 extras não.
@@ -388,7 +388,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
           )}
           {draft.template.trim() && (
             <div className="text-sm">
-              <div className="text-zinc-500 dark:text-zinc-400">
+              <div className="text-zinc-600 dark:text-zinc-400">
                 Como o aluno verá
               </div>
               <pre className="mt-1 overflow-x-auto whitespace-pre-wrap rounded-lg bg-zinc-100 p-3 text-xs leading-6 dark:bg-zinc-900">
@@ -413,7 +413,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
       {draft.kind !== "code" && (
         <label className="block text-sm">
           Explicação ao acertar (opcional)
-          <span className="block text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="block text-xs text-zinc-600 dark:text-zinc-400">
             Mostrada ao aluno depois que ele acerta.
           </span>
           <textarea
@@ -453,7 +453,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
             </label>
             {draft.functionName.trim() && fnOk && (
               <div className="text-sm sm:col-span-2">
-                <div className="text-zinc-500 dark:text-zinc-400">
+                <div className="text-zinc-600 dark:text-zinc-400">
                   Código inicial que o aluno verá
                 </div>
                 <pre className="mt-1 overflow-x-auto rounded-lg bg-zinc-100 p-3 font-mono text-xs dark:bg-zinc-900">
@@ -465,7 +465,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
 
           <section>
             <h2 className="mb-1 text-lg font-semibold">Casos de teste</h2>
-            <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
               Escreva em JSON. Entradas: <code>2, 3</code> ou{" "}
               <code>[1, 2, 3]</code> ou <code>&quot;abc&quot;</code>. Esperado:{" "}
               <code>5</code>, <code>&quot;par&quot;</code>, <code>true</code> ou{" "}
@@ -479,13 +479,13 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 return (
                   <li key={i}>
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="w-6 text-sm text-zinc-500 dark:text-zinc-400">
+                      <span className="w-6 text-sm text-zinc-600 dark:text-zinc-400">
                         {i + 1}.
                       </span>
                       <input
                         aria-label={`Entradas do teste ${i + 1}`}
                         placeholder="entradas: 2, 3"
-                        className={`min-w-0 flex-1 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 ${mono} dark:border-zinc-700`}
+                        className={`min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 ${mono} dark:border-zinc-700`}
                         value={t.args}
                         onChange={(e) => setTest(i, "args", e.target.value)}
                       />
@@ -493,7 +493,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                       <input
                         aria-label={`Resultado esperado do teste ${i + 1}`}
                         placeholder="esperado: 5"
-                        className={`min-w-0 flex-1 rounded-lg border border-zinc-300 bg-transparent px-3 py-2 ${mono} dark:border-zinc-700`}
+                        className={`min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 ${mono} dark:border-zinc-700`}
                         value={t.expected}
                         onChange={(e) => setTest(i, "expected", e.target.value)}
                       />
@@ -507,7 +507,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                             tests: d.tests.filter((_, j) => j !== i),
                           }))
                         }
-                        className="px-2 text-zinc-500 dark:text-zinc-400 hover:text-red-700 disabled:opacity-30"
+                        className="px-2 text-zinc-600 dark:text-zinc-400 hover:text-red-700 disabled:opacity-30"
                       >
                         ✕
                       </button>
@@ -543,7 +543,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
             <h2 className="mb-1 text-lg font-semibold">
               Solução de referência
             </h2>
-            <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
               Escreva uma solução correta para conferir se os testes estão
               certos. Ela é usada só aqui e <strong>não é salva</strong>, então
               os alunos nunca a veem. É obrigatória para publicar.
@@ -559,7 +559,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 type="button"
                 onClick={() => void validate()}
                 disabled={running}
-                className="rounded-lg border border-emerald-600 px-4 py-2 font-medium text-emerald-700 hover:bg-emerald-50 disabled:opacity-50 dark:text-emerald-400 dark:hover:bg-emerald-950"
+                className="rounded-xl border border-emerald-600 bg-white dark:bg-zinc-900 px-5 py-2.5 font-medium text-emerald-700 hover:bg-emerald-50 disabled:opacity-50 dark:text-emerald-400 dark:hover:bg-emerald-950"
               >
                 {running ? "Executando..." : "Validar testes (Ctrl+Enter)"}
               </button>
@@ -572,7 +572,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 !canPublish &&
                 validatedSnapshot === null &&
                 !running && (
-                  <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <span className="text-sm text-zinc-600 dark:text-zinc-400">
                     Validação desatualizada ou com falhas.
                   </span>
                 )}
@@ -635,7 +635,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
               ? "Valide os testes com uma solução de referência para publicar"
               : ""
           }
-          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+          className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           Salvar e publicar
         </button>
@@ -643,12 +643,12 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
           type="button"
           onClick={() => void save(false)}
           disabled={saving}
-          className="rounded-lg border border-zinc-300 px-4 py-2 disabled:opacity-50 dark:border-zinc-700"
+          className="rounded-xl border border-zinc-300 bg-white dark:bg-zinc-900 px-5 py-2.5 disabled:opacity-50 dark:border-zinc-700"
         >
           Salvar como rascunho
         </button>
         {existing?.published && (
-          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="text-xs text-zinc-600 dark:text-zinc-400">
             Salvar como rascunho tira o exercício da trilha dos alunos.
           </span>
         )}

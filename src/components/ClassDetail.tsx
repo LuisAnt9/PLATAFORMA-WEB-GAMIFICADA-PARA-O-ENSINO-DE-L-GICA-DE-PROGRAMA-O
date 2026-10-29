@@ -36,7 +36,8 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
-const card = "rounded-lg border border-zinc-200 p-4 dark:border-zinc-800";
+const card =
+  "rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 p-4 dark:border-zinc-800";
 const pct = (v: number | null) =>
   v === null ? "—" : `${Math.round(v * 100)}%`;
 const num = (v: number | null) =>
@@ -96,7 +97,7 @@ function Content({ id }: { id: string }) {
     );
   if (!loaded || !analytics) {
     if (loaded && !loaded.info) return <NotFound />;
-    return <p className="text-zinc-500 dark:text-zinc-400">Carregando...</p>;
+    return <p className="text-zinc-600 dark:text-zinc-400">Carregando...</p>;
   }
   if (!loaded.info) return <NotFound />;
 
@@ -161,20 +162,20 @@ function Content({ id }: { id: string }) {
     <div className="space-y-6">
       <Link
         href="/professor"
-        className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+        className="text-sm text-zinc-600 dark:text-zinc-400 hover:underline"
       >
         ← Minhas turmas
       </Link>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold">{cls.name}</h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-2xl font-semibold tracking-tight">{cls.name}</h1>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
             {summaries.length} {summaries.length === 1 ? "aluno" : "alunos"} ·{" "}
             {published.length} exercícios publicados
           </p>
         </div>
         <div className="text-right">
-          <div className="text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="text-xs text-zinc-600 dark:text-zinc-400">
             Código de entrada
           </div>
           <div className="flex items-center gap-2">
@@ -194,7 +195,7 @@ function Content({ id }: { id: string }) {
       <div
         role="tablist"
         aria-label="Seções da turma"
-        className="flex gap-4 overflow-x-auto border-b border-zinc-200 text-sm dark:border-zinc-800"
+        className="flex gap-1 overflow-x-auto rounded-xl bg-zinc-200/60 p-1 text-sm dark:bg-zinc-800/60"
       >
         {TABS.map((t) => (
           <button
@@ -204,10 +205,10 @@ function Content({ id }: { id: string }) {
             aria-selected={tab === t.id}
             aria-controls={`painel-${t.id}`}
             onClick={() => setTab(t.id)}
-            className={`-mb-px whitespace-nowrap border-b-2 px-1 pb-2 ${
+            className={`whitespace-nowrap rounded-lg px-3 py-1.5 ${
               tab === t.id
-                ? "border-emerald-600 font-medium text-emerald-700 dark:text-emerald-400"
-                : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-foreground"
+                ? "bg-white font-medium text-emerald-900 shadow-sm dark:bg-zinc-950 dark:text-emerald-300"
+                : "text-zinc-700 hover:text-foreground dark:text-zinc-300"
             }`}
           >
             {t.label}
@@ -223,7 +224,7 @@ function Content({ id }: { id: string }) {
           className="space-y-8"
         >
           {summaries.length === 0 ? (
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Nenhum aluno entrou ainda. Passe o código acima para a turma.
             </p>
           ) : (
@@ -233,36 +234,38 @@ function Content({ id }: { id: string }) {
                 className="grid grid-cols-2 gap-3 sm:grid-cols-4"
               >
                 <div className={card}>
-                  <div className="text-2xl font-semibold">
+                  <div className="text-2xl font-semibold tracking-tight">
                     {overview.students}
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="text-xs text-zinc-600 dark:text-zinc-400">
                     alunos na turma
                   </div>
                 </div>
                 <div className={card}>
-                  <div className="text-2xl font-semibold">
+                  <div className="text-2xl font-semibold tracking-tight">
                     {overview.activeRecently}
-                    <span className="text-base font-normal text-zinc-500 dark:text-zinc-400">
+                    <span className="text-base font-normal text-zinc-600 dark:text-zinc-400">
                       {" "}
                       de {overview.students}
                     </span>
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="text-xs text-zinc-600 dark:text-zinc-400">
                     ativos nos últimos 7 dias
                   </div>
                 </div>
                 <div className={card}>
-                  <div className="text-2xl font-semibold">
+                  <div className="text-2xl font-semibold tracking-tight">
                     {pct(overview.avgCompletion)}
                   </div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="text-xs text-zinc-600 dark:text-zinc-400">
                     da trilha concluída (média)
                   </div>
                 </div>
                 <div className={card}>
-                  <div className="text-2xl font-semibold">{overview.avgXp}</div>
-                  <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                  <div className="text-2xl font-semibold tracking-tight">
+                    {overview.avgXp}
+                  </div>
+                  <div className="text-xs text-zinc-600 dark:text-zinc-400">
                     XP médio
                   </div>
                 </div>
@@ -273,19 +276,19 @@ function Content({ id }: { id: string }) {
                   Precisam de atenção
                 </h2>
                 {alerts.length === 0 ? (
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
                     Nenhum aluno em alerta agora: todos têm atividade recente e
                     ninguém está travado.
                   </p>
                 ) : (
-                  <ul className="divide-y divide-zinc-200 rounded-lg border border-amber-300 dark:divide-zinc-800 dark:border-amber-700">
+                  <ul className="divide-y divide-zinc-200 rounded-2xl border border-amber-300 bg-white shadow-sm dark:bg-zinc-900 dark:divide-zinc-800 dark:border-amber-700">
                     {alerts.map((a) => (
                       <li
                         key={a.studentId}
                         className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-2 text-sm"
                       >
                         <span className="font-medium">⚠ {a.name}</span>
-                        <span className="text-zinc-500 dark:text-zinc-400">
+                        <span className="text-zinc-600 dark:text-zinc-400">
                           {a.reasons.join(" · ")}
                         </span>
                       </li>
@@ -313,7 +316,7 @@ function Content({ id }: { id: string }) {
           className="space-y-8"
         >
           {summaries.length === 0 ? (
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Nenhum aluno entrou ainda. Passe o código acima para a turma.
             </p>
           ) : (
@@ -322,13 +325,13 @@ function Content({ id }: { id: string }) {
                 <h2 className="mb-3 text-lg font-semibold">Alunos</h2>
                 <ScrollRegion
                   label="Alunos da turma"
-                  className="rounded-lg border border-zinc-200 dark:border-zinc-800"
+                  className="rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 dark:border-zinc-800"
                 >
                   <table className="w-full text-sm">
                     <caption className="sr-only">
                       Desempenho dos alunos da turma
                     </caption>
-                    <thead className="bg-zinc-50 text-left text-zinc-500 dark:text-zinc-400 dark:bg-zinc-900">
+                    <thead className="bg-zinc-50 text-left text-zinc-600 dark:text-zinc-400 dark:bg-zinc-900">
                       <tr>
                         <th scope="col" className="px-4 py-2">
                           Aluno
@@ -366,7 +369,7 @@ function Content({ id }: { id: string }) {
                             <td className="px-4 py-2 text-right">
                               {s.attempts}
                             </td>
-                            <td className="px-4 py-2 text-zinc-500 dark:text-zinc-400">
+                            <td className="px-4 py-2 text-zinc-600 dark:text-zinc-400">
                               {d === null
                                 ? "nunca"
                                 : d === 0
@@ -376,7 +379,7 @@ function Content({ id }: { id: string }) {
                             <td className="px-4 py-2 text-right">
                               <button
                                 onClick={() => void remove(s.id, s.name)}
-                                className="text-zinc-500 dark:text-zinc-400 hover:underline"
+                                className="text-zinc-600 dark:text-zinc-400 hover:underline"
                               >
                                 Remover
                               </button>
@@ -407,7 +410,7 @@ function Content({ id }: { id: string }) {
           className="space-y-8"
         >
           {summaries.length === 0 ? (
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Nenhum aluno entrou ainda. Passe o código acima para a turma.
             </p>
           ) : (
@@ -416,27 +419,27 @@ function Content({ id }: { id: string }) {
                 <h2 className="mb-1 text-lg font-semibold">
                   Onde a turma mais tem dificuldade
                 </h2>
-                <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
                   Ordenado pela menor taxa de acerto entre quem tentou.
                 </p>
                 {hardest.length === 0 ? (
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400">
                     Ninguém tentou exercícios ainda.
                   </p>
                 ) : (
-                  <ol className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 text-sm dark:divide-zinc-800 dark:border-zinc-800">
+                  <ol className="divide-y divide-zinc-200 rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 text-sm dark:divide-zinc-800 dark:border-zinc-800">
                     {hardest.map((s, i) => (
                       <li
                         key={s.exercise.id}
                         className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-2"
                       >
-                        <span className="w-5 text-zinc-500 dark:text-zinc-400 tabular-nums">
+                        <span className="w-5 text-zinc-600 dark:text-zinc-400 tabular-nums">
                           {i + 1}.
                         </span>
                         <span className="min-w-40 flex-1 font-medium">
                           {s.exercise.title}
                         </span>
-                        <span className="text-zinc-500 dark:text-zinc-400">
+                        <span className="text-zinc-600 dark:text-zinc-400">
                           {s.solved} de {s.attempted} acertaram (
                           {pct(s.solveRate)})
                           {s.stuck > 0 &&
@@ -453,13 +456,13 @@ function Content({ id }: { id: string }) {
                 </h2>
                 <ScrollRegion
                   label="Estatísticas por exercício"
-                  className="rounded-lg border border-zinc-200 dark:border-zinc-800"
+                  className="rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 dark:border-zinc-800"
                 >
                   <table className="w-full text-sm">
                     <caption className="sr-only">
                       Estatísticas por exercício
                     </caption>
-                    <thead className="bg-zinc-50 text-left text-zinc-500 dark:text-zinc-400 dark:bg-zinc-900">
+                    <thead className="bg-zinc-50 text-left text-zinc-600 dark:text-zinc-400 dark:bg-zinc-900">
                       <tr>
                         <th scope="col" className="px-4 py-2">
                           Exercício
@@ -498,7 +501,7 @@ function Content({ id }: { id: string }) {
                           </td>
                           <td className="px-4 py-2 text-right tabular-nums">
                             {s.solved}{" "}
-                            <span className="text-zinc-500 dark:text-zinc-400">
+                            <span className="text-zinc-600 dark:text-zinc-400">
                               ({pct(s.solveRate)})
                             </span>
                           </td>
@@ -509,7 +512,7 @@ function Content({ id }: { id: string }) {
                             {pct(s.firstTryRate)}
                           </td>
                           <td
-                            className={`px-4 py-2 text-right tabular-nums ${s.stuck > 0 ? "font-medium" : "text-zinc-500 dark:text-zinc-400"}`}
+                            className={`px-4 py-2 text-right tabular-nums ${s.stuck > 0 ? "font-medium" : "text-zinc-600 dark:text-zinc-400"}`}
                           >
                             {s.stuck}
                           </td>
@@ -539,13 +542,13 @@ function Content({ id }: { id: string }) {
                 required
                 minLength={2}
                 maxLength={80}
-                className="mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
+                className="mt-1 w-full rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 dark:border-zinc-700"
               />
             </label>
             <button
               type="submit"
               disabled={name.trim() === cls.name}
-              className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+              className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
             >
               Salvar
             </button>

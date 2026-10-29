@@ -52,7 +52,7 @@ function ModuleForm({
   }
 
   const field =
-    "mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm dark:border-zinc-700";
+    "mt-1 w-full rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 text-sm dark:border-zinc-700";
   return (
     <form onSubmit={submit} className="flex flex-wrap items-end gap-3">
       <label className="min-w-40 flex-1 text-sm">
@@ -78,7 +78,7 @@ function ModuleForm({
       <button
         type="submit"
         disabled={busy}
-        className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+        className="rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
       >
         {submitLabel}
       </button>
@@ -86,7 +86,7 @@ function ModuleForm({
         <button
           type="button"
           onClick={onCancel}
-          className="px-2 py-2 text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+          className="px-2 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:underline"
         >
           Cancelar
         </button>
@@ -160,15 +160,15 @@ function Content() {
     <>
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">Exercícios</h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-2xl font-semibold tracking-tight">Exercícios</h1>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
             {catalog.exercises.length} exercícios em {modules.length} módulos.
             Só os publicados aparecem para os alunos.
           </p>
         </div>
         <Link
           href="/professor/exercicios/novo"
-          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800"
+          className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800"
         >
           Novo exercício
         </Link>
@@ -189,7 +189,7 @@ function Content() {
           return (
             <section key={m.id}>
               {editing === m.id ? (
-                <div className="mb-3 rounded-lg border border-zinc-200 p-3 dark:border-zinc-800">
+                <div className="mb-3 rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 p-4 dark:border-zinc-800">
                   <ModuleForm
                     initial={{ title: m.title, focus: m.focus }}
                     submitLabel="Salvar módulo"
@@ -201,24 +201,24 @@ function Content() {
                 <div className="mb-2 flex items-baseline justify-between gap-3">
                   <div>
                     <h2 className="text-lg font-semibold">{m.title}</h2>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
                       {m.focus || "Sem descrição"}
                     </p>
                   </div>
                   <button
                     onClick={() => setEditing(m.id)}
-                    className="text-sm text-zinc-500 dark:text-zinc-400 hover:underline"
+                    className="text-sm text-zinc-600 dark:text-zinc-400 hover:underline"
                   >
                     Editar módulo
                   </button>
                 </div>
               )}
               {list.length === 0 ? (
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400">
                   Nenhum exercício neste módulo.
                 </p>
               ) : (
-                <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+                <ul className="divide-y divide-zinc-200 rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 dark:divide-zinc-800 dark:border-zinc-800">
                   {list.map((e, i) => (
                     <li
                       key={e.id}
@@ -229,7 +229,7 @@ function Content() {
                           aria-label={`Subir ${e.title}`}
                           disabled={i === 0}
                           onClick={() => void move(list, i, -1)}
-                          className="text-xs leading-none text-zinc-500 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
+                          className="text-xs leading-none text-zinc-600 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
                         >
                           ▲
                         </button>
@@ -237,14 +237,14 @@ function Content() {
                           aria-label={`Descer ${e.title}`}
                           disabled={i === list.length - 1}
                           onClick={() => void move(list, i, 1)}
-                          className="text-xs leading-none text-zinc-500 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
+                          className="text-xs leading-none text-zinc-600 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
                         >
                           ▼
                         </button>
                       </div>
                       <div className="min-w-40 flex-1">
                         <div className="font-medium">{e.title}</div>
-                        <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                        <div className="text-xs text-zinc-600 dark:text-zinc-400">
                           {KIND_LABEL[e.kind]} ·{" "}
                           {DIFFICULTY_LABEL[e.difficulty]}
                           {e.kind === "code" &&
@@ -261,7 +261,7 @@ function Content() {
                         </Link>
                         <Link
                           href={`/exercicio/${e.id}`}
-                          className="text-zinc-500 dark:text-zinc-400 hover:underline"
+                          className="text-zinc-600 dark:text-zinc-400 hover:underline"
                         >
                           Ver como aluno
                         </Link>
@@ -270,7 +270,7 @@ function Content() {
                             onClick={() =>
                               void run(() => setPublished(e.id, false))
                             }
-                            className="text-zinc-500 dark:text-zinc-400 hover:underline"
+                            className="text-zinc-600 dark:text-zinc-400 hover:underline"
                           >
                             Despublicar
                           </button>

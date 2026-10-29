@@ -55,13 +55,13 @@ export default function MyClasses() {
   return (
     <section>
       <h2 className="mb-1 text-lg font-semibold">Minhas turmas</h2>
-      <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
         Ao entrar em uma turma, o professor passa a acompanhar seu progresso nos
         exercícios.
       </p>
 
       {classes === null && !error && (
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
           Carregando...
         </p>
       )}
@@ -71,12 +71,12 @@ export default function MyClasses() {
         </p>
       )}
       {classes && classes.length === 0 && (
-        <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
           Você ainda não está em nenhuma turma.
         </p>
       )}
       {classes && classes.length > 0 && (
-        <ul className="mb-4 divide-y divide-zinc-200 rounded-lg border border-zinc-200 text-sm dark:divide-zinc-800 dark:border-zinc-800">
+        <ul className="mb-4 divide-y divide-zinc-200 rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 text-sm dark:divide-zinc-800 dark:border-zinc-800">
           {classes.map((c) => (
             <li
               key={c.id}
@@ -85,7 +85,7 @@ export default function MyClasses() {
               <span>{c.name}</span>
               <button
                 onClick={() => void leave(c)}
-                className="text-zinc-500 dark:text-zinc-400 hover:underline"
+                className="text-zinc-600 dark:text-zinc-400 hover:underline"
               >
                 Sair da turma
               </button>
@@ -106,13 +106,13 @@ export default function MyClasses() {
             placeholder="ABC234"
             autoCapitalize="characters"
             autoComplete="off"
-            className="mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 font-mono uppercase tracking-widest dark:border-zinc-700"
+            className="mt-1 w-full rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 font-mono uppercase tracking-widest dark:border-zinc-700"
           />
         </label>
         <button
           type="submit"
           disabled={busy || code.trim().length !== 6}
-          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+          className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           Entrar
         </button>

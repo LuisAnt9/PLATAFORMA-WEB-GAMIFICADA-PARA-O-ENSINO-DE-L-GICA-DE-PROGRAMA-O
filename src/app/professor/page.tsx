@@ -38,8 +38,10 @@ function Classes() {
 
   return (
     <>
-      <h1 className="mb-1 text-2xl font-semibold">Minhas turmas</h1>
-      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+      <h1 className="mb-1 text-2xl font-semibold tracking-tight">
+        Minhas turmas
+      </h1>
+      <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
         Crie uma turma e passe o código aos alunos. Eles entram pela página{" "}
         <strong>Perfil</strong>.
       </p>
@@ -57,13 +59,13 @@ function Classes() {
             minLength={2}
             maxLength={80}
             placeholder="Ex.: Lógica de Programação — 2026.2"
-            className="mt-1 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 dark:border-zinc-700"
+            className="mt-1 w-full rounded-xl border border-zinc-300 bg-white dark:bg-zinc-950 px-3 py-2 dark:border-zinc-700"
           />
         </label>
         <button
           type="submit"
           disabled={busy}
-          className="rounded-lg bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
+          className="rounded-xl bg-emerald-700 px-5 py-2.5 font-medium text-white hover:bg-emerald-800 disabled:opacity-50"
         >
           Criar turma
         </button>
@@ -78,10 +80,10 @@ function Classes() {
         </p>
       )}
       {classes === null && (
-        <p className="text-zinc-500 dark:text-zinc-400">Carregando...</p>
+        <p className="text-zinc-600 dark:text-zinc-400">Carregando...</p>
       )}
       {classes && classes.length === 0 && (
-        <p className="text-zinc-500 dark:text-zinc-400">
+        <p className="text-zinc-600 dark:text-zinc-400">
           Você ainda não criou nenhuma turma.
         </p>
       )}
@@ -94,10 +96,10 @@ function Classes() {
                 className="block rounded-lg border border-zinc-200 p-4 hover:border-emerald-500 dark:border-zinc-800"
               >
                 <div className="font-medium">{c.name}</div>
-                <div className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                   {c.members} {c.members === 1 ? "aluno" : "alunos"}
                 </div>
-                <div className="mt-3 text-xs text-zinc-500 dark:text-zinc-400">
+                <div className="mt-3 text-xs text-zinc-600 dark:text-zinc-400">
                   Código de entrada
                 </div>
                 <div className="font-mono text-xl tracking-widest">

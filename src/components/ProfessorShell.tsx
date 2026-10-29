@@ -17,10 +17,7 @@ export default function ProfessorShell({
   const pathname = usePathname();
   return (
     <ProfessorOnly>
-      <nav
-        aria-label="Área do professor"
-        className="mb-6 flex gap-4 border-b border-zinc-200 text-sm dark:border-zinc-800"
-      >
+      <nav aria-label="Área do professor" className="mb-6 flex gap-1 text-sm">
         {TABS.map((t) => {
           const active =
             t.href === "/professor"
@@ -32,10 +29,10 @@ export default function ProfessorShell({
               key={t.href}
               href={t.href}
               aria-current={active ? "page" : undefined}
-              className={`-mb-px border-b-2 px-1 pb-2 ${
+              className={`rounded-lg px-3 py-1.5 ${
                 active
-                  ? "border-emerald-600 font-medium text-emerald-700 dark:text-emerald-400"
-                  : "border-transparent text-zinc-500 dark:text-zinc-400 hover:text-foreground"
+                  ? "bg-emerald-100 font-medium text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200"
+                  : "text-zinc-600 hover:bg-zinc-100 hover:text-foreground dark:text-zinc-400 dark:hover:bg-zinc-800"
               }`}
             >
               {t.label}

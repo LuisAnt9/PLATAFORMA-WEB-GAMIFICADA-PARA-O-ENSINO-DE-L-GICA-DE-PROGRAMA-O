@@ -52,7 +52,7 @@ export default function AiHint({ exerciseId, getContext }: Props) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="contents">
       <button
         type="button"
         onClick={() => void ask()}
@@ -61,7 +61,10 @@ export default function AiHint({ exerciseId, getContext }: Props) {
       >
         {busy ? "Pensando..." : "✨ Dica com IA"}
       </button>
-      <div aria-live="polite" className="space-y-2">
+      <div
+        aria-live="polite"
+        className="w-full basis-full space-y-2 empty:hidden"
+      >
         {hint && (
           <div className="rounded-lg bg-sky-50 p-3 text-sm dark:bg-sky-950">
             <p className="whitespace-pre-line">✨ {hint}</p>

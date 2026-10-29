@@ -218,7 +218,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
       {exercise.kind === "code" && (
         <>
           <CodeEditor value={code} onChange={setCode} onRun={submitCode} />
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={submitCode}
               disabled={busy}
@@ -227,6 +227,9 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
               {busy ? "Executando..." : "Executar testes (Ctrl+Enter)"}
             </button>
             <HintButton onClick={() => setShowHint((v) => !v)} />
+            {!broken && (
+              <AiHint exerciseId={exercise.id} getContext={hintContext} />
+            )}
           </div>
         </>
       )}
@@ -244,7 +247,12 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             }}
             onSubmit={() => void submitChoice()}
           />
-          <HintButton onClick={() => setShowHint((v) => !v)} />
+          <div className="flex flex-wrap gap-2">
+            <HintButton onClick={() => setShowHint((v) => !v)} />
+            {!broken && (
+              <AiHint exerciseId={exercise.id} getContext={hintContext} />
+            )}
+          </div>
         </>
       )}
 
@@ -265,7 +273,12 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             }}
             onSubmit={() => void submitBlanks()}
           />
-          <HintButton onClick={() => setShowHint((v) => !v)} />
+          <div className="flex flex-wrap gap-2">
+            <HintButton onClick={() => setShowHint((v) => !v)} />
+            {!broken && (
+              <AiHint exerciseId={exercise.id} getContext={hintContext} />
+            )}
+          </div>
         </>
       )}
 
@@ -274,8 +287,6 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
           💡 {exercise.hint}
         </p>
       )}
-
-      {!broken && <AiHint exerciseId={exercise.id} getContext={hintContext} />}
 
       <div aria-live="polite" className="space-y-2">
         {codeResult &&

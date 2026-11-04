@@ -9,7 +9,9 @@
     "lint": "eslint",
     "test": "vitest run",
     "db:bundle": "node scripts/bundle-migrations.mjs",
-    "e2e": "node e2e/run-all.mjs"
+    "e2e": "node e2e/run-all.mjs",
+    "content:check": "node scripts/content-check.mjs",
+    "content:build": "node scripts/content-build.mjs"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.5",

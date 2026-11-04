@@ -1,0 +1,117 @@
+{
+  "id": "funcoes",
+  "mundo": "mundo-7",
+  "titulo": "Funções",
+  "foco": "Dividir um problema em partes reutilizáveis",
+  "posicao": 5,
+  "diagnostica": false,
+  "intro": "Quando um trecho de código se repete, vale transformá-lo numa função e reutilizá-la. Uma função boa faz uma coisa só e tem um nome que diz o que ela faz.\n\nfunction ehPar(n) {\n  return n % 2 === 0;\n}\n\nUma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "parametro-e-retorno",
+      "tipo": "escolha",
+      "titulo": "Parâmetro e retorno",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 101,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 2 },
+        { "id": "m7-return", "peso": 1 }
+      ],
+      "minilicao": "Uma função recebe valores de entrada, chamados parâmetros, e pode devolver um resultado com return. Assim, o mesmo código pode ser reutilizado com valores diferentes.",
+      "enunciado": "Na função abaixo, o que é n?\n\nfunction dobro(n) {\n  return n * 2;\n}",
+      "opcoes": ["O resultado da função", "Um parâmetro: o valor de entrada", "O nome da função", "Um erro"],
+      "correta": 1,
+      "dica": "Fica entre parênteses, depois do nome.",
+      "explicacao": "n é o parâmetro: o valor que a função recebe. O resultado é o que ela devolve com return."
+    },
+    {
+      "id": "completar-funcao",
+      "tipo": "lacuna",
+      "titulo": "Complete a função",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 102,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 2 },
+        { "id": "m7-return", "peso": 1 }
+      ],
+      "minilicao": "Uma função é declarada com a palavra \"function\", seguida do nome e dos parâmetros entre parênteses. Para devolver o resultado, usamos \"return\".",
+      "enunciado": "Complete as lacunas para definir uma função que devolve a área de um retângulo.",
+      "modelo": "{{1}} area(base, altura) {\n  {{2}} base * altura;\n}",
+      "lacunas": [
+        { "respostas": ["function"] },
+        { "respostas": ["return"] }
+      ],
+      "dica": "Em inglês: \"função\" e \"retornar\".",
+      "explicacao": "\"function\" declara a função e \"return\" devolve o resultado para quem a chamou."
+    },
+    {
+      "id": "escopo-de-variavel",
+      "tipo": "escolha",
+      "titulo": "Onde a variável existe?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 103,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 2 }
+      ],
+      "minilicao": "Uma variável criada dentro de uma função só existe ali dentro. Esse limite se chama escopo: fora da função, o nome não é conhecido.",
+      "enunciado": "O que acontece ao executar o código abaixo?\n\nfunction f() {\n  let x = 5;\n}\nf();\nconsole.log(x);",
+      "opcoes": ["Mostra 5", "Dá erro: x não existe fora da função", "Mostra undefined", "Mostra 0"],
+      "correta": 1,
+      "dica": "Onde a variável x foi declarada?",
+      "explicacao": "x foi criada dentro de f, então só existe ali. Fora da função, usar x causa um erro (ReferenceError)."
+    },
+    {
+      "id": "maior-de-dois",
+      "tipo": "codigo",
+      "titulo": "Maior de dois",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 104,
+      "conceitos": [
+        { "id": "m7-return", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "minilicao": "Uma função pode escolher entre valores e devolver só um deles. Cada caminho do if pode ter o seu próprio return.",
+      "enunciado": "Escreva `maiorDeDois(a, b)` que retorna o maior entre os dois números.",
+      "funcao": "maiorDeDois",
+      "codigoInicial": "function maiorDeDois(a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [1, 2], "esperado": 2 },
+        { "entrada": [5, 3], "esperado": 5 },
+        { "entrada": [4, 4], "esperado": 4 },
+        { "entrada": [-1, -2], "esperado": -1 },
+        { "entrada": [0, -7], "esperado": 0 }
+      ],
+      "dica": "Compare os dois com um if e retorne o maior."
+    },
+    {
+      "id": "hipotenusa",
+      "tipo": "codigo",
+      "titulo": "Hipotenusa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 105,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "minilicao": "Math.sqrt(x) devolve a raiz quadrada de x. Funções prontas como essa podem ser usadas dentro das suas.",
+      "enunciado": "Escreva `hipotenusa(a, b)` que retorna o comprimento da hipotenusa de um triângulo retângulo com catetos a e b (teorema de Pitágoras). Você pode usar `Math.sqrt`.",
+      "funcao": "hipotenusa",
+      "codigoInicial": "function hipotenusa(a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [3, 4], "esperado": 5 },
+        { "entrada": [5, 12], "esperado": 13 },
+        { "entrada": [0, 0], "esperado": 0 },
+        { "entrada": [8, 15], "esperado": 17 },
+        { "entrada": [1, 1], "esperado": 1.4142135623730951 }
+      ],
+      "dica": "A hipotenusa é a raiz quadrada de a² + b²."
+    }
+  ]
+}

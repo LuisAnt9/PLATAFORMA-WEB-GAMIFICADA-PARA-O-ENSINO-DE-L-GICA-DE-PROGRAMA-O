@@ -1,0 +1,44 @@
+[
+  {
+    "id": "mundo-1",
+    "titulo": "Introdução à Lógica de Programação",
+    "objetivo": "Fazer o aluno compreender o que é programação e como organizar instruções para resolver problemas.",
+    "posicao": 1
+  },
+  {
+    "id": "mundo-2",
+    "titulo": "Variáveis e Tipos de Dados",
+    "objetivo": "Ensinar o aluno a armazenar, identificar e manipular informações.",
+    "posicao": 2
+  },
+  {
+    "id": "mundo-3",
+    "titulo": "Operadores",
+    "objetivo": "Ensinar o aluno a realizar operações matemáticas e comparações utilizando operadores.",
+    "posicao": 3
+  },
+  {
+    "id": "mundo-4",
+    "titulo": "Estruturas Condicionais",
+    "objetivo": "Ensinar o aluno a criar programas que tomam decisões de acordo com determinadas condições.",
+    "posicao": 4
+  },
+  {
+    "id": "mundo-5",
+    "titulo": "Estruturas de Repetição",
+    "objetivo": "Ensinar o aluno a automatizar tarefas repetitivas e compreender o funcionamento dos laços de repetição.",
+    "posicao": 5
+  },
+  {
+    "id": "mundo-6",
+    "titulo": "Vetores e Matrizes",
+    "objetivo": "Ensinar o aluno a armazenar e organizar vários valores em uma única estrutura.",
+    "posicao": 6
+  },
+  {
+    "id": "mundo-7",
+    "titulo": "Funções e Modularização",
+    "objetivo": "Ensinar o aluno a organizar programas em partes menores, reutilizar códigos e estruturar soluções.",
+    "posicao": 7
+  }
+]

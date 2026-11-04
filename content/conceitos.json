@@ -1,0 +1,193 @@
+[
+  { "id": "m1-programacao", "titulo": "O que é programação?", "mundo": "mundo-1", "posicao": 1 },
+  {
+    "id": "m1-logica",
+    "titulo": "O que é lógica de programação?",
+    "mundo": "mundo-1",
+    "posicao": 2
+  },
+  { "id": "m1-algoritmos", "titulo": "O que são algoritmos?", "mundo": "mundo-1", "posicao": 3 },
+  { "id": "m1-sequencia", "titulo": "Sequência lógica", "mundo": "mundo-1", "posicao": 4 },
+  {
+    "id": "m1-entrada-processamento-saida",
+    "titulo": "Entrada, processamento e saída",
+    "mundo": "mundo-1",
+    "posicao": 5
+  },
+  { "id": "m1-pseudocodigo", "titulo": "Pseudocódigo", "mundo": "mundo-1", "posicao": 6 },
+  { "id": "m1-fluxogramas", "titulo": "Fluxogramas", "mundo": "mundo-1", "posicao": 7 },
+  {
+    "id": "m2-introducao-variaveis",
+    "titulo": "Introdução às variáveis",
+    "mundo": "mundo-2",
+    "posicao": 1
+  },
+  { "id": "m2-declaracao", "titulo": "Declaração de variáveis", "mundo": "mundo-2", "posicao": 2 },
+  { "id": "m2-let-const", "titulo": "Utilização de let e const", "mundo": "mundo-2", "posicao": 3 },
+  { "id": "m2-string", "titulo": "Tipo String", "mundo": "mundo-2", "posicao": 4 },
+  { "id": "m2-number", "titulo": "Tipo Number", "mundo": "mundo-2", "posicao": 5 },
+  { "id": "m2-boolean", "titulo": "Tipo Boolean", "mundo": "mundo-2", "posicao": 6 },
+  {
+    "id": "m2-manipulacao-textos",
+    "titulo": "Manipulação de textos",
+    "mundo": "mundo-2",
+    "posicao": 7
+  },
+  { "id": "m2-concatenacao", "titulo": "Concatenação", "mundo": "mundo-2", "posicao": 8 },
+  { "id": "m2-template-literals", "titulo": "Template literals", "mundo": "mundo-2", "posicao": 9 },
+  {
+    "id": "m2-operacoes-numeros",
+    "titulo": "Operações com números",
+    "mundo": "mundo-2",
+    "posicao": 10
+  },
+  { "id": "m2-conversao-tipos", "titulo": "Conversão de tipos", "mundo": "mundo-2", "posicao": 11 },
+  {
+    "id": "m2-entrada-saida",
+    "titulo": "Entrada e saída de informações",
+    "mundo": "mundo-2",
+    "posicao": 12
+  },
+  {
+    "id": "m2-console-log",
+    "titulo": "Utilização de console.log()",
+    "mundo": "mundo-2",
+    "posicao": 13
+  },
+  {
+    "id": "m3-introducao-operadores",
+    "titulo": "Introdução aos operadores",
+    "mundo": "mundo-3",
+    "posicao": 1
+  },
+  { "id": "m3-aritmeticos", "titulo": "Operadores aritméticos", "mundo": "mundo-3", "posicao": 2 },
+  { "id": "m3-atribuicao", "titulo": "Operadores de atribuição", "mundo": "mundo-3", "posicao": 3 },
+  { "id": "m3-relacionais", "titulo": "Operadores relacionais", "mundo": "mundo-3", "posicao": 4 },
+  { "id": "m3-logicos", "titulo": "Operadores lógicos", "mundo": "mundo-3", "posicao": 5 },
+  {
+    "id": "m3-precedencia",
+    "titulo": "Precedência dos operadores",
+    "mundo": "mundo-3",
+    "posicao": 6
+  },
+  {
+    "id": "m4-introducao",
+    "titulo": "Introdução às estruturas condicionais",
+    "mundo": "mundo-4",
+    "posicao": 1
+  },
+  {
+    "id": "m4-revisao-relacionais",
+    "titulo": "Revisão dos operadores relacionais",
+    "mundo": "mundo-4",
+    "posicao": 2
+  },
+  {
+    "id": "m4-revisao-logicos",
+    "titulo": "Revisão dos operadores lógicos",
+    "mundo": "mundo-4",
+    "posicao": 3
+  },
+  { "id": "m4-if", "titulo": "Estrutura if", "mundo": "mundo-4", "posicao": 4 },
+  { "id": "m4-if-else", "titulo": "Estrutura if/else", "mundo": "mundo-4", "posicao": 5 },
+  { "id": "m4-else-if", "titulo": "Estrutura else if", "mundo": "mundo-4", "posicao": 6 },
+  { "id": "m4-aninhadas", "titulo": "Condicionais aninhadas", "mundo": "mundo-4", "posicao": 7 },
+  { "id": "m4-switch", "titulo": "Estrutura switch", "mundo": "mundo-4", "posicao": 8 },
+  {
+    "id": "m4-ternario",
+    "titulo": "Operador ternário (conteúdo complementar)",
+    "mundo": "mundo-4",
+    "posicao": 9
+  },
+  {
+    "id": "m5-introducao",
+    "titulo": "Introdução às estruturas de repetição",
+    "mundo": "mundo-5",
+    "posicao": 1
+  },
+  { "id": "m5-for", "titulo": "Estrutura for", "mundo": "mundo-5", "posicao": 2 },
+  { "id": "m5-while", "titulo": "Estrutura while", "mundo": "mundo-5", "posicao": 3 },
+  { "id": "m5-do-while", "titulo": "Estrutura do...while", "mundo": "mundo-5", "posicao": 4 },
+  { "id": "m5-contadores", "titulo": "Contadores", "mundo": "mundo-5", "posicao": 5 },
+  { "id": "m5-acumuladores", "titulo": "Acumuladores", "mundo": "mundo-5", "posicao": 6 },
+  { "id": "m5-break", "titulo": "Comando break", "mundo": "mundo-5", "posicao": 7 },
+  { "id": "m5-continue", "titulo": "Comando continue", "mundo": "mundo-5", "posicao": 8 },
+  {
+    "id": "m5-aninhados",
+    "titulo": "Laços de repetição aninhados",
+    "mundo": "mundo-5",
+    "posicao": 9
+  },
+  {
+    "id": "m6-introducao-vetores",
+    "titulo": "Introdução aos vetores",
+    "mundo": "mundo-6",
+    "posicao": 1
+  },
+  { "id": "m6-arrays", "titulo": "Arrays em JavaScript", "mundo": "mundo-6", "posicao": 2 },
+  { "id": "m6-indices", "titulo": "Índices e posições", "mundo": "mundo-6", "posicao": 3 },
+  { "id": "m6-length", "titulo": "Propriedade length", "mundo": "mundo-6", "posicao": 4 },
+  {
+    "id": "m6-push",
+    "titulo": "Inserção de elementos com push()",
+    "mundo": "mundo-6",
+    "posicao": 5
+  },
+  { "id": "m6-pop", "titulo": "Remoção de elementos com pop()", "mundo": "mundo-6", "posicao": 6 },
+  {
+    "id": "m6-shift-unshift",
+    "titulo": "Utilização de shift() e unshift()",
+    "mundo": "mundo-6",
+    "posicao": 7
+  },
+  {
+    "id": "m6-percorrer-for",
+    "titulo": "Percorrer arrays com for",
+    "mundo": "mundo-6",
+    "posicao": 8
+  },
+  {
+    "id": "m6-percorrer-while",
+    "titulo": "Percorrer arrays com while",
+    "mundo": "mundo-6",
+    "posicao": 9
+  },
+  {
+    "id": "m6-introducao-matrizes",
+    "titulo": "Introdução às matrizes",
+    "mundo": "mundo-6",
+    "posicao": 10
+  },
+  {
+    "id": "m6-bidimensionais",
+    "titulo": "Arrays bidimensionais",
+    "mundo": "mundo-6",
+    "posicao": 11
+  },
+  {
+    "id": "m6-percorrer-matrizes",
+    "titulo": "Percorrer matrizes com laços aninhados",
+    "mundo": "mundo-6",
+    "posicao": 12
+  },
+  { "id": "m7-introducao", "titulo": "Introdução às funções", "mundo": "mundo-7", "posicao": 1 },
+  { "id": "m7-declaracao", "titulo": "Declaração de funções", "mundo": "mundo-7", "posicao": 2 },
+  { "id": "m7-chamada", "titulo": "Chamada de funções", "mundo": "mundo-7", "posicao": 3 },
+  { "id": "m7-parametros", "titulo": "Parâmetros", "mundo": "mundo-7", "posicao": 4 },
+  { "id": "m7-argumentos", "titulo": "Argumentos", "mundo": "mundo-7", "posicao": 5 },
+  { "id": "m7-return", "titulo": "Retorno com return", "mundo": "mundo-7", "posicao": 6 },
+  {
+    "id": "m7-parametros-retorno",
+    "titulo": "Funções com parâmetros e retornos",
+    "mundo": "mundo-7",
+    "posicao": 7
+  },
+  { "id": "m7-escopo-global", "titulo": "Escopo global", "mundo": "mundo-7", "posicao": 8 },
+  { "id": "m7-escopo-local", "titulo": "Escopo local", "mundo": "mundo-7", "posicao": 9 },
+  {
+    "id": "m7-arrow",
+    "titulo": "Arrow functions (conteúdo complementar)",
+    "mundo": "mundo-7",
+    "posicao": 10
+  }
+]

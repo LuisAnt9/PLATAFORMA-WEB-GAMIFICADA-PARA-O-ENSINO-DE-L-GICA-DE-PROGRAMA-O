@@ -1,0 +1,166 @@
+{
+  "id": "primeiros-passos",
+  "mundo": "mundo-1",
+  "titulo": "Primeiros passos",
+  "foco": "Entender o que é um algoritmo e como o computador segue instruções",
+  "posicao": 0,
+  "diagnostica": false,
+  "intro": "Um algoritmo é uma sequência de passos para resolver um problema, como uma receita de bolo. O computador só faz o que mandamos, na ordem em que mandamos, e por isso cada passo precisa ser claro.\n\nNeste módulo você vai conhecer o vocabulário básico: valores, tipos (número, texto, lógico) e operadores. Não se preocupe em decorar: errar faz parte, e cada exercício explica a resposta.",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "o-que-e-algoritmo",
+      "tipo": "escolha",
+      "titulo": "O que é um algoritmo?",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 2 }
+      ],
+      "minilicao": "Um algoritmo é uma sequência finita de passos para resolver um problema, como uma receita de bolo: cada passo é claro e acontece numa ordem definida. Programar é escrever esses passos de um jeito que o computador consiga executar.",
+      "enunciado": "Escolha a alternativa que melhor define um algoritmo.",
+      "opcoes": [
+        "Uma linguagem de programação",
+        "Uma sequência de passos para resolver um problema",
+        "Um tipo de computador",
+        "Um erro no programa"
+      ],
+      "correta": 1,
+      "dica": "Pense numa receita de bolo.",
+      "explicacao": "Isso mesmo: um algoritmo é o passo a passo. A linguagem de programação é só a forma de escrevê-lo para o computador."
+    },
+    {
+      "id": "ordem-das-instrucoes",
+      "tipo": "escolha",
+      "titulo": "A ordem importa",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 2 }
+      ],
+      "minilicao": "O computador executa as instruções uma de cada vez, de cima para baixo. Trocar a ordem dos passos muda o resultado, ou até impede de chegar a um.",
+      "enunciado": "Qual é a ordem correta dos passos para calcular a média de dois números?",
+      "opcoes": [
+        "Dividir por 2, somar os números, mostrar o resultado",
+        "Somar os números, dividir por 2, mostrar o resultado",
+        "Mostrar o resultado, somar os números, dividir por 2",
+        "Dividir por 2, mostrar o resultado, somar os números"
+      ],
+      "correta": 1,
+      "dica": "Você só pode mostrar o resultado depois de calculá-lo.",
+      "explicacao": "Primeiro é preciso somar, depois dividir a soma por 2 e só então mostrar o resultado."
+    },
+    {
+      "id": "valor-da-variavel",
+      "tipo": "escolha",
+      "titulo": "Qual é o valor final?",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 2 }
+      ],
+      "minilicao": "Uma variável é um nome que guarda um valor. Quando escrevemos x = x + 3, o computador primeiro calcula o lado direito (o valor atual de x mais 3) e depois guarda o resultado de volta em x.",
+      "enunciado": "Considere as instruções abaixo, executadas em ordem:\n\nx = 4\nx = x + 3\n\nQual é o valor final de x?",
+      "opcoes": ["4", "3", "7", "43"],
+      "correta": 2,
+      "dica": "Execute uma linha de cada vez.",
+      "explicacao": "x começa valendo 4. Na segunda linha, x passa a valer 4 + 3 = 7."
+    },
+    {
+      "id": "completar-condicional",
+      "tipo": "lacuna",
+      "titulo": "Complete a condicional",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 2 }
+      ],
+      "minilicao": "Uma condicional faz o programa escolher um caminho. Usamos \"if\" (se) para o caso em que a condição é verdadeira e \"else\" (senão) para todos os outros casos.",
+      "enunciado": "Complete as lacunas para que a função devolva \"maior\" para quem tem 18 anos ou mais e \"menor\" nos demais casos.",
+      "modelo": "function classifica(idade) {\n  {{1}} (idade >= 18) {\n    return \"maior\";\n  } {{2}} {\n    return \"menor\";\n  }\n}",
+      "lacunas": [
+        { "respostas": ["if"] },
+        { "respostas": ["else"] }
+      ],
+      "dica": "Em inglês: \"se\" e \"senão\".",
+      "explicacao": "A primeira lacuna é o \"if\" (se a idade for 18 ou mais) e a segunda é o \"else\" (caso contrário)."
+    },
+    {
+      "id": "completar-laco",
+      "tipo": "lacuna",
+      "titulo": "Complete o laço",
+      "dificuldade": "medio",
+      "publicado": true,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 }
+      ],
+      "minilicao": "Um laço \"for\" repete um bloco de instruções. Ele tem três partes: onde começa (let i = 1), até quando continua (i <= 5) e como muda a cada volta (por exemplo, i++ aumenta i em 1).",
+      "enunciado": "Complete as lacunas para somar os números de 1 até 5 na variável soma.",
+      "modelo": "let soma = 0;\nfor (let i = 1; i <= 5; i{{1}}) {\n  soma {{2}} i;\n}",
+      "lacunas": [
+        { "respostas": ["++", "+= 1", "+=1"] },
+        { "respostas": ["+=", "= soma +"] }
+      ],
+      "dica": "i++ aumenta i em 1. Para acumular, use +=.",
+      "explicacao": "O i++ aumenta i de 1 em 1 a cada volta, e soma += i acumula cada valor de i na variável soma."
+    },
+    {
+      "id": "tipos-de-dados",
+      "tipo": "escolha",
+      "titulo": "Qual é o tipo do valor?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 101,
+      "conceitos": [
+        { "id": "m2-string", "peso": 1 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "minilicao": "Todo valor tem um tipo: número (3 ou 2.5), texto (\"olá\") ou lógico (true ou false). O tipo define o que podemos fazer com o valor.",
+      "enunciado": "Em JavaScript, qual é o tipo do valor \"42\" (escrito entre aspas)?",
+      "opcoes": ["Número", "Texto (string)", "Lógico (boolean)", "Vetor"],
+      "correta": 1,
+      "dica": "Repare nas aspas.",
+      "explicacao": "As aspas fazem de \"42\" um texto. Sem aspas, 42 seria um número."
+    },
+    {
+      "id": "precedencia-operadores",
+      "tipo": "escolha",
+      "titulo": "Quem calcula primeiro?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 102,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 2 }
+      ],
+      "minilicao": "Como na matemática, multiplicação e divisão são calculadas antes de soma e subtração. Parênteses mudam a ordem.",
+      "enunciado": "Qual é o resultado de 2 + 3 * 4?",
+      "opcoes": ["20", "14", "24", "10"],
+      "correta": 1,
+      "dica": "Faça a multiplicação antes da soma.",
+      "explicacao": "A multiplicação vem primeiro: 3 * 4 = 12, e depois 2 + 12 = 14. Com parênteses, (2 + 3) * 4 daria 20."
+    },
+    {
+      "id": "resto-da-divisao",
+      "tipo": "escolha",
+      "titulo": "Resto da divisão",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 103,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "minilicao": "O operador % devolve o resto da divisão inteira. Por exemplo, 7 % 3 vale 1, porque 7 = 2 * 3 + 1. Um número é par quando n % 2 vale 0.",
+      "enunciado": "Quanto vale 17 % 5?",
+      "opcoes": ["3", "2", "12", "3,4"],
+      "correta": 1,
+      "dica": "Quantas vezes o 5 cabe no 17? O que sobra?",
+      "explicacao": "17 = 3 * 5 + 2, então o resto é 2."
+    }
+  ]
+}

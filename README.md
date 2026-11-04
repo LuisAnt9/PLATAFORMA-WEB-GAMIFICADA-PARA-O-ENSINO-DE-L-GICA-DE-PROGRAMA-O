@@ -53,6 +53,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
   - *Tamanho no plano gratuito (500 MB):* cada tentativa ocupa cerca de 1 KB (a resposta é cortada em 4000 caracteres). 100 alunos × 500 tentativas ≈ 50 MB, então há folga para dezenas de milhares de tentativas por turma. Vale conferir o uso do banco no painel do Supabase a cada semestre.
   - As tentativas só existem **a partir da aplicação da migration**: não há histórico anterior.
 
+- **Conteúdo em arquivos** (etapa E2): `content/` guarda mundos, conceitos, lições e exercícios (os 53 atuais, já ligados a conceitos e aos 7 mundos) e `content/solucoes/` as soluções de referência. `npm run content:check` valida tudo e `npm run content:build` gera `supabase/importar-conteudo.sql` (idempotente, colado no SQL Editor). A migration 0011 marca o que veio dos arquivos (`origem = 'arquivo'`) para o importador nunca sobrescrever o que o professor editou no painel. Veja `content/README.md`.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

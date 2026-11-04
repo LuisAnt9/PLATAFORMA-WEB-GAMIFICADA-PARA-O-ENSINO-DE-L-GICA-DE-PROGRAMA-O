@@ -1,0 +1,231 @@
+{
+  "id": "repeticao",
+  "mundo": "mundo-5",
+  "titulo": "Estruturas de repetição",
+  "foco": "Compreender o passo a passo de um laço",
+  "posicao": 3,
+  "diagnostica": false,
+  "intro": "Um laço repete um bloco de código. O mais comum é o for:\n\nfor (let i = 1; i <= 5; i++) {\n  total = total + i;\n}\n\nEle tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "somatorio",
+      "tipo": "codigo",
+      "titulo": "Somatório de 1 até n",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "Escreva `somatorio(n)` que retorna 1 + 2 + ... + n usando um laço. Para n = 0, retorna 0.",
+      "funcao": "somatorio",
+      "codigoInicial": "function somatorio(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": 15 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [100], "esperado": 5050 }
+      ],
+      "dica": "Crie um acumulador começando em 0 e some `i` a cada volta do `for`."
+    },
+    {
+      "id": "fatorial",
+      "tipo": "codigo",
+      "titulo": "Fatorial",
+      "dificuldade": "medio",
+      "publicado": true,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "Escreva `fatorial(n)` que retorna n! (com 0! = 1).",
+      "funcao": "fatorial",
+      "codigoInicial": "function fatorial(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [0], "esperado": 1 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [5], "esperado": 120 },
+        { "entrada": [10], "esperado": 3628800 }
+      ],
+      "dica": "Diferente do somatório, o acumulador começa em 1 e é multiplicado."
+    },
+    {
+      "id": "tabuada",
+      "tipo": "codigo",
+      "titulo": "Tabuada",
+      "dificuldade": "facil",
+      "publicado": true,
+      "posicao": 13,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m6-push", "peso": 1 }
+      ],
+      "enunciado": "Escreva `tabuada(n)` que retorna um vetor com n×1, n×2, ..., n×10.",
+      "funcao": "tabuada",
+      "codigoInicial": "function tabuada(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2], "esperado": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+        { "entrada": [0], "esperado": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+        { "entrada": [5], "esperado": [5, 10, 15, 20, 25, 30, 35, 40, 45, 50] }
+      ],
+      "dica": "Crie um vetor vazio e faça `push(n * i)` para i de 1 a 10."
+    },
+    {
+      "id": "primo",
+      "tipo": "codigo",
+      "titulo": "Número primo",
+      "dificuldade": "dificil",
+      "publicado": true,
+      "posicao": 14,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva `ehPrimo(n)` que retorna true se n é primo (maior que 1 e divisível apenas por 1 e por ele mesmo).",
+      "funcao": "ehPrimo",
+      "codigoInicial": "function ehPrimo(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2], "esperado": true },
+        { "entrada": [1], "esperado": false },
+        { "entrada": [0], "esperado": false },
+        { "entrada": [17], "esperado": true },
+        { "entrada": [18], "esperado": false },
+        { "entrada": [97], "esperado": true }
+      ],
+      "dica": "Teste os divisores de 2 até n-1; se algum dividir exatamente, não é primo."
+    },
+    {
+      "id": "quantas-vezes",
+      "tipo": "escolha",
+      "titulo": "Quantas vezes o laço executa?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 101,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 }
+      ],
+      "minilicao": "Um laço for tem três partes: onde começa (let i = 0), até quando continua (i < 4) e como muda a cada volta (i++). O bloco executa enquanto a condição for verdadeira.",
+      "enunciado": "for (let i = 0; i < 4; i++) {\n  // bloco\n}\n\nQuantas vezes o bloco executa?",
+      "opcoes": ["3", "4", "5", "Infinitas vezes"],
+      "correta": 1,
+      "dica": "Liste os valores de i, um por volta.",
+      "explicacao": "i vale 0, 1, 2 e 3, ou seja, 4 voltas. Quando i chega a 4, a condição i < 4 deixa de ser verdadeira."
+    },
+    {
+      "id": "completar-while",
+      "tipo": "lacuna",
+      "titulo": "Complete o while",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 102,
+      "conceitos": [
+        { "id": "m5-while", "peso": 2 }
+      ],
+      "minilicao": "O laço \"while\" (enquanto) repete o bloco enquanto a condição for verdadeira. É preciso mudar alguma variável dentro do laço, senão ele nunca termina.",
+      "enunciado": "Complete as lacunas para calcular 5! (5 × 4 × 3 × 2 × 1) em fatorial.",
+      "modelo": "let n = 5;\nlet fatorial = 1;\n{{1}} (n > 1) {\n  fatorial = fatorial * n;\n  n{{2}};\n}",
+      "lacunas": [
+        { "respostas": ["while"] },
+        { "respostas": ["--", "-= 1", "-=1"] }
+      ],
+      "dica": "Em inglês: \"enquanto\". Para diminuir 1, existe um operador parecido com o ++.",
+      "explicacao": "O while repete enquanto n > 1, e n-- diminui n em 1 a cada volta, até a condição ficar falsa."
+    },
+    {
+      "id": "soma-dos-pares",
+      "tipo": "codigo",
+      "titulo": "Soma dos números pares",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 103,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva `somaPares(n)` que retorna a soma de todos os números pares de 1 até n (incluindo n, se for par). Para n menor que 2, o resultado é 0.",
+      "funcao": "somaPares",
+      "codigoInicial": "function somaPares(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [10], "esperado": 30 },
+        { "entrada": [1], "esperado": 0 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [7], "esperado": 12 },
+        { "entrada": [2], "esperado": 2 }
+      ],
+      "dica": "Percorra os números e some só os que têm resto 0 na divisão por 2."
+    },
+    {
+      "id": "potencia",
+      "tipo": "codigo",
+      "titulo": "Potência",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 104,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "Escreva `potencia(base, exp)` que retorna base elevada a exp (um inteiro maior ou igual a 0), usando um laço. Não use `Math.pow` nem o operador `**`.",
+      "funcao": "potencia",
+      "codigoInicial": "function potencia(base, exp) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2, 3], "esperado": 8 },
+        { "entrada": [5, 0], "esperado": 1 },
+        { "entrada": [3, 1], "esperado": 3 },
+        { "entrada": [10, 4], "esperado": 10000 },
+        { "entrada": [0, 5], "esperado": 0 }
+      ],
+      "dica": "Comece o resultado em 1 e multiplique pela base, exp vezes."
+    },
+    {
+      "id": "conta-digitos",
+      "tipo": "codigo",
+      "titulo": "Quantos dígitos?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 105,
+      "conceitos": [
+        { "id": "m5-while", "peso": 2 },
+        { "id": "m5-contadores", "peso": 1 }
+      ],
+      "enunciado": "Escreva `contaDigitos(n)` que retorna quantos dígitos tem o inteiro n (maior ou igual a 0), sem converter para texto. O número 0 tem 1 dígito.",
+      "funcao": "contaDigitos",
+      "codigoInicial": "function contaDigitos(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [0], "esperado": 1 },
+        { "entrada": [7], "esperado": 1 },
+        { "entrada": [10], "esperado": 2 },
+        { "entrada": [12345], "esperado": 5 },
+        { "entrada": [100], "esperado": 3 }
+      ],
+      "dica": "Divida por 10 (parte inteira) até sobrar um dígito, contando as divisões."
+    },
+    {
+      "id": "mdc",
+      "tipo": "codigo",
+      "titulo": "Máximo divisor comum",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 106,
+      "conceitos": [
+        { "id": "m5-while", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva `mdc(a, b)` que retorna o maior número que divide a e b ao mesmo tempo (a e b inteiros positivos). Dica: o algoritmo de Euclides troca (a, b) por (b, a % b) até o resto ser 0.",
+      "funcao": "mdc",
+      "codigoInicial": "function mdc(a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [12, 18], "esperado": 6 },
+        { "entrada": [7, 13], "esperado": 1 },
+        { "entrada": [100, 25], "esperado": 25 },
+        { "entrada": [48, 36], "esperado": 12 },
+        { "entrada": [17, 17], "esperado": 17 }
+      ],
+      "dica": "Repita enquanto b for diferente de 0; quando b chegar a 0, a resposta é a."
+    }
+  ]
+}

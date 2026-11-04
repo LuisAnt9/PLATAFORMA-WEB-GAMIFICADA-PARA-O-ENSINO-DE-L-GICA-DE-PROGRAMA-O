@@ -1,0 +1,122 @@
+{
+  "id": "textos",
+  "mundo": "mundo-2",
+  "titulo": "Textos",
+  "foco": "Percorrer e transformar sequências de caracteres",
+  "posicao": 6,
+  "diagnostica": false,
+  "intro": "Um texto (string) é uma sequência de caracteres entre aspas. Cada caractere tem uma posição, começando em 0:\n\nconst palavra = \"casa\";\npalavra[0] // \"c\"\npalavra.length // 4\n\nDá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: \"A\" não é igual a \"a\".",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "tamanho-do-texto",
+      "tipo": "escolha",
+      "titulo": "Letras e índices",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 101,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 }
+      ],
+      "minilicao": "Um texto é uma sequência de caracteres, e cada um tem um índice começando em 0, como num vetor: \"abc\"[0] é \"a\". O tamanho do texto vem de .length.",
+      "enunciado": "Em let s = \"lógica\";, quanto vale s.length?",
+      "opcoes": ["5", "6", "7", "4"],
+      "correta": 1,
+      "dica": "Conte as letras uma a uma.",
+      "explicacao": "\"lógica\" tem 6 letras (l, ó, g, i, c, a), então s.length vale 6."
+    },
+    {
+      "id": "completar-texto",
+      "tipo": "lacuna",
+      "titulo": "Complete as consultas ao texto",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 102,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 }
+      ],
+      "minilicao": "Todo texto tem a propriedade .length (quantos caracteres) e permite acessar uma letra pelo índice entre colchetes, como s[0] para a primeira.",
+      "enunciado": "Complete as lacunas para obter o tamanho do texto e a sua primeira letra.",
+      "modelo": "let nome = \"Ana\";\nlet tamanho = nome{{1}};\nlet primeira = nome{{2}};",
+      "lacunas": [
+        { "respostas": [".length"] },
+        { "respostas": ["[0]", ".charAt(0)"] }
+      ],
+      "dica": "A primeira posição tem índice 0.",
+      "explicacao": "nome.length dá o tamanho (3) e nome[0] dá a primeira letra (\"A\")."
+    },
+    {
+      "id": "inverter-texto",
+      "tipo": "codigo",
+      "titulo": "Inverter um texto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 103,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "minilicao": "Os textos podem ser percorridos como vetores, usando s[i], e concatenados com +.",
+      "enunciado": "Escreva `inverterTexto(s)` que retorna o texto `s` de trás para frente. Por exemplo, \"abc\" vira \"cba\".",
+      "funcao": "inverterTexto",
+      "codigoInicial": "function inverterTexto(s) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["abc"], "esperado": "cba" },
+        { "entrada": [""], "esperado": "" },
+        { "entrada": ["a"], "esperado": "a" },
+        { "entrada": ["lógica"], "esperado": "acigól" },
+        { "entrada": ["ab ba"], "esperado": "ab ba" }
+      ],
+      "dica": "Percorra do último índice até o 0, juntando as letras num novo texto."
+    },
+    {
+      "id": "conta-vogais",
+      "tipo": "codigo",
+      "titulo": "Contar vogais",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 104,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 },
+        { "id": "m5-contadores", "peso": 1 }
+      ],
+      "enunciado": "Escreva `contaVogais(s)` que retorna quantas vogais (a, e, i, o, u) há no texto `s`. Os textos de teste têm só letras minúsculas e sem acentos.",
+      "funcao": "contaVogais",
+      "codigoInicial": "function contaVogais(s) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["banana"], "esperado": 3 },
+        { "entrada": [""], "esperado": 0 },
+        { "entrada": ["xyz"], "esperado": 0 },
+        { "entrada": ["aeiou"], "esperado": 5 },
+        { "entrada": ["programacao"], "esperado": 5 },
+        { "entrada": ["logica"], "esperado": 3 }
+      ],
+      "dica": "Percorra as letras e use \"aeiou\".includes(letra) para testar cada uma."
+    },
+    {
+      "id": "palindromo",
+      "tipo": "codigo",
+      "titulo": "Palíndromo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 105,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "Escreva `ehPalindromo(s)` que retorna true se o texto `s` é igual quando lido de trás para frente (por exemplo, \"arara\"). Os testes usam só letras minúsculas, sem espaços. O texto vazio é um palíndromo.",
+      "funcao": "ehPalindromo",
+      "codigoInicial": "function ehPalindromo(s) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["arara"], "esperado": true },
+        { "entrada": ["casa"], "esperado": false },
+        { "entrada": ["a"], "esperado": true },
+        { "entrada": [""], "esperado": true },
+        { "entrada": ["radar"], "esperado": true },
+        { "entrada": ["abca"], "esperado": false }
+      ],
+      "dica": "Compare a primeira letra com a última, a segunda com a penúltima, e assim por diante."
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "id": "vetores",
+  "mundo": "mundo-6",
+  "titulo": "Vetores",
+  "foco": "Manipular coleções de dados",
+  "posicao": 4,
+  "diagnostica": false,
+  "intro": "Um vetor (array) guarda vários valores numa lista ordenada:\n\nconst notas = [7, 9, 5];\n\nA primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são \"percorra e acumule\": somar, contar, achar o maior.",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "soma-vetor",
+      "tipo": "codigo",
+      "titulo": "Soma dos elementos",
+      "dificuldade": "medio",
+      "publicado": true,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "Escreva `somaVetor(v)` que retorna a soma de todos os elementos do vetor `v`.",
+      "funcao": "somaVetor",
+      "codigoInicial": "function somaVetor(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 6
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[-2, 2, 10]],
+          "esperado": 10
+        }
+      ],
+      "dica": "Percorra o vetor com um laço usando `v.length` e acumule `v[i]`."
+    },
+    {
+      "id": "inverter-vetor",
+      "tipo": "codigo",
+      "titulo": "Inverter vetor",
+      "dificuldade": "dificil",
+      "publicado": true,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m6-push", "peso": 1 }
+      ],
+      "enunciado": "Escreva `inverter(v)` que retorna um NOVO vetor com os elementos na ordem inversa, sem usar `reverse`.",
+      "funcao": "inverter",
+      "codigoInicial": "function inverter(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": [3, 2, 1]
+        },
+        {
+          "entrada": [[]],
+          "esperado": []
+        },
+        {
+          "entrada": [["a", "b"]],
+          "esperado": ["b", "a"]
+        },
+        {
+          "entrada": [[7]],
+          "esperado": [7]
+        }
+      ],
+      "dica": "Percorra o vetor do último índice até o 0 e use `push` num vetor novo."
+    },
+    {
+      "id": "maior-vetor",
+      "tipo": "codigo",
+      "titulo": "Maior elemento",
+      "dificuldade": "medio",
+      "publicado": true,
+      "posicao": 15,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva `maiorElemento(v)` que retorna o maior número de um vetor não vazio, sem usar `Math.max`.",
+      "funcao": "maiorElemento",
+      "codigoInicial": "function maiorElemento(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 9, 2]],
+          "esperado": 9
+        },
+        {
+          "entrada": [[-4, -1, -7]],
+          "esperado": -1
+        },
+        {
+          "entrada": [[5]],
+          "esperado": 5
+        }
+      ],
+      "dica": "Comece com `v[0]` como maior e compare com os demais elementos."
+    },
+    {
+      "id": "busca-linear",
+      "tipo": "codigo",
+      "titulo": "Busca linear",
+      "dificuldade": "medio",
+      "publicado": true,
+      "posicao": 16,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva `buscar(v, x)` que retorna o índice da primeira ocorrência de x no vetor, ou -1 se não existir. Não use `indexOf`.",
+      "funcao": "buscar",
+      "codigoInicial": "function buscar(v, x) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[4, 8, 15], 8],
+          "esperado": 1
+        },
+        {
+          "entrada": [[4, 8, 15], 99],
+          "esperado": -1
+        },
+        {
+          "entrada": [[], 1],
+          "esperado": -1
+        },
+        {
+          "entrada": [[7, 7, 7], 7],
+          "esperado": 0
+        }
+      ],
+      "dica": "Percorra o vetor e retorne o índice assim que encontrar o valor; só retorne -1 depois do laço."
+    },
+    {
+      "id": "ordenar",
+      "tipo": "codigo",
+      "titulo": "Ordenar vetor",
+      "dificuldade": "dificil",
+      "publicado": true,
+      "posicao": 17,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-aninhados", "peso": 1 }
+      ],
+      "enunciado": "Escreva `ordenar(v)` que retorna um NOVO vetor de números em ordem crescente, sem usar `sort`.",
+      "funcao": "ordenar",
+      "codigoInicial": "function ordenar(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 1, 2]],
+          "esperado": [1, 2, 3]
+        },
+        {
+          "entrada": [[]],
+          "esperado": []
+        },
+        {
+          "entrada": [[5, 5, 1]],
+          "esperado": [1, 5, 5]
+        },
+        {
+          "entrada": [[-1, -3, 2, 0]],
+          "esperado": [-3, -1, 0, 2]
+        },
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": [1, 2, 3]
+        }
+      ],
+      "dica": "Uma ideia simples: percorra pares vizinhos e troque os que estão fora de ordem, repetindo até não haver trocas (bubble sort)."
+    },
+    {
+      "id": "indice-do-vetor",
+      "tipo": "escolha",
+      "titulo": "O primeiro elemento",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 101,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "minilicao": "Um vetor guarda vários valores numa só variável. Cada posição tem um índice, e a contagem começa em 0: v[0] é o primeiro elemento, v[1] o segundo, e assim por diante.",
+      "enunciado": "Em let v = [10, 20, 30, 40], quanto vale v[2]?",
+      "opcoes": ["20", "30", "40", "10"],
+      "correta": 1,
+      "dica": "Lembre-se: o primeiro índice é 0.",
+      "explicacao": "Os índices são v[0] = 10, v[1] = 20, v[2] = 30 e v[3] = 40."
+    },
+    {
+      "id": "completar-percorrer",
+      "tipo": "lacuna",
+      "titulo": "Percorrer o vetor",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 102,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "minilicao": "Para percorrer um vetor, usamos um índice i que vai de 0 até o último elemento. O tamanho do vetor é v.length, e o elemento da posição i é v[i].",
+      "enunciado": "Complete as lacunas para somar todos os elementos do vetor v.",
+      "modelo": "let soma = 0;\nfor (let i = 0; i < v{{1}}; i++) {\n  soma += v{{2}};\n}",
+      "lacunas": [
+        { "respostas": [".length"] },
+        { "respostas": ["[i]"] }
+      ],
+      "dica": "O tamanho é uma propriedade do vetor; o elemento usa colchetes.",
+      "explicacao": "O laço vai de 0 até v.length - 1, e a cada volta somamos o elemento da posição i, que é v[i]."
+    },
+    {
+      "id": "conta-pares",
+      "tipo": "codigo",
+      "titulo": "Quantos pares?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 103,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-contadores", "peso": 1 }
+      ],
+      "enunciado": "Escreva `contaPares(v)` que retorna quantos elementos pares existem no vetor de inteiros `v`.",
+      "funcao": "contaPares",
+      "codigoInicial": "function contaPares(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3, 4]],
+          "esperado": 2
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[1, 3, 5]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[2, 4, 6, 8]],
+          "esperado": 4
+        },
+        {
+          "entrada": [[0]],
+          "esperado": 1
+        }
+      ],
+      "dica": "Percorra o vetor e some 1 a um contador sempre que o elemento for par."
+    },
+    {
+      "id": "media-do-vetor",
+      "tipo": "codigo",
+      "titulo": "Média do vetor",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 104,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "Escreva `mediaVetor(v)` que retorna a média dos números do vetor `v`, que tem pelo menos um elemento.",
+      "funcao": "mediaVetor",
+      "codigoInicial": "function mediaVetor(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 2
+        },
+        {
+          "entrada": [[10]],
+          "esperado": 10
+        },
+        {
+          "entrada": [[1, 2]],
+          "esperado": 1.5
+        },
+        {
+          "entrada": [[0, 0, 6]],
+          "esperado": 2
+        },
+        {
+          "entrada": [[-2, 2]],
+          "esperado": 0
+        }
+      ],
+      "dica": "Some tudo e divida pela quantidade de elementos."
+    },
+    {
+      "id": "segundo-maior",
+      "tipo": "codigo",
+      "titulo": "Segundo maior valor",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 105,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva `segundoMaior(v)` que retorna o segundo maior valor DISTINTO do vetor `v` (que tem pelo menos dois valores diferentes). Por exemplo, em [10, 9, 10, 8] o segundo maior é 9.",
+      "funcao": "segundoMaior",
+      "codigoInicial": "function segundoMaior(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 1, 2]],
+          "esperado": 2
+        },
+        {
+          "entrada": [[5, 5, 4]],
+          "esperado": 4
+        },
+        {
+          "entrada": [[1, 2]],
+          "esperado": 1
+        },
+        {
+          "entrada": [[10, 9, 10, 8]],
+          "esperado": 9
+        },
+        {
+          "entrada": [[-1, -5, -3]],
+          "esperado": -3
+        }
+      ],
+      "dica": "Guarde o maior e o segundo maior vistos até agora, atualizando os dois a cada elemento."
+    }
+  ]
+}

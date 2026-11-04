@@ -89,10 +89,19 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
       options: d.options.map((o, j) => (j === i ? value : o)),
     }));
   }
+  function setMisconception(i: number, value: string) {
+    setDraft((d) => {
+      const m = [...d.misconceptions];
+      while (m.length < d.options.length) m.push("");
+      m[i] = value;
+      return { ...d, misconceptions: m };
+    });
+  }
   function removeOption(i: number) {
     setDraft((d) => ({
       ...d,
       options: d.options.filter((_, j) => j !== i),
+      misconceptions: d.misconceptions.filter((_, j) => j !== i),
       correct:
         d.correct === null
           ? null
@@ -301,7 +310,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
           </p>
           <ul className="space-y-2">
             {draft.options.map((o, i) => (
-              <li key={i} className="flex items-center gap-2">
+              <li key={i} className="flex flex-wrap items-center gap-2">
                 <input
                   type="radio"
                   name="correta"
@@ -326,6 +335,16 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 >
                   ✕
                 </button>
+                {draft.correct !== i && (
+                  <input
+                    aria-label={`Confusão que a alternativa ${i + 1} revela (opcional)`}
+                    placeholder="Confusão que esta alternativa revela (opcional). Ex.: confunde && com ||"
+                    maxLength={200}
+                    className="ml-6 basis-full rounded-xl border border-dashed border-zinc-300 bg-white px-3 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-950"
+                    value={draft.misconceptions[i] ?? ""}
+                    onChange={(e) => setMisconception(i, e.target.value)}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -333,7 +352,11 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
             type="button"
             disabled={draft.options.length >= 6}
             onClick={() =>
-              setDraft((d) => ({ ...d, options: [...d.options, ""] }))
+              setDraft((d) => ({
+                ...d,
+                options: [...d.options, ""],
+                misconceptions: [...d.misconceptions, ""],
+              }))
             }
             className="mt-3 text-sm text-emerald-700 hover:underline disabled:opacity-50 dark:text-emerald-400"
           >

@@ -17,8 +17,11 @@ export const KIND_LABEL: Record<ExerciseKind, string> = {
  * Dados específicos de cada tipo (vêm do banco, escritos por professores, então são tratados
  * com cuidado em `grading.ts`). Múltipla escolha: options + correct. Lacunas: template + blanks.
  */
+/** Alternativa: texto simples ou texto + a confusão que ela revela (para a análise de erros). */
+export type ChoiceOption = string | { text: string; misconception?: string };
+
 export interface ExerciseConfig {
-  options?: string[];
+  options?: ChoiceOption[];
   correct?: number;
   template?: string;
   blanks?: { answers: string[] }[];
@@ -53,6 +56,18 @@ export interface Module {
   focus: string;
   /** Texto do conceito, lido antes dos exercícios (modo aprendizado). */
   intro: string;
+  /** Mundo ao qual a lição pertence (migration 0010). */
+  worldId: string | null;
+  /** Exemplo demonstrativo e revisão da lição (migration 0010). */
+  example: string;
+  review: string;
+  position: number;
+}
+
+export interface World {
+  id: string;
+  title: string;
+  objective: string;
   position: number;
 }
 
@@ -106,6 +121,9 @@ export interface ModuleRow {
   focus: string;
   /** Coluna da migration 0009: pode não existir se o banco ainda não a recebeu. */
   intro?: string;
+  world_id?: string | null;
+  example?: string;
+  review?: string;
   position: number;
 }
 
@@ -138,6 +156,9 @@ export function moduleFromRow(r: ModuleRow): Module {
     title: r.title,
     focus: r.focus,
     intro: r.intro ?? "",
+    worldId: r.world_id ?? null,
+    example: r.example ?? "",
+    review: r.review ?? "",
     position: r.position,
   };
 }

@@ -35,8 +35,26 @@ const ex = (
 
 const catalog: Catalog = {
   modules: [
-    { id: "m1", title: "Um", focus: "foco um", intro: "", position: 1 },
-    { id: "m2", title: "Dois", focus: "foco dois", intro: "", position: 2 },
+    {
+      id: "m1",
+      title: "Um",
+      focus: "foco um",
+      intro: "",
+      worldId: null,
+      example: "",
+      review: "",
+      position: 1,
+    },
+    {
+      id: "m2",
+      title: "Dois",
+      focus: "foco dois",
+      intro: "",
+      worldId: null,
+      example: "",
+      review: "",
+      position: 2,
+    },
   ],
   exercises: [
     ex("a", "m1"),

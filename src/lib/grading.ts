@@ -1,12 +1,34 @@
-import type { ExerciseConfig } from "./catalog";
+import type { ChoiceOption, ExerciseConfig } from "./catalog";
 
 /** Remove espaços nas pontas e reduz sequências de espaços a um só (a comparação é sensível a maiúsculas, como em código). */
 export function normalizeAnswer(text: string): string {
   return text.trim().replace(/\s+/g, " ");
 }
 
+/** Texto de uma alternativa, no formato simples ou no com confusão. */
+export function optionText(o: ChoiceOption): string {
+  return typeof o === "string" ? o : o.text;
+}
+
+/** Confusão que a alternativa revela (nula se não houver). */
+export function optionMisconception(o: ChoiceOption): string | null {
+  return typeof o === "string" ? null : o.misconception?.trim() || null;
+}
+
+function validOption(o: unknown): o is ChoiceOption {
+  if (typeof o === "string") return true;
+  if (typeof o !== "object" || o === null) return false;
+  const { text, misconception } = o as Record<string, unknown>;
+  return (
+    typeof text === "string" &&
+    (misconception === undefined || typeof misconception === "string")
+  );
+}
+
 export interface ChoiceView {
   options: string[];
+  /** Confusão de cada alternativa (nula quando não marcada). */
+  misconceptions: (string | null)[];
   correct: number;
 }
 
@@ -16,7 +38,7 @@ export function choiceView(c: ExerciseConfig): ChoiceView | null {
   if (
     !Array.isArray(options) ||
     options.length < 2 ||
-    !options.every((o) => typeof o === "string")
+    !options.every(validOption)
   )
     return null;
   if (
@@ -26,7 +48,11 @@ export function choiceView(c: ExerciseConfig): ChoiceView | null {
     correct >= options.length
   )
     return null;
-  return { options, correct };
+  return {
+    options: options.map(optionText),
+    misconceptions: options.map(optionMisconception),
+    correct,
+  };
 }
 
 export function gradeChoice(

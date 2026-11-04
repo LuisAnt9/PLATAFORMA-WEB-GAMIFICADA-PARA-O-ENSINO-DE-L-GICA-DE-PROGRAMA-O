@@ -599,6 +599,10 @@ describe("0007: ping para manter o projeto ativo", () => {
       "class_members",
       "daily_activity",
       "ai_hints",
+      "worlds",
+      "concepts",
+      "exercise_concepts",
+      "attempts",
     ]) {
       expect((await as(null, `select * from public.${t}`)).ok, t).toBe(false);
     }

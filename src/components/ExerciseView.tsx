@@ -3,8 +3,9 @@
 import type { HintContext } from "@/lib/ai-hint";
 import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getStreak, logActivity } from "@/lib/activity-store";
+import { saveAttempt, type Submission } from "@/lib/attempts";
 import {
   DIFFICULTY_LABEL,
   KIND_LABEL,
@@ -39,6 +40,9 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const { catalog } = useCatalog();
 
   const [busy, setBusy] = useState(false);
+  // início da tela e da última tentativa, para medir quanto tempo cada tentativa levou
+  const [openedAt] = useState(() => Date.now());
+  const lastAttemptAt = useRef<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [gain, setGain] = useState<{ xp: number; badges: string[] } | null>(
     null,
@@ -62,6 +66,14 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     (exercise.kind === "blank" && !blank);
   const passedNow =
     codeResult?.passed || choiceResult === true || blankResult?.passed === true;
+
+  /** Registra a tentativa para a análise pedagógica (não bloqueia nem altera XP, medalhas ou sequência). */
+  function logAttempt(submission: Submission, passed: boolean) {
+    const now = Date.now();
+    const durationMs = now - (lastAttemptAt.current ?? openedAt);
+    lastAttemptAt.current = now;
+    void saveAttempt({ exercise, submission, passed, durationMs });
+  }
 
   /** Fluxo comum a todos os tipos: registra a tentativa, o XP, a sequência e as medalhas novas. */
   async function finish(passed: boolean) {
@@ -102,6 +114,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   async function submitCode() {
     setBusy(true);
     const res = await runExercise(exercise, code);
+    logAttempt({ kind: "code", code, result: res }, res.passed);
     setCodeResult(res);
     setBusy(false);
     await finish(res.passed);
@@ -109,6 +122,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
 
   async function submitChoice() {
     const passed = gradeChoice(exercise.config, selected);
+    if (selected !== null) logAttempt({ kind: "choice", selected }, passed);
     setChoiceResult(passed);
     setBusy(true);
     await finish(passed);
@@ -117,6 +131,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
 
   async function submitBlanks() {
     const res = gradeBlanks(exercise.config, answers);
+    logAttempt({ kind: "blank", answers, result: res }, res.passed);
     setBlankResult(res);
     setBusy(true);
     await finish(res.passed);

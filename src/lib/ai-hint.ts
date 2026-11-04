@@ -1,4 +1,5 @@
 import type { Exercise } from "./catalog";
+import { optionText } from "./grading";
 
 /** Limite de dicas com IA por aluno e por dia (aplicado no banco, em `use_ai_hint`). */
 export const DAILY_HINT_LIMIT = 10;
@@ -49,7 +50,7 @@ export function buildHintPrompt(ex: Exercise, ctx: HintContext): string {
   }
   if (ex.kind === "choice") {
     parts.push(
-      `Alternativas:\n${(ex.config.options ?? []).map((o, i) => `${i + 1}) ${o}`).join("\n")}`,
+      `Alternativas:\n${(ex.config.options ?? []).map((o, i) => `${i + 1}) ${optionText(o)}`).join("\n")}`,
     );
     parts.push(
       `(Uso interno, não revele: a alternativa correta é a ${(ex.config.correct ?? 0) + 1}.)`,

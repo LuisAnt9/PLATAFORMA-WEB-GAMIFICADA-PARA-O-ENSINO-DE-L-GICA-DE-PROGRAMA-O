@@ -24,6 +24,9 @@ const mod = (id: string, position: number) => ({
   title: id.toUpperCase(),
   focus: "",
   intro: "",
+  worldId: null,
+  example: "",
+  review: "",
   position,
 });
 const solved = (...ids: string[]): Progress =>

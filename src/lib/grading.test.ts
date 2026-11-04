@@ -87,3 +87,29 @@ describe("lacunas", () => {
     ).toBeNull();
   });
 });
+
+describe("alternativas com confusão (migration 0010)", () => {
+  const config = {
+    options: [
+      "certa",
+      { text: "errada", misconception: "confunde && com ||" },
+      { text: "outra" },
+    ],
+    correct: 0,
+  };
+  it("lê os dois formatos e devolve textos e confusões", () => {
+    const v = choiceView(config);
+    expect(v?.options).toEqual(["certa", "errada", "outra"]);
+    expect(v?.misconceptions).toEqual([null, "confunde && com ||", null]);
+  });
+  it("a correção não muda com o formato", () => {
+    expect(gradeChoice(config, 0)).toBe(true);
+    expect(gradeChoice(config, 1)).toBe(false);
+  });
+  it("rejeita alternativa malformada", () => {
+    expect(
+      choiceView({ options: ["a", { nome: "x" } as never], correct: 0 }),
+    ).toBeNull();
+    expect(choiceView({ options: ["a", 3 as never], correct: 0 })).toBeNull();
+  });
+});

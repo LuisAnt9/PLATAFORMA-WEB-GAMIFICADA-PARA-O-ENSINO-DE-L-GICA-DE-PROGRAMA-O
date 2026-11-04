@@ -10,7 +10,7 @@ let failed=0; const ok=(n,c)=>{console.log((c?"✓ ":"✗ FALHOU: ")+n); if(!c) 
 async function newCtx(role){
   const ctx = await b.newContext({viewport:{width:1000,height:900}});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
-  const st={ myClasses:[], teacherClasses:[{id:"c1",name:"ADS 2026.1",code:"ABC234",created_at:"2026-10-01T00:00:00Z"}], upserts:[], calls:[] };
+  const st={ myClasses:[], teacherClasses:[{id:"c1",name:"ADS 2026.1",code:"ABC234",created_at:"2026-10-01T00:00:00Z"}], upserts:[], attempts:[], calls:[] };
   await ctx.route("**/*.supabase.co/**", async route=>{
     const req=route.request(), u=req.url(), m=req.method(), acc=req.headers()["accept"]||"";
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
@@ -27,6 +27,7 @@ async function newCtx(role){
       if(u.includes("user_id=in.")) return json([{user_id:"s1",exercise_id:"soma",attempts:2,solved:true,first_try:false,xp:10,updated_at:new Date(Date.now()-3*864e5).toISOString()},{user_id:"s1",exercise_id:"dobro",attempts:1,solved:false,first_try:false,xp:0,updated_at:new Date().toISOString()}]);
       return json([]);
     }
+    if(u.includes("/rpc/record_attempt")){ st.attempts.push(JSON.parse(req.postData())); return json(1); }
     if(u.includes("/rpc/join_class")){ const body=JSON.parse(req.postData()); if(body.class_code!=="ABC234") return json({code:"P0001",message:"Código de turma inválido."},400); st.myClasses=[{id:"c1",name:"ADS 2026.1"}]; return json([{id:"c1",name:"ADS 2026.1"}]); }
     if(u.includes("/rpc/create_class")){ const body=JSON.parse(req.postData()); st.teacherClasses.unshift({id:"c2",name:body.class_name,code:"ZZZ999",created_at:new Date().toISOString()}); return json([{id:"c2",name:body.class_name,code:"ZZZ999"}]); }
     if(u.includes("/rest/v1/classes")){
@@ -59,6 +60,7 @@ async function newCtx(role){
   await p.click(".cm-content"); await p.keyboard.press("Control+A"); await p.keyboard.insertText("function soma(a,b){return a+b}");
   await p.keyboard.press("Control+Enter");
   await p.waitForSelector("text=Todos os testes passaram",{timeout:8000});
+  ok("código registrado como tentativa: código enviado, testes aprovados e sem categoria de erro", st.attempts.length===1 && st.attempts[0].p_exercise==="soma" && st.attempts[0].p_passed===true && st.attempts[0].p_answer.includes("return a+b") && st.attempts[0].p_tests_passed===st.attempts[0].p_tests_total && st.attempts[0].p_error_category===null);
   ok("executa e acerta com testes do banco; XP gravado", st.upserts.length===1 && st.upserts[0].exercise_id==="soma" && st.upserts[0].xp===15);
   ok("sugere o próximo exercício", (await p.locator("main").innerText()).includes("Próximo: Dobro"));
   await p.goto(BASE+"/exercicio/nao-existe");

@@ -359,3 +359,68 @@ describe("draftFromExercise: tipos sem código", () => {
     expect(validateDraft(d).config).toEqual(e.config);
   });
 });
+
+describe("validateDraft: confusão das alternativas (migration 0010)", () => {
+  const choice = (over: Partial<Draft> = {}): Draft => ({
+    ...emptyDraft("m1"),
+    kind: "choice",
+    title: "Pergunta",
+    statement: "Qual?",
+    options: ["Certa", "Errada A", "Errada B"],
+    misconceptions: ["", "", ""],
+    correct: 0,
+    ...over,
+  });
+  it("sem confusão marcada, mantém a lista simples de textos", () => {
+    expect(validateDraft(choice()).config?.options).toEqual([
+      "Certa",
+      "Errada A",
+      "Errada B",
+    ]);
+  });
+  it("com confusão marcada, usa texto + confusão e ignora a da alternativa certa", () => {
+    const r = validateDraft(
+      choice({ misconceptions: ["ignorada", " confunde && com || ", ""] }),
+    );
+    expect(r.errors).toEqual([]);
+    expect(r.config?.options).toEqual([
+      { text: "Certa" },
+      { text: "Errada A", misconception: "confunde && com ||" },
+      { text: "Errada B" },
+    ]);
+  });
+  it("recusa confusão com mais de 200 caracteres", () => {
+    const r = validateDraft(
+      choice({ misconceptions: ["", "x".repeat(201), ""] }),
+    );
+    expect(r.errors.join()).toContain("200 caracteres");
+  });
+  it("editar um exercício existente preserva as confusões", () => {
+    const config = {
+      options: ["Certa", { text: "Errada", misconception: "m1" }],
+      correct: 0,
+    };
+    const d = draftFromExercise({
+      id: "x",
+      kind: "choice",
+      lesson: null,
+      config,
+      moduleId: "m1",
+      title: "T",
+      difficulty: "facil",
+      statement: "S",
+      functionName: "",
+      starterCode: "",
+      tests: [],
+      hint: "",
+      position: 1,
+      published: true,
+    });
+    expect(d.options).toEqual(["Certa", "Errada"]);
+    expect(d.misconceptions).toEqual(["", "m1"]);
+    expect(validateDraft(d).config?.options).toEqual([
+      { text: "Certa" },
+      { text: "Errada", misconception: "m1" },
+    ]);
+  });
+});

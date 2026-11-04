@@ -5,7 +5,7 @@ import type {
   ExerciseKind,
   TestCase,
 } from "./catalog";
-import { placeholderNumbers } from "./grading";
+import { optionMisconception, optionText, placeholderNumbers } from "./grading";
 
 /** Um teste como o professor o digita: texto JSON para as entradas e para o resultado esperado. */
 export interface DraftTest {
@@ -19,6 +19,8 @@ export interface Draft {
   lesson: string;
   // --- múltipla escolha ---
   options: string[];
+  /** Confusão que cada alternativa revela (paralelo a `options`; vazio = não marcada). */
+  misconceptions: string[];
   /** Índice da alternativa correta (null = ainda não escolhida). */
   correct: number | null;
   // --- completar a lacuna ---
@@ -56,6 +58,7 @@ export function emptyDraft(moduleId = ""): Draft {
     kind: "code",
     lesson: "",
     options: ["", ""],
+    misconceptions: ["", ""],
     correct: null,
     template: "",
     blankAnswers: [],
@@ -83,7 +86,12 @@ export function draftFromExercise(e: Exercise): Draft {
   return {
     kind: e.kind,
     lesson: e.lesson ?? "",
-    options: e.kind === "choice" && c.options ? [...c.options] : ["", ""],
+    options:
+      e.kind === "choice" && c.options ? c.options.map(optionText) : ["", ""],
+    misconceptions:
+      e.kind === "choice" && c.options
+        ? c.options.map((o) => optionMisconception(o) ?? "")
+        : ["", ""],
     correct:
       e.kind === "choice" && typeof c.correct === "number" ? c.correct : null,
     template: e.kind === "blank" ? (c.template ?? "") : "",
@@ -162,7 +170,21 @@ function validateChoice(
     errors.push("Há alternativas repetidas.");
   if (d.correct === null || d.correct < 0 || d.correct >= options.length)
     errors.push("Marque qual alternativa é a correta.");
-  const config: ExerciseConfig = { options, correct: d.correct ?? 0 };
+  const correct = d.correct ?? 0;
+  const tags = options.map((_, i) =>
+    i === correct ? "" : (d.misconceptions[i] ?? "").trim(),
+  );
+  if (tags.some((t) => t.length > 200))
+    errors.push("A confusão de cada alternativa tem no máximo 200 caracteres.");
+  // Só usa o formato com confusão quando há alguma; senão mantém a lista simples de textos.
+  const config: ExerciseConfig = {
+    options: tags.some(Boolean)
+      ? options.map((text, i) =>
+          tags[i] ? { text, misconception: tags[i] } : { text },
+        )
+      : options,
+    correct,
+  };
   if (d.explanation.trim()) config.explanation = d.explanation.trim();
   return { errors, config };
 }

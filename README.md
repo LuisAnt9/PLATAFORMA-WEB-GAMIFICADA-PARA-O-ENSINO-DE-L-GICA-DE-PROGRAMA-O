@@ -49,6 +49,10 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Modo aprendizado** (inspirado na trilha de conceitos do Exercism): os módulos abrem em ordem, resolvendo 70% de um para liberar o próximo; cada módulo tem um texto de "conceito" (migration 0009, editável pelo professor). O **modo prática** libera tudo; professores nunca têm bloqueio. A regra está em `src/lib/learning.ts`.
 
+- **Base da análise pedagógica (migration 0010, etapa E1 do plano em `docs/plano/`)**: mundos (`worlds`) e lições, conceitos (`concepts`, `exercise_concepts`) e registro de **cada tentativa** em `attempts` (código enviado, testes aprovados, categoria do erro: sintaxe, execução, tempo ou saída incorreta; e, em múltipla escolha, a "confusão" da alternativa marcada). A escrita só ocorre por `record_attempt` (validada no servidor, máx. 60 por minuto) e o professor lê só os alunos das suas turmas.
+  - *Tamanho no plano gratuito (500 MB):* cada tentativa ocupa cerca de 1 KB (a resposta é cortada em 4000 caracteres). 100 alunos × 500 tentativas ≈ 50 MB, então há folga para dezenas de milhares de tentativas por turma. Vale conferir o uso do banco no painel do Supabase a cada semestre.
+  - As tentativas só existem **a partir da aplicação da migration**: não há histórico anterior.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

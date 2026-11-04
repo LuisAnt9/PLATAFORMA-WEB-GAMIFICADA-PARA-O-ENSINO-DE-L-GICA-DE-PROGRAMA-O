@@ -18,7 +18,7 @@ const exs=[
 async function newCtx(role){
   const ctx = await b.newContext({viewport:{width:1000,height:1000},timezoneId:TZ});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
-  const st={upserts:[],activity:[],posts:[],patches:[],days:[dayOffset(-1),dayOffset(-2)]};
+  const st={attempts:[],upserts:[],activity:[],posts:[],patches:[],days:[dayOffset(-1),dayOffset(-2)]};
   await ctx.route("**/*.supabase.co/**", async route=>{
     const req=route.request(), u=req.url(), m=req.method();
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
@@ -29,6 +29,7 @@ async function newCtx(role){
     if(u.includes("/rest/v1/profiles")) return json({id:uid,name:role==="professor"?"Prof Lima":"Luis A",role});
     if(u.includes("/rest/v1/exercise_progress")){ if(m==="POST"||m==="PATCH"){ st.upserts.push(JSON.parse(req.postData())); return empty(); } return json([]); }
     if(u.includes("/rest/v1/daily_activity")) return json(st.days.map(day=>({day})));
+    if(u.includes("/rpc/record_attempt")){ st.attempts.push(JSON.parse(req.postData())); return json(1); }
     if(u.includes("/rpc/log_activity")){ st.activity.push(JSON.parse(req.postData())); return json(null); }
     return json([]);
   });
@@ -55,6 +56,7 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
   await p.click("button:has-text('Verificar resposta')");
   await p.waitForSelector("text=Ainda não");
   ok("alternativa errada: mensagem de incentivo e sem revelar o gabarito", !(await p.locator("main").innerText()).includes("x vale 4"));
+  ok("tentativa errada registrada para a análise (alternativa marcada, exercício e modalidade)", st.attempts.length===1 && st.attempts[0].p_exercise==="ch1" && st.attempts[0].p_selected===3 && st.attempts[0].p_mode==="livre" && typeof st.attempts[0].p_duration_ms==="number");
   ok("tentativa errada gravada (1 tentativa, não resolvido)", st.upserts.length===1 && st.upserts[0].attempts===1 && st.upserts[0].solved===false && st.upserts[0].xp===0);
   ok("registra a atividade do dia (sem resolver)", st.activity.length===1 && st.activity[0].p_solved===false && st.activity[0].p_day===dayOffset(0));
   ok("sequência sobe para 3 na hora", (await headerStreak(p))==="Sequência: 3 dias");
@@ -64,6 +66,7 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
   await p.click("button:has-text('Verificar resposta')");
   await p.waitForSelector("text=Correto!");
   ok("acerto mostra a explicação e o XP (2ª tentativa = 10 XP)", (await p.locator("main").innerText()).includes("4 + 3 = 7") && (await p.locator("main").innerText()).includes("+10 XP"));
+  ok("acerto também registrado como tentativa", st.attempts.length===2 && st.attempts[1].p_selected===2 && st.attempts[1].p_passed===true);
   ok("acerto gravado como resolvido com XP", st.upserts[1].solved===true && st.upserts[1].xp===10 && st.upserts[1].attempts===2);
   ok("segunda atividade do mesmo dia soma sem duplicar a sequência", st.activity.length===2 && st.activity[1].p_solved===true && (await headerStreak(p))==="Sequência: 3 dias");
   ok("sugere o próximo exercício", (await p.locator("main").innerText()).includes("Próximo: Complete a condicional"));
@@ -78,6 +81,7 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
   await p.fill("input[aria-label='Lacuna 1']"," if ");
   await p.click("button:has-text('Verificar respostas')");
   await p.waitForSelector("text=Tudo certo!");
+  ok("lacunas registradas: respostas e quantas estavam certas", st.attempts.length===4 && JSON.parse(st.attempts[2].p_answer).join(",")==="iff,else" && st.attempts[2].p_tests_passed===1 && st.attempts[2].p_tests_total===2 && st.attempts[3].p_passed===true);
   ok("resposta certa com espaços extras é aceita; XP de 2ª tentativa", st.upserts.at(-1).solved===true && st.upserts.at(-1).xp===10);
 
   await p.click("nav >> text=Perfil");

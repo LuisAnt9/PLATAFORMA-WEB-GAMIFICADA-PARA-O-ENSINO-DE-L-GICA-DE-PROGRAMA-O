@@ -51,6 +51,8 @@ export interface Module {
   title: string;
   /** Dificuldade de aprendizagem (referencial teórico) que o módulo trabalha. */
   focus: string;
+  /** Texto do conceito, lido antes dos exercícios (modo aprendizado). */
+  intro: string;
   position: number;
 }
 
@@ -102,6 +104,8 @@ export interface ModuleRow {
   id: string;
   title: string;
   focus: string;
+  /** Coluna da migration 0009: pode não existir se o banco ainda não a recebeu. */
+  intro?: string;
   position: number;
 }
 
@@ -123,12 +127,19 @@ export interface ExerciseRow {
   published: boolean;
 }
 
-export const MODULE_COLUMNS = "id, title, focus, position";
+// "*" pelo mesmo motivo dos exercícios: tolera migration nova ainda não aplicada.
+export const MODULE_COLUMNS = "*";
 // "*" em vez de lista fixa: o site continua funcionando se uma migration nova ainda não foi aplicada.
 export const EXERCISE_COLUMNS = "*";
 
 export function moduleFromRow(r: ModuleRow): Module {
-  return { id: r.id, title: r.title, focus: r.focus, position: r.position };
+  return {
+    id: r.id,
+    title: r.title,
+    focus: r.focus,
+    intro: r.intro ?? "",
+    position: r.position,
+  };
 }
 
 export function exerciseFromRow(r: ExerciseRow): Exercise {

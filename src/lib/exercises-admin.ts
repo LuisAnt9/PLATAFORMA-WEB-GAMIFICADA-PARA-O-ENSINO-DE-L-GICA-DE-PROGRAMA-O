@@ -130,10 +130,18 @@ export async function createModule(
   title: string,
   focus: string,
   position: number,
+  intro = "",
 ): Promise<void> {
+  // intro só é enviada quando preenchida: sem a migration 0009 o módulo ainda pode ser criado
   const { error } = await getSupabase()
     .from("modules")
-    .insert({ id, title: title.trim(), focus: focus.trim(), position });
+    .insert({
+      id,
+      title: title.trim(),
+      focus: focus.trim(),
+      position,
+      ...(intro.trim() ? { intro: intro.trim() } : {}),
+    });
   if (error) fail(error);
 }
 
@@ -141,10 +149,15 @@ export async function updateModule(
   id: string,
   title: string,
   focus: string,
+  intro?: { value: string; changed: boolean },
 ): Promise<void> {
   const { error } = await getSupabase()
     .from("modules")
-    .update({ title: title.trim(), focus: focus.trim() })
+    .update({
+      title: title.trim(),
+      focus: focus.trim(),
+      ...(intro?.changed ? { intro: intro.value.trim() } : {}),
+    })
     .eq("id", id);
   if (error) fail(error);
 }

@@ -663,3 +663,42 @@ describe("0008: dicas com IA (cota diária)", () => {
     ).toBe(false);
   });
 });
+
+describe("0009: conceito dos módulos", () => {
+  it("todos os módulos de exemplo vêm com texto de conceito", async () => {
+    const r = await db.query<{ n: number }>(
+      "select count(*)::int as n from public.modules where intro = ''",
+    );
+    expect(r.rows[0].n).toBe(0);
+  });
+  it("professor edita o conceito; aluno não; texto enorme é recusado", async () => {
+    expect(
+      (
+        await as(
+          prof,
+          "update public.modules set intro = 'novo' where id = 'textos'",
+        )
+      ).ok,
+    ).toBe(true);
+    expect(
+      (
+        await as(
+          ana,
+          "update public.modules set intro = 'x' where id = 'textos'",
+        )
+      ).rows,
+    ).toEqual([]);
+    expect(
+      (await as(ana, "select intro from public.modules where id = 'textos'"))
+        .rows[0].intro,
+    ).toBe("novo");
+    expect(
+      (
+        await as(
+          prof,
+          `update public.modules set intro = '${"x".repeat(3001)}' where id = 'textos'`,
+        )
+      ).ok,
+    ).toBe(false);
+  });
+});

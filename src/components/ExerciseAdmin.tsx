@@ -25,13 +25,18 @@ function ModuleForm({
   onSubmit,
   onCancel,
 }: {
-  initial: { title: string; focus: string };
+  initial: { title: string; focus: string; intro: string };
   submitLabel: string;
-  onSubmit: (title: string, focus: string) => Promise<void>;
+  onSubmit: (
+    title: string,
+    focus: string,
+    intro: { value: string; changed: boolean },
+  ) => Promise<void>;
   onCancel?: () => void;
 }) {
   const [title, setTitle] = useState(initial.title);
   const [focus, setFocus] = useState(initial.focus);
+  const [intro, setIntro] = useState(initial.intro);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,10 +45,14 @@ function ModuleForm({
     setBusy(true);
     setError(null);
     try {
-      await onSubmit(title, focus);
+      await onSubmit(title, focus, {
+        value: intro,
+        changed: intro.trim() !== initial.intro.trim(),
+      });
       if (!onCancel) {
         setTitle("");
         setFocus("");
+        setIntro("");
       }
     } catch (err) {
       setError((err as Error).message);
@@ -73,6 +82,16 @@ function ModuleForm({
           onChange={(e) => setFocus(e.target.value)}
           maxLength={200}
           placeholder="Ex.: Compreender o passo a passo de um laço"
+        />
+      </label>
+      <label className="basis-full text-sm">
+        Conceito (texto lido antes dos exercícios, opcional)
+        <textarea
+          className={field}
+          rows={5}
+          value={intro}
+          onChange={(e) => setIntro(e.target.value)}
+          maxLength={3000}
         />
       </label>
       <button
@@ -126,7 +145,11 @@ function Content() {
     if (a && b) await run(() => swapPositions(a, b));
   }
 
-  async function addModule(title: string, focus: string) {
+  async function addModule(
+    title: string,
+    focus: string,
+    intro: { value: string },
+  ) {
     const id = newExerciseId(
       title,
       new Set(catalog.modules.map((m) => m.id)),
@@ -135,12 +158,17 @@ function Content() {
     );
     const position =
       catalog.modules.reduce((m, x) => Math.max(m, x.position), 0) + 1;
-    await createModule(id, title, focus, position);
+    await createModule(id, title, focus, position, intro.value);
     await reload();
   }
 
-  async function renameModule(m: Module, title: string, focus: string) {
-    await updateModule(m.id, title, focus);
+  async function renameModule(
+    m: Module,
+    title: string,
+    focus: string,
+    intro: { value: string; changed: boolean },
+  ) {
+    await updateModule(m.id, title, focus, intro);
     await reload();
     setEditing(null);
   }
@@ -191,9 +219,9 @@ function Content() {
               {editing === m.id ? (
                 <div className="mb-3 rounded-2xl border border-zinc-200 bg-white shadow-sm dark:bg-zinc-900 p-4 dark:border-zinc-800">
                   <ModuleForm
-                    initial={{ title: m.title, focus: m.focus }}
+                    initial={{ title: m.title, focus: m.focus, intro: m.intro }}
                     submitLabel="Salvar módulo"
-                    onSubmit={(t, f) => renameModule(m, t, f)}
+                    onSubmit={(t, f, i) => renameModule(m, t, f, i)}
                     onCancel={() => setEditing(null)}
                   />
                 </div>
@@ -288,7 +316,7 @@ function Content() {
       <section className="mt-10 rounded-lg border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
         <h2 className="mb-3 font-semibold">Novo módulo</h2>
         <ModuleForm
-          initial={{ title: "", focus: "" }}
+          initial={{ title: "", focus: "", intro: "" }}
           submitLabel="Criar módulo"
           onSubmit={addModule}
         />

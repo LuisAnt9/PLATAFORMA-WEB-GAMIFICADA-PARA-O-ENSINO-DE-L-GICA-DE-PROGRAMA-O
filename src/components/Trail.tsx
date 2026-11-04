@@ -20,6 +20,7 @@ import { useProgress } from "@/lib/progress-store";
 import { useAuth } from "./AuthProvider";
 import { CatalogGate, useCatalog } from "./CatalogProvider";
 import { useBadgeContext } from "./useBadgeContext";
+import { useModuleLocks } from "./useModuleLocks";
 
 const DIFFICULTY_STYLE: Record<Difficulty, string> = {
   facil:
@@ -83,12 +84,15 @@ function TrailContent() {
   const { catalog } = useCatalog();
   const badgeCtx = useBadgeContext();
   const { profile } = useAuth();
+  const { states, mode, setMode, isLocked } = useModuleLocks();
   const earned = new Set(earnedBadges(badgeCtx).map((b) => b.id));
   const modules = [...catalog.modules].sort((a, b) => a.position - b.position);
 
   const published = orderedExercises(catalog).filter((e) => e.published);
   const solvedCount = published.filter((e) => progress[e.id]?.solved).length;
-  const upNext = published.find((e) => !progress[e.id]?.solved);
+  const upNext = published.find(
+    (e) => !progress[e.id]?.solved && !isLocked(e.moduleId),
+  );
   const xp = totalXp(progress);
   const { level, next, floor, progress: levelPct } = levelInfo(xp);
   const firstName = profile?.name.split(" ")[0];
@@ -161,13 +165,56 @@ function TrailContent() {
         </div>
       </section>
 
+      {profile?.role !== "professor" && (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div
+            role="radiogroup"
+            aria-label="Modo de estudo"
+            className="inline-flex rounded-xl bg-zinc-200/60 p-1 text-sm dark:bg-zinc-800/60"
+          >
+            {(
+              [
+                ["aprendizado", "Modo aprendizado"],
+                ["pratica", "Modo prática"],
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={mode === value}
+                onClick={() => setMode(value)}
+                className={`rounded-lg px-3 py-1.5 ${
+                  mode === value
+                    ? "bg-white font-medium text-emerald-900 shadow-sm dark:bg-zinc-950 dark:text-emerald-300"
+                    : "text-zinc-700 hover:text-foreground dark:text-zinc-300"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            {mode === "aprendizado"
+              ? "Os módulos abrem em ordem: resolva 70% de um para liberar o próximo."
+              : "Tudo liberado: escolha qualquer exercício."}
+          </p>
+        </div>
+      )}
+
       {modules.map((m, mi) => {
         const list = exercisesOf(catalog, m.id);
         const visible = list.filter((e) => e.published);
         const done = visible.filter((e) => progress[e.id]?.solved).length;
         if (list.length === 0) return null;
+        const locked = isLocked(m.id);
+        const st = states[m.id];
         return (
-          <section key={m.id} aria-labelledby={`mod-${m.id}`} className={card}>
+          <section
+            key={m.id}
+            aria-labelledby={`mod-${m.id}`}
+            className={`${card} ${locked ? "border-dashed" : ""}`}
+          >
             <div className="flex items-start gap-4 p-5">
               <span
                 aria-hidden
@@ -181,6 +228,11 @@ function TrailContent() {
                     {m.title}
                   </h2>
                   <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                    {locked && (
+                      <span role="img" aria-label="Bloqueado">
+                        🔒{" "}
+                      </span>
+                    )}
                     {done}/{visible.length} concluídos
                   </span>
                 </div>
@@ -193,47 +245,62 @@ function TrailContent() {
                     label={`Progresso em ${m.title}`}
                   />
                 </div>
+                {m.intro && !locked && (
+                  <details className="group mt-3 rounded-xl bg-emerald-50 text-sm dark:bg-emerald-950">
+                    <summary className="cursor-pointer rounded-xl px-3 py-2 font-medium text-emerald-900 dark:text-emerald-200">
+                      Ler o conceito
+                    </summary>
+                    <p className="whitespace-pre-line px-3 pb-3">{m.intro}</p>
+                  </details>
+                )}
               </div>
             </div>
-            <ul className="divide-y divide-zinc-100 border-t border-zinc-100 dark:divide-zinc-800 dark:border-zinc-800">
-              {list.map((e, i) => {
-                const p = progress[e.id];
-                return (
-                  <li key={e.id}>
-                    <Link
-                      href={`/exercicio/${e.id}`}
-                      className="flex items-center gap-4 px-5 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/60"
-                    >
-                      <StatusIcon solved={!!p?.solved} index={i + 1} />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-medium">{e.title}</div>
-                        <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs">
-                          <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                            {KIND_LABEL[e.kind]}
-                          </span>
-                          <span
-                            className={`rounded-full px-2 py-0.5 ${DIFFICULTY_STYLE[e.difficulty]}`}
-                          >
-                            {DIFFICULTY_LABEL[e.difficulty]}
-                          </span>
-                          {!e.published && profile?.role === "professor" && (
-                            <span className="rounded-full bg-zinc-200 px-2 py-0.5 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-100">
-                              Rascunho
+            {locked && st?.blockedBy ? (
+              <p className="border-t border-zinc-100 px-5 py-4 text-sm text-zinc-700 dark:border-zinc-800 dark:text-zinc-300">
+                Resolva pelo menos 70% de &quot;{st.blockedBy.title}&quot; para
+                liberar este módulo.
+              </p>
+            ) : (
+              <ul className="divide-y divide-zinc-100 border-t border-zinc-100 dark:divide-zinc-800 dark:border-zinc-800">
+                {list.map((e, i) => {
+                  const p = progress[e.id];
+                  return (
+                    <li key={e.id}>
+                      <Link
+                        href={`/exercicio/${e.id}`}
+                        className="flex items-center gap-4 px-5 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/60"
+                      >
+                        <StatusIcon solved={!!p?.solved} index={i + 1} />
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium">{e.title}</div>
+                          <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs">
+                            <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                              {KIND_LABEL[e.kind]}
                             </span>
-                          )}
+                            <span
+                              className={`rounded-full px-2 py-0.5 ${DIFFICULTY_STYLE[e.difficulty]}`}
+                            >
+                              {DIFFICULTY_LABEL[e.difficulty]}
+                            </span>
+                            {!e.published && profile?.role === "professor" && (
+                              <span className="rounded-full bg-zinc-200 px-2 py-0.5 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-100">
+                                Rascunho
+                              </span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      <span className="shrink-0 text-sm text-zinc-600 dark:text-zinc-400">
-                        {p?.solved ? p.xp : XP_BY_DIFFICULTY[e.difficulty]} XP
-                      </span>
-                      <span aria-hidden className="text-zinc-400">
-                        ›
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+                        <span className="shrink-0 text-sm text-zinc-600 dark:text-zinc-400">
+                          {p?.solved ? p.xp : XP_BY_DIFFICULTY[e.difficulty]} XP
+                        </span>
+                        <span aria-hidden className="text-zinc-400">
+                          ›
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </section>
         );
       })}

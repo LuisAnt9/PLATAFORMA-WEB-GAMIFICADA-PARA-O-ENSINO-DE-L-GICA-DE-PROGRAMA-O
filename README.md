@@ -47,6 +47,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Dica com IA (Gemini)**: botão "✨ Dica com IA" em cada exercício. Rota `/api/dica` no servidor (a chave `GEMINI_API_KEY` nunca vai ao navegador), pista sem a resposta pronta, limite de 10 dicas por aluno por dia e histórico em `ai_hints` (migration 0008) para a avaliação.
 
+- **Modo aprendizado** (inspirado na trilha de conceitos do Exercism): os módulos abrem em ordem, resolvendo 70% de um para liberar o próximo; cada módulo tem um texto de "conceito" (migration 0009, editável pelo professor). O **modo prática** libera tudo; professores nunca têm bloqueio. A regra está em `src/lib/learning.ts`.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

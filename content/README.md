@@ -43,7 +43,7 @@ content/
 
 ## Formato dos exercícios
 
-Campos comuns a todos: `id`, `tipo` (`codigo`, `escolha` ou `lacuna`), `titulo`, `dificuldade` (`facil`, `medio`, `dificil`), `publicado`, `posicao`, `conceitos`, `enunciado`, e opcionais `minilicao` (texto "Antes de começar"), `dica` e `explicacao` (mostrada ao acertar, só escolha e lacuna).
+Campos comuns a todos: `id`, `tipo` (`codigo`, `escolha`, `lacuna`, `interpretacao`, `ordenacao`, `corrigir` ou `desafio`), `titulo`, `dificuldade` (`facil`, `medio`, `dificil`), `publicado`, `posicao`, `conceitos`, `enunciado`, e opcionais `minilicao` (texto "Antes de começar"), `dica` e `explicacao` (mostrada ao acertar; vale para escolha, interpretação, lacuna e ordenação).
 
 **Conceitos** (obrigatório, pelo menos um): `"conceitos": [{ "id": "m3-logicos", "peso": 2 }]`. O peso vai de 1 (secundário) a 5 (principal). Os ids estão em `conceitos.json`.
 
@@ -87,6 +87,62 @@ A solução fica em `content/solucoes/soma.js`. O validador exige que ela **pass
 
 Cada alternativa é um texto simples ou `{ "texto", "confusao" }`. **A `confusao` é a ideia errada que aquela alternativa revela** (até 200 caracteres). É ela que permite ao painel do professor dizer "os alunos confundem && com ||". `correta` é o número da alternativa certa, **começando em 0**, e a alternativa certa não leva `confusao`.
 
+### Interpretação de código
+
+É uma múltipla escolha com um trecho de código para ler. Use o campo `codigo` e as mesmas `opcoes` e `correta` da escolha:
+
+```json
+{
+  "id": "qual-valor-impresso", "tipo": "interpretacao", "titulo": "Qual valor será impresso?", "dificuldade": "facil",
+  "publicado": true, "posicao": 1,
+  "conceitos": [{ "id": "m2-introducao-variaveis", "peso": 2 }],
+  "enunciado": "Leia o código. Qual valor aparece na tela?",
+  "codigo": "let x = 4;\nx = x + 3;\nconsole.log(x);",
+  "opcoes": [
+    { "texto": "4", "confusao": "ignora a linha que muda o valor da variável" },
+    "7"
+  ],
+  "correta": 1
+}
+```
+
+### Ordenação
+
+O aluno coloca os passos na ordem certa (usando botões, também pelo teclado). Escreva os `itens` **na ordem correta**: o site os embaralha. De 2 a 10 passos, todos diferentes.
+
+```json
+{
+  "id": "ordem-do-cafe", "tipo": "ordenacao", "titulo": "Ordene os passos do café", "dificuldade": "facil",
+  "publicado": true, "posicao": 2,
+  "conceitos": [{ "id": "m1-sequencia", "peso": 2 }],
+  "enunciado": "Coloque os passos na ordem certa.",
+  "itens": ["Ferver a água", "Colocar o pó no filtro", "Despejar a água quente", "Servir o café"]
+}
+```
+
+### Corrigir o erro e desafio
+
+São exercícios de código, como o tipo `codigo`, com os mesmos campos (`funcao`, `codigoInicial`, `testes`) e a solução em `content/solucoes/`.
+
+- `corrigir`: o `codigoInicial` é o **código com defeito**. Ele precisa declarar `function nome(...)` e **falhar em pelo menos um teste**.
+- `desafio`: exercício maior que junta vários conceitos (o validador avisa se houver só um).
+
+Os dois aceitam o campo opcional `comentario` (até 2000 caracteres): ele aparece junto da solução comentada, que o aluno só vê **depois de acertar**.
+
+### Entrada e saída nos exercícios de código
+
+Cada teste pode, além de `entrada` (argumentos da função), ter:
+
+- `entradas`: lista de valores que o código lê chamando `lerEntrada()`, um por chamada;
+- `saida`: lista com as linhas que o código deve imprimir com `console.log`;
+- `esperado`: o valor que a função retorna (**opcional** se houver `saida`).
+
+```json
+{ "entrada": [], "entradas": ["Ana"], "saida": ["Olá, Ana!"] }
+```
+
+Nos exercícios do site não existem `prompt()`, `alert()`, `document`, rede nem `import`: o código roda isolado, com limite de tempo e de linhas impressas (200).
+
 ### Completar a lacuna
 
 ```json
@@ -111,7 +167,7 @@ Exercício sem conceito, conceito ou mundo inexistente, ids repetidos, textos ma
 - **Cria** o que for novo e **atualiza** o que mudou nos arquivos.
 - **Nunca sobrescreve** uma lição ou exercício que o professor **editou pelo painel** (ficam marcados como `origem = 'painel'`). Se isso acontecer com algum, o importador avisa quantos foram ignorados.
 - **Nunca altera** `publicado` nem `posicao` de um exercício que já existe: publicar, despublicar e reordenar pelo painel valem sobre o arquivo.
-- Dicas em níveis (dica do professor, pista do conceito) chegam na etapa E3.
+- A dica do exercício (`dica`) é o nível 1. O nível 2 (pista do conceito) vem dos conceitos do exercício e do texto da lição, e o nível 3 é a dica com IA.
 
 ## Atenção: as soluções ficam no repositório
 

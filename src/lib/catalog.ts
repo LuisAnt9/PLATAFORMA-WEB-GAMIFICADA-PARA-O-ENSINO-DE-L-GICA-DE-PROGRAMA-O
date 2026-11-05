@@ -1,17 +1,43 @@
 export type Difficulty = "facil" | "medio" | "dificil";
 
+/**
+ * Caso de teste de um exercício com código. Compara o valor retornado (`expected`), as linhas
+ * impressas com console.log (`output`), ou os dois. `inputs` são as entradas simuladas que o código
+ * recebe ao chamar `lerEntrada()`.
+ */
 export interface TestCase {
   args: unknown[];
-  expected: unknown;
+  expected?: unknown;
+  inputs?: unknown[];
+  output?: string[];
 }
 
-export type ExerciseKind = "code" | "choice" | "blank";
+export type ExerciseKind =
+  | "code"
+  | "choice"
+  | "blank"
+  | "interpretation"
+  | "order"
+  | "fix"
+  | "challenge";
 
 export const KIND_LABEL: Record<ExerciseKind, string> = {
   code: "Código",
   choice: "Múltipla escolha",
   blank: "Completar a lacuna",
+  interpretation: "Interpretação de código",
+  order: "Ordenação",
+  fix: "Corrigir o erro",
+  challenge: "Desafio",
 };
+
+/** Tipos corrigidos rodando o código do aluno (têm função e testes). */
+export const isCodeKind = (k: ExerciseKind) =>
+  k === "code" || k === "fix" || k === "challenge";
+
+/** Tipos de escolher uma alternativa. */
+export const isChoiceKind = (k: ExerciseKind) =>
+  k === "choice" || k === "interpretation";
 
 /**
  * Dados específicos de cada tipo (vêm do banco, escritos por professores, então são tratados
@@ -25,6 +51,10 @@ export interface ExerciseConfig {
   correct?: number;
   template?: string;
   blanks?: { answers: string[] }[];
+  /** Interpretação de código: trecho a ser lido. */
+  code?: string;
+  /** Ordenação: os passos, na ordem correta. */
+  items?: string[];
   /** Mostrada ao acertar. */
   explanation?: string;
 }
@@ -71,12 +101,44 @@ export interface World {
   position: number;
 }
 
+export interface Concept {
+  id: string;
+  title: string;
+  description: string;
+  worldId: string | null;
+}
+
+/** Ligação exercício-conceito (migration 0010). */
+export interface ExerciseConcept {
+  exerciseId: string;
+  conceptId: string;
+  weight: number;
+}
+
 export interface Catalog {
   modules: Module[];
   exercises: Exercise[];
+  /** Conceitos e ligações (migration 0010); vazios se o banco ainda não os tem. */
+  concepts?: Concept[];
+  links?: ExerciseConcept[];
 }
 
-export const EMPTY_CATALOG: Catalog = { modules: [], exercises: [] };
+export const EMPTY_CATALOG: Catalog = {
+  modules: [],
+  exercises: [],
+  concepts: [],
+  links: [],
+};
+
+/** Conceitos de um exercício, do mais para o menos importante. */
+export function conceptsOf(c: Catalog, exerciseId: string): Concept[] {
+  const byId = new Map((c.concepts ?? []).map((x) => [x.id, x]));
+  return (c.links ?? [])
+    .filter((l) => l.exerciseId === exerciseId)
+    .sort((a, b) => b.weight - a.weight)
+    .map((l) => byId.get(l.conceptId))
+    .filter((x): x is Concept => x !== undefined);
+}
 
 export const XP_BY_DIFFICULTY: Record<Difficulty, number> = {
   facil: 10,

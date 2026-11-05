@@ -30,7 +30,11 @@ const json = (v: unknown) => JSON.stringify(v);
 
 describe("exercícios de código da migration", () => {
   it("há uma solução para cada exercício, e só para eles", () => {
-    expect(Object.keys(solutions).sort()).toEqual(rows.map((r) => r.id).sort());
+    // os exercícios "exemplo-*" só existem em content/ (não nas migrations): ficam de fora desta conferência
+    const dasMigrations = Object.keys(solutions).filter(
+      (id) => !id.startsWith("exemplo-"),
+    );
+    expect(dasMigrations.sort()).toEqual(rows.map((r) => r.id).sort());
   });
   it("o código inicial declara a função esperada", () => {
     for (const r of rows)

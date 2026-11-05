@@ -1,6 +1,6 @@
 -- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0011. Não altera "published" nem "position" de exercícios que já existem
+-- Requer as migrations até a 0012. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 
 insert into public.worlds (id, title, objective, position) values
@@ -87,6 +87,7 @@ insert into public.modules (id, title, focus, intro, example, review, world_id, 
   ($c$primeiros-passos$c$, $c$Primeiros passos$c$, $c$Entender o que é um algoritmo e como o computador segue instruções$c$, $c$Um algoritmo é uma sequência de passos para resolver um problema, como uma receita de bolo. O computador só faz o que mandamos, na ordem em que mandamos, e por isso cada passo precisa ser claro.
 
 Neste módulo você vai conhecer o vocabulário básico: valores, tipos (número, texto, lógico) e operadores. Não se preocupe em decorar: errar faz parte, e cada exercício explica a resposta.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 0, $c$arquivo$c$),
+  ($c$exemplos-dos-tipos$c$, $c$Exemplos dos tipos de exercício$c$, $c$Modelos para o professor copiar (rascunhos)$c$, $c$Esta lição reúne um exemplo de cada tipo novo de exercício, como modelo para escrever os seus. Todos estão como rascunho: só o professor os vê.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 99, $c$arquivo$c$),
   ($c$textos$c$, $c$Textos$c$, $c$Percorrer e transformar sequências de caracteres$c$, $c$Um texto (string) é uma sequência de caracteres entre aspas. Cada caractere tem uma posição, começando em 0:
 
 const palavra = "casa";
@@ -149,6 +150,16 @@ Qual é o valor final de x?$c$, $c$Uma variável é um nome que guarda um valor.
   ($c$tipos-de-dados$c$, $c$primeiros-passos$c$, $c$choice$c$, $c$Qual é o tipo do valor?$c$, $c$facil$c$, $c$Em JavaScript, qual é o tipo do valor "42" (escrito entre aspas)?$c$, $c$Todo valor tem um tipo: número (3 ou 2.5), texto ("olá") ou lógico (true ou false). O tipo define o que podemos fazer com o valor.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":["Número","Texto (string)","Lógico (boolean)","Vetor"],"correct":1,"explanation":"As aspas fazem de \"42\" um texto. Sem aspas, 42 seria um número."}$c$::jsonb, $c$Repare nas aspas.$c$, 101, false, $c$arquivo$c$),
   ($c$precedencia-operadores$c$, $c$primeiros-passos$c$, $c$choice$c$, $c$Quem calcula primeiro?$c$, $c$facil$c$, $c$Qual é o resultado de 2 + 3 * 4?$c$, $c$Como na matemática, multiplicação e divisão são calculadas antes de soma e subtração. Parênteses mudam a ordem.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":["20","14","24","10"],"correct":1,"explanation":"A multiplicação vem primeiro: 3 * 4 = 12, e depois 2 + 12 = 14. Com parênteses, (2 + 3) * 4 daria 20."}$c$::jsonb, $c$Faça a multiplicação antes da soma.$c$, 102, false, $c$arquivo$c$),
   ($c$resto-da-divisao$c$, $c$primeiros-passos$c$, $c$choice$c$, $c$Resto da divisão$c$, $c$facil$c$, $c$Quanto vale 17 % 5?$c$, $c$O operador % devolve o resto da divisão inteira. Por exemplo, 7 % 3 vale 1, porque 7 = 2 * 3 + 1. Um número é par quando n % 2 vale 0.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":["3","2","12","3,4"],"correct":1,"explanation":"17 = 3 * 5 + 2, então o resto é 2."}$c$::jsonb, $c$Quantas vezes o 5 cabe no 17? O que sobra?$c$, 103, false, $c$arquivo$c$),
+  ($c$exemplo-interpretacao$c$, $c$exemplos-dos-tipos$c$, $c$interpretation$c$, $c$Qual valor será impresso?$c$, $c$facil$c$, $c$Leia o código com atenção. Qual valor aparece na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"ignora a linha que muda o valor da variável"},{"text":"3","misconception":"acha que x = x + 3 guarda só o 3"},{"text":"7"},{"text":"43","misconception":"confunde soma com junção de textos"}],"correct":2,"code":"let x = 4;\nx = x + 3;\nconsole.log(x);","explanation":"x começa valendo 4; depois x = x + 3 guarda 4 + 3 = 7 na mesma variável."}$c$::jsonb, $c$Acompanhe o valor de x linha por linha.$c$, 1, false, $c$arquivo$c$),
+  ($c$exemplo-ordenacao$c$, $c$exemplos-dos-tipos$c$, $c$order$c$, $c$Ordene os passos do café$c$, $c$facil$c$, $c$Coloque os passos para preparar um café na ordem certa.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Ferver a água","Colocar o pó no filtro","Despejar a água quente no filtro","Servir o café"],"explanation":"Um algoritmo depende da ordem: não dá para despejar a água antes de fervê-la."}$c$::jsonb, $c$Pense no que precisa estar pronto antes de cada passo.$c$, 2, false, $c$arquivo$c$),
+  ($c$exemplo-corrigir$c$, $c$exemplos-dos-tipos$c$, $c$fix$c$, $c$Corrija a função dobro$c$, $c$facil$c$, $c$A função `dobro(n)` deveria devolver o dobro de um número, mas tem um defeito. Encontre o erro e corrija.$c$, null, $c$dobro$c$, $c$function dobro(n) {
+  return n + 2;
+}
+$c$, $c$[{"args":[3],"expected":6},{"args":[5],"expected":10},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Teste a função com o número 3 e compare com o resultado esperado.$c$, 3, false, $c$arquivo$c$),
+  ($c$exemplo-entrada-saida$c$, $c$exemplos-dos-tipos$c$, $c$challenge$c$, $c$Saudação com entrada e saída$c$, $c$medio$c$, $c$Escreva `saudacao()`: leia o nome com `lerEntrada()` e imprima, com `console.log`, a frase `Olá, NOME!`.$c$, null, $c$saudacao$c$, $c$function saudacao() {
+  // leia o nome com lerEntrada() e imprima a saudação
+}
+$c$, $c$[{"args":[],"inputs":["Ana"],"output":["Olá, Ana!"]},{"args":[],"inputs":["Beto"],"output":["Olá, Beto!"]}]$c$::jsonb, $c${}$c$::jsonb, $c$lerEntrada() devolve o próximo valor digitado.$c$, 4, false, $c$arquivo$c$),
   ($c$tamanho-do-texto$c$, $c$textos$c$, $c$choice$c$, $c$Letras e índices$c$, $c$facil$c$, $c$Em let s = "lógica";, quanto vale s.length?$c$, $c$Um texto é uma sequência de caracteres, e cada um tem um índice começando em 0, como num vetor: "abc"[0] é "a". O tamanho do texto vem de .length.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":["5","6","7","4"],"correct":1,"explanation":"\"lógica\" tem 6 letras (l, ó, g, i, c, a), então s.length vale 6."}$c$::jsonb, $c$Conte as letras uma a uma.$c$, 101, false, $c$arquivo$c$),
   ($c$completar-texto$c$, $c$textos$c$, $c$blank$c$, $c$Complete as consultas ao texto$c$, $c$facil$c$, $c$Complete as lacunas para obter o tamanho do texto e a sua primeira letra.$c$, $c$Todo texto tem a propriedade .length (quantos caracteres) e permite acessar uma letra pelo índice entre colchetes, como s[0] para a primeira.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let nome = \"Ana\";\nlet tamanho = nome{{1}};\nlet primeira = nome{{2}};","blanks":[{"answers":[".length"]},{"answers":["[0]",".charAt(0)"]}],"explanation":"nome.length dá o tamanho (3) e nome[0] dá a primeira letra (\"A\")."}$c$::jsonb, $c$A primeira posição tem índice 0.$c$, 102, false, $c$arquivo$c$),
   ($c$inverter-texto$c$, $c$textos$c$, $c$code$c$, $c$Inverter um texto$c$, $c$medio$c$, $c$Escreva `inverterTexto(s)` que retorna o texto `s` de trás para frente. Por exemplo, "abc" vira "cba".$c$, $c$Os textos podem ser percorridos como vetores, usando s[i], e concatenados com +.$c$, $c$inverterTexto$c$, $c$function inverterTexto(s) {
@@ -313,9 +324,187 @@ on conflict (id) do update set module_id = excluded.module_id, kind = excluded.k
   config = excluded.config, hint = excluded.hint
   where public.exercises.origem = 'arquivo';
 
+-- Soluções comentadas (só professores leem a tabela; o aluno recebe pela função get_solution depois de acertar).
+insert into public.exercise_solutions (exercise_id, solution, commentary)
+select v.exercise_id, v.solution, v.commentary
+from (values
+  ($c$exemplo-corrigir$c$, $c$function dobro(n) {
+  return n * 2;
+}$c$, $c$O defeito estava no operador: somar 2 só coincide com o dobro quando n vale 2. O dobro é n * 2.$c$),
+  ($c$exemplo-entrada-saida$c$, $c$function saudacao() {
+  const nome = lerEntrada();
+  console.log(`Olá, ${nome}!`);
+}$c$, $c$lerEntrada() entrega o nome; um template literal (com crases) monta a frase e console.log a imprime.$c$),
+  ($c$inverter-texto$c$, $c$function inverterTexto(s) {
+  let r = "";
+  for (let i = s.length - 1; i >= 0; i--) r += s[i];
+  return r;
+}$c$, $c$$c$),
+  ($c$conta-vogais$c$, $c$function contaVogais(s) {
+  let c = 0;
+  for (const ch of s) if ("aeiou".includes(ch)) c++;
+  return c;
+}$c$, $c$$c$),
+  ($c$palindromo$c$, $c$function ehPalindromo(s) {
+  for (let i = 0, j = s.length - 1; i < j; i++, j--)
+    if (s[i] !== s[j]) return false;
+  return true;
+}$c$, $c$$c$),
+  ($c$soma$c$, $c$function soma(a, b) {
+  return a + b;
+}$c$, $c$$c$),
+  ($c$media$c$, $c$function media(a, b, c) {
+  return (a + b + c) / 3;
+}$c$, $c$$c$),
+  ($c$celsius$c$, $c$function celsiusParaFahrenheit(c) {
+  return (c * 9) / 5 + 32;
+}$c$, $c$$c$),
+  ($c$area-retangulo$c$, $c$function areaRetangulo(b, a) {
+  return b * a;
+}$c$, $c$$c$),
+  ($c$quadrado$c$, $c$function quadrado(n) {
+  return n * n;
+}$c$, $c$$c$),
+  ($c$media-ponderada$c$, $c$function mediaPonderada(a, b) {
+  return (a * 3 + b * 7) / 10;
+}$c$, $c$$c$),
+  ($c$par-ou-impar$c$, $c$function parOuImpar(n) {
+  return n % 2 === 0 ? "par" : "impar";
+}$c$, $c$$c$),
+  ($c$maior-de-tres$c$, $c$function maiorDeTres(a, b, c) {
+  let m = a;
+  if (b > m) m = b;
+  if (c > m) m = c;
+  return m;
+}$c$, $c$$c$),
+  ($c$nota$c$, $c$function situacao(n) {
+  if (n >= 7) return "aprovado";
+  else if (n >= 5) return "recuperacao";
+  return "reprovado";
+}$c$, $c$$c$),
+  ($c$bissexto$c$, $c$function ehBissexto(a) {
+  return (a % 4 === 0 && a % 100 !== 0) || a % 400 === 0;
+}$c$, $c$$c$),
+  ($c$dentro-do-intervalo$c$, $c$function dentroDoIntervalo(n, min, max) {
+  return n >= min && n <= max;
+}$c$, $c$$c$),
+  ($c$tipo-de-triangulo$c$, $c$function tipoTriangulo(a, b, c) {
+  if (a === b && b === c) return "equilatero";
+  if (a === b || a === c || b === c) return "isosceles";
+  return "escaleno";
+}$c$, $c$$c$),
+  ($c$somatorio$c$, $c$function somatorio(n) {
+  let s = 0;
+  for (let i = 1; i <= n; i++) s += i;
+  return s;
+}$c$, $c$$c$),
+  ($c$fatorial$c$, $c$function fatorial(n) {
+  let f = 1;
+  for (let i = 2; i <= n; i++) f *= i;
+  return f;
+}$c$, $c$$c$),
+  ($c$tabuada$c$, $c$function tabuada(n) {
+  const r = [];
+  for (let i = 1; i <= 10; i++) r.push(n * i);
+  return r;
+}$c$, $c$$c$),
+  ($c$primo$c$, $c$function ehPrimo(n) {
+  if (n < 2) return false;
+  for (let i = 2; i < n; i++) if (n % i === 0) return false;
+  return true;
+}$c$, $c$$c$),
+  ($c$soma-dos-pares$c$, $c$function somaPares(n) {
+  let s = 0;
+  for (let i = 2; i <= n; i += 2) s += i;
+  return s;
+}$c$, $c$$c$),
+  ($c$potencia$c$, $c$function potencia(base, exp) {
+  let r = 1;
+  for (let i = 0; i < exp; i++) r *= base;
+  return r;
+}$c$, $c$$c$),
+  ($c$conta-digitos$c$, $c$function contaDigitos(n) {
+  let c = 1;
+  while (n >= 10) {
+    n = Math.floor(n / 10);
+    c++;
+  }
+  return c;
+}$c$, $c$$c$),
+  ($c$mdc$c$, $c$function mdc(a, b) {
+  while (b !== 0) {
+    const r = a % b;
+    a = b;
+    b = r;
+  }
+  return a;
+}$c$, $c$$c$),
+  ($c$soma-vetor$c$, $c$function somaVetor(v) {
+  let s = 0;
+  for (let i = 0; i < v.length; i++) s += v[i];
+  return s;
+}$c$, $c$$c$),
+  ($c$inverter-vetor$c$, $c$function inverter(v) {
+  const r = [];
+  for (let i = v.length - 1; i >= 0; i--) r.push(v[i]);
+  return r;
+}$c$, $c$$c$),
+  ($c$maior-vetor$c$, $c$function maiorElemento(v) {
+  let m = v[0];
+  for (const x of v) if (x > m) m = x;
+  return m;
+}$c$, $c$$c$),
+  ($c$busca-linear$c$, $c$function buscar(v, x) {
+  for (let i = 0; i < v.length; i++) if (v[i] === x) return i;
+  return -1;
+}$c$, $c$$c$),
+  ($c$ordenar$c$, $c$function ordenar(v) {
+  const r = [...v];
+  for (let i = 0; i < r.length; i++)
+    for (let j = 0; j < r.length - 1 - i; j++)
+      if (r[j] > r[j + 1]) {
+        const t = r[j];
+        r[j] = r[j + 1];
+        r[j + 1] = t;
+      }
+  return r;
+}$c$, $c$$c$),
+  ($c$conta-pares$c$, $c$function contaPares(v) {
+  let c = 0;
+  for (const x of v) if (x % 2 === 0) c++;
+  return c;
+}$c$, $c$$c$),
+  ($c$media-do-vetor$c$, $c$function mediaVetor(v) {
+  let s = 0;
+  for (const x of v) s += x;
+  return s / v.length;
+}$c$, $c$$c$),
+  ($c$segundo-maior$c$, $c$function segundoMaior(v) {
+  let a = -Infinity,
+    b = -Infinity;
+  for (const x of v) {
+    if (x > a) {
+      b = a;
+      a = x;
+    } else if (x < a && x > b) {
+      b = x;
+    }
+  }
+  return b;
+}$c$, $c$$c$),
+  ($c$maior-de-dois$c$, $c$function maiorDeDois(a, b) {
+  return a > b ? a : b;
+}$c$, $c$$c$),
+  ($c$hipotenusa$c$, $c$function hipotenusa(a, b) {
+  return Math.sqrt(a * a + b * b);
+}$c$, $c$$c$)
+) as v (exercise_id, solution, commentary)
+join public.exercises e on e.id = v.exercise_id and e.origem = 'arquivo'
+on conflict (exercise_id) do update set solution = excluded.solution, commentary = excluded.commentary;
+
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -329,6 +518,14 @@ from (values
   ($c$tipos-de-dados$c$, $c$m2-number$c$, 1),
   ($c$precedencia-operadores$c$, $c$m3-precedencia$c$, 2),
   ($c$resto-da-divisao$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$exemplo-interpretacao$c$, $c$m2-introducao-variaveis$c$, 2),
+  ($c$exemplo-interpretacao$c$, $c$m2-console-log$c$, 1),
+  ($c$exemplo-ordenacao$c$, $c$m1-sequencia$c$, 2),
+  ($c$exemplo-corrigir$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$exemplo-corrigir$c$, $c$m7-return$c$, 1),
+  ($c$exemplo-entrada-saida$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$exemplo-entrada-saida$c$, $c$m2-console-log$c$, 2),
+  ($c$exemplo-entrada-saida$c$, $c$m2-template-literals$c$, 1),
   ($c$tamanho-do-texto$c$, $c$m2-manipulacao-textos$c$, 2),
   ($c$completar-texto$c$, $c$m2-manipulacao-textos$c$, 2),
   ($c$inverter-texto$c$, $c$m2-manipulacao-textos$c$, 2),
@@ -419,7 +616,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

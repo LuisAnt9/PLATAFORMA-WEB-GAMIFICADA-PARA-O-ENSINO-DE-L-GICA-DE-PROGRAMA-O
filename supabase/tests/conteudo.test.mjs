@@ -27,8 +27,11 @@ async function as(uid, sql) {
   }
 }
 const rows = async (sql) => (await db.query(sql)).rows;
+// Só os 53 exercícios que já existiam antes do conteúdo em arquivos (os "exemplos dos tipos" são novos).
 const exercises = () =>
-  rows(`select ${COLS} from public.exercises order by id`);
+  rows(
+    `select ${COLS} from public.exercises where id not like 'exemplo-%' order by id`,
+  );
 const one = async (sql) => (await db.query(sql)).rows[0];
 
 beforeAll(async () => {
@@ -166,7 +169,55 @@ describe("importação do conteúdo", () => {
       "mundo-6",
       "mundo-7",
       "mundo-2",
+      "mundo-1", // lição dos exemplos dos tipos (posição 99)
     ]);
+  });
+
+  it("importa os exemplos dos tipos novos como rascunho, com a configuração certa", async () => {
+    const e = Object.fromEntries(
+      (
+        await rows(
+          "select id, kind, published, function_name, tests, config from public.exercises where id like 'exemplo-%'",
+        )
+      ).map((r) => [r.id, r]),
+    );
+    expect(Object.keys(e).sort()).toEqual([
+      "exemplo-corrigir",
+      "exemplo-entrada-saida",
+      "exemplo-interpretacao",
+      "exemplo-ordenacao",
+    ]);
+    expect(Object.values(e).every((x) => x.published === false)).toBe(true);
+    expect(e["exemplo-interpretacao"].kind).toBe("interpretation");
+    expect(e["exemplo-interpretacao"].config.code).toContain("console.log(x)");
+    expect(e["exemplo-interpretacao"].config.options[0]).toEqual({
+      text: "4",
+      misconception: "ignora a linha que muda o valor da variável",
+    });
+    expect(e["exemplo-ordenacao"].config.items).toHaveLength(4);
+    expect(e["exemplo-corrigir"].kind).toBe("fix");
+    expect(e["exemplo-entrada-saida"].kind).toBe("challenge");
+    expect(e["exemplo-entrada-saida"].tests[0]).toEqual({
+      args: [],
+      inputs: ["Ana"],
+      output: ["Olá, Ana!"],
+    });
+    expect("expected" in e["exemplo-entrada-saida"].tests[0]).toBe(false);
+  });
+
+  it("importa as soluções dos exercícios de código (33 + 2 exemplos), com o comentário", async () => {
+    expect(
+      (await one("select count(*)::int as n from public.exercise_solutions")).n,
+    ).toBe(35);
+    const s = await one(
+      "select solution, commentary from public.exercise_solutions where exercise_id = 'exemplo-corrigir'",
+    );
+    expect(s.solution).toContain("return n * 2");
+    expect(s.commentary).toContain("operador");
+    const soma = await one(
+      "select solution from public.exercise_solutions where exercise_id = 'soma'",
+    );
+    expect(soma.solution).toContain("return a + b");
   });
 
   it("todo exercício tem pelo menos um conceito", async () => {

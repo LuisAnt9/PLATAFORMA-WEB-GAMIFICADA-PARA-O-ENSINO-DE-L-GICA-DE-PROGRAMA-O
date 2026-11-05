@@ -1,8 +1,10 @@
 "use client";
 
 import type { ChoiceView } from "@/lib/grading";
+import ScrollRegion from "./ScrollRegion";
 
 export default function ChoiceBody({
+  code,
   view,
   selected,
   result,
@@ -10,6 +12,8 @@ export default function ChoiceBody({
   onSubmit,
   disabled,
 }: {
+  /** Trecho de código a interpretar (exercícios de interpretação). */
+  code?: string | null;
   view: ChoiceView;
   selected: number | null;
   /** null = ainda não verificou a escolha atual. */
@@ -26,6 +30,14 @@ export default function ChoiceBody({
       }}
       className="space-y-3"
     >
+      {code && (
+        <ScrollRegion
+          label="Trecho de código"
+          className="rounded-xl bg-zinc-900 text-zinc-100"
+        >
+          <pre className="p-4 font-mono text-sm leading-6">{code}</pre>
+        </ScrollRegion>
+      )}
       <fieldset className="space-y-2">
         <legend className="sr-only">Alternativas</legend>
         {view.options.map((option, i) => {

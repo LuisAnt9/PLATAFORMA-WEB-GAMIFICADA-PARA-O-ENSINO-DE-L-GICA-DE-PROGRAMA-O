@@ -132,3 +132,42 @@ describe("buildAttemptParams", () => {
     expect(JSON.parse(p.p_answer as string)).toEqual(["if", "elsee"]);
   });
 });
+
+describe("buildAttemptParams: ordenação e dica", () => {
+  it("ordenação: manda os passos na ordem do aluno (o servidor decide o acerto)", () => {
+    const ex: Exercise = {
+      ...base,
+      kind: "order",
+      tests: [],
+      config: { items: ["a", "b"] },
+    };
+    const p = buildAttemptParams({
+      exercise: ex,
+      submission: { kind: "order", arrangement: ["b", "a"], inPlace: 0 },
+      passed: false,
+      durationMs: 5,
+    });
+    expect(JSON.parse(p.p_answer as string)).toEqual(["b", "a"]);
+    expect(p).toMatchObject({ p_tests_passed: 0, p_tests_total: 2 });
+    expect(p).not.toHaveProperty("p_selected");
+  });
+  it("nível de dica fica entre 0 e 3", () => {
+    const mk = (hintLevel?: number) =>
+      buildAttemptParams({
+        exercise: {
+          ...base,
+          kind: "choice",
+          tests: [],
+          config: { options: ["a", "b"], correct: 0 },
+        },
+        submission: { kind: "choice", selected: 0 },
+        passed: true,
+        durationMs: 1,
+        hintLevel,
+      }).p_hint_level;
+    expect(mk()).toBe(0);
+    expect(mk(2)).toBe(2);
+    expect(mk(9)).toBe(3);
+    expect(mk(-4)).toBe(0);
+  });
+});

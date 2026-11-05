@@ -4,6 +4,10 @@ import {
   choiceView,
   gradeBlanks,
   gradeChoice,
+  gradeOrder,
+  interpretationCode,
+  orderView,
+  shuffledOrder,
   normalizeAnswer,
   placeholderNumbers,
   splitTemplate,
@@ -111,5 +115,57 @@ describe("alternativas com confusão (migration 0010)", () => {
       choiceView({ options: ["a", { nome: "x" } as never], correct: 0 }),
     ).toBeNull();
     expect(choiceView({ options: ["a", 3 as never], correct: 0 })).toBeNull();
+  });
+});
+
+describe("interpretação de código", () => {
+  it("lê o trecho e ignora vazio ou ausente", () => {
+    expect(interpretationCode({ code: "let x = 1;" })).toBe("let x = 1;");
+    expect(interpretationCode({ code: "  " })).toBeNull();
+    expect(interpretationCode({})).toBeNull();
+  });
+});
+
+describe("ordenação", () => {
+  const config = { items: ["Abrir a porta", "Entrar", "Fechar a porta"] };
+  it("orderView aceita de 2 a 10 passos distintos e recusa o resto", () => {
+    expect(orderView(config)?.items).toHaveLength(3);
+    expect(orderView({ items: ["só um"] })).toBeNull();
+    expect(orderView({ items: ["a", "a"] })).toBeNull();
+    expect(orderView({ items: ["a", " "] })).toBeNull();
+    expect(
+      orderView({ items: Array.from({ length: 11 }, (_, i) => `p${i}`) }),
+    ).toBeNull();
+    expect(orderView({ items: ["a", 1 as never] })).toBeNull();
+    expect(orderView({})).toBeNull();
+  });
+  it("gradeOrder: só a ordem exata acerta", () => {
+    expect(
+      gradeOrder(config, ["Abrir a porta", "Entrar", "Fechar a porta"]),
+    ).toBe(true);
+    expect(
+      gradeOrder(config, ["Entrar", "Abrir a porta", "Fechar a porta"]),
+    ).toBe(false);
+    expect(gradeOrder(config, ["Abrir a porta", "Entrar"])).toBe(false);
+    expect(gradeOrder({ items: ["a"] }, ["a"])).toBe(false);
+  });
+  it("shuffledOrder é estável, completo e nunca devolve a ordem certa", () => {
+    const items = ["a", "b", "c", "d", "e"];
+    const um = shuffledOrder(items, "exercicio-1");
+    expect(shuffledOrder(items, "exercicio-1")).toEqual(um);
+    expect([...um].sort()).toEqual(items);
+    for (let i = 0; i < 200; i++) {
+      expect(shuffledOrder(items, `ex-${i}`)).not.toEqual(items);
+      expect(shuffledOrder(["x", "y"], `ex-${i}`)).toEqual(["y", "x"]);
+    }
+  });
+  it("seeds diferentes dão ordens diferentes", () => {
+    const items = ["a", "b", "c", "d", "e", "f"];
+    const ordens = new Set(
+      Array.from({ length: 30 }, (_, i) =>
+        shuffledOrder(items, `s${i}`).join(""),
+      ),
+    );
+    expect(ordens.size).toBeGreaterThan(5);
   });
 });

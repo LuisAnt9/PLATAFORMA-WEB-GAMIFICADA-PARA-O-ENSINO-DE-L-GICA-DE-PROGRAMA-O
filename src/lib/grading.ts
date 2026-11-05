@@ -133,3 +133,72 @@ export function gradeBlanks(c: ExerciseConfig, answers: string[]): BlankResult {
   });
   return { passed: correct.every(Boolean), correct };
 }
+
+// ---------------------------------------------------------------------------------------------
+// Interpretação de código e ordenação
+// ---------------------------------------------------------------------------------------------
+
+/** Trecho de código de um exercício de interpretação (null se ausente ou vazio). */
+export function interpretationCode(c: ExerciseConfig): string | null {
+  return typeof c.code === "string" && c.code.trim() !== "" ? c.code : null;
+}
+
+export interface OrderView {
+  /** Passos na ordem correta (nunca mostrar assim ao aluno: use shuffledOrder). */
+  items: string[];
+}
+
+/** Lê a configuração de ordenação com cuidado; null se malformada. */
+export function orderView(c: ExerciseConfig): OrderView | null {
+  const { items } = c;
+  if (
+    !Array.isArray(items) ||
+    items.length < 2 ||
+    items.length > 10 ||
+    !items.every((i) => typeof i === "string" && i.trim() !== "") ||
+    new Set(items.map((i) => i.trim())).size !== items.length
+  )
+    return null;
+  return { items };
+}
+
+/** A resposta do aluno está certa quando a lista tem os mesmos passos, na mesma ordem. */
+export function gradeOrder(c: ExerciseConfig, arrangement: string[]): boolean {
+  const v = orderView(c);
+  return (
+    v !== null &&
+    arrangement.length === v.items.length &&
+    arrangement.every((x, i) => x === v.items[i])
+  );
+}
+
+function hash(text: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+/**
+ * Embaralha os passos de um jeito estável (o mesmo exercício sempre abre na mesma ordem) e
+ * garante que a ordem inicial nunca seja a correta.
+ */
+export function shuffledOrder(items: string[], seed: string): string[] {
+  if (items.length < 2) return [...items];
+  for (let attempt = 0; attempt < 20; attempt++) {
+    let state = hash(`${seed}:${attempt}`) || 1;
+    const next = () => {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state / 2 ** 32;
+    };
+    const out = [...items];
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(next() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+    if (out.some((x, i) => x !== items[i])) return out;
+  }
+  return [...items.slice(1), items[0]];
+}

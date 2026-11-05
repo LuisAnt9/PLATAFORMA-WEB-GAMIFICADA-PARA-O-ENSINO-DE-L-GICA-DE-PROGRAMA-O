@@ -10,6 +10,8 @@ import {
   DIFFICULTY_LABEL,
   KIND_LABEL,
   XP_BY_DIFFICULTY,
+  isChoiceKind,
+  isCodeKind,
   nextExercise as findNext,
   type Exercise,
 } from "@/lib/catalog";
@@ -19,6 +21,10 @@ import {
   choiceView,
   gradeBlanks,
   gradeChoice,
+  gradeOrder,
+  interpretationCode,
+  orderView,
+  shuffledOrder,
   type BlankResult,
 } from "@/lib/grading";
 import { getProgress, saveExercise, useProgress } from "@/lib/progress-store";
@@ -27,8 +33,11 @@ import { useAuth } from "./AuthProvider";
 import BlankBody from "./BlankBody";
 import { useCatalog } from "./CatalogProvider";
 import ChoiceBody from "./ChoiceBody";
-import AiHint from "./AiHint";
 import CodeEditor from "./CodeEditor";
+import HintPanel from "./HintPanel";
+import OrderBody, { type OrderResult } from "./OrderBody";
+import SolutionPanel from "./SolutionPanel";
+import TestList from "./TestList";
 
 const show = (v: unknown) =>
   v === undefined ? "undefined" : JSON.stringify(v);
@@ -47,7 +56,8 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const [gain, setGain] = useState<{ xp: number; badges: string[] } | null>(
     null,
   );
-  const [showHint, setShowHint] = useState(false);
+  // maior nível de dica aberto (0 a 3), gravado junto das tentativas
+  const [hintLevel, setHintLevel] = useState(0);
   // por tipo de exercício
   const [code, setCode] = useState(exercise.starterCode);
   const [codeResult, setCodeResult] = useState<RunResult | null>(null);
@@ -55,24 +65,40 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const [choiceResult, setChoiceResult] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
   const [blankResult, setBlankResult] = useState<BlankResult | null>(null);
+  const orderV = exercise.kind === "order" ? orderView(exercise.config) : null;
+  const [order, setOrder] = useState<string[]>(() =>
+    orderV ? shuffledOrder(orderV.items, exercise.id) : [],
+  );
+  const [orderResult, setOrderResult] = useState<OrderResult | null>(null);
 
   const solved = progress[exercise.id]?.solved;
   const nextExercise = findNext(catalog, exercise.id);
-  const choice =
-    exercise.kind === "choice" ? choiceView(exercise.config) : null;
+  const codeLike = isCodeKind(exercise.kind);
+  const choice = isChoiceKind(exercise.kind)
+    ? choiceView(exercise.config)
+    : null;
+  const snippet =
+    exercise.kind === "interpretation"
+      ? interpretationCode(exercise.config)
+      : null;
   const blank = exercise.kind === "blank" ? blankView(exercise.config) : null;
   const broken =
-    (exercise.kind === "choice" && !choice) ||
-    (exercise.kind === "blank" && !blank);
+    (isChoiceKind(exercise.kind) && !choice) ||
+    (exercise.kind === "interpretation" && !snippet) ||
+    (exercise.kind === "blank" && !blank) ||
+    (exercise.kind === "order" && !orderV);
   const passedNow =
-    codeResult?.passed || choiceResult === true || blankResult?.passed === true;
+    codeResult?.passed ||
+    choiceResult === true ||
+    blankResult?.passed === true ||
+    orderResult?.passed === true;
 
   /** Registra a tentativa para a análise pedagógica (não bloqueia nem altera XP, medalhas ou sequência). */
   function logAttempt(submission: Submission, passed: boolean) {
     const now = Date.now();
     const durationMs = now - (lastAttemptAt.current ?? openedAt);
     lastAttemptAt.current = now;
-    void saveAttempt({ exercise, submission, passed, durationMs });
+    void saveAttempt({ exercise, submission, passed, durationMs, hintLevel });
   }
 
   /** Fluxo comum a todos os tipos: registra a tentativa, o XP, a sequência e as medalhas novas. */
@@ -138,9 +164,20 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     setBusy(false);
   }
 
+  async function submitOrder() {
+    if (!orderV) return;
+    const passed = gradeOrder(exercise.config, order);
+    const inPlace = order.filter((t, i) => t === orderV.items[i]).length;
+    logAttempt({ kind: "order", arrangement: order, inPlace }, passed);
+    setOrderResult({ passed, inPlace });
+    setBusy(true);
+    await finish(passed);
+    setBusy(false);
+  }
+
   /** O que o aluno tem na tela agora, para a dica com IA. */
   function hintContext(): HintContext {
-    if (exercise.kind === "code") {
+    if (codeLike) {
       const failed = codeResult?.fatal
         ? codeResult.fatal
         : (codeResult?.tests ?? [])
@@ -150,12 +187,21 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
                 `${exercise.functionName}(${t.args.map(show).join(", ")}) → ` +
                 (t.error
                   ? `erro: ${t.error}`
-                  : `esperado ${show(t.expected)}, recebido ${show(t.received)}`),
+                  : t.expectedOutput
+                    ? `saída esperada ${show(t.expectedOutput)}, obtida ${show(t.receivedOutput ?? [])}`
+                    : `esperado ${show(t.expected)}, recebido ${show(t.received)}`),
             )
             .join("\n");
       return { code, attempt: failed || undefined };
     }
-    if (exercise.kind === "choice") {
+    if (exercise.kind === "order") {
+      return {
+        attempt: orderResult
+          ? `Tentou uma ordem; ${orderResult.inPlace} de ${order.length} passos na posição certa.`
+          : undefined,
+      };
+    }
+    if (isChoiceKind(exercise.kind)) {
       const opt = selected === null ? undefined : choice?.options[selected];
       return {
         attempt: opt
@@ -230,8 +276,13 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
         </p>
       )}
 
-      {exercise.kind === "code" && (
+      {codeLike && (
         <>
+          {exercise.kind === "fix" && (
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              O código abaixo tem um defeito. Encontre o erro e corrija.
+            </p>
+          )}
           <CodeEditor value={code} onChange={setCode} onRun={submitCode} />
           <div className="flex flex-wrap gap-2">
             <button
@@ -241,66 +292,63 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             >
               {busy ? "Executando..." : "Executar testes (Ctrl+Enter)"}
             </button>
-            <HintButton onClick={() => setShowHint((v) => !v)} />
-            {!broken && (
-              <AiHint exerciseId={exercise.id} getContext={hintContext} />
-            )}
           </div>
         </>
       )}
 
       {choice && (
-        <>
-          <ChoiceBody
-            view={choice}
-            selected={selected}
-            result={choiceResult}
-            disabled={busy}
-            onSelect={(i) => {
-              setSelected(i);
-              setChoiceResult(null);
-            }}
-            onSubmit={() => void submitChoice()}
-          />
-          <div className="flex flex-wrap gap-2">
-            <HintButton onClick={() => setShowHint((v) => !v)} />
-            {!broken && (
-              <AiHint exerciseId={exercise.id} getContext={hintContext} />
-            )}
-          </div>
-        </>
+        <ChoiceBody
+          code={snippet}
+          view={choice}
+          selected={selected}
+          result={choiceResult}
+          disabled={busy}
+          onSelect={(i) => {
+            setSelected(i);
+            setChoiceResult(null);
+          }}
+          onSubmit={() => void submitChoice()}
+        />
       )}
 
       {blank && (
-        <>
-          <BlankBody
-            view={blank}
-            answers={answers}
-            result={blankResult}
-            disabled={busy}
-            onChange={(i, v) => {
-              setAnswers((a) => {
-                const next = [...a];
-                next[i] = v;
-                return next;
-              });
-              setBlankResult(null);
-            }}
-            onSubmit={() => void submitBlanks()}
-          />
-          <div className="flex flex-wrap gap-2">
-            <HintButton onClick={() => setShowHint((v) => !v)} />
-            {!broken && (
-              <AiHint exerciseId={exercise.id} getContext={hintContext} />
-            )}
-          </div>
-        </>
+        <BlankBody
+          view={blank}
+          answers={answers}
+          result={blankResult}
+          disabled={busy}
+          onChange={(i, v) => {
+            setAnswers((a) => {
+              const next = [...a];
+              next[i] = v;
+              return next;
+            });
+            setBlankResult(null);
+          }}
+          onSubmit={() => void submitBlanks()}
+        />
       )}
 
-      {showHint && exercise.hint && (
-        <p className="rounded-lg bg-amber-50 p-3 text-sm dark:bg-amber-950">
-          💡 {exercise.hint}
-        </p>
+      {orderV && (
+        <OrderBody
+          view={orderV}
+          order={order}
+          result={orderResult}
+          disabled={busy}
+          onChange={(o) => {
+            setOrder(o);
+            setOrderResult(null);
+          }}
+          onSubmit={() => void submitOrder()}
+        />
+      )}
+
+      {!broken && (
+        <HintPanel
+          exercise={exercise}
+          getContext={hintContext}
+          onLevel={(n) => setHintLevel((l) => Math.max(l, n))}
+        />
       )}
 
       <div aria-live="polite" className="space-y-2">
@@ -316,21 +364,10 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
                   ? "🎉 Todos os testes passaram!"
                   : `${codeResult.tests.filter((t) => t.passed).length}/${codeResult.tests.length} testes passaram. Errar faz parte — veja o que falhou:`}
               </p>
-              <ul className="space-y-1 text-sm">
-                {codeResult.tests.map((t, i) => (
-                  <li
-                    key={i}
-                    className={`rounded p-2 font-mono ${t.passed ? "bg-emerald-50 dark:bg-emerald-950" : "bg-red-50 dark:bg-red-950"}`}
-                  >
-                    {t.passed ? "✓" : "✗"} {exercise.functionName}(
-                    {t.args.map(show).join(", ")})
-                    {!t.passed &&
-                      (t.error
-                        ? ` → erro: ${t.error}`
-                        : ` → esperado ${show(t.expected)}, recebido ${show(t.received)}`)}
-                  </li>
-                ))}
-              </ul>
+              <TestList
+                tests={codeResult.tests}
+                functionName={exercise.functionName}
+              />
             </>
           ))}
 
@@ -344,13 +381,20 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
         {blankResult && blankResult.passed && (
           <p className="font-medium">🎉 Tudo certo!</p>
         )}
+        {orderResult?.passed && (
+          <p className="font-medium">🎉 Ordem correta!</p>
+        )}
 
-        {(choiceResult === true || blankResult?.passed) &&
+        {(choiceResult === true ||
+          blankResult?.passed ||
+          orderResult?.passed) &&
           exercise.config.explanation && (
             <p className="rounded-lg bg-zinc-100 p-3 text-sm dark:bg-zinc-900">
               {exercise.config.explanation}
             </p>
           )}
+
+        {codeResult?.passed && <SolutionPanel exerciseId={exercise.id} />}
 
         {saveError && (
           <p
@@ -378,17 +422,5 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
         )}
       </div>
     </div>
-  );
-}
-
-function HintButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="rounded-xl border border-zinc-300 bg-white px-5 py-2.5 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
-    >
-      Dica
-    </button>
   );
 }

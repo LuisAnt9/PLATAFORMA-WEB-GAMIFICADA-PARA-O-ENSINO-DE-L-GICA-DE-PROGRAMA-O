@@ -1,0 +1,98 @@
+{
+  "id": "exemplos-dos-tipos",
+  "mundo": "mundo-1",
+  "titulo": "Exemplos dos tipos de exercício",
+  "foco": "Modelos para o professor copiar (rascunhos)",
+  "posicao": 99,
+  "diagnostica": false,
+  "intro": "Esta lição reúne um exemplo de cada tipo novo de exercício, como modelo para escrever os seus. Todos estão como rascunho: só o professor os vê.",
+  "exemplo": "",
+  "revisao": "",
+  "exercicios": [
+    {
+      "id": "exemplo-interpretacao",
+      "tipo": "interpretacao",
+      "titulo": "Qual valor será impresso?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 2 },
+        { "id": "m2-console-log", "peso": 1 }
+      ],
+      "enunciado": "Leia o código com atenção. Qual valor aparece na tela?",
+      "codigo": "let x = 4;\nx = x + 3;\nconsole.log(x);",
+      "opcoes": [
+        { "texto": "4", "confusao": "ignora a linha que muda o valor da variável" },
+        { "texto": "3", "confusao": "acha que x = x + 3 guarda só o 3" },
+        "7",
+        { "texto": "43", "confusao": "confunde soma com junção de textos" }
+      ],
+      "correta": 2,
+      "dica": "Acompanhe o valor de x linha por linha.",
+      "explicacao": "x começa valendo 4; depois x = x + 3 guarda 4 + 3 = 7 na mesma variável."
+    },
+    {
+      "id": "exemplo-ordenacao",
+      "tipo": "ordenacao",
+      "titulo": "Ordene os passos do café",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [{ "id": "m1-sequencia", "peso": 2 }],
+      "enunciado": "Coloque os passos para preparar um café na ordem certa.",
+      "itens": [
+        "Ferver a água",
+        "Colocar o pó no filtro",
+        "Despejar a água quente no filtro",
+        "Servir o café"
+      ],
+      "dica": "Pense no que precisa estar pronto antes de cada passo.",
+      "explicacao": "Um algoritmo depende da ordem: não dá para despejar a água antes de fervê-la."
+    },
+    {
+      "id": "exemplo-corrigir",
+      "tipo": "corrigir",
+      "titulo": "Corrija a função dobro",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 2 },
+        { "id": "m7-return", "peso": 1 }
+      ],
+      "enunciado": "A função `dobro(n)` deveria devolver o dobro de um número, mas tem um defeito. Encontre o erro e corrija.",
+      "funcao": "dobro",
+      "codigoInicial": "function dobro(n) {\n  return n + 2;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": 6 },
+        { "entrada": [5], "esperado": 10 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "Teste a função com o número 3 e compare com o resultado esperado.",
+      "comentario": "O defeito estava no operador: somar 2 só coincide com o dobro quando n vale 2. O dobro é n * 2."
+    },
+    {
+      "id": "exemplo-entrada-saida",
+      "tipo": "desafio",
+      "titulo": "Saudação com entrada e saída",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 2 },
+        { "id": "m2-console-log", "peso": 2 },
+        { "id": "m2-template-literals", "peso": 1 }
+      ],
+      "enunciado": "Escreva `saudacao()`: leia o nome com `lerEntrada()` e imprima, com `console.log`, a frase `Olá, NOME!`.",
+      "funcao": "saudacao",
+      "codigoInicial": "function saudacao() {\n  // leia o nome com lerEntrada() e imprima a saudação\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["Ana"], "saida": ["Olá, Ana!"] },
+        { "entrada": [], "entradas": ["Beto"], "saida": ["Olá, Beto!"] }
+      ],
+      "dica": "lerEntrada() devolve o próximo valor digitado.",
+      "comentario": "lerEntrada() entrega o nome; um template literal (com crases) monta a frase e console.log a imprime."
+    }
+  ]
+}

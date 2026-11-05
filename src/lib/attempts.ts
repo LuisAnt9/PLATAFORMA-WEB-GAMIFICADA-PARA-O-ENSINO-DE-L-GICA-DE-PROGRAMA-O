@@ -13,7 +13,9 @@ const MAX_DURATION_MS = 3_600_000;
 export type Submission =
   | { kind: "code"; code: string; result: RunResult }
   | { kind: "choice"; selected: number }
-  | { kind: "blank"; answers: string[]; result: BlankResult };
+  | { kind: "blank"; answers: string[]; result: BlankResult }
+  /** Ordenação: os passos na ordem em que o aluno os deixou. */
+  | { kind: "order"; arrangement: string[]; inPlace: number };
 
 export interface AttemptInput {
   exercise: Exercise;
@@ -21,6 +23,8 @@ export interface AttemptInput {
   passed: boolean;
   /** Tempo gasto nesta tentativa, em milissegundos. */
   durationMs: number;
+  /** Maior nível de dica aberto antes desta tentativa (0 a 3). */
+  hintLevel?: number;
   mode?: AttemptMode;
   assignmentId?: number | null;
 }
@@ -39,6 +43,7 @@ export function buildAttemptParams(
     ),
     p_mode: input.mode ?? "livre",
     p_assignment_id: input.assignmentId ?? null,
+    p_hint_level: Math.min(3, Math.max(0, Math.trunc(input.hintLevel ?? 0))),
   };
   if (submission.kind === "code") {
     const total = exercise.tests.length;
@@ -58,6 +63,11 @@ export function buildAttemptParams(
       selected: submission.selected,
       text: option === undefined ? null : optionText(option),
     }).slice(0, MAX_ANSWER);
+  } else if (submission.kind === "order") {
+    // o servidor compara com a ordem certa e decide o acerto
+    params.p_answer = JSON.stringify(submission.arrangement);
+    params.p_tests_total = submission.arrangement.length;
+    params.p_tests_passed = submission.inPlace;
   } else {
     params.p_answer = JSON.stringify(submission.answers).slice(0, MAX_ANSWER);
     params.p_tests_total = submission.result.correct.length;

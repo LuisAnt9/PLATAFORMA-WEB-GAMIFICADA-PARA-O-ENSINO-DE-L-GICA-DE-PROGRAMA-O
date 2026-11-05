@@ -13,13 +13,20 @@ import {
   type Draft,
 } from "./exercise-draft";
 
+const T = (args: string, expected: string) => ({
+  args,
+  expected,
+  inputs: "",
+  output: "",
+});
+
 const valid = (over: Partial<Draft> = {}): Draft => ({
   ...emptyDraft("m1"),
   title: "Soma",
   statement: "Some dois números.",
   functionName: "soma",
   params: "a, b",
-  tests: [{ args: "2, 3", expected: "5" }],
+  tests: [T("2, 3", "5")],
   ...over,
 });
 
@@ -73,18 +80,13 @@ describe("validateDraft", () => {
       validateDraft(valid({ params: "a, 1b" })).errors.length,
     ).toBeGreaterThan(0);
     expect(
-      validateDraft(valid({ params: "", tests: [{ args: "", expected: "1" }] }))
-        .errors,
+      validateDraft(valid({ params: "", tests: [T("", "1")] })).errors,
     ).toEqual([]);
   });
   it("aponta a linha de teste com problema", () => {
     const r = validateDraft(
       valid({
-        tests: [
-          { args: "1, 2", expected: "3" },
-          { args: "x", expected: "3" },
-          { args: "1", expected: "" },
-        ],
+        tests: [T("1, 2", "3"), T("x", "3"), T("1", "")],
       }),
     );
     expect(r.testErrors[0]).toBeNull();
@@ -93,16 +95,11 @@ describe("validateDraft", () => {
     expect(r.errors.length).toBeGreaterThan(0);
   });
   it("rejeita mais entradas do que parâmetros", () => {
-    const r = validateDraft(
-      valid({ tests: [{ args: "1, 2, 3", expected: "3" }] }),
-    );
+    const r = validateDraft(valid({ tests: [T("1, 2, 3", "3")] }));
     expect(r.testErrors[0]).toContain("parâmetros");
   });
   it("limita a quantidade de testes", () => {
-    const many = Array.from({ length: 31 }, () => ({
-      args: "1, 2",
-      expected: "3",
-    }));
+    const many = Array.from({ length: 31 }, () => T("1, 2", "3"));
     expect(validateDraft(valid({ tests: many })).errors.length).toBeGreaterThan(
       0,
     );
@@ -132,7 +129,7 @@ describe("draftFromExercise <-> buildStarterCode", () => {
   it("recupera parâmetros e formata os testes de volta em texto", () => {
     const d = draftFromExercise(e);
     expect(d.params).toBe("a, b");
-    expect(d.tests[0]).toEqual({ args: '2, [1,"x"]', expected: '{"ok":true}' });
+    expect(d.tests[0]).toEqual(T('2, [1,"x"]', '{"ok":true}'));
     expect(validateDraft(d).tests).toEqual(e.tests);
   });
   it("gera o mesmo código inicial dos exercícios originais", () => {
@@ -422,5 +419,176 @@ describe("validateDraft: confusão das alternativas (migration 0010)", () => {
       { text: "Certa" },
       { text: "Errada", misconception: "m1" },
     ]);
+  });
+});
+
+describe("validateDraft: tipos novos (E3)", () => {
+  const base = (over: Partial<Draft> = {}): Draft => ({
+    ...emptyDraft("m1"),
+    title: "T",
+    statement: "S",
+    ...over,
+  });
+  it("interpretação: exige o trecho de código além das alternativas", () => {
+    const d = base({
+      kind: "interpretation",
+      options: ["4", "7"],
+      misconceptions: ["", ""],
+      correct: 1,
+      code: "let x = 4;\nx = x + 3;",
+    });
+    const r = validateDraft(d);
+    expect(r.errors).toEqual([]);
+    expect(r.config.code).toBe("let x = 4;\nx = x + 3;");
+    expect(validateDraft({ ...d, code: "  " }).errors.join()).toContain(
+      "trecho de código",
+    );
+    expect(
+      validateDraft({ ...d, code: "x".repeat(2001) }).errors.join(),
+    ).toContain("2000");
+  });
+  it("ordenação: de 2 a 10 passos, sem vazios nem repetidos", () => {
+    const ok = base({ kind: "order", items: [" Abrir ", "Entrar", "Fechar"] });
+    expect(validateDraft(ok).errors).toEqual([]);
+    expect(validateDraft(ok).config.items).toEqual([
+      "Abrir",
+      "Entrar",
+      "Fechar",
+    ]);
+    expect(
+      validateDraft(base({ kind: "order", items: ["só um"] })).errors.join(),
+    ).toContain("2 passos");
+    expect(
+      validateDraft(base({ kind: "order", items: ["a", ""] })).errors.join(),
+    ).toContain("vazios");
+    expect(
+      validateDraft(base({ kind: "order", items: ["a", "a"] })).errors.join(),
+    ).toContain("repetidos");
+    expect(
+      validateDraft(
+        base({
+          kind: "order",
+          items: Array.from({ length: 11 }, (_, i) => `p${i}`),
+        }),
+      ).errors.join(),
+    ).toContain("10 passos");
+  });
+  it("corrigir o erro: exige o código com defeito declarando a função", () => {
+    const fix = base({
+      kind: "fix",
+      functionName: "soma",
+      params: "a, b",
+      tests: [T("1, 2", "3")],
+    });
+    expect(validateDraft(fix).errors.join()).toContain("código com defeito");
+    expect(
+      validateDraft({
+        ...fix,
+        starterCode: "function outra(a,b){}",
+      }).errors.join(),
+    ).toContain("declarar a função soma");
+    expect(
+      validateDraft({
+        ...fix,
+        starterCode: "function soma(a, b) { return a - b; }",
+      }).errors,
+    ).toEqual([]);
+  });
+  it("desafio funciona como código", () => {
+    const ch = base({
+      kind: "challenge",
+      functionName: "f",
+      params: "n",
+      tests: [T("1", "1")],
+    });
+    expect(validateDraft(ch).errors).toEqual([]);
+  });
+  it("teste só com saída impressa: resultado esperado pode ficar vazio", () => {
+    const d = base({
+      functionName: "f",
+      tests: [
+        { args: "", expected: "", inputs: '"Ana", 3', output: "Olá, Ana\n3" },
+      ],
+    });
+    const r = validateDraft(d);
+    expect(r.errors).toEqual([]);
+    expect(r.tests[0]).toEqual({
+      args: [],
+      inputs: ["Ana", 3],
+      output: ["Olá, Ana", "3"],
+    });
+    expect("expected" in r.tests[0]).toBe(false);
+  });
+  it("teste sem esperado e sem saída é recusado, e entradas inválidas também", () => {
+    const vazio = validateDraft(
+      base({ functionName: "f", tests: [T("1", "")] }),
+    );
+    expect(vazio.testErrors[0]).toContain("resultado esperado ou a saída");
+    const ruim = validateDraft(
+      base({
+        functionName: "f",
+        tests: [{ args: "", expected: "1", inputs: "ana", output: "" }],
+      }),
+    );
+    expect(ruim.testErrors[0]).toContain("Entradas simuladas");
+  });
+  it("valor esperado e saída juntos são guardados", () => {
+    const r = validateDraft(
+      base({
+        functionName: "f",
+        tests: [{ args: "2", expected: "4", inputs: "", output: "x" }],
+      }),
+    );
+    expect(r.tests[0]).toEqual({ args: [2], expected: 4, output: ["x"] });
+  });
+  it("editar preserva entradas, saída, passos e trecho de código", () => {
+    const e = {
+      id: "x",
+      kind: "fix" as const,
+      lesson: null,
+      config: {},
+      moduleId: "m1",
+      title: "T",
+      difficulty: "facil" as const,
+      statement: "S",
+      functionName: "f",
+      starterCode: "function f(n) { return n; }",
+      hint: "",
+      position: 1,
+      published: true,
+      tests: [
+        { args: [1], expected: 2, inputs: ["a"], output: ["z"] },
+        { args: [], output: ["só saída"] },
+      ],
+    };
+    const d = draftFromExercise(e);
+    expect(d.starterCode).toBe("function f(n) { return n; }");
+    expect(d.tests[0]).toEqual({
+      args: "1",
+      expected: "2",
+      inputs: '"a"',
+      output: "z",
+    });
+    expect(d.tests[1]).toEqual({
+      args: "",
+      expected: "",
+      inputs: "",
+      output: "só saída",
+    });
+    const o = draftFromExercise({
+      ...e,
+      kind: "order",
+      tests: [],
+      config: { items: ["a", "b"] },
+    });
+    expect(o.items).toEqual(["a", "b"]);
+    const i = draftFromExercise({
+      ...e,
+      kind: "interpretation",
+      tests: [],
+      config: { code: "let x;", options: ["a", "b"], correct: 0 },
+    });
+    expect(i.code).toBe("let x;");
+    expect(i.options).toEqual(["a", "b"]);
   });
 });

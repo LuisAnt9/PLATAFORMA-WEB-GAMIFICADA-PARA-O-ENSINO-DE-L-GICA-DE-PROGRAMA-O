@@ -33,14 +33,51 @@ export function useCatalog(): CatalogState {
 
 async function fetchCatalog(): Promise<Catalog> {
   const supabase = getSupabase();
-  const [m, e] = await Promise.all([
+  const [m, e, c, l] = await Promise.all([
     supabase.from("modules").select(MODULE_COLUMNS).order("position"),
     supabase.from("exercises").select(EXERCISE_COLUMNS).order("position"),
+    supabase.from("concepts").select("id, title, description, world_id"),
+    supabase
+      .from("exercise_concepts")
+      .select("exercise_id, concept_id, weight"),
   ]);
   if (m.error || e.error) throw new Error((m.error ?? e.error)!.message);
+  // Conceitos (migration 0010) são opcionais: se o banco ainda não os tem, o site segue sem eles.
+  const concepts =
+    c.error || !Array.isArray(c.data)
+      ? []
+      : (
+          c.data as {
+            id: string;
+            title: string;
+            description: string | null;
+            world_id: string | null;
+          }[]
+        ).map((x) => ({
+          id: x.id,
+          title: x.title,
+          description: x.description ?? "",
+          worldId: x.world_id,
+        }));
+  const links =
+    l.error || !Array.isArray(l.data)
+      ? []
+      : (
+          l.data as {
+            exercise_id: string;
+            concept_id: string;
+            weight: number;
+          }[]
+        ).map((x) => ({
+          exerciseId: x.exercise_id,
+          conceptId: x.concept_id,
+          weight: x.weight,
+        }));
   return {
     modules: (m.data as ModuleRow[]).map(moduleFromRow),
     exercises: (e.data as ExerciseRow[]).map(exerciseFromRow),
+    concepts,
+    links,
   };
 }
 

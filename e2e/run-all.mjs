@@ -11,6 +11,7 @@ const suites = [
   ["editor-de-codigo", "Editor de exercícios de código e módulos"],
   ["analise-da-turma", "Painel de análise da turma"],
   ["tipos-e-sequencia", "Múltipla escolha, lacunas, sequência diária e editor dos novos tipos"],
+  ["tipos-novos", "Interpretação, ordenação pelo teclado, corrigir, entrada e saída, dicas em níveis, segurança e editor"],
   ["registro-de-tentativas", "Registro de cada tentativa e categoria de erro do código"],
   ["modo-aprendizado", "Modo aprendizado: módulos em ordem, conceito e modo prática"],
   ["acessibilidade", "Acessibilidade (axe) e layout em celular/computador, claro/escuro"],

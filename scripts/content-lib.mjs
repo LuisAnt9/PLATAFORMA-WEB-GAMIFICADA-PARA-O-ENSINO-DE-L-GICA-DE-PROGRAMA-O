@@ -4,7 +4,17 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 
-export const TIPOS = { codigo: "code", escolha: "choice", lacuna: "blank" };
+export const TIPOS = {
+  codigo: "code",
+  escolha: "choice",
+  lacuna: "blank",
+  interpretacao: "interpretation",
+  ordenacao: "order",
+  corrigir: "fix",
+  desafio: "challenge",
+};
+/** Tipos corrigidos rodando o código do aluno (têm função, testes e solução de referência). */
+export const TIPOS_COM_CODIGO = ["codigo", "corrigir", "desafio"];
 const DIFICULDADES = ["facil", "medio", "dificil"];
 const ID = /^[a-z0-9-]{1,60}$/;
 const FUNCAO = /^[A-Za-z_$][A-Za-z0-9_$]{0,39}$/;
@@ -44,17 +54,29 @@ export function loadContent(root) {
   return { worlds, concepts, lessons, solutions };
 }
 
-/** Roda os testes de uma função num contexto isolado (conteúdo do repositório, não de alunos). */
+/**
+ * Roda os testes de uma função num contexto isolado (conteúdo do repositório, não de alunos), com a
+ * mesma regra do site: o teste passa se não lançar erro, se o valor retornado bater com `esperado`
+ * (quando houver) e se as linhas impressas com console.log baterem com `saida` (quando houver).
+ * O código pode ler as `entradas` simuladas chamando `lerEntrada()`.
+ */
 export function runTests(source, functionName, tests) {
   const script = `${source}\n;(function(){
     const __fn = typeof ${functionName} === 'function' ? ${functionName} : undefined;
-    const __tests = ${JSON.stringify(tests.map((t) => ({ args: t.entrada })))};
+    const __tests = ${JSON.stringify(tests.map((t) => ({ args: t.entrada, inputs: t.entradas ?? [] })))};
+    let __lines = [];
+    let __inputs = [];
+    let __next = 0;
+    const __fmt = (v) => typeof v === 'string' ? v : v === undefined ? 'undefined' : (() => { try { const j = JSON.stringify(v); return j === undefined ? String(v) : j; } catch (e) { return String(v); } })();
+    globalThis.console = { log: (...a) => { if (__lines.length < 200) __lines.push(a.map(__fmt).join(' ').slice(0, 2000)); } };
+    globalThis.lerEntrada = () => (__next < __inputs.length ? __inputs[__next++] : undefined);
     return JSON.stringify(__tests.map(t => {
+      __lines = []; __inputs = JSON.parse(JSON.stringify(t.inputs)); __next = 0;
       try {
-        if (!__fn) return { erro: 'função não encontrada' };
+        if (!__fn) return { erro: 'função não encontrada', linhas: __lines };
         const r = __fn(...JSON.parse(JSON.stringify(t.args)));
-        return { recebido: r === undefined ? null : r, indefinido: r === undefined };
-      } catch (e) { return { erro: String(e && e.message || e) }; }
+        return { recebido: r === undefined ? null : r, indefinido: r === undefined, linhas: __lines };
+      } catch (e) { return { erro: String(e && e.message || e), linhas: __lines }; }
     }));
   })()`;
   let out;
@@ -65,12 +87,15 @@ export function runTests(source, functionName, tests) {
   }
   return tests.map((t, i) => {
     const o = out[i];
-    if (o.erro) return { passou: false, erro: o.erro };
+    if (o.erro) return { passou: false, erro: o.erro, linhas: o.linhas };
     const recebido = o.indefinido ? undefined : o.recebido;
-    return {
-      passou: JSON.stringify(recebido) === JSON.stringify(t.esperado),
-      recebido,
-    };
+    const valorOk =
+      !("esperado" in t) ||
+      JSON.stringify(recebido) === JSON.stringify(t.esperado);
+    const saidaOk =
+      t.saida === undefined ||
+      JSON.stringify(o.linhas) === JSON.stringify(t.saida);
+    return { passou: valorOk && saidaOk, recebido, linhas: o.linhas };
   });
 }
 
@@ -185,13 +210,41 @@ export function validateContent(content) {
       }
 
       if (!(e.tipo in TIPOS)) {
-        err(where, `tipo inválido "${e.tipo}" (use codigo, escolha ou lacuna)`);
-      } else if (e.tipo === "codigo") {
+        err(
+          where,
+          `tipo inválido "${e.tipo}" (use ${Object.keys(TIPOS).join(", ")})`,
+        );
+      } else if (TIPOS_COM_CODIGO.includes(e.tipo)) {
         checkCode(e, where, content.solutions, err);
-      } else if (e.tipo === "escolha") {
+        if (e.tipo === "desafio" && (e.conceitos?.length ?? 0) < 2) {
+          warn(where, "desafio integrador deveria avaliar vários conceitos");
+        }
+      } else if (e.tipo === "escolha" || e.tipo === "interpretacao") {
         checkChoice(e, where, l.diagnostica === true, err);
+        if (
+          e.tipo === "interpretacao" &&
+          (!texto(e.codigo) || len(e.codigo) > 2000)
+        ) {
+          err(
+            where,
+            'interpretação precisa do campo "codigo" (até 2000 caracteres)',
+          );
+        }
+      } else if (e.tipo === "ordenacao") {
+        checkOrder(e, where, err);
       } else {
         checkBlank(e, where, err);
+      }
+      if (
+        e.comentario != null &&
+        (!TIPOS_COM_CODIGO.includes(e.tipo) ||
+          !texto(e.comentario) ||
+          len(e.comentario) > 2000)
+      ) {
+        err(
+          where,
+          "comentario só vale para exercícios com código e tem até 2000 caracteres",
+        );
       }
     }
   }
@@ -212,20 +265,42 @@ function checkCode(e, where, solutions, err) {
     err(where, "testes deve ter de 1 a 30 casos");
     return;
   }
+  let testesRuins = false;
   e.testes.forEach((t, i) => {
+    const n = `teste ${i + 1}`;
+    const semResultado = !("esperado" in t) && t.saida === undefined;
+    const saidaRuim =
+      t.saida !== undefined &&
+      (!Array.isArray(t.saida) ||
+        t.saida.length === 0 ||
+        t.saida.some((x) => typeof x !== "string"));
+    const entradasRuins =
+      t.entradas !== undefined && !Array.isArray(t.entradas);
     if (!Array.isArray(t.entrada))
-      err(where, `teste ${i + 1}: "entrada" deve ser uma lista`);
-    if (!("esperado" in t)) err(where, `teste ${i + 1}: falta "esperado"`);
+      err(where, `${n}: "entrada" deve ser uma lista`);
+    if (semResultado) {
+      err(
+        where,
+        `${n}: falta "esperado" (valor retornado) ou "saida" (linhas impressas)`,
+      );
+    }
+    if (entradasRuins) err(where, `${n}: "entradas" deve ser uma lista`);
+    if (saidaRuim) {
+      err(
+        where,
+        `${n}: "saida" deve ser uma lista de textos, um por linha impressa`,
+      );
+    }
+    if (!Array.isArray(t.entrada) || semResultado || entradasRuins || saidaRuim)
+      testesRuins = true;
   });
-  if (
-    !FUNCAO.test(e.funcao ?? "") ||
-    e.testes.some((t) => !Array.isArray(t.entrada) || !("esperado" in t))
-  )
-    return;
+  if (!FUNCAO.test(e.funcao ?? "") || testesRuins) return;
 
   const sol = solutions[e.id];
   if (sol === undefined) {
     err(where, `sem solução de referência (crie content/solucoes/${e.id}.js)`);
+  } else if (sol.length > 4000) {
+    err(where, "solução de referência maior que 4000 caracteres");
   } else {
     runTests(sol, e.funcao, e.testes).forEach((r, i) => {
       if (!r.passou)
@@ -236,11 +311,25 @@ function checkCode(e, where, solutions, err) {
     });
   }
   const inicial = runTests(e.codigoInicial ?? "", e.funcao, e.testes);
-  if (inicial.every((r) => r.passou))
+  if (inicial.every((r) => r.passou)) {
     err(
       where,
-      "o código inicial já passa em todos os testes (os testes não reprovam um código vazio)",
+      e.tipo === "corrigir"
+        ? "o código com defeito já passa em todos os testes (os testes não reprovam o defeito)"
+        : "o código inicial já passa em todos os testes (os testes não reprovam um código vazio)",
     );
+  }
+  if (
+    e.tipo === "corrigir" &&
+    !new RegExp(`function\\s+${e.funcao.replace(/\$/g, "\\$")}\\s*\\(`).test(
+      e.codigoInicial ?? "",
+    )
+  ) {
+    err(
+      where,
+      `o código com defeito precisa declarar "function ${e.funcao}(...)"`,
+    );
+  }
 }
 
 function optionText(o) {
@@ -291,6 +380,17 @@ function checkChoice(e, where, diagnostica, err) {
       );
     }
   });
+}
+
+function checkOrder(e, where, err) {
+  const itens = e.itens;
+  if (!Array.isArray(itens) || itens.length < 2 || itens.length > 10) {
+    err(where, "itens deve ter de 2 a 10 passos, na ordem correta");
+    return;
+  }
+  if (itens.some((i) => !texto(i))) err(where, "há passo vazio");
+  if (new Set(itens.map((i) => String(i).trim())).size !== itens.length)
+    err(where, "há passos repetidos");
 }
 
 function checkBlank(e, where, err) {
@@ -351,8 +451,9 @@ const lines = (rows) => rows.map((r) => `  (${r.join(", ")})`).join(",\n");
 /** Converte o exercício do formato dos arquivos para as colunas do banco. */
 export function exerciseRow(e) {
   const kind = TIPOS[e.tipo];
+  const comCodigo = TIPOS_COM_CODIGO.includes(e.tipo);
   let config = {};
-  if (kind === "choice") {
+  if (kind === "choice" || kind === "interpretation") {
     const comConfusao = e.opcoes.some(
       (o) => typeof o === "object" && o?.confusao,
     );
@@ -367,14 +468,18 @@ export function exerciseRow(e) {
           )
         : e.opcoes.map(optionText),
       correct: e.correta,
+      ...(kind === "interpretation" ? { code: e.codigo } : {}),
     };
+  } else if (kind === "order") {
+    config = { items: e.itens.map((i) => i.trim()) };
   } else if (kind === "blank") {
     config = {
       template: e.modelo,
       blanks: e.lacunas.map((l) => ({ answers: l.respostas })),
     };
   }
-  if (kind !== "code" && e.explicacao) config.explanation = e.explicacao;
+  if (!TIPOS_COM_CODIGO.includes(e.tipo) && e.explicacao)
+    config.explanation = e.explicacao;
   return {
     id: e.id,
     kind,
@@ -382,12 +487,16 @@ export function exerciseRow(e) {
     difficulty: e.dificuldade,
     statement: e.enunciado,
     lesson: e.minilicao ?? null,
-    function_name: kind === "code" ? e.funcao : null,
-    starter_code: kind === "code" ? e.codigoInicial : "",
-    tests:
-      kind === "code"
-        ? e.testes.map((t) => ({ args: t.entrada, expected: t.esperado }))
-        : [],
+    function_name: comCodigo ? e.funcao : null,
+    starter_code: comCodigo ? e.codigoInicial : "",
+    tests: comCodigo
+      ? e.testes.map((t) => ({
+          args: t.entrada,
+          ...("esperado" in t ? { expected: t.esperado } : {}),
+          ...(t.entradas ? { inputs: t.entradas } : {}),
+          ...(t.saida ? { output: t.saida } : {}),
+        }))
+      : [],
     config,
     hint: e.dica ?? "",
     position: e.posicao,
@@ -410,7 +519,7 @@ export function buildImportSql(content) {
   const out = [];
   out.push(`-- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0011. Não altera "published" nem "position" de exercícios que já existem
+-- Requer as migrations até a 0012. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 `);
 
@@ -460,6 +569,23 @@ on conflict (id) do update set module_id = excluded.module_id, kind = excluded.k
   config = excluded.config, hint = excluded.hint
   where public.exercises.origem = 'arquivo';
 `);
+
+  const solutions = exercises.filter(
+    ({ e }) =>
+      TIPOS_COM_CODIGO.includes(e.tipo) &&
+      content.solutions[e.id] !== undefined,
+  );
+  if (solutions.length > 0) {
+    out.push(`-- Soluções comentadas (só professores leem a tabela; o aluno recebe pela função get_solution depois de acertar).
+insert into public.exercise_solutions (exercise_id, solution, commentary)
+select v.exercise_id, v.solution, v.commentary
+from (values
+${lines(solutions.map(({ e }) => [q(e.id), q(content.solutions[e.id].trimEnd()), q(e.comentario ?? "")]))}
+) as v (exercise_id, solution, commentary)
+join public.exercises e on e.id = v.exercise_id and e.origem = 'arquivo'
+on conflict (exercise_id) do update set solution = excluded.solution, commentary = excluded.commentary;
+`);
+  }
 
   const links = exercises.flatMap(({ e }) =>
     e.conceitos.map((c) => [q(e.id), q(c.id), String(c.peso)]),

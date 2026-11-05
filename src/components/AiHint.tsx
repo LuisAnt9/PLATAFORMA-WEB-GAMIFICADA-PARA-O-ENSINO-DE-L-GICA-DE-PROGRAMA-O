@@ -8,10 +8,21 @@ interface Props {
   exerciseId: string;
   /** Lido só na hora do clique, para refletir o que o aluno tem na tela agora. */
   getContext: () => HintContext;
+  /** Bloqueia o botão (dicas em níveis). */
+  disabled?: boolean;
+  disabledReason?: string;
+  /** Chamado quando a IA devolve uma dica. */
+  onReceived?: () => void;
 }
 
 /** Botão "Dica com IA": pede ao servidor (/api/dica) uma pista sem a resposta pronta. */
-export default function AiHint({ exerciseId, getContext }: Props) {
+export default function AiHint({
+  exerciseId,
+  getContext,
+  disabled = false,
+  disabledReason,
+  onReceived,
+}: Props) {
   const [busy, setBusy] = useState(false);
   const [hint, setHint] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +53,7 @@ export default function AiHint({ exerciseId, getContext }: Props) {
         throw new Error(body.error ?? "Não foi possível pedir a dica.");
       }
       setHint(body.hint);
+      onReceived?.();
     } catch (e) {
       setError(
         e instanceof Error ? e.message : "Não foi possível pedir a dica.",
@@ -56,7 +68,8 @@ export default function AiHint({ exerciseId, getContext }: Props) {
       <button
         type="button"
         onClick={() => void ask()}
-        disabled={busy}
+        disabled={busy || disabled}
+        title={disabled ? disabledReason : undefined}
         className="rounded-xl border border-emerald-700 bg-white px-5 py-2.5 text-emerald-800 hover:bg-emerald-50 disabled:opacity-50 dark:border-emerald-500 dark:bg-zinc-900 dark:text-emerald-300 dark:hover:bg-emerald-950"
       >
         {busy ? "Pensando..." : "✨ Dica com IA"}

@@ -7,6 +7,8 @@ import { useMemo, useState } from "react";
 import {
   DIFFICULTY_LABEL,
   KIND_LABEL,
+  isChoiceKind,
+  isCodeKind,
   type Difficulty,
   type Exercise,
   type ExerciseKind,
@@ -16,6 +18,7 @@ import {
   buildStarterCode,
   draftFromExercise,
   emptyDraft,
+  emptyTest,
   newExerciseId,
   validateDraft,
   type Draft,
@@ -39,6 +42,13 @@ const KIND_HELP: Record<ExerciseKind, string> = {
     "O aluno escolhe uma alternativa. Bom para conceitos e para quem está começando.",
   blank:
     "O aluno completa lacunas num trecho de código. Reduz a barreira da sintaxe.",
+  interpretation:
+    "O aluno lê um trecho de código e escolhe qual será o resultado. Treina acompanhar a execução.",
+  order:
+    "O aluno coloca passos na ordem certa. Bom para sequência lógica e algoritmos.",
+  fix: "O aluno recebe um código com defeito e o corrige no editor, com testes.",
+  challenge:
+    "Exercício de código maior, que junta vários conceitos, com vários testes.",
 };
 
 export default function ExerciseForm({ existing }: { existing?: Exercise }) {
@@ -62,11 +72,13 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
   const [error, setError] = useState<string | null>(null);
 
   const validation = useMemo(() => validateDraft(draft), [draft]);
-  const isCode = draft.kind === "code";
+  const isCode = isCodeKind(draft.kind);
+  const isFix = draft.kind === "fix";
   // A validação com a solução de referência só vale para este nome de função, estes testes e esta solução.
   const snapshot = JSON.stringify([
     draft.functionName.trim(),
     draft.tests,
+    draft.starterCode,
     solution,
   ]);
   // Código precisa passar na solução de referência; os outros tipos só precisam estar completos.
@@ -77,7 +89,11 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
   function set<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft((d) => ({ ...d, [key]: value }));
   }
-  function setTest(i: number, key: "args" | "expected", value: string) {
+  function setTest(
+    i: number,
+    key: "args" | "expected" | "inputs" | "output",
+    value: string,
+  ) {
     setDraft((d) => ({
       ...d,
       tests: d.tests.map((t, j) => (j === i ? { ...t, [key]: value } : t)),
@@ -112,6 +128,21 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
               : d.correct,
     }));
   }
+  function setItem(i: number, value: string) {
+    setDraft((d) => ({
+      ...d,
+      items: d.items.map((x, j) => (j === i ? value : x)),
+    }));
+  }
+  function moveItem(i: number, dir: -1 | 1) {
+    setDraft((d) => {
+      const to = i + dir;
+      if (to < 0 || to >= d.items.length) return d;
+      const items = [...d.items];
+      [items[i], items[to]] = [items[to], items[i]];
+      return { ...d, items };
+    });
+  }
   function setBlankAnswers(i: number, value: string) {
     setDraft((d) => {
       const next = [...d.blankAnswers];
@@ -135,7 +166,27 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
       solution,
     );
     setResult(res);
-    setValidatedSnapshot(res.passed ? snapshot : null);
+    let ok = res.passed;
+    if (ok) {
+      // os testes precisam reprovar o código inicial, senão não ensinam nada
+      const name = draft.functionName.trim();
+      const starter = isFix
+        ? draft.starterCode
+        : buildStarterCode(name, draft.params);
+      const inicial = await runExercise(
+        { functionName: name, tests: validation.tests },
+        starter,
+      );
+      if (inicial.passed) {
+        ok = false;
+        setError(
+          isFix
+            ? "O código com defeito já passa em todos os testes: os testes precisam reprovar o código com defeito."
+            : "O código inicial já passa em todos os testes: os testes precisam reprovar um código vazio.",
+        );
+      }
+    }
+    setValidatedSnapshot(ok ? snapshot : null);
     setRunning(false);
   }
 
@@ -203,7 +254,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
 
       <fieldset>
         <legend className="mb-2 text-sm font-medium">Tipo de exercício</legend>
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {(Object.keys(KIND_LABEL) as ExerciseKind[]).map((k) => (
             <label
               key={k}
@@ -301,7 +352,26 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
         </label>
       </section>
 
-      {draft.kind === "choice" && (
+      {draft.kind === "interpretation" && (
+        <section>
+          <label className="text-sm">
+            <span className="text-lg font-semibold">Trecho de código</span>
+            <span className="block text-xs text-zinc-600 dark:text-zinc-400">
+              O código que o aluno vai ler. Escreva a pergunta no enunciado (por
+              exemplo, &quot;Qual será o valor final de x?&quot;).
+            </span>
+            <textarea
+              className={`${input} ${mono} h-40`}
+              value={draft.code}
+              onChange={(e) => set("code", e.target.value)}
+              maxLength={2000}
+              spellCheck={false}
+            />
+          </label>
+        </section>
+      )}
+
+      {isChoiceKind(draft.kind) && (
         <section>
           <h2 className="mb-1 text-lg font-semibold">Alternativas</h2>
           <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
@@ -361,6 +431,73 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
             className="mt-3 text-sm text-emerald-700 hover:underline disabled:opacity-50 dark:text-emerald-400"
           >
             + Adicionar alternativa
+          </button>
+        </section>
+      )}
+
+      {draft.kind === "order" && (
+        <section>
+          <h2 className="mb-1 text-lg font-semibold">Passos na ordem certa</h2>
+          <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+            Escreva os passos <strong>na ordem correta</strong>. O aluno os verá
+            embaralhados. Cada passo precisa ser diferente dos outros.
+          </p>
+          <ol className="space-y-2">
+            {draft.items.map((it, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <span className="w-6 text-sm text-zinc-600 dark:text-zinc-400">
+                  {i + 1}.
+                </span>
+                <input
+                  aria-label={`Passo ${i + 1}`}
+                  placeholder={`Passo ${i + 1}`}
+                  className="min-w-0 flex-1 rounded-xl border border-zinc-300 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+                  value={it}
+                  maxLength={200}
+                  onChange={(e) => setItem(i, e.target.value)}
+                />
+                <button
+                  type="button"
+                  aria-label={`Mover o passo ${i + 1} para cima`}
+                  disabled={i === 0}
+                  onClick={() => moveItem(i, -1)}
+                  className="flex h-8 w-8 items-center justify-center rounded text-zinc-600 hover:bg-zinc-100 hover:text-foreground disabled:opacity-30 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  aria-label={`Mover o passo ${i + 1} para baixo`}
+                  disabled={i === draft.items.length - 1}
+                  onClick={() => moveItem(i, 1)}
+                  className="flex h-8 w-8 items-center justify-center rounded text-zinc-600 hover:bg-zinc-100 hover:text-foreground disabled:opacity-30 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  aria-label={`Remover passo ${i + 1}`}
+                  disabled={draft.items.length <= 2}
+                  onClick={() =>
+                    setDraft((d) => ({
+                      ...d,
+                      items: d.items.filter((_, j) => j !== i),
+                    }))
+                  }
+                  className="px-2 text-zinc-600 hover:text-red-700 disabled:opacity-30 dark:text-zinc-400"
+                >
+                  ✕
+                </button>
+              </li>
+            ))}
+          </ol>
+          <button
+            type="button"
+            disabled={draft.items.length >= 10}
+            onClick={() => setDraft((d) => ({ ...d, items: [...d.items, ""] }))}
+            className="mt-3 text-sm text-emerald-700 hover:underline disabled:opacity-50 dark:text-emerald-400"
+          >
+            + Adicionar passo
           </button>
         </section>
       )}
@@ -433,7 +570,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
         </section>
       )}
 
-      {draft.kind !== "code" && (
+      {!isCode && (
         <label className="block text-sm">
           Explicação ao acertar (opcional)
           <span className="block text-xs text-zinc-600 dark:text-zinc-400">
@@ -474,7 +611,25 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                 spellCheck={false}
               />
             </label>
-            {draft.functionName.trim() && fnOk && (
+            {isFix && (
+              <div className="text-sm sm:col-span-2">
+                <div className="font-medium">Código com defeito</div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                  O código que o aluno vai receber e corrigir. Ele deve declarar
+                  a função com o nome acima e{" "}
+                  <strong>falhar em pelo menos um teste</strong>.
+                </p>
+                <div className="mt-1">
+                  <CodeEditor
+                    value={draft.starterCode}
+                    onChange={(v) => set("starterCode", v)}
+                    onRun={() => void validate()}
+                    label="Código com defeito"
+                  />
+                </div>
+              </div>
+            )}
+            {!isFix && draft.functionName.trim() && fnOk && (
               <div className="text-sm sm:col-span-2">
                 <div className="text-zinc-600 dark:text-zinc-400">
                   Código inicial que o aluno verá
@@ -493,12 +648,19 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
               <code>[1, 2, 3]</code> ou <code>&quot;abc&quot;</code>. Esperado:{" "}
               <code>5</code>, <code>&quot;par&quot;</code>, <code>true</code> ou{" "}
               <code>[1, 2]</code>. Os casos de teste ficam visíveis para os
-              alunos, pois a correção roda no navegador.
+              alunos, pois a correção roda no navegador. O resultado esperado
+              pode ficar vazio se o teste conferir apenas a saída impressa (veja
+              &quot;Entrada e saída&quot; em cada caso).
             </p>
             <ul className="space-y-2">
               {draft.tests.map((t, i) => {
                 const err = validation.testErrors[i];
-                const touched = attempted || t.args !== "" || t.expected !== "";
+                const touched =
+                  attempted ||
+                  t.args !== "" ||
+                  t.expected !== "" ||
+                  t.inputs !== "" ||
+                  t.output !== "";
                 return (
                   <li key={i}>
                     <div className="flex flex-wrap items-center gap-2">
@@ -535,6 +697,39 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                         ✕
                       </button>
                     </div>
+                    <details className="ml-8 mt-1 text-sm">
+                      <summary className="cursor-pointer text-zinc-600 dark:text-zinc-400">
+                        Entrada e saída (opcional)
+                      </summary>
+                      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                        <label className="text-xs">
+                          Entradas simuladas (o código as lê com{" "}
+                          <code>lerEntrada()</code>)
+                          <input
+                            aria-label={`Entradas simuladas do teste ${i + 1}`}
+                            placeholder='"Ana", 3'
+                            className={`${input} ${mono}`}
+                            value={t.inputs}
+                            onChange={(e) =>
+                              setTest(i, "inputs", e.target.value)
+                            }
+                          />
+                        </label>
+                        <label className="text-xs">
+                          Saída impressa esperada (uma linha por linha de{" "}
+                          <code>console.log</code>)
+                          <textarea
+                            aria-label={`Saída impressa esperada do teste ${i + 1}`}
+                            rows={2}
+                            className={`${input} ${mono}`}
+                            value={t.output}
+                            onChange={(e) =>
+                              setTest(i, "output", e.target.value)
+                            }
+                          />
+                        </label>
+                      </div>
+                    </details>
                     {touched && err && (
                       <p
                         role="alert"
@@ -553,7 +748,7 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
               onClick={() =>
                 setDraft((d) => ({
                   ...d,
-                  tests: [...d.tests, { args: "", expected: "" }],
+                  tests: [...d.tests, emptyTest()],
                 }))
               }
               className="mt-3 text-sm text-emerald-700 hover:underline disabled:opacity-50 dark:text-emerald-400"
@@ -618,7 +813,9 @@ export default function ExerciseForm({ existing }: { existing?: Exercise }) {
                         {!t.passed &&
                           (t.error
                             ? ` → erro: ${t.error}`
-                            : ` → esperado ${show(t.expected)}, a solução retornou ${show(t.received)}`)}
+                            : t.expectedOutput
+                              ? ` → saída esperada ${show(t.expectedOutput)}, a solução imprimiu ${show(t.receivedOutput ?? [])}`
+                              : ` → esperado ${show(t.expected)}, a solução retornou ${show(t.received)}`)}
                       </li>
                     ))}
                   </ul>

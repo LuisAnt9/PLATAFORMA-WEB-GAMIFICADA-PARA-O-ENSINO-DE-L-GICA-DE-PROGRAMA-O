@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   DIFFICULTY_LABEL,
   KIND_LABEL,
+  isCodeKind,
   exercisesOf,
   type Exercise,
   type Module,
@@ -252,12 +253,12 @@ function Content() {
                       key={e.id}
                       className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 text-sm"
                     >
-                      <div className="flex flex-col">
+                      <div className="flex gap-1">
                         <button
                           aria-label={`Subir ${e.title}`}
                           disabled={i === 0}
                           onClick={() => void move(list, i, -1)}
-                          className="text-xs leading-none text-zinc-600 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
+                          className="flex h-7 w-7 items-center justify-center rounded text-xs leading-none text-zinc-600 hover:bg-zinc-100 hover:text-foreground disabled:opacity-20 dark:text-zinc-400 dark:hover:bg-zinc-800"
                         >
                           ▲
                         </button>
@@ -265,7 +266,7 @@ function Content() {
                           aria-label={`Descer ${e.title}`}
                           disabled={i === list.length - 1}
                           onClick={() => void move(list, i, 1)}
-                          className="text-xs leading-none text-zinc-600 dark:text-zinc-400 hover:text-foreground disabled:opacity-20"
+                          className="flex h-7 w-7 items-center justify-center rounded text-xs leading-none text-zinc-600 hover:bg-zinc-100 hover:text-foreground disabled:opacity-20 dark:text-zinc-400 dark:hover:bg-zinc-800"
                         >
                           ▼
                         </button>
@@ -275,7 +276,7 @@ function Content() {
                         <div className="text-xs text-zinc-600 dark:text-zinc-400">
                           {KIND_LABEL[e.kind]} ·{" "}
                           {DIFFICULTY_LABEL[e.difficulty]}
-                          {e.kind === "code" &&
+                          {isCodeKind(e.kind) &&
                             ` · ${e.tests.length} ${e.tests.length === 1 ? "teste" : "testes"}`}
                         </div>
                       </div>

@@ -55,6 +55,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Conteúdo em arquivos** (etapa E2): `content/` guarda mundos, conceitos, lições e exercícios (os 53 atuais, já ligados a conceitos e aos 7 mundos) e `content/solucoes/` as soluções de referência. `npm run content:check` valida tudo e `npm run content:build` gera `supabase/importar-conteudo.sql` (idempotente, colado no SQL Editor). A migration 0011 marca o que veio dos arquivos (`origem = 'arquivo'`) para o importador nunca sobrescrever o que o professor editou no painel. Veja `content/README.md`.
 
+- **Tipos de exercício** (etapa E3): além de código, escolha e lacuna, há **interpretação de código**, **ordenação** (acessível pelo teclado), **corrigir o erro** e **desafio**. Exercícios de código podem ter **entrada simulada** (`lerEntrada()`) e **saída impressa** conferida (`console.log`). O executor roda isolado (sem rede, sem DOM, sem `import`, sem forjar o resultado). **Dicas em três níveis** (professor, conceito, IA) registradas nas tentativas e **solução comentada** liberada pelo banco só depois de acertar (migration 0012).
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

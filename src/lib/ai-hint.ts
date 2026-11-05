@@ -1,4 +1,4 @@
-import type { Exercise } from "./catalog";
+import { isChoiceKind, isCodeKind, type Exercise } from "./catalog";
 import { optionText } from "./grading";
 
 /** Limite de dicas com IA por aluno e por dia (aplicado no banco, em `use_ai_hint`). */
@@ -32,7 +32,7 @@ export function buildHintPrompt(ex: Exercise, ctx: HintContext): string {
     `Exercício: ${ex.title} (dificuldade: ${ex.difficulty}; tipo: ${ex.kind})`,
     `Enunciado:\n${ex.statement}`,
   ];
-  if (ex.kind === "code") {
+  if (isCodeKind(ex.kind)) {
     parts.push(`Função esperada: ${ex.functionName}`);
     parts.push(
       `Casos de teste (entrada → saída esperada):\n` +
@@ -40,7 +40,12 @@ export function buildHintPrompt(ex: Exercise, ctx: HintContext): string {
           .slice(0, 10)
           .map(
             (t) =>
-              `${ex.functionName}(${t.args.map((a) => JSON.stringify(a)).join(", ")}) → ${JSON.stringify(t.expected)}`,
+              `${ex.functionName}(${t.args.map((a) => JSON.stringify(a)).join(", ")})` +
+              (t.inputs?.length
+                ? ` com entradas ${JSON.stringify(t.inputs)}`
+                : "") +
+              ("expected" in t ? ` → ${JSON.stringify(t.expected)}` : "") +
+              (t.output ? ` imprime ${JSON.stringify(t.output)}` : ""),
           )
           .join("\n"),
     );
@@ -48,7 +53,17 @@ export function buildHintPrompt(ex: Exercise, ctx: HintContext): string {
       `Código atual do aluno:\n${clip(ctx.code, MAX_CODE) || "(vazio)"}`,
     );
   }
-  if (ex.kind === "choice") {
+  if (ex.kind === "interpretation") {
+    parts.push(
+      `Trecho de código do enunciado:\n${clip(ex.config.code, MAX_CODE)}`,
+    );
+  }
+  if (ex.kind === "order") {
+    parts.push(
+      `São ${(ex.config.items ?? []).length} passos a ordenar. Não diga a ordem certa: faça perguntas que levem o aluno a descobrir qual passo vem primeiro.`,
+    );
+  }
+  if (isChoiceKind(ex.kind)) {
     parts.push(
       `Alternativas:\n${(ex.config.options ?? []).map((o, i) => `${i + 1}) ${optionText(o)}`).join("\n")}`,
     );

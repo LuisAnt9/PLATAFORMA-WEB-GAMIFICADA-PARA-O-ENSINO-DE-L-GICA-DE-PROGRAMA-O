@@ -1,16 +1,23 @@
-import type {
-  Difficulty,
-  Exercise,
-  ExerciseConfig,
-  ExerciseKind,
-  TestCase,
+import {
+  isChoiceKind,
+  type Difficulty,
+  type Exercise,
+  type ExerciseConfig,
+  type ExerciseKind,
+  type TestCase,
 } from "./catalog";
 import { optionMisconception, optionText, placeholderNumbers } from "./grading";
 
-/** Um teste como o professor o digita: texto JSON para as entradas e para o resultado esperado. */
+/**
+ * Um teste como o professor o digita: texto JSON para as entradas e para o resultado esperado.
+ * `inputs` (entradas simuladas de `lerEntrada()`, em JSON) e `output` (linhas impressas esperadas,
+ * uma por linha) são opcionais; o resultado esperado pode ficar vazio se houver saída esperada.
+ */
 export interface DraftTest {
   args: string;
   expected: string;
+  inputs: string;
+  output: string;
 }
 
 export interface Draft {
@@ -23,6 +30,15 @@ export interface Draft {
   misconceptions: string[];
   /** Índice da alternativa correta (null = ainda não escolhida). */
   correct: number | null;
+  // --- interpretação de código ---
+  /** Trecho de código que o aluno deve interpretar. */
+  code: string;
+  // --- ordenação ---
+  /** Passos na ordem correta (o aluno os vê embaralhados). */
+  items: string[];
+  // --- corrigir o erro ---
+  /** Código com defeito que o aluno vai corrigir. */
+  starterCode: string;
   // --- completar a lacuna ---
   /** Modelo com lacunas {{1}}, {{2}}... */
   template: string;
@@ -53,6 +69,13 @@ const RESERVED = new Set(
 export const ARGS_HELP =
   'Use JSON: números como 2, textos entre aspas como "abc", vetores como [1, 2], separados por vírgula.';
 
+export const emptyTest = (): DraftTest => ({
+  args: "",
+  expected: "",
+  inputs: "",
+  output: "",
+});
+
 export function emptyDraft(moduleId = ""): Draft {
   return {
     kind: "code",
@@ -60,6 +83,9 @@ export function emptyDraft(moduleId = ""): Draft {
     options: ["", ""],
     misconceptions: ["", ""],
     correct: null,
+    code: "",
+    items: ["", ""],
+    starterCode: "",
     template: "",
     blankAnswers: [],
     explanation: "",
@@ -70,7 +96,7 @@ export function emptyDraft(moduleId = ""): Draft {
     functionName: "",
     params: "",
     hint: "",
-    tests: [{ args: "", expected: "" }],
+    tests: [emptyTest()],
   };
 }
 
@@ -87,13 +113,16 @@ export function draftFromExercise(e: Exercise): Draft {
     kind: e.kind,
     lesson: e.lesson ?? "",
     options:
-      e.kind === "choice" && c.options ? c.options.map(optionText) : ["", ""],
+      isChoiceKind(e.kind) && c.options ? c.options.map(optionText) : ["", ""],
     misconceptions:
-      e.kind === "choice" && c.options
+      isChoiceKind(e.kind) && c.options
         ? c.options.map((o) => optionMisconception(o) ?? "")
         : ["", ""],
     correct:
-      e.kind === "choice" && typeof c.correct === "number" ? c.correct : null,
+      isChoiceKind(e.kind) && typeof c.correct === "number" ? c.correct : null,
+    code: e.kind === "interpretation" ? (c.code ?? "") : "",
+    items: e.kind === "order" && c.items ? [...c.items] : ["", ""],
+    starterCode: e.kind === "fix" ? e.starterCode : "",
     template: e.kind === "blank" ? (c.template ?? "") : "",
     blankAnswers:
       e.kind === "blank"
@@ -109,7 +138,9 @@ export function draftFromExercise(e: Exercise): Draft {
     hint: e.hint,
     tests: e.tests.map((t) => ({
       args: formatArgs(t.args),
-      expected: formatExpected(t.expected),
+      expected: "expected" in t ? formatExpected(t.expected) : "",
+      inputs: t.inputs ? formatArgs(t.inputs) : "",
+      output: t.output ? t.output.join("\n") : "",
     })),
   };
 }
@@ -145,6 +176,27 @@ export function parseExpected(text: string): Parsed<unknown> {
       error: 'Resultado esperado inválido. Use JSON: 5, "texto", true, [1, 2].',
     };
   }
+}
+
+/** Entradas simuladas: valores JSON separados por vírgula (vazio = nenhuma). */
+export function parseInputs(text: string): Parsed<unknown[] | undefined> {
+  if (text.trim() === "") return { ok: true, value: undefined };
+  try {
+    const value = JSON.parse(`[${text}]`);
+    return { ok: true, value };
+  } catch {
+    return {
+      ok: false,
+      error:
+        'Entradas simuladas inválidas. Use JSON separado por vírgula: "Ana", 3.',
+    };
+  }
+}
+
+/** Saída esperada: uma linha impressa por linha do texto (vazio = não conferir a saída). */
+export function parseOutput(text: string): string[] | undefined {
+  const clean = text.replace(/\r/g, "").replace(/\n+$/, "");
+  return clean === "" ? undefined : clean.split("\n");
 }
 
 export interface DraftValidation {
@@ -185,6 +237,22 @@ function validateChoice(
       : options,
     correct,
   };
+  if (d.explanation.trim()) config.explanation = d.explanation.trim();
+  return { errors, config };
+}
+
+function validateOrder(
+  d: Draft,
+  errors: string[],
+): Pick<DraftValidation, "errors" | "config"> {
+  const items = d.items.map((i) => i.trim());
+  if (items.length < 2) errors.push("Inclua pelo menos 2 passos.");
+  if (items.length > 10) errors.push("No máximo 10 passos.");
+  if (items.some((i) => i === ""))
+    errors.push("Preencha ou remova os passos vazios.");
+  if (new Set(items).size !== items.length)
+    errors.push("Há passos repetidos: cada passo precisa ser diferente.");
+  const config: ExerciseConfig = { items };
   if (d.explanation.trim()) config.explanation = d.explanation.trim();
   return { errors, config };
 }
@@ -242,12 +310,25 @@ export function validateDraft(d: Draft): DraftValidation {
   if (d.explanation.length > 500)
     errors.push("A explicação da resposta passa de 500 caracteres.");
 
-  if (d.kind === "choice") {
-    return { ...validateChoice(d, errors), tests: [], testErrors: [] };
+  if (isChoiceKind(d.kind)) {
+    const r = validateChoice(d, errors);
+    if (d.kind === "interpretation") {
+      const code = d.code.replace(/\s+$/, "");
+      if (code.trim() === "")
+        errors.push("Escreva o trecho de código que o aluno vai interpretar.");
+      if (code.length > 2000)
+        errors.push("O trecho de código passa de 2000 caracteres.");
+      r.config.code = code;
+    }
+    return { ...r, tests: [], testErrors: [] };
+  }
+  if (d.kind === "order") {
+    return { ...validateOrder(d, errors), tests: [], testErrors: [] };
   }
   if (d.kind === "blank") {
     return { ...validateBlank(d, errors), tests: [], testErrors: [] };
   }
+  // code, fix e challenge: função em JavaScript com casos de teste.
 
   const fn = d.functionName.trim();
   if (!IDENT.test(fn) || fn.length > 40)
@@ -271,6 +352,23 @@ export function validateDraft(d: Draft): DraftValidation {
   if (new Set(params).size !== params.length)
     errors.push("Há parâmetros repetidos.");
 
+  if (d.kind === "fix") {
+    const starter = d.starterCode.replace(/\s+$/, "");
+    if (starter.trim() === "")
+      errors.push("Escreva o código com defeito que o aluno vai corrigir.");
+    else if (starter.length > 4000)
+      errors.push("O código com defeito passa de 4000 caracteres.");
+    else if (
+      IDENT.test(fn) &&
+      !new RegExp(`function\\s+${fn.replace(/\$/g, "\\$")}\\s*\\(`).test(
+        starter,
+      )
+    )
+      errors.push(
+        `O código com defeito precisa declarar a função ${fn}, escrita como "function ${fn}(...)".`,
+      );
+  }
+
   if (d.tests.length < 1) errors.push("Inclua pelo menos um caso de teste.");
   if (d.tests.length > MAX_TESTS)
     errors.push(`No máximo ${MAX_TESTS} casos de teste.`);
@@ -279,11 +377,23 @@ export function validateDraft(d: Draft): DraftValidation {
   const testErrors = d.tests.map((t, i) => {
     const a = parseArgs(t.args);
     if (!a.ok) return a.error;
-    const e = parseExpected(t.expected);
-    if (!e.ok) return e.error;
     if (params.length > 0 && a.value.length > params.length)
       return `Mais entradas (${a.value.length}) do que parâmetros (${params.length}).`;
-    tests[i] = { args: a.value, expected: e.value };
+    const inputs = parseInputs(t.inputs);
+    if (!inputs.ok) return inputs.error;
+    const output = parseOutput(t.output);
+    const test: TestCase = { args: a.value };
+    if (t.expected.trim() !== "" || output === undefined) {
+      const e = parseExpected(t.expected);
+      if (!e.ok)
+        return t.expected.trim() === ""
+          ? "Informe o resultado esperado ou a saída impressa."
+          : e.error;
+      test.expected = e.value;
+    }
+    if (inputs.value) test.inputs = inputs.value;
+    if (output) test.output = output;
+    tests[i] = test;
     return null;
   });
   if (testErrors.some(Boolean))

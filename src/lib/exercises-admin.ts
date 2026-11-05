@@ -1,4 +1,4 @@
-import type { Exercise } from "./catalog";
+import { isCodeKind, type Exercise } from "./catalog";
 import {
   buildStarterCode,
   type Draft,
@@ -10,7 +10,7 @@ function fail(error: { message: string }): never {
   // PostgREST responde assim quando uma coluna não existe (migration ainda não aplicada).
   if (/column|schema cache/i.test(error.message)) {
     throw new Error(
-      "O banco ainda não tem os recursos deste exercício. Rode as migrations mais recentes (0005) no SQL Editor do Supabase.",
+      "O banco ainda não tem os recursos deste exercício. Rode as migrations mais recentes (até a 0012) no SQL Editor do Supabase.",
     );
   }
   throw new Error(`Não foi possível salvar: ${error.message}`);
@@ -46,12 +46,17 @@ function fields(
       ? { lesson: d.lesson.trim() || null }
       : {}),
   };
-  if (d.kind === "code") {
+  if (isCodeKind(d.kind)) {
     const name = d.functionName.trim();
     return {
       ...common,
+      // "code" não envia a coluna kind: continua salvando em bancos sem a migration 0005/0012
+      ...(d.kind === "code" ? {} : { kind: d.kind }),
       function_name: name,
-      starter_code: buildStarterCode(name, d.params),
+      starter_code:
+        d.kind === "fix"
+          ? d.starterCode.replace(/\s+$/, "") + "\n"
+          : buildStarterCode(name, d.params),
       tests: v.tests,
     };
   }

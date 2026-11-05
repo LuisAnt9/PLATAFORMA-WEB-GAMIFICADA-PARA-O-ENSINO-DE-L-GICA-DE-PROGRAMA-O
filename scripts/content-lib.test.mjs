@@ -342,3 +342,310 @@ describe("buildImportSql", () => {
     ).toThrow("$c$");
   });
 });
+
+// ---------------------------------------------------------------------------------------------
+// E3: tipos novos, entrada e saída
+// ---------------------------------------------------------------------------------------------
+const interpretacao = (over = {}) => ({
+  id: "int",
+  tipo: "interpretacao",
+  titulo: "Interpretar",
+  dificuldade: "facil",
+  publicado: true,
+  posicao: 4,
+  conceitos: [{ id: "c1", peso: 1 }],
+  enunciado: "Qual a saída?",
+  codigo: "let x = 1;\nconsole.log(x);",
+  opcoes: ["1", { texto: "2", confusao: "soma sem querer" }],
+  correta: 0,
+  ...over,
+});
+const ordenacao = (over = {}) => ({
+  id: "ord",
+  tipo: "ordenacao",
+  titulo: "Ordenar",
+  dificuldade: "facil",
+  publicado: true,
+  posicao: 5,
+  conceitos: [{ id: "c1", peso: 1 }],
+  enunciado: "Ordene.",
+  itens: ["Primeiro", "Segundo", "Terceiro"],
+  ...over,
+});
+const corrigir = (over = {}) => ({
+  id: "fix",
+  tipo: "corrigir",
+  titulo: "Corrigir",
+  dificuldade: "facil",
+  publicado: true,
+  posicao: 6,
+  conceitos: [{ id: "c1", peso: 1 }],
+  enunciado: "Corrija.",
+  funcao: "dobro",
+  codigoInicial: "function dobro(n) { return n + 2; }",
+  testes: [
+    { entrada: [3], esperado: 6 },
+    { entrada: [5], esperado: 10 },
+  ],
+  ...over,
+});
+const saudacao = (over = {}) => ({
+  id: "sau",
+  tipo: "desafio",
+  titulo: "Saudação",
+  dificuldade: "medio",
+  publicado: true,
+  posicao: 7,
+  conceitos: [
+    { id: "c1", peso: 1 },
+    { id: "c2", peso: 1 },
+  ],
+  enunciado: "Cumprimente.",
+  funcao: "saudacao",
+  codigoInicial: "function saudacao() {}",
+  testes: [{ entrada: [], entradas: ["Ana"], saida: ["Olá, Ana!"] }],
+  ...over,
+});
+const sols = {
+  soma: "function soma(a, b) { return a + b; }",
+  fix: "function dobro(n) { return n * 2; }",
+  sau: "function saudacao() { console.log(`Olá, ${lerEntrada()}!`); }",
+};
+const completo = (exs, lesson = {}) => {
+  const c = base(exs, lesson, { solutions: sols });
+  c.concepts.push({ id: "c2", titulo: "C2", mundo: "mundo-1" });
+  return c;
+};
+
+describe("validateContent: tipos novos", () => {
+  it("aceita um exemplo de cada", () => {
+    const r = validateContent(
+      completo([interpretacao(), ordenacao(), corrigir(), saudacao()]),
+    );
+    expect(r.errors).toEqual([]);
+    expect(r.stats.byKind).toMatchObject({
+      interpretacao: 1,
+      ordenacao: 1,
+      corrigir: 1,
+      desafio: 1,
+    });
+  });
+  it("interpretação precisa do trecho de código e herda as regras da escolha", () => {
+    expect(erros(completo([interpretacao({ codigo: " " })]))).toContain(
+      'campo "codigo"',
+    );
+    expect(erros(completo([interpretacao({ codigo: undefined })]))).toContain(
+      'campo "codigo"',
+    );
+    expect(erros(completo([interpretacao({ opcoes: ["1", "1"] })]))).toContain(
+      "repetidas",
+    );
+    expect(erros(completo([interpretacao({ correta: 7 })]))).toContain(
+      "correta deve ser",
+    );
+    const diag = completo([interpretacao({ opcoes: ["1", "2"], correta: 0 })], {
+      diagnostica: true,
+    });
+    expect(erros(diag)).toContain("precisa de");
+  });
+  it("ordenação: de 2 a 10 passos, sem vazio nem repetido", () => {
+    expect(erros(completo([ordenacao({ itens: ["só um"] })]))).toContain(
+      "2 a 10",
+    );
+    expect(
+      erros(
+        completo([
+          ordenacao({ itens: Array.from({ length: 11 }, (_, i) => `p${i}`) }),
+        ]),
+      ),
+    ).toContain("2 a 10");
+    expect(erros(completo([ordenacao({ itens: ["a", " "] })]))).toContain(
+      "passo vazio",
+    );
+    expect(erros(completo([ordenacao({ itens: ["a", " a "] })]))).toContain(
+      "repetidos",
+    );
+    expect(erros(completo([ordenacao({ itens: undefined })]))).toContain(
+      "2 a 10",
+    );
+  });
+  it("corrigir: o defeito precisa reprovar nos testes e a função precisa estar declarada", () => {
+    expect(
+      erros(
+        completo([
+          corrigir({ codigoInicial: "function dobro(n) { return n * 2; }" }),
+        ]),
+      ),
+    ).toContain("código com defeito já passa");
+    expect(
+      erros(
+        completo([corrigir({ codigoInicial: "const dobro = (n) => n + 2;" })]),
+      ),
+    ).toContain('declarar "function dobro');
+  });
+  it("corrigir: exige solução de referência que passe", () => {
+    const c = completo([corrigir()]);
+    c.solutions = { fix: "function dobro(n) { return n * 3; }" };
+    expect(erros(c)).toContain("NÃO passa");
+  });
+  it("desafio com um só conceito gera aviso, não erro", () => {
+    const r = validateContent(
+      completo([saudacao({ conceitos: [{ id: "c1", peso: 1 }] })]),
+    );
+    expect(r.errors).toEqual([]);
+    expect(r.warnings.join()).toContain("vários conceitos");
+  });
+  it("comentário só vale para exercício com código", () => {
+    expect(erros(completo([corrigir({ comentario: "Explicação." })]))).toBe("");
+    expect(erros(completo([ordenacao({ comentario: "x" })]))).toContain(
+      "comentario",
+    );
+    expect(
+      erros(completo([corrigir({ comentario: "x".repeat(2001) })])),
+    ).toContain("comentario");
+  });
+});
+
+describe("validateContent: testes com entrada e saída", () => {
+  it("aceita teste só com saída (sem esperado) e com valor + saída", () => {
+    expect(erros(completo([saudacao()]))).toBe("");
+    const c = completo([
+      saudacao({
+        testes: [
+          {
+            entrada: [],
+            entradas: ["Ana"],
+            esperado: undefined,
+            saida: ["Olá, Ana!"],
+          },
+        ],
+      }),
+    ]);
+    expect(erros(c)).toBe("");
+  });
+  it("teste sem esperado e sem saída", () => {
+    expect(
+      erros(completo([saudacao({ testes: [{ entrada: [] }] })])),
+    ).toContain("falta");
+  });
+  it("entradas e saída malformadas", () => {
+    expect(
+      erros(
+        completo([
+          saudacao({
+            testes: [{ entrada: [], entradas: "Ana", saida: ["x"] }],
+          }),
+        ]),
+      ),
+    ).toContain('"entradas" deve ser uma lista');
+    expect(
+      erros(completo([saudacao({ testes: [{ entrada: [], saida: "x" }] })])),
+    ).toContain('"saida" deve ser uma lista');
+    expect(
+      erros(completo([saudacao({ testes: [{ entrada: [], saida: [] }] })])),
+    ).toContain('"saida" deve ser uma lista');
+    expect(
+      erros(completo([saudacao({ testes: [{ entrada: [], saida: [1] }] })])),
+    ).toContain('"saida" deve ser uma lista');
+  });
+  it("saída errada reprova a solução", () => {
+    const c = completo([
+      saudacao({
+        testes: [{ entrada: [], entradas: ["Ana"], saida: ["Oi, Ana!"] }],
+      }),
+    ]);
+    expect(erros(c)).toContain("NÃO passa");
+  });
+});
+
+describe("runTests: entrada e saída", () => {
+  it("lerEntrada entrega as entradas em ordem e console.log é capturado", () => {
+    const fonte =
+      "function soma2() { const a = lerEntrada(); const b = lerEntrada(); console.log('a=', a); console.log(a + b); return 'fim'; }";
+    const [r] = runTests(fonte, "soma2", [
+      { entrada: [], entradas: [2, 3], esperado: "fim", saida: ["a= 2", "5"] },
+    ]);
+    expect(r.passou).toBe(true);
+    expect(r.linhas).toEqual(["a= 2", "5"]);
+  });
+  it("sem entradas, lerEntrada devolve undefined; as linhas não vazam entre testes", () => {
+    const fonte = "function f() { console.log(String(lerEntrada())); }";
+    const r = runTests(fonte, "f", [
+      { entrada: [], saida: ["undefined"] },
+      { entrada: [], entradas: ["x"], saida: ["x"] },
+      { entrada: [], saida: ["undefined"] },
+    ]);
+    expect(r.map((x) => x.passou)).toEqual([true, true, true]);
+  });
+  it("saída com linha a mais ou a menos reprova; valor e saída precisam bater juntos", () => {
+    const fonte = "function f() { console.log('a'); return 1; }";
+    expect(
+      runTests(fonte, "f", [{ entrada: [], saida: ["a", "b"] }])[0].passou,
+    ).toBe(false);
+    expect(
+      runTests(fonte, "f", [{ entrada: [], esperado: 2, saida: ["a"] }])[0]
+        .passou,
+    ).toBe(false);
+    expect(
+      runTests(fonte, "f", [{ entrada: [], esperado: 1, saida: ["a"] }])[0]
+        .passou,
+    ).toBe(true);
+  });
+  it("objetos impressos viram JSON, como no site", () => {
+    const fonte = "function f() { console.log([1, 2], { a: 1 }, undefined); }";
+    expect(
+      runTests(fonte, "f", [
+        { entrada: [], saida: ['[1,2] {"a":1} undefined'] },
+      ])[0].passou,
+    ).toBe(true);
+  });
+});
+
+describe("buildImportSql: tipos novos e soluções", () => {
+  it("converte os tipos novos para as colunas do banco", () => {
+    expect(exerciseRow(interpretacao())).toMatchObject({
+      kind: "interpretation",
+      function_name: null,
+      tests: [],
+      config: {
+        code: "let x = 1;\nconsole.log(x);",
+        correct: 0,
+        options: [
+          { text: "1" },
+          { text: "2", misconception: "soma sem querer" },
+        ],
+      },
+    });
+    expect(exerciseRow(ordenacao())).toMatchObject({
+      kind: "order",
+      config: { items: ["Primeiro", "Segundo", "Terceiro"] },
+      tests: [],
+    });
+    expect(exerciseRow(corrigir())).toMatchObject({
+      kind: "fix",
+      function_name: "dobro",
+      starter_code: "function dobro(n) { return n + 2; }",
+      tests: [
+        { args: [3], expected: 6 },
+        { args: [5], expected: 10 },
+      ],
+    });
+    const t = exerciseRow(saudacao()).tests[0];
+    expect(t).toEqual({ args: [], inputs: ["Ana"], output: ["Olá, Ana!"] });
+    expect("expected" in t).toBe(false);
+  });
+  it("gera as soluções só dos exercícios com código, com o comentário", () => {
+    const c = completo([
+      ordenacao(),
+      corrigir({ comentario: "O defeito era o operador." }),
+      saudacao(),
+    ]);
+    const sql = buildImportSql(c);
+    expect(sql).toContain("insert into public.exercise_solutions");
+    expect(sql).toContain("function dobro(n) { return n * 2; }");
+    expect(sql).toContain("O defeito era o operador.");
+    expect(sql).not.toMatch(/\('ord'/);
+    const sem = buildImportSql(completo([ordenacao()]));
+    expect(sem).not.toContain("insert into public.exercise_solutions");
+  });
+});

@@ -14,6 +14,9 @@ const exs=[
  {id:"ch1",module_id:"m1",kind:"choice",lesson:"Uma variável guarda um valor.",title:"Qual é o valor?",difficulty:"facil",statement:"x = 4; x = x + 3.\nQual o valor final?",function_name:null,starter_code:"",tests:[],config:{options:["4","3","7","43"],correct:2,explanation:"x vale 4 e depois 4 + 3 = 7."},hint:"Execute linha a linha.",position:1,published:true},
  {id:"bl1",module_id:"m1",kind:"blank",lesson:"Uma condicional faz o programa escolher um caminho.",title:"Complete a condicional",difficulty:"facil",statement:"Complete.",function_name:null,starter_code:"",tests:[],config:{template:"{{1}} (x > 0) {\n  return 1;\n} {{2}} {\n  return 0;\n}",blanks:[{answers:["if"]},{answers:["else"]}],explanation:"if e else."},hint:"Em inglês.",position:2,published:true},
  {id:"cd1",module_id:"m2",kind:"code",lesson:null,title:"Dobro de um número",difficulty:"medio",statement:"Escreva dobro(n).",function_name:"dobro",starter_code:"function dobro(n) {\n  // seu código aqui\n}\n",tests:[{args:[2],expected:4}],config:{},hint:"Multiplique por 2.",position:1,published:true},
+ {id:"int1",module_id:"m1",kind:"interpretation",lesson:null,title:"Qual valor será impresso?",difficulty:"facil",statement:"Leia o código. Qual valor aparece na tela?",function_name:null,starter_code:"",tests:[],config:{code:"let x = 4;\nx = x + 3;\nconsole.log(x);",options:["4",{text:"3",misconception:"acha que x = x + 3 guarda só o 3"},"7"],correct:2,explanation:"4 + 3 = 7."},hint:"Acompanhe x linha por linha.",position:3,published:true},
+ {id:"ord1",module_id:"m1",kind:"order",lesson:null,title:"Ordene os passos do café",difficulty:"facil",statement:"Coloque os passos na ordem certa.",function_name:null,starter_code:"",tests:[],config:{items:["Ferver a água","Colocar o pó no filtro","Despejar a água quente","Servir o café"],explanation:"A ordem importa."},hint:"O que vem antes de quê?",position:4,published:true},
+ {id:"fix1",module_id:"m2",kind:"fix",lesson:null,title:"Corrija a função dobro",difficulty:"facil",statement:"A função tem um defeito. Corrija.",function_name:"dobro",starter_code:"function dobro(n) {\n  return n + 2;\n}\n",tests:[{args:[3],expected:6},{args:[5],expected:10}],config:{},hint:"Teste com 3.",position:3,published:true},
  {id:"rasc",module_id:"m2",kind:"code",lesson:null,title:"Rascunho de teste",difficulty:"dificil",statement:"r",function_name:"r",starter_code:"function r() {}",tests:[{args:[],expected:1}],config:{},hint:"",position:2,published:false},
 ];
 const members=[{student_id:"s1",joined_at:ago(20)},{student_id:"s2",joined_at:ago(20)},{student_id:"s3",joined_at:ago(1)}];
@@ -47,6 +50,10 @@ const pages=[
   {name:"ex-escolha",role:"aluno",path:"/exercicio/ch1",wait:"text=Antes de começar"},
   {name:"ex-lacuna",role:"aluno",path:"/exercicio/bl1",wait:"input[aria-label='Lacuna 1']"},
   {name:"ex-codigo",role:"aluno",path:"/exercicio/cd1",wait:".cm-content"},
+  {name:"ex-interpretacao",role:"aluno",path:"/exercicio/int1",wait:"[aria-label=\x27Trecho de código\x27]"},
+  {name:"ex-ordenacao",role:"aluno",path:"/exercicio/ord1",wait:"text=Verificar ordem"},
+  {name:"ex-corrigir",role:"aluno",path:"/exercicio/fix1",wait:".cm-content"},
+  {name:"ex-dicas",role:"aluno",path:"/exercicio/int1",wait:"[aria-label=\x27Trecho de código\x27]",hints:true},
   {name:"ranking",role:"aluno",path:"/ranking",wait:"table"},
   {name:"perfil",role:"aluno",path:"/perfil",wait:"text=Sequência diária"},
   {name:"prof-turmas",role:"professor",path:"/professor",wait:"text=ABC234"},
@@ -56,6 +63,9 @@ const pages=[
   {name:"prof-exercicios",role:"professor",path:"/professor/exercicios",wait:"text=Rascunho"},
   {name:"prof-editor-codigo",role:"professor",path:"/professor/exercicios/novo",wait:"text=Casos de teste"},
   {name:"prof-editor-escolha",role:"professor",path:"/professor/exercicios/novo",kind:"Múltipla escolha",wait:"text=Alternativas"},
+  {name:"prof-editor-interpretacao",role:"professor",path:"/professor/exercicios/novo",kind:"Interpretação de código",wait:"[aria-label=\x27Trecho de código\x27]"},
+  {name:"prof-editor-ordenacao",role:"professor",path:"/professor/exercicios/novo",kind:"Ordenação",wait:"text=Passos na ordem certa"},
+  {name:"prof-editor-corrigir",role:"professor",path:"/professor/exercicios/novo",kind:"Corrigir o erro",wait:"text=Código com defeito"},
   {name:"prof-editor-lacuna",role:"professor",path:"/professor/exercicios/novo",kind:"Completar a lacuna",wait:"text=Modelo com lacunas"},
 ];
 const combos=[{label:"cel-claro",width:390,height:844,dark:false},{label:"cel-escuro",width:390,height:844,dark:true},{label:"pc-claro",width:1100,height:900,dark:false},{label:"pc-escuro",width:1100,height:900,dark:true}];
@@ -71,6 +81,7 @@ for(const combo of combos){
       if(pg.out) await p.waitForSelector("form");
       else await p.waitForSelector(pg.wait ? "main >> "+pg.wait.replace(/^/,"") : "main",{timeout:15000}).catch(async()=>{ await p.waitForTimeout(3000); });
       if(pg.tab) await p.click(`role=tab[name='${pg.tab}']`);
+      if(pg.hints){ await p.click("button:has-text('Dica') >> nth=0"); await p.click("button:has-text('Dica do conceito')"); }
       if(pg.kind) await p.getByRole("radio",{name:new RegExp("^"+pg.kind)}).check();
       if(pg.wait && !pg.out) await p.waitForSelector(pg.wait,{timeout:8000}).catch(()=>{});
       await p.waitForTimeout(400);

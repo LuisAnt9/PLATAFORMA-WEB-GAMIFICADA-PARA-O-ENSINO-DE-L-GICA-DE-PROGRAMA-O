@@ -66,3 +66,46 @@ describe("extractGeminiText", () => {
     ).toBeNull();
   });
 });
+
+describe("buildHintPrompt: tipos novos", () => {
+  it("interpretação mostra o trecho e marca a correta como uso interno", () => {
+    const p = buildHintPrompt(
+      {
+        ...base,
+        kind: "interpretation",
+        tests: [],
+        config: { code: "let x = 4;", options: ["4", "7"], correct: 1 },
+      },
+      {},
+    );
+    expect(p).toContain("let x = 4;");
+    expect(p).toContain("2) 7");
+    expect(p).toContain("não revele");
+  });
+  it("ordenação não revela a ordem", () => {
+    const p = buildHintPrompt(
+      {
+        ...base,
+        kind: "order",
+        tests: [],
+        config: { items: ["Abrir", "Entrar", "Fechar"] },
+      },
+      {},
+    );
+    expect(p).toContain("3 passos");
+    expect(p).not.toContain("Abrir");
+  });
+  it("corrigir e desafio são tratados como código, com saída esperada e entradas", () => {
+    const p = buildHintPrompt(
+      {
+        ...base,
+        kind: "fix",
+        tests: [{ args: [], inputs: [3], output: ["6"] }],
+      },
+      { code: "function f(){}" },
+    );
+    expect(p).toContain("com entradas [3]");
+    expect(p).toContain('imprime ["6"]');
+    expect(p).toContain("function f(){}");
+  });
+});

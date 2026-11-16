@@ -48,6 +48,15 @@ const LICOES_MUNDO_2 = [
   "uso-do-console-log",
   "desafio-do-mundo-2",
 ];
+const LICOES_MUNDO_3 = [
+  "introducao-aos-operadores",
+  "operadores-aritmeticos",
+  "operadores-de-atribuicao",
+  "operadores-relacionais",
+  "operadores-logicos",
+  "precedencia-dos-operadores",
+  "desafio-do-mundo-3",
+];
 let idsOriginais = null;
 const exercises = () =>
   idsOriginais
@@ -201,6 +210,7 @@ describe("importação do conteúdo", () => {
       "desafio-do-mundo-1",
       ...LICOES_MUNDO_2,
       "textos",
+      ...LICOES_MUNDO_3,
       "fundamentos",
       "condicionais",
       "repeticao",
@@ -212,7 +222,8 @@ describe("importação do conteúdo", () => {
       ...Array(9).fill("mundo-1"),
       ...Array(LICOES_MUNDO_2.length).fill("mundo-2"),
       "mundo-2", // a lição antiga "textos" (posição 290)
-      "mundo-3",
+      ...Array(LICOES_MUNDO_3.length).fill("mundo-3"),
+      "mundo-3", // a lição antiga "fundamentos" (posição 390)
       "mundo-4",
       "mundo-5",
       "mundo-6",
@@ -253,10 +264,10 @@ describe("importação do conteúdo", () => {
     expect("expected" in e["exemplo-entrada-saida"].tests[0]).toBe(false);
   });
 
-  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2), com o comentário", async () => {
+  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2 + 12 do Mundo 3), com o comentário", async () => {
     expect(
       (await one("select count(*)::int as n from public.exercise_solutions")).n,
-    ).toBe(56);
+    ).toBe(68);
     const s = await one(
       "select solution, commentary from public.exercise_solutions where exercise_id = 'exemplo-corrigir'",
     );
@@ -566,5 +577,67 @@ describe("Mundo 2 (E5): importação, rascunho e publicação", () => {
     ).toBe(0);
     await db.exec(buildPublishSql(content(), "mundo-2", { publish: false }));
     expect((await doMundo2()).some((e) => e.published)).toBe(false);
+  });
+});
+
+describe("Mundo 3 (E6): importação, rascunho e publicação", () => {
+  const lista = LICOES_MUNDO_3.map((l) => `'${l}'`).join(",");
+  const doMundo3 = () =>
+    rows(
+      `select e.* from public.exercises e where e.module_id in (${lista}) order by e.id`,
+    );
+
+  it("importa as 7 lições e os 54 exercícios, todos como rascunho e com conceitos", async () => {
+    await db.exec(buildImportSql(content()));
+    const ex = await doMundo3();
+    expect(ex).toHaveLength(54);
+    expect(ex.every((e) => e.published === false)).toBe(true);
+    const sem = await rows(
+      `select e.id from public.exercises e where e.module_id in (${lista}) and not exists (select 1 from public.exercise_concepts c where c.exercise_id = e.id)`,
+    );
+    expect(sem).toEqual([]);
+    const conceitos = await rows(
+      `select distinct c.concept_id from public.exercise_concepts c join public.exercises e on e.id = c.exercise_id where e.module_id in (${lista}) and c.concept_id like 'm3-%' order by 1`,
+    );
+    expect(conceitos).toHaveLength(6); // todos os conceitos do mundo são avaliados
+  });
+
+  it("toda alternativa errada das questões de escolha traz a confusão", async () => {
+    const escolha = (await doMundo3()).filter(
+      (e) => e.kind === "choice" || e.kind === "interpretation",
+    );
+    expect(escolha.length).toBeGreaterThan(25);
+    for (const e of escolha) {
+      const erradas = e.config.options.filter((_, i) => i !== e.config.correct);
+      expect(
+        erradas.every((o) => typeof o === "object" && o.misconception),
+        e.id,
+      ).toBe(true);
+    }
+    expect(new Set(escolha.map((e) => e.config.correct)).size).toBe(4);
+  });
+
+  it("a calculadora tem teste de divisão por zero com saída Infinity e NaN", async () => {
+    const e = await one(
+      "select tests from public.exercises where id = 'desafio3-calculadora'",
+    );
+    const zero = e.tests.find((t) => t.inputs[1] === "0");
+    expect(zero.output).toContain("Divisão: Infinity");
+    expect(zero.output).toContain("Resto: NaN");
+  });
+
+  it("publicar o Mundo 3 não mexe na lição antiga (que continua com seus exercícios publicados)", async () => {
+    await db.exec(buildPublishSql(content(), "mundo-3"));
+    expect((await doMundo3()).every((e) => e.published)).toBe(true);
+    expect(
+      (await one("select published from public.exercises where id = 'soma'"))
+        .published,
+    ).toBe(true);
+    await db.exec(buildPublishSql(content(), "mundo-3", { publish: false }));
+    expect((await doMundo3()).some((e) => e.published)).toBe(false);
+    expect(
+      (await one("select published from public.exercises where id = 'soma'"))
+        .published,
+    ).toBe(true);
   });
 });

@@ -11,6 +11,7 @@ const exs=[
  {id:"int1",module_id:"m1",kind:"interpretation",lesson:null,title:"Qual valor será impresso?",difficulty:"facil",statement:"Leia o código. Qual valor aparece na tela?",function_name:null,starter_code:"",tests:[],config:{code:"let x = 4;\nx = x + 3;\nconsole.log(x);",options:["4",{text:"3",misconception:"acha que x = x + 3 guarda só o 3"},"7"],correct:2,explanation:"4 + 3 = 7."},hint:"Acompanhe x linha por linha.",position:1,published:true},
  {id:"ord1",module_id:"m1",kind:"order",lesson:null,title:"Ordene os passos do café",difficulty:"facil",statement:"Coloque os passos na ordem certa.",function_name:null,starter_code:"",tests:[],config:{items:ITEMS,explanation:"A ordem importa."},hint:"O que vem antes?",position:2,published:true},
  {id:"fix1",module_id:"m1",kind:"fix",lesson:null,title:"Corrija a função dobro",difficulty:"facil",statement:"A função tem um defeito. Corrija.",function_name:"dobro",starter_code:"function dobro(n) {\n  return n + 2;\n}\n",tests:[{args:[3],expected:6},{args:[5],expected:10}],config:{},hint:"Teste com 3.",position:3,published:true},
+ {id:"io2",module_id:"m1",kind:"challenge",lesson:null,title:"Valores especiais",difficulty:"medio",statement:"Imprima NaN, Infinity e -Infinity.",function_name:"especiais",starter_code:"function especiais() {\n}\n",tests:[{args:[],output:["NaN","Infinity","-Infinity","NaN 5"]}],config:{},hint:"",position:5,published:true},
  {id:"io1",module_id:"m1",kind:"challenge",lesson:null,title:"Saudação",difficulty:"medio",statement:"Leia o nome e cumprimente.",function_name:"saudacao",starter_code:"function saudacao() {\n}\n",tests:[{args:[],inputs:["Ana"],output:["Olá, Ana!"]},{args:[],inputs:["Beto"],output:["Olá, Beto!"]}],config:{},hint:"lerEntrada() lê o nome.",position:4,published:true},
 ];
 
@@ -163,6 +164,10 @@ const runCode=async p=>{ await p.locator(".cm-content").first().focus(); await p
   await typeCode(p,0,"function saudacao() {\n  for (let i = 0; i < 100000; i++) console.log('x');\n}"); await runCode(p);
   await p.waitForSelector("text=saída esperada",{timeout:9000});
   ok("saída gigante é cortada e a página continua respondendo", (await main(p)).includes("saída obtida"));
+  await p.goto(BASE+"/exercicio/io2"); await p.waitForSelector(".cm-content");
+  await typeCode(p,0,"function especiais() {\n  console.log(0 / 0);\n  console.log(1 / 0);\n  console.log(-1 / 0);\n  console.log(0 / 0, 5);\n}"); await runCode(p);
+  await p.waitForSelector("text=Todos os testes passaram",{timeout:9000});
+  ok("console.log mostra NaN, Infinity e -Infinity como o console real (e não como null)", true);
   ok("sem erros de página (desafio)", errs.length===0);
 }
 

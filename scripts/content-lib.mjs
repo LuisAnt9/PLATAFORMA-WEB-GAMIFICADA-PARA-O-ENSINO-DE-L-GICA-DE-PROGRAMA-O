@@ -67,7 +67,7 @@ export function runTests(source, functionName, tests) {
     let __lines = [];
     let __inputs = [];
     let __next = 0;
-    const __fmt = (v) => typeof v === 'string' ? v : v === undefined ? 'undefined' : (() => { try { const j = JSON.stringify(v); return j === undefined ? String(v) : j; } catch (e) { return String(v); } })();
+    const __fmt = (v) => typeof v === 'string' ? v : v === undefined ? 'undefined' : typeof v === 'number' ? (Object.is(v, -0) ? '-0' : String(v)) : (typeof v === 'boolean' || typeof v === 'bigint') ? String(v) : (() => { try { const j = JSON.stringify(v); return j === undefined ? String(v) : j; } catch (e) { return String(v); } })();
     globalThis.console = { log: (...a) => { if (__lines.length < 200) __lines.push(a.map(__fmt).join(' ').slice(0, 2000)); } };
     globalThis.lerEntrada = () => (__next < __inputs.length ? __inputs[__next++] : undefined);
     return JSON.stringify(__tests.map(t => {

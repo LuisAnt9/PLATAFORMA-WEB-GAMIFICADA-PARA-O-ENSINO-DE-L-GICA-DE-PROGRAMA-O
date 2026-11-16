@@ -1,0 +1,171 @@
+{
+  "id": "introducao-aos-operadores",
+  "mundo": "mundo-3",
+  "titulo": "Introdução aos operadores",
+  "foco": "Reconhecer operadores, operandos e os quatro grupos de operadores",
+  "posicao": 301,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um operador é um símbolo que faz uma operação com valores. Os valores sobre os quais ele atua se chamam operandos. Em 2 + 3, o + é o operador e 2 e 3 são os operandos. Uma expressão é qualquer combinação de valores e operadores que produz um resultado.\n\nOs operadores se dividem em quatro grupos:\n- Aritméticos: fazem contas (+, -, *, /, %, **) e resultam em número.\n- De atribuição: guardam valores em variáveis (=, +=, ++...).\n- Relacionais: comparam dois valores (>, <, ===...) e resultam em true ou false.\n- Lógicos: combinam resultados true ou false (&&, ||, !).\n\nA maioria usa dois operandos (2 + 3); alguns usam só um, como o ! em !true. Neste mundo você vai estudar cada grupo e, no final, a ordem em que o computador resolve tudo.",
+  "exemplo": "const soma = 2 + 3;            // aritmético: resultado 5 (number)\nlet total = 10;\ntotal = total + 1;             // atribuição: guarda 11 em total\nconsole.log(5 > 3);            // relacional: true (boolean)\nconsole.log(5 > 3 && 2 > 1);   // lógico: true (boolean)\nconsole.log(-total);           // operador de um operando só: -11\n\nPasso a passo:\n1. 2 + 3 é uma expressão aritmética: o + é o operador, e o resultado é um número.\n2. total = total + 1 usa o operador de atribuição (=) para guardar o resultado.\n3. 5 > 3 é uma comparação: pergunta \"5 é maior que 3?\" e responde com um boolean.\n4. O && junta duas comparações em uma só resposta.\n5. O sinal - na frente de total usa um operando só: inverte o sinal do número.",
+  "revisao": "- Operador é um símbolo que realiza uma operação; operandos são os valores usados por ele.\n- Expressão é uma combinação de valores e operadores que produz um resultado.\n- Aritméticos resultam em número; relacionais e lógicos resultam em boolean.\n- Atribuição guarda um valor em uma variável.\n- Alguns operadores usam um operando só (como o !).",
+  "exercicios": [
+    {
+      "id": "op-intro-quem-e-o-operador",
+      "tipo": "escolha",
+      "titulo": "Qual é o operador?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 }
+      ],
+      "enunciado": "Na expressão 7 + 2, qual é o operador?",
+      "opcoes": [
+        { "texto": "7", "confusao": "confunde operador com operando" },
+        "+",
+        { "texto": "2", "confusao": "confunde operador com operando" },
+        { "texto": "7 + 2", "confusao": "chama a expressão inteira de operador" }
+      ],
+      "correta": 1,
+      "dica": "O operador é o símbolo que manda fazer a operação.",
+      "explicacao": "O operador é o +. Os números 7 e 2 são os operandos, e a expressão toda é 7 + 2."
+    },
+    {
+      "id": "op-intro-grupo-relacional",
+      "tipo": "escolha",
+      "titulo": "Qual grupo compara valores?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 }
+      ],
+      "enunciado": "Qual grupo de operadores compara dois valores e resulta em true ou false?",
+      "opcoes": [
+        { "texto": "Aritméticos", "confusao": "confunde comparar valores com fazer contas" },
+        {
+          "texto": "De atribuição",
+          "confusao": "confunde comparar com guardar um valor em uma variável"
+        },
+        {
+          "texto": "Lógicos",
+          "confusao": "confunde comparar valores com combinar resultados booleanos"
+        },
+        "Relacionais"
+      ],
+      "correta": 3,
+      "dica": "São os operadores de >, < e ===.",
+      "explicacao": "Os operadores relacionais comparam dois valores e respondem com um boolean."
+    },
+    {
+      "id": "op-intro-complete-a-conta",
+      "tipo": "lacuna",
+      "titulo": "Complete a conta",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha com o operador que faz o programa mostrar 12.",
+      "modelo": "const resultado = 4 {{1}} 3;\nconsole.log(resultado);",
+      "lacunas": [
+        { "respostas": ["*"] }
+      ],
+      "dica": "4 e 3 dão 12 quando um é multiplicado pelo outro.",
+      "explicacao": "O operador * multiplica: 4 * 3 vale 12."
+    },
+    {
+      "id": "op-intro-soma-e-comparacao",
+      "tipo": "interpretacao",
+      "titulo": "Conta e comparação",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = 4;\nconst b = 4;\nconsole.log(a + b);\nconsole.log(a > b);",
+      "opcoes": [
+        "8\nfalse",
+        { "texto": "8\ntrue", "confusao": "acha que 4 é maior que 4" },
+        { "texto": "44\nfalse", "confusao": "junta os números como se fossem textos" },
+        { "texto": "false\n8", "confusao": "inverte a ordem dos resultados" }
+      ],
+      "correta": 0,
+      "dica": "Uma linha faz uma conta; a outra, uma comparação.",
+      "explicacao": "a + b vale 8 (número). a > b pergunta se 4 é maior que 4, e a resposta é false."
+    },
+    {
+      "id": "op-intro-resultado-boolean",
+      "tipo": "escolha",
+      "titulo": "Qual expressão resulta em boolean?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Qual destas expressões resulta em um valor boolean?",
+      "opcoes": [
+        { "texto": "3 + 4", "confusao": "acha que toda expressão com números resulta em boolean" },
+        { "texto": "3 * 4", "confusao": "confunde uma conta com uma comparação" },
+        "3 < 4",
+        { "texto": "10 % 3", "confusao": "confunde o resto de uma divisão com uma comparação" }
+      ],
+      "correta": 2,
+      "dica": "Procure a expressão que faz uma pergunta.",
+      "explicacao": "3 < 4 compara dois valores e resulta em true. As outras são contas e resultam em números."
+    },
+    {
+      "id": "op-intro-operador-unario",
+      "tipo": "escolha",
+      "titulo": "Um operando só",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "Qual destes operadores é usado, normalmente, com um operando só?",
+      "opcoes": [
+        { "texto": "*", "confusao": "acha que a multiplicação trabalha com um valor só" },
+        "!",
+        { "texto": "&&", "confusao": "acha que o operador E trabalha com um valor só" },
+        { "texto": "===", "confusao": "acha que a comparação trabalha com um valor só" }
+      ],
+      "correta": 1,
+      "dica": "Pense em qual deles aparece na frente de um valor, como em !true.",
+      "explicacao": "O ! (NÃO) inverte um valor boolean e usa um operando só. Os outros operadores precisam de dois operandos."
+    },
+    {
+      "id": "op-intro-varios-grupos",
+      "tipo": "interpretacao",
+      "titulo": "Os grupos juntos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-introducao-operadores", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "let x = 3;\nx = x * 2;\nconsole.log(x > 5);\nconsole.log(x + 1);",
+      "opcoes": [
+        { "texto": "false\n4", "confusao": "esquece que x foi alterado para 6" },
+        { "texto": "true\n61", "confusao": "junta o 6 e o 1 como texto" },
+        { "texto": "true\n4", "confusao": "usa o valor antigo de x (3) na última linha" },
+        "true\n7"
+      ],
+      "correta": 3,
+      "dica": "Acompanhe o valor de x depois de cada linha.",
+      "explicacao": "x passa a valer 6. Então x > 5 é true e x + 1 vale 7."
+    }
+  ]
+}

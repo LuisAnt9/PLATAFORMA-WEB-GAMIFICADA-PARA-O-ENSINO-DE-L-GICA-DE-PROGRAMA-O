@@ -1,0 +1,202 @@
+{
+  "id": "operadores-aritmeticos",
+  "mundo": "mundo-3",
+  "titulo": "Operadores aritméticos",
+  "foco": "Fazer contas com +, -, *, /, % e **",
+  "posicao": 302,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Os operadores aritméticos fazem as contas:\n- + soma, - subtração, * multiplicação;\n- / divisão: em JavaScript o resultado pode ser decimal (17 / 5 vale 3.4);\n- % resto da divisão: 17 % 5 vale 2, porque 17 = 3 * 5 + 2;\n- ** potência: 2 ** 10 vale 1024.\n\nO resto é muito útil: n % 2 vale 0 quando n é par, e n % 10 dá o último dígito de n. Para obter só a parte inteira de uma divisão, use Math.floor(17 / 5), que vale 3.\n\nCasos especiais: dividir por zero dá Infinity (ou -Infinity), e pedir o resto da divisão por zero ou fazer 0 / 0 dá NaN. Nenhum deles causa erro no programa.",
+  "exemplo": "console.log(17 + 5);              // 22\nconsole.log(17 - 5);              // 12\nconsole.log(17 * 5);              // 85\nconsole.log(17 / 5);              // 3.4\nconsole.log(17 % 5);              // 2  (resto da divisão)\nconsole.log(2 ** 10);             // 1024\nconsole.log(Math.floor(17 / 5));  // 3  (parte inteira da divisão)\n\nPasso a passo:\n1. As três primeiras linhas são as contas básicas.\n2. 17 / 5 mantém a parte decimal: 3.4.\n3. 17 % 5 dá o que sobra: 5 cabe 3 vezes em 17 (15), e sobram 2.\n4. 2 ** 10 é 2 multiplicado por ele mesmo 10 vezes.\n5. Math.floor arredonda para baixo e dá a parte inteira da divisão.",
+  "revisao": "- + - * / % ** são os operadores aritméticos.\n- / dá resultado decimal; Math.floor dá a parte inteira da divisão.\n- % dá o resto: n % 2 === 0 indica um número par; n % 10 dá o último dígito.\n- ** é a potência. O símbolo ^ NÃO é potência em JavaScript.\n- Dividir por zero dá Infinity; 0 / 0 e o resto por zero dão NaN.",
+  "exercicios": [
+    {
+      "id": "arit-operador-da-potencia",
+      "tipo": "escolha",
+      "titulo": "Qual operador é a potência?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "Qual operador calcula uma potência (2 elevado a 3)?",
+      "opcoes": [
+        "**",
+        {
+          "texto": "^",
+          "confusao": "usa o símbolo da matemática escrita, mas em JavaScript ele faz outra operação"
+        },
+        { "texto": "*", "confusao": "confunde potência com multiplicação" },
+        { "texto": "%", "confusao": "confunde potência com resto da divisão" }
+      ],
+      "correta": 0,
+      "dica": "São dois asteriscos juntos.",
+      "explicacao": "A potência usa **. Assim, 2 ** 3 vale 8. O ^ existe, mas faz outra operação (bit a bit)."
+    },
+    {
+      "id": "arit-resto-de-vinte-por-seis",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale 20 % 6?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(20 % 6);",
+      "opcoes": [
+        { "texto": "3", "confusao": "mostra o quociente da divisão em vez do resto" },
+        { "texto": "3.3333333333333335", "confusao": "mostra o resultado decimal da divisão" },
+        "2",
+        { "texto": "14", "confusao": "calcula a diferença em vez do resto" }
+      ],
+      "correta": 2,
+      "dica": "Quantas vezes o 6 cabe no 20? E o que sobra?",
+      "explicacao": "6 cabe 3 vezes em 20 (18) e sobram 2. O % devolve essa sobra."
+    },
+    {
+      "id": "arit-complete-o-resto",
+      "tipo": "lacuna",
+      "titulo": "Complete o resto",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para mostrar o resto da divisão de 17 por 5.",
+      "modelo": "console.log(17 {{1}} 5);",
+      "lacunas": [
+        { "respostas": ["%"] }
+      ],
+      "dica": "Esse operador lembra o símbolo de porcentagem.",
+      "explicacao": "17 % 5 vale 2, porque 5 cabe 3 vezes em 17 e sobram 2."
+    },
+    {
+      "id": "arit-tres-contas",
+      "tipo": "interpretacao",
+      "titulo": "Potência, produto e divisão",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(2 ** 3);\nconsole.log(2 * 3);\nconsole.log(9 / 2);",
+      "opcoes": [
+        { "texto": "6\n6\n4.5", "confusao": "acha que ** multiplica, como o *" },
+        "8\n6\n4.5",
+        { "texto": "8\n6\n4", "confusao": "acha que a divisão arredonda para um número inteiro" },
+        { "texto": "5\n6\n4.5", "confusao": "confunde a potência com a soma" }
+      ],
+      "correta": 1,
+      "dica": "** é potência: 2 multiplicado por ele mesmo 3 vezes.",
+      "explicacao": "2 ** 3 = 2 * 2 * 2 = 8, 2 * 3 = 6 e 9 / 2 = 4.5."
+    },
+    {
+      "id": "arit-ultimo-digito",
+      "tipo": "codigo",
+      "titulo": "Último dígito",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `ultimoDigito(n)` que devolve o último dígito de um número inteiro positivo (por exemplo, 123 devolve 3).",
+      "funcao": "ultimoDigito",
+      "codigoInicial": "function ultimoDigito(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [123], "esperado": 3 },
+        { "entrada": [40], "esperado": 0 },
+        { "entrada": [7], "esperado": 7 },
+        { "entrada": [2024], "esperado": 4 }
+      ],
+      "dica": "O resto da divisão por 10 é o que sobra depois de tirar as dezenas, centenas...",
+      "comentario": "n % 10 devolve o que sobra da divisão por 10, que é exatamente o último dígito."
+    },
+    {
+      "id": "arit-parte-inteira",
+      "tipo": "escolha",
+      "titulo": "Parte inteira da divisão",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "Qual expressão dá a parte inteira da divisão de 17 por 5 (isto é, 3)?",
+      "opcoes": [
+        {
+          "texto": "17 / 5",
+          "confusao": "esquece que a divisão em JavaScript dá resultado decimal (3.4)"
+        },
+        {
+          "texto": "17 % 5",
+          "confusao": "confunde a parte inteira (quociente) com o resto da divisão"
+        },
+        {
+          "texto": "17 // 5",
+          "confusao": "usa o operador de divisão inteira de outras linguagens; em JavaScript o // começa um comentário"
+        },
+        "Math.floor(17 / 5)"
+      ],
+      "correta": 3,
+      "dica": "Faça a divisão decimal e depois arredonde para baixo.",
+      "explicacao": "17 / 5 vale 3.4 e Math.floor arredonda para baixo, resultando em 3."
+    },
+    {
+      "id": "arit-corrija-o-quadrado",
+      "tipo": "corrigir",
+      "titulo": "Corrija o quadrado",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "A função `quadrado(n)` deveria devolver n elevado a 2, mas devolve valores errados (por exemplo, 1 para n = 3). Corrija o defeito.",
+      "funcao": "quadrado",
+      "codigoInicial": "function quadrado(n) {\n  return n ^ 2;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": 9 },
+        { "entrada": [5], "esperado": 25 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [2], "esperado": 4 }
+      ],
+      "dica": "O sinal ^ não é o operador de potência em JavaScript.",
+      "comentario": "Em JavaScript, ^ é outro operador (bit a bit), por isso 3 ^ 2 dá 1. A potência é escrita com **: n ** 2."
+    },
+    {
+      "id": "arit-divisao-por-zero",
+      "tipo": "interpretacao",
+      "titulo": "Divisões estranhas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(10 / 0);\nconsole.log(10 % 0);\nconsole.log(-10 / 0);\nconsole.log(0 / 0);",
+      "opcoes": [
+        "Infinity\nNaN\n-Infinity\nNaN",
+        {
+          "texto": "Erro\nErro\nErro\nErro",
+          "confusao": "acha que toda divisão por zero para o programa com erro"
+        },
+        { "texto": "0\n0\n0\n0", "confusao": "acha que divisões por zero resultam em zero" },
+        {
+          "texto": "Infinity\nInfinity\n-Infinity\n0",
+          "confusao": "acha que o resto por zero e 0 / 0 dão resultados numéricos finitos"
+        }
+      ],
+      "correta": 0,
+      "dica": "Divisão por zero dá um infinito; o resto por zero e 0 / 0 não têm resultado válido.",
+      "explicacao": "10 / 0 vale Infinity e -10 / 0 vale -Infinity. Já 10 % 0 e 0 / 0 não têm resultado numérico: NaN. Nenhuma delas causa erro."
+    }
+  ]
+}

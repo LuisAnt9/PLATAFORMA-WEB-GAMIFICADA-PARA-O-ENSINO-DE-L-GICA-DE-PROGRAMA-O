@@ -1,0 +1,240 @@
+{
+  "id": "precedencia-dos-operadores",
+  "mundo": "mundo-3",
+  "titulo": "Precedência dos operadores",
+  "foco": "Saber em que ordem o computador resolve uma expressão",
+  "posicao": 306,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Quando uma expressão tem vários operadores, o computador segue uma ordem, chamada precedência (da mais alta para a mais baixa):\n1. parênteses ( );\n2. potência **;\n3. ! (NÃO);\n4. * / %;\n5. + e -;\n6. < <= > >=;\n7. === !== (e == !=);\n8. &&;\n9. ||;\n10. atribuições (=, +=, ...), por último.\n\nOperadores do mesmo nível são resolvidos da esquerda para a direita (10 - 4 - 3 vale 3), exceto a potência, que vai da direita para a esquerda (2 ** 3 ** 2 vale 512).\n\nPor isso 2 + 3 * 4 vale 14. Para mudar a ordem, use parênteses: (2 + 3) * 4 vale 20. Mesmo quando a ordem natural já resolve, os parênteses deixam o código mais fácil de ler.",
+  "exemplo": "console.log(2 + 3 * 4);               // 14\nconsole.log((2 + 3) * 4);             // 20\nconsole.log(10 - 4 - 3);              // 3 (da esquerda para a direita)\nconsole.log(2 ** 3 ** 2);             // 512 (a potência vai da direita para a esquerda)\nconsole.log(5 + 3 > 7);               // true (a soma vem antes da comparação)\nconsole.log(true || false && false);  // true (&& vem antes de ||)\n\nPasso a passo:\n1. A multiplicação vem antes da soma: 3 * 4 = 12 e depois 2 + 12 = 14.\n2. Com parênteses, 2 + 3 vem primeiro: 5 * 4 = 20.\n3. 10 - 4 - 3: primeiro 10 - 4 = 6 e depois 6 - 3 = 3.\n4. 2 ** 3 ** 2 é 2 ** 9 = 512.\n5. 5 + 3 > 7 vira 8 > 7, que é true.\n6. false && false é false, e true || false é true.",
+  "revisao": "- Ordem: parênteses, **, !, * / %, + -, comparações, ===, &&, ||, atribuição.\n- Operadores do mesmo nível: da esquerda para a direita (a potência é da direita para a esquerda).\n- Parênteses mudam a ordem e deixam o código mais claro.\n- Aritméticos vêm antes das comparações, e as comparações antes de && e ||.",
+  "exercicios": [
+    {
+      "id": "prec-o-que-vem-primeiro",
+      "tipo": "escolha",
+      "titulo": "O que vem primeiro?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 }
+      ],
+      "enunciado": "Em 2 + 3 * 4, qual operação é feita primeiro?",
+      "opcoes": [
+        {
+          "texto": "2 + 3",
+          "confusao": "faz as operações da esquerda para a direita, ignorando a precedência"
+        },
+        {
+          "texto": "Todas ao mesmo tempo",
+          "confusao": "acha que o computador resolve tudo simultaneamente"
+        },
+        {
+          "texto": "A última da direita, sempre",
+          "confusao": "acha que a operação mais à direita é sempre a primeira"
+        },
+        "3 * 4"
+      ],
+      "correta": 3,
+      "dica": "Como na matemática, uma das operações tem prioridade.",
+      "explicacao": "A multiplicação tem precedência sobre a soma, então 3 * 4 é feito primeiro."
+    },
+    {
+      "id": "prec-dois-mais-tres-vezes-quatro",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale 2 + 3 * 4?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(2 + 3 * 4);",
+      "opcoes": [
+        "14",
+        {
+          "texto": "20",
+          "confusao": "faz as operações da esquerda para a direita, ignorando a precedência"
+        },
+        { "texto": "9", "confusao": "soma todos os números" },
+        { "texto": "234", "confusao": "junta os números como se fossem textos" }
+      ],
+      "correta": 0,
+      "dica": "Primeiro a multiplicação, depois a soma.",
+      "explicacao": "3 * 4 = 12 e depois 2 + 12 = 14."
+    },
+    {
+      "id": "prec-complete-os-parenteses",
+      "tipo": "lacuna",
+      "titulo": "Mude a ordem",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 2 }
+      ],
+      "enunciado": "Complete com parênteses para que o programa mostre 20 (a soma deve ser feita antes da multiplicação).",
+      "modelo": "console.log({{1}}2 + 3{{2}} * 4);",
+      "lacunas": [
+        { "respostas": ["("] },
+        { "respostas": [")"] }
+      ],
+      "dica": "Os parênteses forçam uma conta a ser feita antes das outras.",
+      "explicacao": "(2 + 3) * 4 faz primeiro a soma (5) e depois a multiplicação: 20."
+    },
+    {
+      "id": "prec-esquerda-direita",
+      "tipo": "interpretacao",
+      "titulo": "Esquerda para a direita",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(10 - 4 - 3);\nconsole.log(100 / 10 / 2);\nconsole.log(2 ** 3 ** 2);",
+      "opcoes": [
+        {
+          "texto": "9\n20\n512",
+          "confusao": "resolve subtração e divisão da direita para a esquerda"
+        },
+        {
+          "texto": "3\n5\n64",
+          "confusao": "acha que a potência também vai da esquerda para a direita"
+        },
+        "3\n5\n512",
+        { "texto": "3\n20\n64", "confusao": "mistura a ordem das operações em cada linha" }
+      ],
+      "correta": 2,
+      "dica": "A maioria dos operadores vai da esquerda para a direita; a potência é a exceção.",
+      "explicacao": "10 - 4 - 3 = 6 - 3 = 3; 100 / 10 / 2 = 10 / 2 = 5; e 2 ** 3 ** 2 = 2 ** 9 = 512 (a potência vai da direita para a esquerda)."
+    },
+    {
+      "id": "prec-contas-e-comparacoes",
+      "tipo": "interpretacao",
+      "titulo": "Contas antes das comparações",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(5 + 3 > 7);\nconsole.log(2 * 3 === 6);\nconsole.log(10 - 2 * 3 > 5);",
+      "opcoes": [
+        {
+          "texto": "true\ntrue\ntrue",
+          "confusao": "faz as contas da esquerda para a direita, antes de multiplicar"
+        },
+        "true\ntrue\nfalse",
+        { "texto": "true\nfalse\nfalse", "confusao": "acha que 2 * 3 não é igual a 6" },
+        { "texto": "false\ntrue\nfalse", "confusao": "avalia 5 + 3 > 7 como falso" }
+      ],
+      "correta": 1,
+      "dica": "As contas são resolvidas antes das comparações, e a multiplicação antes da subtração.",
+      "explicacao": "5 + 3 > 7 vira 8 > 7 (true). 2 * 3 === 6 vira 6 === 6 (true). 10 - 2 * 3 > 5 vira 10 - 6 > 5, isto é 4 > 5 (false)."
+    },
+    {
+      "id": "prec-qual-expressao-da-24",
+      "tipo": "escolha",
+      "titulo": "Qual expressão dá 24?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 }
+      ],
+      "enunciado": "Qual destas expressões tem como resultado 24?",
+      "opcoes": [
+        {
+          "texto": "2 + 4 * 4",
+          "confusao": "ignora a precedência: a multiplicação vem antes da soma (resultado 18)"
+        },
+        { "texto": "2 * 4 + 4", "confusao": "multiplica primeiro e soma depois (resultado 12)" },
+        { "texto": "2 + 4 + 4", "confusao": "soma tudo, em vez de multiplicar (resultado 10)" },
+        "(2 + 4) * 4"
+      ],
+      "correta": 3,
+      "dica": "Para a soma vir antes da multiplicação, é preciso parênteses.",
+      "explicacao": "(2 + 4) * 4 = 6 * 4 = 24. Sem parênteses, 2 + 4 * 4 daria 18."
+    },
+    {
+      "id": "prec-celsius-para-fahrenheit",
+      "tipo": "codigo",
+      "titulo": "Celsius para Fahrenheit",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `fahrenheit(c)` que converte graus Celsius em Fahrenheit: multiplique por 9, divida por 5 e some 32.",
+      "funcao": "fahrenheit",
+      "codigoInicial": "function fahrenheit(c) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [0], "esperado": 32 },
+        { "entrada": [100], "esperado": 212 },
+        { "entrada": [10], "esperado": 50 },
+        { "entrada": [-40], "esperado": -40 }
+      ],
+      "dica": "A multiplicação e a divisão vêm antes da soma, e parênteses só são necessários se você quiser mudar essa ordem.",
+      "comentario": "c * 9 / 5 + 32 faz a multiplicação e a divisão (da esquerda para a direita) antes de somar 32."
+    },
+    {
+      "id": "prec-corrija-a-media",
+      "tipo": "corrigir",
+      "titulo": "Corrija a média",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "A função `media(a, b)` deveria devolver a média aritmética de dois números, mas devolve valores errados (por exemplo, 7 para 4 e 6). Corrija o defeito.",
+      "funcao": "media",
+      "codigoInicial": "function media(a, b) {\n  return a + b / 2;\n}\n",
+      "testes": [
+        { "entrada": [4, 6], "esperado": 5 },
+        { "entrada": [10, 10], "esperado": 10 },
+        { "entrada": [0, 8], "esperado": 4 }
+      ],
+      "dica": "A divisão é feita antes da soma. O que precisa ser dividido por 2?",
+      "comentario": "Sem parênteses, só o b é dividido por 2. A média é (a + b) / 2."
+    },
+    {
+      "id": "prec-logicos-e-parenteses",
+      "tipo": "interpretacao",
+      "titulo": "Parênteses e lógica",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = 2;\nconst b = 10;\nconsole.log(a > 3 && b < 5 || a === 2);\nconsole.log(a > 3 && (b < 5 || a === 2));\nconsole.log(!(a > 3) || b === 10 && a < 1);",
+      "opcoes": [
+        "true\nfalse\ntrue",
+        { "texto": "false\nfalse\ntrue", "confusao": "resolve o || antes do && na primeira linha" },
+        {
+          "texto": "true\ntrue\ntrue",
+          "confusao": "ignora o efeito dos parênteses na segunda linha"
+        },
+        {
+          "texto": "true\nfalse\nfalse",
+          "confusao": "aplica o ! a toda a expressão da terceira linha, e não só ao que está entre parênteses"
+        }
+      ],
+      "correta": 0,
+      "dica": "O && vem antes do ||, e os parênteses mudam o agrupamento.",
+      "explicacao": "Linha 1: (false && false) || true é true. Linha 2: false && (...) é false. Linha 3: !(false) é true, e true || (...) é true."
+    }
+  ]
+}

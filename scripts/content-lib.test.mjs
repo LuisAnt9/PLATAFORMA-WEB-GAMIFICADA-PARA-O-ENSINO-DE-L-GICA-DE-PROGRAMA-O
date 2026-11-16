@@ -889,3 +889,23 @@ describe("buildReviewMarkdown", () => {
     expect(() => buildReviewMarkdown(sem, "mundo-1")).toThrow("Nenhuma lição");
   });
 });
+
+describe("runTests: valores especiais impressos como no console real", () => {
+  it("NaN, Infinity, -Infinity, -0, booleanos e null aparecem como texto, e não como null", () => {
+    const fonte =
+      "function f() { console.log(0 / 0); console.log(1 / 0, -1 / 0); console.log(-0, true, null); console.log([1, 2], { a: 1 }); }";
+    const [r] = runTests(fonte, "f", [
+      {
+        entrada: [],
+        saida: ["NaN", "Infinity -Infinity", "-0 true null", '[1,2] {"a":1}'],
+      },
+    ]);
+    expect(r.linhas).toEqual([
+      "NaN",
+      "Infinity -Infinity",
+      "-0 true null",
+      '[1,2] {"a":1}',
+    ]);
+    expect(r.passou).toBe(true);
+  });
+});

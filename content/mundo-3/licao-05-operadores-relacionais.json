@@ -1,0 +1,225 @@
+{
+  "id": "operadores-relacionais",
+  "mundo": "mundo-3",
+  "titulo": "Operadores relacionais",
+  "foco": "Comparar valores e obter true ou false",
+  "posicao": 304,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Os operadores relacionais comparam dois valores e respondem com true ou false:\n- > maior, < menor, >= maior ou igual, <= menor ou igual;\n- === igual (mesmo valor e mesmo tipo) e !== diferente.\n\nO erro mais comum: = guarda um valor, e === compara. Escrever idade = 18 onde se queria comparar muda a variável em vez de comparar.\n\nExiste também o == (igual \"frouxo\"), que converte os tipos antes de comparar: 5 == \"5\" é true. Isso causa surpresas, então use sempre === e !==.\n\nTextos também são comparados, seguindo a ordem das letras: \"a\" < \"b\" é true. As letras maiúsculas vêm antes das minúsculas, e textos de números não são comparados como números: \"10\" < \"9\" é true, porque o \"1\" vem antes do \"9\". Por fim, números decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.",
+  "exemplo": "console.log(5 > 3);          // true\nconsole.log(5 <= 5);         // true\nconsole.log(5 === 5);        // true\nconsole.log(5 === \"5\");      // false (tipos diferentes)\nconsole.log(5 == \"5\");       // true (o == converte o tipo: evite)\nconsole.log(5 !== 3);        // true\nconsole.log(\"a\" < \"b\");      // true\n\nPasso a passo:\n1. Cada comparação responde com true ou false.\n2. 5 <= 5 é true porque 5 é igual a 5.\n3. 5 === \"5\" é false: o número 5 e o texto \"5\" têm tipos diferentes.\n4. O == \"perdoa\" a diferença de tipos e diz true: por isso preferimos ===.\n5. Textos são comparados letra por letra, na ordem do alfabeto.",
+  "revisao": "- > < >= <= comparam ordem; === e !== comparam igualdade e diferença, com o tipo.\n- = guarda um valor; === compara.\n- Prefira === e !== ao == e !=, que convertem tipos.\n- Textos são comparados pela ordem das letras; \"10\" < \"9\" é true.\n- Decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.",
+  "exercicios": [
+    {
+      "id": "rel-operador-de-igualdade",
+      "tipo": "escolha",
+      "titulo": "Qual operador compara a igualdade?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 }
+      ],
+      "enunciado": "Qual operador verifica se dois valores são iguais e do mesmo tipo?",
+      "opcoes": [
+        { "texto": "=", "confusao": "confunde comparação com atribuição" },
+        "===",
+        { "texto": "==", "confusao": "acha que o == também confere o tipo dos valores" },
+        { "texto": "!==", "confusao": "confunde igualdade com diferença" }
+      ],
+      "correta": 1,
+      "dica": "Tem três sinais de igual.",
+      "explicacao": "=== compara valor e tipo. O = guarda um valor, e o == converte os tipos antes de comparar."
+    },
+    {
+      "id": "rel-maior-ou-igual",
+      "tipo": "interpretacao",
+      "titulo": "7 >= 7",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(7 >= 7);",
+      "opcoes": [
+        {
+          "texto": "false",
+          "confusao": "acha que >= exige que o primeiro valor seja estritamente maior"
+        },
+        { "texto": "7", "confusao": "mostra o valor em vez do resultado da comparação" },
+        { "texto": "14", "confusao": "acha que o sinal >= faz uma soma" },
+        "true"
+      ],
+      "correta": 3,
+      "dica": ">= significa \"maior ou igual\".",
+      "explicacao": "7 é igual a 7, então 7 >= 7 é true."
+    },
+    {
+      "id": "rel-complete-a-comparacao",
+      "tipo": "lacuna",
+      "titulo": "Maior de idade",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "Complete a comparação para mostrar true se a idade for maior ou igual a 18.",
+      "modelo": "const idade = 20;\nconsole.log(idade {{1}} 18);",
+      "lacunas": [
+        { "respostas": [">="] }
+      ],
+      "dica": "O operador começa com o sinal de maior.",
+      "explicacao": "idade >= 18 pergunta se a idade é maior ou igual a 18. Com 20, a resposta é true."
+    },
+    {
+      "id": "rel-igual-estrito-e-frouxo",
+      "tipo": "interpretacao",
+      "titulo": "=== e ==",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(5 === \"5\");\nconsole.log(5 == \"5\");\nconsole.log(5 !== \"5\");",
+      "opcoes": [
+        "false\ntrue\ntrue",
+        { "texto": "true\ntrue\nfalse", "confusao": "acha que === ignora a diferença de tipo" },
+        { "texto": "false\nfalse\ntrue", "confusao": "acha que == também diferencia os tipos" },
+        {
+          "texto": "true\ntrue\ntrue",
+          "confusao": "acha que todas as comparações entre 5 e \"5\" são verdadeiras"
+        }
+      ],
+      "correta": 0,
+      "dica": "5 é um número e \"5\" é um texto.",
+      "explicacao": "=== não aceita tipos diferentes (false). == converte o texto em número (true). !== diz que são diferentes (true)."
+    },
+    {
+      "id": "rel-qual-linha-compara",
+      "tipo": "escolha",
+      "titulo": "Qual linha compara de verdade?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "Qual linha compara se idade é igual a 18, sem alterar a variável?",
+      "opcoes": [
+        { "texto": "idade = 18", "confusao": "usa = (atribuição) no lugar de uma comparação" },
+        { "texto": "idade := 18", "confusao": "usa um operador de outra linguagem" },
+        "idade === 18",
+        { "texto": "18 => idade", "confusao": "troca o operador de comparação por outro símbolo" }
+      ],
+      "correta": 2,
+      "dica": "Uma comparação não pode guardar nada na variável.",
+      "explicacao": "idade === 18 compara e resulta em true ou false. idade = 18 guardaria o valor 18 na variável."
+    },
+    {
+      "id": "rel-pode-votar",
+      "tipo": "codigo",
+      "titulo": "Pode votar?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `podeVotar(idade)` que devolve true se a idade for 16 ou mais, e false caso contrário.",
+      "funcao": "podeVotar",
+      "codigoInicial": "function podeVotar(idade) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [15], "esperado": false },
+        { "entrada": [16], "esperado": true },
+        { "entrada": [17], "esperado": true },
+        { "entrada": [70], "esperado": true },
+        { "entrada": [0], "esperado": false }
+      ],
+      "dica": "Uma comparação já resulta em true ou false.",
+      "comentario": "idade >= 16 resulta em true ou false, que é exatamente o que a função deve devolver."
+    },
+    {
+      "id": "rel-corrija-a-igualdade",
+      "tipo": "corrigir",
+      "titulo": "Corrija a igualdade",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 }
+      ],
+      "enunciado": "A função `saoIguais(a, b)` deveria dizer se dois valores são iguais e do mesmo tipo, mas diz true para 5 e \"5\". Corrija o defeito.",
+      "funcao": "saoIguais",
+      "codigoInicial": "function saoIguais(a, b) {\n  return a == b;\n}\n",
+      "testes": [
+        { "entrada": [5, 5], "esperado": true },
+        { "entrada": [5, "5"], "esperado": false },
+        { "entrada": ["a", "a"], "esperado": true },
+        { "entrada": [0, false], "esperado": false }
+      ],
+      "dica": "Qual operador também confere o tipo dos valores?",
+      "comentario": "O == converte os tipos antes de comparar (5 == \"5\" e 0 == false são true). O === exige o mesmo tipo."
+    },
+    {
+      "id": "rel-comparando-textos",
+      "tipo": "interpretacao",
+      "titulo": "Ordem dos textos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 },
+        { "id": "m2-string", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(\"a\" < \"b\");\nconsole.log(\"banana\" < \"abacaxi\");\nconsole.log(\"Z\" < \"a\");",
+      "opcoes": [
+        {
+          "texto": "true\nfalse\nfalse",
+          "confusao": "acha que as letras maiúsculas vêm depois das minúsculas"
+        },
+        "true\nfalse\ntrue",
+        {
+          "texto": "true\ntrue\ntrue",
+          "confusao": "ignora a ordem alfabética, comparando outra coisa, como o tamanho"
+        },
+        { "texto": "false\ntrue\ntrue", "confusao": "inverte a ordem alfabética" }
+      ],
+      "correta": 1,
+      "dica": "Textos são comparados letra por letra; as maiúsculas vêm antes das minúsculas.",
+      "explicacao": "\"a\" vem antes de \"b\" (true). \"banana\" começa com b, que vem depois de a (false). \"Z\" maiúsculo vem antes de \"a\" minúsculo (true)."
+    },
+    {
+      "id": "rel-textos-de-numeros-e-decimais",
+      "tipo": "interpretacao",
+      "titulo": "Cuidados na comparação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m3-relacionais", "peso": 3 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(10 < 9);\nconsole.log(\"10\" < \"9\");\nconsole.log(0.1 + 0.2 === 0.3);",
+      "opcoes": [
+        {
+          "texto": "false\nfalse\ntrue",
+          "confusao": "acha que comparar textos funciona como comparar números e que 0.1 + 0.2 é exatamente 0.3"
+        },
+        { "texto": "false\nfalse\nfalse", "confusao": "compara \"10\" e \"9\" como números" },
+        { "texto": "true\ntrue\nfalse", "confusao": "acha que 10 é menor que 9" },
+        "false\ntrue\nfalse"
+      ],
+      "correta": 3,
+      "dica": "Textos são comparados letra por letra; e o computador guarda decimais de forma aproximada.",
+      "explicacao": "10 < 9 é false (números). Já \"10\" < \"9\" compara textos: o \"1\" vem antes do \"9\", então é true. E 0.1 + 0.2 vale 0.30000000000000004, diferente de 0.3: false."
+    }
+  ]
+}

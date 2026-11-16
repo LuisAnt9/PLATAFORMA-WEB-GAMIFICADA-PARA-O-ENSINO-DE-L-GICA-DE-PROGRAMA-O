@@ -73,6 +73,9 @@ let __next = 0;
 const __fmt = (v) => {
   if (typeof v === "string") return v;
   if (v === undefined) return "undefined";
+  // números e booleanos como no console real: NaN, Infinity e -0 (o JSON os trocaria por "null")
+  if (typeof v === "number") return Object.is(v, -0) ? "-0" : String(v);
+  if (typeof v === "boolean" || typeof v === "bigint") return String(v);
   try { const j = JSON.stringify(v); return j === undefined ? String(v) : j; } catch (e) { return String(v); }
 };
 const __log = (...args) => {

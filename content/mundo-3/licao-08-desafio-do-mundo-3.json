@@ -1,0 +1,131 @@
+{
+  "id": "desafio-do-mundo-3",
+  "mundo": "mundo-3",
+  "titulo": "Desafio final do Mundo 3",
+  "foco": "Juntar os operadores em uma calculadora simples",
+  "posicao": 307,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou o desafio do Mundo 3: uma calculadora simples. Você vai usar operadores aritméticos, relacionais e lógicos, e vai cuidar dos casos especiais, como a divisão por zero.\n\nO desafio principal é o primeiro exercício: um programa que lê dois números e mostra o resultado das principais operações, avisando quando a divisão for por zero. No Mundo 4 você vai aprender a tomar decisões (if/else) e poderá impedir a conta; por enquanto, o programa avisa usando uma comparação.\n\nOs outros dois exercícios treinam a precedência e o acompanhamento de valores.",
+  "exemplo": "Como montar uma calculadora:\n1. Leia os dois números com lerEntrada() e converta cada um com Number().\n2. Calcule cada operação: soma, subtração, multiplicação, divisão, resto.\n3. Mostre cada resultado com um rótulo, em uma linha de console.log.\n4. Para avisar sobre a divisão por zero, compare o divisor com 0 usando ===: o resultado é true ou false.\n5. Teste com casos simples e com o caso especial (divisor igual a 0): o programa não pode \"quebrar\".",
+  "revisao": "- Aritméticos fazem as contas; relacionais e lógicos respondem com true ou false.\n- Atribuição guarda e atualiza valores (=, +=, ++...).\n- A precedência define a ordem; parênteses deixam a intenção clara.\n- Divisão por zero dá Infinity e o resto por zero dá NaN: vale testar o divisor antes.\n- Em toda comparação, use === (e não =).",
+  "exercicios": [
+    {
+      "id": "desafio3-calculadora",
+      "tipo": "desafio",
+      "titulo": "Desafio: calculadora simples",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-aritmeticos", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 2 },
+        { "id": "m3-precedencia", "peso": 1 },
+        { "id": "m2-entrada-saida", "peso": 1 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `calculadora()`: leia dois números com `lerEntrada()` (chegam como texto) e mostre seis linhas com `console.log`: Soma, Subtração, Multiplicação, Divisão, Resto e Divisão por zero? (true ou false, comparando o segundo número com 0). Use o formato `Rótulo: valor`.",
+      "funcao": "calculadora",
+      "codigoInicial": "function calculadora() {\n  // leia os dois números e mostre as seis linhas\n}\n",
+      "testes": [
+        {
+          "entrada": [],
+          "entradas": ["12", "4"],
+          "saida": [
+            "Soma: 16",
+            "Subtração: 8",
+            "Multiplicação: 48",
+            "Divisão: 3",
+            "Resto: 0",
+            "Divisão por zero? false"
+          ]
+        },
+        {
+          "entrada": [],
+          "entradas": ["7", "2"],
+          "saida": [
+            "Soma: 9",
+            "Subtração: 5",
+            "Multiplicação: 14",
+            "Divisão: 3.5",
+            "Resto: 1",
+            "Divisão por zero? false"
+          ]
+        },
+        {
+          "entrada": [],
+          "entradas": ["10", "0"],
+          "saida": [
+            "Soma: 10",
+            "Subtração: 10",
+            "Multiplicação: 0",
+            "Divisão: Infinity",
+            "Resto: NaN",
+            "Divisão por zero? true"
+          ]
+        }
+      ],
+      "dica": "Converta as duas entradas com Number() e use o segundo número em uma comparação com ===.",
+      "comentario": "O programa converte as entradas, calcula cada operação e mostra o resultado. Com divisor 0 a divisão dá Infinity e o resto dá NaN, e a comparação b === 0 avisa o problema."
+    },
+    {
+      "id": "desafio3-corrija-a-aprovacao",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija a aprovação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-precedencia", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "A função `aprovado(n1, n2, frequencia)` deveria devolver true se a média das duas notas for 7 ou mais E a frequência for 75 ou mais. Hoje ela aprova alunos que não deveriam ser aprovados. Corrija o defeito.",
+      "funcao": "aprovado",
+      "codigoInicial": "function aprovado(n1, n2, frequencia) {\n  const media = n1 + n2 / 2;\n  return media >= 7 && frequencia >= 75;\n}\n",
+      "testes": [
+        { "entrada": [6, 8, 80], "esperado": true },
+        { "entrada": [6, 8, 70], "esperado": false },
+        { "entrada": [5, 5, 90], "esperado": false },
+        { "entrada": [10, 4, 75], "esperado": true },
+        { "entrada": [8, 8, 60], "esperado": false }
+      ],
+      "dica": "Olhe com atenção para o cálculo da média: o que a divisão afeta?",
+      "comentario": "Sem parênteses, só n2 era dividido por 2. A média correta é (n1 + n2) / 2, e o restante da função, com &&, já estava certo."
+    },
+    {
+      "id": "desafio3-acompanhe-o-saldo",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe o saldo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 2 },
+        { "id": "m3-logicos", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Acompanhe o valor de cada variável a cada linha. O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "let saldo = 100;\nconst preco = 60;\nsaldo -= preco;\nconst podeComprarOutro = saldo >= preco;\nsaldo += 10 * 2;\nconsole.log(saldo);\nconsole.log(podeComprarOutro);\nconsole.log(saldo >= preco && saldo % 2 === 0 || saldo === 0);",
+      "opcoes": [
+        {
+          "texto": "60\ntrue\ntrue",
+          "confusao": "acha que podeComprarOutro acompanha o saldo e é recalculado"
+        },
+        {
+          "texto": "40\nfalse\ntrue",
+          "confusao": "esquece a atualização feita com += depois da comparação"
+        },
+        "60\nfalse\ntrue",
+        {
+          "texto": "60\nfalse\nfalse",
+          "confusao": "acha que >= exige que o primeiro valor seja estritamente maior"
+        }
+      ],
+      "correta": 2,
+      "dica": "podeComprarOutro guarda o resultado da comparação feita naquele momento, e não é atualizado depois.",
+      "explicacao": "saldo vira 40 e podeComprarOutro é 40 >= 60, isto é, false (guardado nesse momento). Depois saldo += 20 deixa o saldo em 60. Na última linha: 60 >= 60 é true e 60 % 2 === 0 também, então o resultado é true."
+    }
+  ]
+}

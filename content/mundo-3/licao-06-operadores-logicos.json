@@ -1,0 +1,273 @@
+{
+  "id": "operadores-logicos",
+  "mundo": "mundo-3",
+  "titulo": "Operadores lógicos",
+  "foco": "Combinar valores true e false com &&, || e !",
+  "posicao": 305,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Os operadores lógicos combinam valores booleanos:\n- && (E): true somente se os dois lados são true.\n- || (OU): true se pelo menos um dos lados é true.\n- ! (NÃO): inverte o valor: !true é false e !false é true.\n\nTabela-verdade (V = true, F = false):\n  A  B  | A && B | A || B\n  V  V  |   V    |   V\n  V  F  |   F    |   V\n  F  V  |   F    |   V\n  F  F  |   F    |   F\n\nNa prática, combinamos comparações: idade >= 18 && temIngresso. Para saber se x está entre 1 e 10, escreva x >= 1 && x <= 10; a forma matemática 1 <= x <= 10 não funciona. Quando misturamos operadores, o ! é resolvido primeiro, depois o && e por último o ||; use parênteses para deixar a intenção clara.",
+  "exemplo": "const idade = 20;\nconst temIngresso = true;\nconsole.log(idade >= 18 && temIngresso);   // true\nconsole.log(idade < 18 || temIngresso);    // true\nconsole.log(!temIngresso);                 // false\nconsole.log(idade >= 18 && !temIngresso);  // false\n\nPasso a passo:\n1. idade >= 18 é true e temIngresso é true: o && dá true.\n2. idade < 18 é false, mas temIngresso é true: basta um true para o || dar true.\n3. !temIngresso inverte true em false.\n4. idade >= 18 é true, mas !temIngresso é false: o && dá false.",
+  "revisao": "- && é E: precisa dos dois lados true. || é OU: basta um lado true. ! inverte.\n- Combine comparações: idade >= 18 && temIngresso.\n- \"Entre 1 e 10\" é x >= 1 && x <= 10 (não 1 <= x <= 10).\n- Ordem: ! primeiro, depois &&, por último ||; parênteses deixam claro.\n- Use a tabela-verdade para conferir o resultado.",
+  "exercicios": [
+    {
+      "id": "log-qual-e-o-e",
+      "tipo": "escolha",
+      "titulo": "Qual operador é o E?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 }
+      ],
+      "enunciado": "Qual operador lógico significa E (os dois lados precisam ser verdadeiros)?",
+      "opcoes": [
+        "&&",
+        { "texto": "||", "confusao": "confunde o operador E com o operador OU" },
+        { "texto": "!", "confusao": "confunde o operador E com o operador NÃO" },
+        { "texto": "&", "confusao": "usa um único &, que é outro operador" }
+      ],
+      "correta": 0,
+      "dica": "São dois símbolos iguais, que lembram o \"e\" comercial.",
+      "explicacao": "&& é o operador E: só resulta em true se os dois lados forem true."
+    },
+    {
+      "id": "log-o-que-e-o-ou",
+      "tipo": "escolha",
+      "titulo": "O que o || significa?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 }
+      ],
+      "enunciado": "O que o operador || faz?",
+      "opcoes": [
+        {
+          "texto": "Resulta em true só se os dois lados forem true",
+          "confusao": "confunde o operador OU com o operador E"
+        },
+        {
+          "texto": "Inverte o valor de um boolean",
+          "confusao": "confunde o operador OU com o operador NÃO"
+        },
+        "Resulta em true se pelo menos um dos lados for true",
+        {
+          "texto": "Compara se dois valores são iguais",
+          "confusao": "confunde um operador lógico com um relacional"
+        }
+      ],
+      "correta": 2,
+      "dica": "Pense na frase \"tenho cartão OU dinheiro\".",
+      "explicacao": "O || é o OU: basta que um dos lados seja true para o resultado ser true."
+    },
+    {
+      "id": "log-true-e-false",
+      "tipo": "interpretacao",
+      "titulo": "true && false",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(true && false);",
+      "opcoes": [
+        {
+          "texto": "true",
+          "confusao": "acha que o && precisa de apenas um lado verdadeiro, como o ||"
+        },
+        "false",
+        { "texto": "true && false", "confusao": "acha que o console.log mostra a expressão" },
+        {
+          "texto": "undefined",
+          "confusao": "acha que combinar valores diferentes não tem resultado"
+        }
+      ],
+      "correta": 1,
+      "dica": "O E só dá true quando os dois lados são true.",
+      "explicacao": "Como um dos lados é false, o && resulta em false."
+    },
+    {
+      "id": "log-complete-o-ou",
+      "tipo": "lacuna",
+      "titulo": "Cartão ou dinheiro",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para mostrar true se o cliente tiver cartão OU dinheiro.",
+      "modelo": "const temCartao = false;\nconst temDinheiro = true;\nconsole.log(temCartao {{1}} temDinheiro);",
+      "lacunas": [
+        { "respostas": ["||"] }
+      ],
+      "dica": "Use o operador que aceita que apenas um dos lados seja verdadeiro.",
+      "explicacao": "temCartao || temDinheiro resulta em true, porque temDinheiro é true."
+    },
+    {
+      "id": "log-quatro-combinacoes",
+      "tipo": "interpretacao",
+      "titulo": "Quatro combinações",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(true || false);\nconsole.log(false || false);\nconsole.log(!true);\nconsole.log(!false && true);",
+      "opcoes": [
+        { "texto": "true\ntrue\ntrue\ntrue", "confusao": "acha que o || sempre resulta em true" },
+        { "texto": "true\nfalse\ntrue\nfalse", "confusao": "ignora a inversão feita pelo !" },
+        {
+          "texto": "false\nfalse\nfalse\ntrue",
+          "confusao": "acha que o || precisa dos dois lados verdadeiros"
+        },
+        "true\nfalse\nfalse\ntrue"
+      ],
+      "correta": 3,
+      "dica": "Use a tabela-verdade e lembre que ! inverte o valor.",
+      "explicacao": "true || false é true; false || false é false; !true é false; e !false vale true, então true && true é true."
+    },
+    {
+      "id": "log-pode-entrar",
+      "tipo": "codigo",
+      "titulo": "Pode entrar?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `podeEntrar(idade, temIngresso)` que devolve true apenas se a pessoa tiver 18 anos ou mais E tiver ingresso.",
+      "funcao": "podeEntrar",
+      "codigoInicial": "function podeEntrar(idade, temIngresso) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [20, true], "esperado": true },
+        { "entrada": [17, true], "esperado": false },
+        { "entrada": [30, false], "esperado": false },
+        { "entrada": [18, true], "esperado": true },
+        { "entrada": [5, false], "esperado": false }
+      ],
+      "dica": "Combine uma comparação com o valor temIngresso usando o operador E.",
+      "comentario": "idade >= 18 && temIngresso só é true quando a comparação e temIngresso forem verdadeiros ao mesmo tempo."
+    },
+    {
+      "id": "log-comparacoes-combinadas",
+      "tipo": "interpretacao",
+      "titulo": "Autorização",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const idade = 16;\nconst temAutorizacao = true;\nconsole.log(idade >= 18 && temAutorizacao);\nconsole.log(idade >= 18 || temAutorizacao);\nconsole.log(!(idade >= 18));",
+      "opcoes": [
+        "false\ntrue\ntrue",
+        { "texto": "true\ntrue\nfalse", "confusao": "avalia idade >= 18 como se fosse verdadeiro" },
+        {
+          "texto": "false\nfalse\ntrue",
+          "confusao": "acha que o || exige que os dois lados sejam true"
+        },
+        { "texto": "false\ntrue\nfalse", "confusao": "esquece de inverter o resultado com o !" }
+      ],
+      "correta": 0,
+      "dica": "idade >= 18 é false para 16. Aplique cada operador a partir desse resultado.",
+      "explicacao": "idade >= 18 é false. false && true é false; false || true é true; e !(false) é true."
+    },
+    {
+      "id": "log-entre-dois-valores",
+      "tipo": "escolha",
+      "titulo": "Entre 1 e 10",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "Qual expressão é true quando x está entre 1 e 10 (inclusive)?",
+      "opcoes": [
+        {
+          "texto": "x >= 1 || x <= 10",
+          "confusao": "usa OU, que fica verdadeiro para qualquer número"
+        },
+        {
+          "texto": "1 <= x <= 10",
+          "confusao": "escreve como na matemática, mas o JavaScript avalia de outra forma"
+        },
+        "x >= 1 && x <= 10",
+        {
+          "texto": "x === 1 && x === 10",
+          "confusao": "exige que x seja igual aos dois valores ao mesmo tempo"
+        }
+      ],
+      "correta": 2,
+      "dica": "x precisa passar nas duas condições ao mesmo tempo.",
+      "explicacao": "As duas comparações precisam ser verdadeiras: x >= 1 e x <= 10. Por isso usamos o &&."
+    },
+    {
+      "id": "log-corrija-o-intervalo",
+      "tipo": "corrigir",
+      "titulo": "Corrija o intervalo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "A função `foraDoIntervalo(n)` deveria devolver true quando n é menor que 0 ou maior que 100, mas devolve sempre false. Corrija o defeito.",
+      "funcao": "foraDoIntervalo",
+      "codigoInicial": "function foraDoIntervalo(n) {\n  return n < 0 && n > 100;\n}\n",
+      "testes": [
+        { "entrada": [-5], "esperado": true },
+        { "entrada": [150], "esperado": true },
+        { "entrada": [50], "esperado": false },
+        { "entrada": [0], "esperado": false },
+        { "entrada": [100], "esperado": false }
+      ],
+      "dica": "Nenhum número é menor que 0 e maior que 100 ao mesmo tempo.",
+      "comentario": "Com &&, as duas condições precisam valer juntas, o que nunca acontece. Com ||, basta que uma delas seja verdadeira."
+    },
+    {
+      "id": "log-precedencia-dos-logicos",
+      "tipo": "interpretacao",
+      "titulo": "Quem vem primeiro?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m3-logicos", "peso": 3 },
+        { "id": "m3-precedencia", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = true;\nconst b = false;\nconst c = false;\nconsole.log(a || b && c);\nconsole.log((a || b) && c);\nconsole.log(!a || b);\nconsole.log(!(a || b));",
+      "opcoes": [
+        {
+          "texto": "false\nfalse\nfalse\nfalse",
+          "confusao": "resolve o || antes do && na primeira linha, ignorando a precedência"
+        },
+        "true\nfalse\nfalse\nfalse",
+        {
+          "texto": "true\ntrue\nfalse\nfalse",
+          "confusao": "ignora o efeito dos parênteses na segunda linha"
+        },
+        {
+          "texto": "true\nfalse\ntrue\ntrue",
+          "confusao": "ignora o efeito do ! nas duas últimas linhas"
+        }
+      ],
+      "correta": 1,
+      "dica": "O && é resolvido antes do ||, e os parênteses mudam essa ordem.",
+      "explicacao": "Linha 1: b && c é false, então a || false é true. Linha 2: (a || b) é true, e true && c é false. Linha 3: !a é false, e false || b é false. Linha 4: (a || b) é true e o ! inverte para false."
+    }
+  ]
+}

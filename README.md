@@ -61,6 +61,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Conteúdo do Mundo 2** (etapa E5): 14 lições (variáveis, `let` e `const`, string, number, boolean, manipulação de textos, concatenação, template literals, operações, conversão de tipos, entrada e saída, `console.log` e o desafio final) e 99 exercícios, **como rascunho**, em `content/mundo-2/`. Revisão em `docs/revisao/mundo-2.md`; publicação com `npm run content:publish -- mundo-2`. A lição antiga "Textos" (rascunho) ficou no fim do mundo, na posição 290.
 
+- **Conteúdo do Mundo 3** (etapa E6): 7 lições (introdução, aritméticos, atribuição, relacionais, lógicos, precedência e o desafio da calculadora) e 54 exercícios, **como rascunho**, em `content/mundo-3/`. Revisão em `docs/revisao/mundo-3.md`; publicação com `npm run content:publish -- mundo-3`. A lição antiga "Fundamentos" (4 exercícios no ar) ficou no fim do mundo, na posição 390. O `console.log` do executor passou a mostrar `NaN`, `Infinity` e `-0` como o console real (antes mostrava `null`).
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

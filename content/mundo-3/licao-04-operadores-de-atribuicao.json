@@ -1,0 +1,196 @@
+{
+  "id": "operadores-de-atribuicao",
+  "mundo": "mundo-3",
+  "titulo": "Operadores de atribuição",
+  "foco": "Guardar e atualizar valores com =, +=, -=, ++ e --",
+  "posicao": 303,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O operador de atribuição = guarda um valor em uma variável. Para atualizar uma variável usando o valor que ela já tem, existem formas abreviadas:\n- x += 5 é o mesmo que x = x + 5;\n- x -= 5, x *= 5, x /= 5, x %= 5 e x **= 2 funcionam do mesmo jeito;\n- x++ aumenta x em 1 e x-- diminui x em 1.\n\nCuidados:\n- = guarda um valor; ele não compara. Para comparar usamos ===.\n- Com textos, += junta: se frase vale \"Olá\", frase += \"!\" resulta em \"Olá!\".\n- Só variáveis declaradas com let podem ser atualizadas; uma const dá erro.\n- Escreva += e não =+: x =+ 5 guarda o valor +5 em x, apagando o valor antigo.\n\nEsses operadores serão muito usados nos contadores e acumuladores das estruturas de repetição.",
+  "exemplo": "let pontos = 10;\npontos += 5;     // pontos = pontos + 5  ->  15\npontos -= 3;     // 12\npontos *= 2;     // 24\npontos /= 4;     // 6\npontos++;        // 7\npontos--;        // 6\nconsole.log(pontos);   // 6\n\nlet frase = \"Olá\";\nfrase += \", mundo\";    // com texto, += junta\nconsole.log(frase);    // Olá, mundo\n\nPasso a passo:\n1. Cada linha usa o valor atual de pontos para calcular o novo.\n2. ++ e -- somam ou subtraem 1.\n3. Com um texto, += faz a concatenação.",
+  "revisao": "- = guarda um valor; += -= *= /= %= atualizam usando o valor atual.\n- x++ e x-- somam e subtraem 1.\n- Com textos, += junta.\n- const não pode ser atualizada.\n- Não confunda = (guardar) com === (comparar).",
+  "exercicios": [
+    {
+      "id": "atrib-o-que-faz-o-mais-igual",
+      "tipo": "escolha",
+      "titulo": "O que faz x += 5?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 }
+      ],
+      "enunciado": "O que a instrução x += 5 faz?",
+      "opcoes": [
+        {
+          "texto": "Guarda o valor 5 em x, substituindo o que havia",
+          "confusao": "confunde += com a atribuição simples ="
+        },
+        { "texto": "Compara x com 5", "confusao": "confunde atribuição com comparação" },
+        "Soma 5 ao valor atual de x e guarda o resultado em x",
+        {
+          "texto": "Mostra x + 5 sem alterar a variável",
+          "confusao": "acha que += só calcula e não guarda o resultado"
+        }
+      ],
+      "correta": 2,
+      "dica": "x += 5 é uma forma curta de escrever x = x + 5.",
+      "explicacao": "O operador += usa o valor atual de x, soma 5 e guarda o resultado de volta em x."
+    },
+    {
+      "id": "atrib-somar-cinco",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale n?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let n = 10;\nn += 5;\nconsole.log(n);",
+      "opcoes": [
+        { "texto": "5", "confusao": "acha que += substitui o valor em vez de somar" },
+        "15",
+        { "texto": "10", "confusao": "acha que += não altera a variável" },
+        {
+          "texto": "n + 5",
+          "confusao": "acha que o console.log mostra a expressão em vez do valor"
+        }
+      ],
+      "correta": 1,
+      "dica": "n começa em 10 e depois recebe uma soma.",
+      "explicacao": "n += 5 faz n = n + 5, ou seja, 10 + 5 = 15."
+    },
+    {
+      "id": "atrib-complete-o-contador",
+      "tipo": "lacuna",
+      "titulo": "Some um ao contador",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para aumentar o contador em 1.",
+      "modelo": "let contador = 0;\ncontador{{1}};\nconsole.log(contador);",
+      "lacunas": [
+        { "respostas": ["++", "+= 1"] }
+      ],
+      "dica": "Há uma forma bem curta de somar 1.",
+      "explicacao": "contador++ aumenta o valor em 1. A forma contador += 1 faria o mesmo."
+    },
+    {
+      "id": "atrib-varias-atualizacoes",
+      "tipo": "interpretacao",
+      "titulo": "Atualizações em sequência",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let x = 8;\nx -= 3;\nx *= 2;\nx /= 5;\nconsole.log(x);",
+      "opcoes": [
+        { "texto": "5", "confusao": "acha que só a primeira atualização altera a variável" },
+        { "texto": "10", "confusao": "esquece da última atualização (a divisão)" },
+        { "texto": "4.4", "confusao": "troca o -= por += na primeira atualização" },
+        "2"
+      ],
+      "correta": 3,
+      "dica": "Cada linha usa o valor que x tem naquele momento.",
+      "explicacao": "x começa em 8; depois 8 - 3 = 5; depois 5 * 2 = 10; depois 10 / 5 = 2."
+    },
+    {
+      "id": "atrib-forma-equivalente",
+      "tipo": "escolha",
+      "titulo": "Forma equivalente",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 }
+      ],
+      "enunciado": "Qual linha tem o mesmo efeito de total = total * 3?",
+      "opcoes": [
+        "total *= 3",
+        {
+          "texto": "total =* 3",
+          "confusao": "escreve o operador composto com os símbolos invertidos"
+        },
+        { "texto": "total * 3", "confusao": "esquece de guardar o resultado na variável" },
+        { "texto": "total == 3", "confusao": "confunde atribuição com comparação" }
+      ],
+      "correta": 0,
+      "dica": "O operador composto começa com o símbolo da conta e termina com o =.",
+      "explicacao": "total *= 3 multiplica o valor atual de total por 3 e guarda o resultado em total."
+    },
+    {
+      "id": "atrib-corrija-o-total",
+      "tipo": "corrigir",
+      "titulo": "Corrija a soma ao total",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 }
+      ],
+      "enunciado": "A função `somarAoTotal(n)` deveria somar n ao total inicial 10, mas devolve apenas n. Corrija o defeito.",
+      "funcao": "somarAoTotal",
+      "codigoInicial": "function somarAoTotal(n) {\n  let total = 10;\n  total =+ n;\n  return total;\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": 15 },
+        { "entrada": [0], "esperado": 10 },
+        { "entrada": [20], "esperado": 30 }
+      ],
+      "dica": "Compare a ordem dos dois símbolos: eles não são o mesmo operador.",
+      "comentario": "total =+ n guarda o valor +n em total, apagando o 10. O operador de soma e atribuição é +=."
+    },
+    {
+      "id": "atrib-aplicar-desconto",
+      "tipo": "codigo",
+      "titulo": "Aplicar desconto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `aplicarDesconto(preco, percentual)` que devolve o preço depois do desconto percentual (por exemplo, 200 com 10% devolve 180). Use -= na solução.",
+      "funcao": "aplicarDesconto",
+      "codigoInicial": "function aplicarDesconto(preco, percentual) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [200, 10], "esperado": 180 },
+        { "entrada": [50, 20], "esperado": 40 },
+        { "entrada": [100, 0], "esperado": 100 }
+      ],
+      "dica": "Calcule o valor do desconto e subtraia do preço com -=.",
+      "comentario": "O desconto é preco * percentual / 100. Com preco -= desconto, o preço é atualizado e devolvido."
+    },
+    {
+      "id": "atrib-texto-e-numero",
+      "tipo": "interpretacao",
+      "titulo": "+= com texto e com número",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m3-atribuicao", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "let texto = \"5\";\ntexto += 5;\ntexto += 5;\nconsole.log(texto);\nlet numero = 5;\nnumero += 5;\nnumero += 5;\nconsole.log(numero);",
+      "opcoes": [
+        { "texto": "15\n15", "confusao": "acha que += sempre soma, mesmo com textos" },
+        { "texto": "555\n555", "confusao": "acha que += sempre junta" },
+        "555\n15",
+        { "texto": "55\n15", "confusao": "aplica o += só uma vez no texto" }
+      ],
+      "correta": 2,
+      "dica": "Com texto, += junta; com número, += soma.",
+      "explicacao": "Com o texto \"5\", cada += junta mais um 5: \"555\". Com o número 5, cada += soma: 5 + 5 + 5 = 15."
+    }
+  ]
+}

@@ -632,7 +632,189 @@ function dobro(n) {
   return n * 2;
 }
 
-dobro(4) devolve 8. Nos exercícios você escreve funções assim: leia o enunciado, pense no passo a passo e só então escreva o código. Use os testes como guia: eles mostram o que a função deveria devolver.$c$, $c$$c$, $c$$c$, $c$mundo-3$c$, 301, $c$arquivo$c$),
+dobro(4) devolve 8. Nos exercícios você escreve funções assim: leia o enunciado, pense no passo a passo e só então escreva o código. Use os testes como guia: eles mostram o que a função deveria devolver.$c$, $c$$c$, $c$$c$, $c$mundo-3$c$, 390, $c$arquivo$c$),
+  ($c$introducao-aos-operadores$c$, $c$Introdução aos operadores$c$, $c$Reconhecer operadores, operandos e os quatro grupos de operadores$c$, $c$Um operador é um símbolo que faz uma operação com valores. Os valores sobre os quais ele atua se chamam operandos. Em 2 + 3, o + é o operador e 2 e 3 são os operandos. Uma expressão é qualquer combinação de valores e operadores que produz um resultado.
+
+Os operadores se dividem em quatro grupos:
+- Aritméticos: fazem contas (+, -, *, /, %, **) e resultam em número.
+- De atribuição: guardam valores em variáveis (=, +=, ++...).
+- Relacionais: comparam dois valores (>, <, ===...) e resultam em true ou false.
+- Lógicos: combinam resultados true ou false (&&, ||, !).
+
+A maioria usa dois operandos (2 + 3); alguns usam só um, como o ! em !true. Neste mundo você vai estudar cada grupo e, no final, a ordem em que o computador resolve tudo.$c$, $c$const soma = 2 + 3;            // aritmético: resultado 5 (number)
+let total = 10;
+total = total + 1;             // atribuição: guarda 11 em total
+console.log(5 > 3);            // relacional: true (boolean)
+console.log(5 > 3 && 2 > 1);   // lógico: true (boolean)
+console.log(-total);           // operador de um operando só: -11
+
+Passo a passo:
+1. 2 + 3 é uma expressão aritmética: o + é o operador, e o resultado é um número.
+2. total = total + 1 usa o operador de atribuição (=) para guardar o resultado.
+3. 5 > 3 é uma comparação: pergunta "5 é maior que 3?" e responde com um boolean.
+4. O && junta duas comparações em uma só resposta.
+5. O sinal - na frente de total usa um operando só: inverte o sinal do número.$c$, $c$- Operador é um símbolo que realiza uma operação; operandos são os valores usados por ele.
+- Expressão é uma combinação de valores e operadores que produz um resultado.
+- Aritméticos resultam em número; relacionais e lógicos resultam em boolean.
+- Atribuição guarda um valor em uma variável.
+- Alguns operadores usam um operando só (como o !).$c$, $c$mundo-3$c$, 301, $c$arquivo$c$),
+  ($c$operadores-aritmeticos$c$, $c$Operadores aritméticos$c$, $c$Fazer contas com +, -, *, /, % e **$c$, $c$Os operadores aritméticos fazem as contas:
+- + soma, - subtração, * multiplicação;
+- / divisão: em JavaScript o resultado pode ser decimal (17 / 5 vale 3.4);
+- % resto da divisão: 17 % 5 vale 2, porque 17 = 3 * 5 + 2;
+- ** potência: 2 ** 10 vale 1024.
+
+O resto é muito útil: n % 2 vale 0 quando n é par, e n % 10 dá o último dígito de n. Para obter só a parte inteira de uma divisão, use Math.floor(17 / 5), que vale 3.
+
+Casos especiais: dividir por zero dá Infinity (ou -Infinity), e pedir o resto da divisão por zero ou fazer 0 / 0 dá NaN. Nenhum deles causa erro no programa.$c$, $c$console.log(17 + 5);              // 22
+console.log(17 - 5);              // 12
+console.log(17 * 5);              // 85
+console.log(17 / 5);              // 3.4
+console.log(17 % 5);              // 2  (resto da divisão)
+console.log(2 ** 10);             // 1024
+console.log(Math.floor(17 / 5));  // 3  (parte inteira da divisão)
+
+Passo a passo:
+1. As três primeiras linhas são as contas básicas.
+2. 17 / 5 mantém a parte decimal: 3.4.
+3. 17 % 5 dá o que sobra: 5 cabe 3 vezes em 17 (15), e sobram 2.
+4. 2 ** 10 é 2 multiplicado por ele mesmo 10 vezes.
+5. Math.floor arredonda para baixo e dá a parte inteira da divisão.$c$, $c$- + - * / % ** são os operadores aritméticos.
+- / dá resultado decimal; Math.floor dá a parte inteira da divisão.
+- % dá o resto: n % 2 === 0 indica um número par; n % 10 dá o último dígito.
+- ** é a potência. O símbolo ^ NÃO é potência em JavaScript.
+- Dividir por zero dá Infinity; 0 / 0 e o resto por zero dão NaN.$c$, $c$mundo-3$c$, 302, $c$arquivo$c$),
+  ($c$operadores-de-atribuicao$c$, $c$Operadores de atribuição$c$, $c$Guardar e atualizar valores com =, +=, -=, ++ e --$c$, $c$O operador de atribuição = guarda um valor em uma variável. Para atualizar uma variável usando o valor que ela já tem, existem formas abreviadas:
+- x += 5 é o mesmo que x = x + 5;
+- x -= 5, x *= 5, x /= 5, x %= 5 e x **= 2 funcionam do mesmo jeito;
+- x++ aumenta x em 1 e x-- diminui x em 1.
+
+Cuidados:
+- = guarda um valor; ele não compara. Para comparar usamos ===.
+- Com textos, += junta: se frase vale "Olá", frase += "!" resulta em "Olá!".
+- Só variáveis declaradas com let podem ser atualizadas; uma const dá erro.
+- Escreva += e não =+: x =+ 5 guarda o valor +5 em x, apagando o valor antigo.
+
+Esses operadores serão muito usados nos contadores e acumuladores das estruturas de repetição.$c$, $c$let pontos = 10;
+pontos += 5;     // pontos = pontos + 5  ->  15
+pontos -= 3;     // 12
+pontos *= 2;     // 24
+pontos /= 4;     // 6
+pontos++;        // 7
+pontos--;        // 6
+console.log(pontos);   // 6
+
+let frase = "Olá";
+frase += ", mundo";    // com texto, += junta
+console.log(frase);    // Olá, mundo
+
+Passo a passo:
+1. Cada linha usa o valor atual de pontos para calcular o novo.
+2. ++ e -- somam ou subtraem 1.
+3. Com um texto, += faz a concatenação.$c$, $c$- = guarda um valor; += -= *= /= %= atualizam usando o valor atual.
+- x++ e x-- somam e subtraem 1.
+- Com textos, += junta.
+- const não pode ser atualizada.
+- Não confunda = (guardar) com === (comparar).$c$, $c$mundo-3$c$, 303, $c$arquivo$c$),
+  ($c$operadores-relacionais$c$, $c$Operadores relacionais$c$, $c$Comparar valores e obter true ou false$c$, $c$Os operadores relacionais comparam dois valores e respondem com true ou false:
+- > maior, < menor, >= maior ou igual, <= menor ou igual;
+- === igual (mesmo valor e mesmo tipo) e !== diferente.
+
+O erro mais comum: = guarda um valor, e === compara. Escrever idade = 18 onde se queria comparar muda a variável em vez de comparar.
+
+Existe também o == (igual "frouxo"), que converte os tipos antes de comparar: 5 == "5" é true. Isso causa surpresas, então use sempre === e !==.
+
+Textos também são comparados, seguindo a ordem das letras: "a" < "b" é true. As letras maiúsculas vêm antes das minúsculas, e textos de números não são comparados como números: "10" < "9" é true, porque o "1" vem antes do "9". Por fim, números decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.$c$, $c$console.log(5 > 3);          // true
+console.log(5 <= 5);         // true
+console.log(5 === 5);        // true
+console.log(5 === "5");      // false (tipos diferentes)
+console.log(5 == "5");       // true (o == converte o tipo: evite)
+console.log(5 !== 3);        // true
+console.log("a" < "b");      // true
+
+Passo a passo:
+1. Cada comparação responde com true ou false.
+2. 5 <= 5 é true porque 5 é igual a 5.
+3. 5 === "5" é false: o número 5 e o texto "5" têm tipos diferentes.
+4. O == "perdoa" a diferença de tipos e diz true: por isso preferimos ===.
+5. Textos são comparados letra por letra, na ordem do alfabeto.$c$, $c$- > < >= <= comparam ordem; === e !== comparam igualdade e diferença, com o tipo.
+- = guarda um valor; === compara.
+- Prefira === e !== ao == e !=, que convertem tipos.
+- Textos são comparados pela ordem das letras; "10" < "9" é true.
+- Decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.$c$, $c$mundo-3$c$, 304, $c$arquivo$c$),
+  ($c$operadores-logicos$c$, $c$Operadores lógicos$c$, $c$Combinar valores true e false com &&, || e !$c$, $c$Os operadores lógicos combinam valores booleanos:
+- && (E): true somente se os dois lados são true.
+- || (OU): true se pelo menos um dos lados é true.
+- ! (NÃO): inverte o valor: !true é false e !false é true.
+
+Tabela-verdade (V = true, F = false):
+  A  B  | A && B | A || B
+  V  V  |   V    |   V
+  V  F  |   F    |   V
+  F  V  |   F    |   V
+  F  F  |   F    |   F
+
+Na prática, combinamos comparações: idade >= 18 && temIngresso. Para saber se x está entre 1 e 10, escreva x >= 1 && x <= 10; a forma matemática 1 <= x <= 10 não funciona. Quando misturamos operadores, o ! é resolvido primeiro, depois o && e por último o ||; use parênteses para deixar a intenção clara.$c$, $c$const idade = 20;
+const temIngresso = true;
+console.log(idade >= 18 && temIngresso);   // true
+console.log(idade < 18 || temIngresso);    // true
+console.log(!temIngresso);                 // false
+console.log(idade >= 18 && !temIngresso);  // false
+
+Passo a passo:
+1. idade >= 18 é true e temIngresso é true: o && dá true.
+2. idade < 18 é false, mas temIngresso é true: basta um true para o || dar true.
+3. !temIngresso inverte true em false.
+4. idade >= 18 é true, mas !temIngresso é false: o && dá false.$c$, $c$- && é E: precisa dos dois lados true. || é OU: basta um lado true. ! inverte.
+- Combine comparações: idade >= 18 && temIngresso.
+- "Entre 1 e 10" é x >= 1 && x <= 10 (não 1 <= x <= 10).
+- Ordem: ! primeiro, depois &&, por último ||; parênteses deixam claro.
+- Use a tabela-verdade para conferir o resultado.$c$, $c$mundo-3$c$, 305, $c$arquivo$c$),
+  ($c$precedencia-dos-operadores$c$, $c$Precedência dos operadores$c$, $c$Saber em que ordem o computador resolve uma expressão$c$, $c$Quando uma expressão tem vários operadores, o computador segue uma ordem, chamada precedência (da mais alta para a mais baixa):
+1. parênteses ( );
+2. potência **;
+3. ! (NÃO);
+4. * / %;
+5. + e -;
+6. < <= > >=;
+7. === !== (e == !=);
+8. &&;
+9. ||;
+10. atribuições (=, +=, ...), por último.
+
+Operadores do mesmo nível são resolvidos da esquerda para a direita (10 - 4 - 3 vale 3), exceto a potência, que vai da direita para a esquerda (2 ** 3 ** 2 vale 512).
+
+Por isso 2 + 3 * 4 vale 14. Para mudar a ordem, use parênteses: (2 + 3) * 4 vale 20. Mesmo quando a ordem natural já resolve, os parênteses deixam o código mais fácil de ler.$c$, $c$console.log(2 + 3 * 4);               // 14
+console.log((2 + 3) * 4);             // 20
+console.log(10 - 4 - 3);              // 3 (da esquerda para a direita)
+console.log(2 ** 3 ** 2);             // 512 (a potência vai da direita para a esquerda)
+console.log(5 + 3 > 7);               // true (a soma vem antes da comparação)
+console.log(true || false && false);  // true (&& vem antes de ||)
+
+Passo a passo:
+1. A multiplicação vem antes da soma: 3 * 4 = 12 e depois 2 + 12 = 14.
+2. Com parênteses, 2 + 3 vem primeiro: 5 * 4 = 20.
+3. 10 - 4 - 3: primeiro 10 - 4 = 6 e depois 6 - 3 = 3.
+4. 2 ** 3 ** 2 é 2 ** 9 = 512.
+5. 5 + 3 > 7 vira 8 > 7, que é true.
+6. false && false é false, e true || false é true.$c$, $c$- Ordem: parênteses, **, !, * / %, + -, comparações, ===, &&, ||, atribuição.
+- Operadores do mesmo nível: da esquerda para a direita (a potência é da direita para a esquerda).
+- Parênteses mudam a ordem e deixam o código mais claro.
+- Aritméticos vêm antes das comparações, e as comparações antes de && e ||.$c$, $c$mundo-3$c$, 306, $c$arquivo$c$),
+  ($c$desafio-do-mundo-3$c$, $c$Desafio final do Mundo 3$c$, $c$Juntar os operadores em uma calculadora simples$c$, $c$Chegou o desafio do Mundo 3: uma calculadora simples. Você vai usar operadores aritméticos, relacionais e lógicos, e vai cuidar dos casos especiais, como a divisão por zero.
+
+O desafio principal é o primeiro exercício: um programa que lê dois números e mostra o resultado das principais operações, avisando quando a divisão for por zero. No Mundo 4 você vai aprender a tomar decisões (if/else) e poderá impedir a conta; por enquanto, o programa avisa usando uma comparação.
+
+Os outros dois exercícios treinam a precedência e o acompanhamento de valores.$c$, $c$Como montar uma calculadora:
+1. Leia os dois números com lerEntrada() e converta cada um com Number().
+2. Calcule cada operação: soma, subtração, multiplicação, divisão, resto.
+3. Mostre cada resultado com um rótulo, em uma linha de console.log.
+4. Para avisar sobre a divisão por zero, compare o divisor com 0 usando ===: o resultado é true ou false.
+5. Teste com casos simples e com o caso especial (divisor igual a 0): o programa não pode "quebrar".$c$, $c$- Aritméticos fazem as contas; relacionais e lógicos respondem com true ou false.
+- Atribuição guarda e atualiza valores (=, +=, ++...).
+- A precedência define a ordem; parênteses deixam a intenção clara.
+- Divisão por zero dá Infinity e o resto por zero dá NaN: vale testar o divisor antes.
+- Em toda comparação, use === (e não =).$c$, $c$mundo-3$c$, 307, $c$arquivo$c$),
   ($c$condicionais$c$, $c$Condicionais$c$, $c$Tomar decisões no fluxo do algoritmo$c$, $c$Condicionais fazem o programa escolher um caminho. A estrutura básica é:
 
 if (idade >= 18) {
@@ -951,6 +1133,99 @@ $c$, $c$[{"args":[2],"expected":4},{"args":[0],"expected":0},{"args":[-3],"expec
 }
 $c$, $c$[{"args":[10,10],"expected":10},{"args":[0,10],"expected":7},{"args":[10,0],"expected":3},{"args":[5,5],"expected":5},{"args":[6,8],"expected":7.4},{"args":[9,4],"expected":5.5}]$c$::jsonb, $c${}$c$::jsonb, $c$Multiplique cada nota pelo peso, some e divida por 10.$c$, 102, false, $c$arquivo$c$),
   ($c$completar-media$c$, $c$fundamentos$c$, $c$blank$c$, $c$Complete o cálculo da média$c$, $c$facil$c$, $c$Complete as lacunas para que a função retorne a média de dois números.$c$, $c$Os operadores aritméticos são + (soma), - (subtração), * (multiplicação) e / (divisão). Parênteses garantem que a soma aconteça antes da divisão.$c$, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function media(a, b) {\n  return (a {{1}} b) {{2}} 2;\n}","blanks":[{"answers":["+"]},{"answers":["/"]}],"explanation":"Primeiro somamos os dois valores e depois dividimos a soma por 2."}$c$::jsonb, $c$Média = soma dividida pela quantidade.$c$, 103, false, $c$arquivo$c$),
+  ($c$op-intro-quem-e-o-operador$c$, $c$introducao-aos-operadores$c$, $c$choice$c$, $c$Qual é o operador?$c$, $c$facil$c$, $c$Na expressão 7 + 2, qual é o operador?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"confunde operador com operando"},{"text":"+"},{"text":"2","misconception":"confunde operador com operando"},{"text":"7 + 2","misconception":"chama a expressão inteira de operador"}],"correct":1,"explanation":"O operador é o +. Os números 7 e 2 são os operandos, e a expressão toda é 7 + 2."}$c$::jsonb, $c$O operador é o símbolo que manda fazer a operação.$c$, 1, false, $c$arquivo$c$),
+  ($c$op-intro-grupo-relacional$c$, $c$introducao-aos-operadores$c$, $c$choice$c$, $c$Qual grupo compara valores?$c$, $c$facil$c$, $c$Qual grupo de operadores compara dois valores e resulta em true ou false?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Aritméticos","misconception":"confunde comparar valores com fazer contas"},{"text":"De atribuição","misconception":"confunde comparar com guardar um valor em uma variável"},{"text":"Lógicos","misconception":"confunde comparar valores com combinar resultados booleanos"},{"text":"Relacionais"}],"correct":3,"explanation":"Os operadores relacionais comparam dois valores e respondem com um boolean."}$c$::jsonb, $c$São os operadores de >, < e ===.$c$, 2, false, $c$arquivo$c$),
+  ($c$op-intro-complete-a-conta$c$, $c$introducao-aos-operadores$c$, $c$blank$c$, $c$Complete a conta$c$, $c$facil$c$, $c$Complete a linha com o operador que faz o programa mostrar 12.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const resultado = 4 {{1}} 3;\nconsole.log(resultado);","blanks":[{"answers":["*"]}],"explanation":"O operador * multiplica: 4 * 3 vale 12."}$c$::jsonb, $c$4 e 3 dão 12 quando um é multiplicado pelo outro.$c$, 3, false, $c$arquivo$c$),
+  ($c$op-intro-soma-e-comparacao$c$, $c$introducao-aos-operadores$c$, $c$interpretation$c$, $c$Conta e comparação$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"8\nfalse"},{"text":"8\ntrue","misconception":"acha que 4 é maior que 4"},{"text":"44\nfalse","misconception":"junta os números como se fossem textos"},{"text":"false\n8","misconception":"inverte a ordem dos resultados"}],"correct":0,"code":"const a = 4;\nconst b = 4;\nconsole.log(a + b);\nconsole.log(a > b);","explanation":"a + b vale 8 (número). a > b pergunta se 4 é maior que 4, e a resposta é false."}$c$::jsonb, $c$Uma linha faz uma conta; a outra, uma comparação.$c$, 4, false, $c$arquivo$c$),
+  ($c$op-intro-resultado-boolean$c$, $c$introducao-aos-operadores$c$, $c$choice$c$, $c$Qual expressão resulta em boolean?$c$, $c$medio$c$, $c$Qual destas expressões resulta em um valor boolean?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3 + 4","misconception":"acha que toda expressão com números resulta em boolean"},{"text":"3 * 4","misconception":"confunde uma conta com uma comparação"},{"text":"3 < 4"},{"text":"10 % 3","misconception":"confunde o resto de uma divisão com uma comparação"}],"correct":2,"explanation":"3 < 4 compara dois valores e resulta em true. As outras são contas e resultam em números."}$c$::jsonb, $c$Procure a expressão que faz uma pergunta.$c$, 5, false, $c$arquivo$c$),
+  ($c$op-intro-operador-unario$c$, $c$introducao-aos-operadores$c$, $c$choice$c$, $c$Um operando só$c$, $c$medio$c$, $c$Qual destes operadores é usado, normalmente, com um operando só?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"*","misconception":"acha que a multiplicação trabalha com um valor só"},{"text":"!"},{"text":"&&","misconception":"acha que o operador E trabalha com um valor só"},{"text":"===","misconception":"acha que a comparação trabalha com um valor só"}],"correct":1,"explanation":"O ! (NÃO) inverte um valor boolean e usa um operando só. Os outros operadores precisam de dois operandos."}$c$::jsonb, $c$Pense em qual deles aparece na frente de um valor, como em !true.$c$, 6, false, $c$arquivo$c$),
+  ($c$op-intro-varios-grupos$c$, $c$introducao-aos-operadores$c$, $c$interpretation$c$, $c$Os grupos juntos$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\n4","misconception":"esquece que x foi alterado para 6"},{"text":"true\n61","misconception":"junta o 6 e o 1 como texto"},{"text":"true\n4","misconception":"usa o valor antigo de x (3) na última linha"},{"text":"true\n7"}],"correct":3,"code":"let x = 3;\nx = x * 2;\nconsole.log(x > 5);\nconsole.log(x + 1);","explanation":"x passa a valer 6. Então x > 5 é true e x + 1 vale 7."}$c$::jsonb, $c$Acompanhe o valor de x depois de cada linha.$c$, 7, false, $c$arquivo$c$),
+  ($c$arit-operador-da-potencia$c$, $c$operadores-aritmeticos$c$, $c$choice$c$, $c$Qual operador é a potência?$c$, $c$facil$c$, $c$Qual operador calcula uma potência (2 elevado a 3)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"**"},{"text":"^","misconception":"usa o símbolo da matemática escrita, mas em JavaScript ele faz outra operação"},{"text":"*","misconception":"confunde potência com multiplicação"},{"text":"%","misconception":"confunde potência com resto da divisão"}],"correct":0,"explanation":"A potência usa **. Assim, 2 ** 3 vale 8. O ^ existe, mas faz outra operação (bit a bit)."}$c$::jsonb, $c$São dois asteriscos juntos.$c$, 1, false, $c$arquivo$c$),
+  ($c$arit-resto-de-vinte-por-seis$c$, $c$operadores-aritmeticos$c$, $c$interpretation$c$, $c$Quanto vale 20 % 6?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"mostra o quociente da divisão em vez do resto"},{"text":"3.3333333333333335","misconception":"mostra o resultado decimal da divisão"},{"text":"2"},{"text":"14","misconception":"calcula a diferença em vez do resto"}],"correct":2,"code":"console.log(20 % 6);","explanation":"6 cabe 3 vezes em 20 (18) e sobram 2. O % devolve essa sobra."}$c$::jsonb, $c$Quantas vezes o 6 cabe no 20? E o que sobra?$c$, 2, false, $c$arquivo$c$),
+  ($c$arit-complete-o-resto$c$, $c$operadores-aritmeticos$c$, $c$blank$c$, $c$Complete o resto$c$, $c$facil$c$, $c$Complete a linha para mostrar o resto da divisão de 17 por 5.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"console.log(17 {{1}} 5);","blanks":[{"answers":["%"]}],"explanation":"17 % 5 vale 2, porque 5 cabe 3 vezes em 17 e sobram 2."}$c$::jsonb, $c$Esse operador lembra o símbolo de porcentagem.$c$, 3, false, $c$arquivo$c$),
+  ($c$arit-tres-contas$c$, $c$operadores-aritmeticos$c$, $c$interpretation$c$, $c$Potência, produto e divisão$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6\n6\n4.5","misconception":"acha que ** multiplica, como o *"},{"text":"8\n6\n4.5"},{"text":"8\n6\n4","misconception":"acha que a divisão arredonda para um número inteiro"},{"text":"5\n6\n4.5","misconception":"confunde a potência com a soma"}],"correct":1,"code":"console.log(2 ** 3);\nconsole.log(2 * 3);\nconsole.log(9 / 2);","explanation":"2 ** 3 = 2 * 2 * 2 = 8, 2 * 3 = 6 e 9 / 2 = 4.5."}$c$::jsonb, $c$** é potência: 2 multiplicado por ele mesmo 3 vezes.$c$, 4, false, $c$arquivo$c$),
+  ($c$arit-ultimo-digito$c$, $c$operadores-aritmeticos$c$, $c$code$c$, $c$Último dígito$c$, $c$medio$c$, $c$Escreva a função `ultimoDigito(n)` que devolve o último dígito de um número inteiro positivo (por exemplo, 123 devolve 3).$c$, null, $c$ultimoDigito$c$, $c$function ultimoDigito(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[123],"expected":3},{"args":[40],"expected":0},{"args":[7],"expected":7},{"args":[2024],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$O resto da divisão por 10 é o que sobra depois de tirar as dezenas, centenas...$c$, 5, false, $c$arquivo$c$),
+  ($c$arit-parte-inteira$c$, $c$operadores-aritmeticos$c$, $c$choice$c$, $c$Parte inteira da divisão$c$, $c$medio$c$, $c$Qual expressão dá a parte inteira da divisão de 17 por 5 (isto é, 3)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"17 / 5","misconception":"esquece que a divisão em JavaScript dá resultado decimal (3.4)"},{"text":"17 % 5","misconception":"confunde a parte inteira (quociente) com o resto da divisão"},{"text":"17 // 5","misconception":"usa o operador de divisão inteira de outras linguagens; em JavaScript o // começa um comentário"},{"text":"Math.floor(17 / 5)"}],"correct":3,"explanation":"17 / 5 vale 3.4 e Math.floor arredonda para baixo, resultando em 3."}$c$::jsonb, $c$Faça a divisão decimal e depois arredonde para baixo.$c$, 6, false, $c$arquivo$c$),
+  ($c$arit-corrija-o-quadrado$c$, $c$operadores-aritmeticos$c$, $c$fix$c$, $c$Corrija o quadrado$c$, $c$medio$c$, $c$A função `quadrado(n)` deveria devolver n elevado a 2, mas devolve valores errados (por exemplo, 1 para n = 3). Corrija o defeito.$c$, null, $c$quadrado$c$, $c$function quadrado(n) {
+  return n ^ 2;
+}
+$c$, $c$[{"args":[3],"expected":9},{"args":[5],"expected":25},{"args":[0],"expected":0},{"args":[2],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$O sinal ^ não é o operador de potência em JavaScript.$c$, 7, false, $c$arquivo$c$),
+  ($c$arit-divisao-por-zero$c$, $c$operadores-aritmeticos$c$, $c$interpretation$c$, $c$Divisões estranhas$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Infinity\nNaN\n-Infinity\nNaN"},{"text":"Erro\nErro\nErro\nErro","misconception":"acha que toda divisão por zero para o programa com erro"},{"text":"0\n0\n0\n0","misconception":"acha que divisões por zero resultam em zero"},{"text":"Infinity\nInfinity\n-Infinity\n0","misconception":"acha que o resto por zero e 0 / 0 dão resultados numéricos finitos"}],"correct":0,"code":"console.log(10 / 0);\nconsole.log(10 % 0);\nconsole.log(-10 / 0);\nconsole.log(0 / 0);","explanation":"10 / 0 vale Infinity e -10 / 0 vale -Infinity. Já 10 % 0 e 0 / 0 não têm resultado numérico: NaN. Nenhuma delas causa erro."}$c$::jsonb, $c$Divisão por zero dá um infinito; o resto por zero e 0 / 0 não têm resultado válido.$c$, 8, false, $c$arquivo$c$),
+  ($c$atrib-o-que-faz-o-mais-igual$c$, $c$operadores-de-atribuicao$c$, $c$choice$c$, $c$O que faz x += 5?$c$, $c$facil$c$, $c$O que a instrução x += 5 faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Guarda o valor 5 em x, substituindo o que havia","misconception":"confunde += com a atribuição simples ="},{"text":"Compara x com 5","misconception":"confunde atribuição com comparação"},{"text":"Soma 5 ao valor atual de x e guarda o resultado em x"},{"text":"Mostra x + 5 sem alterar a variável","misconception":"acha que += só calcula e não guarda o resultado"}],"correct":2,"explanation":"O operador += usa o valor atual de x, soma 5 e guarda o resultado de volta em x."}$c$::jsonb, $c$x += 5 é uma forma curta de escrever x = x + 5.$c$, 1, false, $c$arquivo$c$),
+  ($c$atrib-somar-cinco$c$, $c$operadores-de-atribuicao$c$, $c$interpretation$c$, $c$Quanto vale n?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"acha que += substitui o valor em vez de somar"},{"text":"15"},{"text":"10","misconception":"acha que += não altera a variável"},{"text":"n + 5","misconception":"acha que o console.log mostra a expressão em vez do valor"}],"correct":1,"code":"let n = 10;\nn += 5;\nconsole.log(n);","explanation":"n += 5 faz n = n + 5, ou seja, 10 + 5 = 15."}$c$::jsonb, $c$n começa em 10 e depois recebe uma soma.$c$, 2, false, $c$arquivo$c$),
+  ($c$atrib-complete-o-contador$c$, $c$operadores-de-atribuicao$c$, $c$blank$c$, $c$Some um ao contador$c$, $c$facil$c$, $c$Complete a linha para aumentar o contador em 1.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let contador = 0;\ncontador{{1}};\nconsole.log(contador);","blanks":[{"answers":["++","+= 1"]}],"explanation":"contador++ aumenta o valor em 1. A forma contador += 1 faria o mesmo."}$c$::jsonb, $c$Há uma forma bem curta de somar 1.$c$, 3, false, $c$arquivo$c$),
+  ($c$atrib-varias-atualizacoes$c$, $c$operadores-de-atribuicao$c$, $c$interpretation$c$, $c$Atualizações em sequência$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"acha que só a primeira atualização altera a variável"},{"text":"10","misconception":"esquece da última atualização (a divisão)"},{"text":"4.4","misconception":"troca o -= por += na primeira atualização"},{"text":"2"}],"correct":3,"code":"let x = 8;\nx -= 3;\nx *= 2;\nx /= 5;\nconsole.log(x);","explanation":"x começa em 8; depois 8 - 3 = 5; depois 5 * 2 = 10; depois 10 / 5 = 2."}$c$::jsonb, $c$Cada linha usa o valor que x tem naquele momento.$c$, 4, false, $c$arquivo$c$),
+  ($c$atrib-forma-equivalente$c$, $c$operadores-de-atribuicao$c$, $c$choice$c$, $c$Forma equivalente$c$, $c$medio$c$, $c$Qual linha tem o mesmo efeito de total = total * 3?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"total *= 3"},{"text":"total =* 3","misconception":"escreve o operador composto com os símbolos invertidos"},{"text":"total * 3","misconception":"esquece de guardar o resultado na variável"},{"text":"total == 3","misconception":"confunde atribuição com comparação"}],"correct":0,"explanation":"total *= 3 multiplica o valor atual de total por 3 e guarda o resultado em total."}$c$::jsonb, $c$O operador composto começa com o símbolo da conta e termina com o =.$c$, 5, false, $c$arquivo$c$),
+  ($c$atrib-corrija-o-total$c$, $c$operadores-de-atribuicao$c$, $c$fix$c$, $c$Corrija a soma ao total$c$, $c$medio$c$, $c$A função `somarAoTotal(n)` deveria somar n ao total inicial 10, mas devolve apenas n. Corrija o defeito.$c$, null, $c$somarAoTotal$c$, $c$function somarAoTotal(n) {
+  let total = 10;
+  total =+ n;
+  return total;
+}
+$c$, $c$[{"args":[5],"expected":15},{"args":[0],"expected":10},{"args":[20],"expected":30}]$c$::jsonb, $c${}$c$::jsonb, $c$Compare a ordem dos dois símbolos: eles não são o mesmo operador.$c$, 6, false, $c$arquivo$c$),
+  ($c$atrib-aplicar-desconto$c$, $c$operadores-de-atribuicao$c$, $c$code$c$, $c$Aplicar desconto$c$, $c$medio$c$, $c$Escreva a função `aplicarDesconto(preco, percentual)` que devolve o preço depois do desconto percentual (por exemplo, 200 com 10% devolve 180). Use -= na solução.$c$, null, $c$aplicarDesconto$c$, $c$function aplicarDesconto(preco, percentual) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[200,10],"expected":180},{"args":[50,20],"expected":40},{"args":[100,0],"expected":100}]$c$::jsonb, $c${}$c$::jsonb, $c$Calcule o valor do desconto e subtraia do preço com -=.$c$, 7, false, $c$arquivo$c$),
+  ($c$atrib-texto-e-numero$c$, $c$operadores-de-atribuicao$c$, $c$interpretation$c$, $c$+= com texto e com número$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"15\n15","misconception":"acha que += sempre soma, mesmo com textos"},{"text":"555\n555","misconception":"acha que += sempre junta"},{"text":"555\n15"},{"text":"55\n15","misconception":"aplica o += só uma vez no texto"}],"correct":2,"code":"let texto = \"5\";\ntexto += 5;\ntexto += 5;\nconsole.log(texto);\nlet numero = 5;\nnumero += 5;\nnumero += 5;\nconsole.log(numero);","explanation":"Com o texto \"5\", cada += junta mais um 5: \"555\". Com o número 5, cada += soma: 5 + 5 + 5 = 15."}$c$::jsonb, $c$Com texto, += junta; com número, += soma.$c$, 8, false, $c$arquivo$c$),
+  ($c$rel-operador-de-igualdade$c$, $c$operadores-relacionais$c$, $c$choice$c$, $c$Qual operador compara a igualdade?$c$, $c$facil$c$, $c$Qual operador verifica se dois valores são iguais e do mesmo tipo?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"=","misconception":"confunde comparação com atribuição"},{"text":"==="},{"text":"==","misconception":"acha que o == também confere o tipo dos valores"},{"text":"!==","misconception":"confunde igualdade com diferença"}],"correct":1,"explanation":"=== compara valor e tipo. O = guarda um valor, e o == converte os tipos antes de comparar."}$c$::jsonb, $c$Tem três sinais de igual.$c$, 1, false, $c$arquivo$c$),
+  ($c$rel-maior-ou-igual$c$, $c$operadores-relacionais$c$, $c$interpretation$c$, $c$7 >= 7$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false","misconception":"acha que >= exige que o primeiro valor seja estritamente maior"},{"text":"7","misconception":"mostra o valor em vez do resultado da comparação"},{"text":"14","misconception":"acha que o sinal >= faz uma soma"},{"text":"true"}],"correct":3,"code":"console.log(7 >= 7);","explanation":"7 é igual a 7, então 7 >= 7 é true."}$c$::jsonb, $c$>= significa "maior ou igual".$c$, 2, false, $c$arquivo$c$),
+  ($c$rel-complete-a-comparacao$c$, $c$operadores-relacionais$c$, $c$blank$c$, $c$Maior de idade$c$, $c$facil$c$, $c$Complete a comparação para mostrar true se a idade for maior ou igual a 18.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const idade = 20;\nconsole.log(idade {{1}} 18);","blanks":[{"answers":[">="]}],"explanation":"idade >= 18 pergunta se a idade é maior ou igual a 18. Com 20, a resposta é true."}$c$::jsonb, $c$O operador começa com o sinal de maior.$c$, 3, false, $c$arquivo$c$),
+  ($c$rel-igual-estrito-e-frouxo$c$, $c$operadores-relacionais$c$, $c$interpretation$c$, $c$=== e ==$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\ntrue\ntrue"},{"text":"true\ntrue\nfalse","misconception":"acha que === ignora a diferença de tipo"},{"text":"false\nfalse\ntrue","misconception":"acha que == também diferencia os tipos"},{"text":"true\ntrue\ntrue","misconception":"acha que todas as comparações entre 5 e \"5\" são verdadeiras"}],"correct":0,"code":"console.log(5 === \"5\");\nconsole.log(5 == \"5\");\nconsole.log(5 !== \"5\");","explanation":"=== não aceita tipos diferentes (false). == converte o texto em número (true). !== diz que são diferentes (true)."}$c$::jsonb, $c$5 é um número e "5" é um texto.$c$, 4, false, $c$arquivo$c$),
+  ($c$rel-qual-linha-compara$c$, $c$operadores-relacionais$c$, $c$choice$c$, $c$Qual linha compara de verdade?$c$, $c$medio$c$, $c$Qual linha compara se idade é igual a 18, sem alterar a variável?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"idade = 18","misconception":"usa = (atribuição) no lugar de uma comparação"},{"text":"idade := 18","misconception":"usa um operador de outra linguagem"},{"text":"idade === 18"},{"text":"18 => idade","misconception":"troca o operador de comparação por outro símbolo"}],"correct":2,"explanation":"idade === 18 compara e resulta em true ou false. idade = 18 guardaria o valor 18 na variável."}$c$::jsonb, $c$Uma comparação não pode guardar nada na variável.$c$, 5, false, $c$arquivo$c$),
+  ($c$rel-pode-votar$c$, $c$operadores-relacionais$c$, $c$code$c$, $c$Pode votar?$c$, $c$medio$c$, $c$Escreva a função `podeVotar(idade)` que devolve true se a idade for 16 ou mais, e false caso contrário.$c$, null, $c$podeVotar$c$, $c$function podeVotar(idade) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[15],"expected":false},{"args":[16],"expected":true},{"args":[17],"expected":true},{"args":[70],"expected":true},{"args":[0],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Uma comparação já resulta em true ou false.$c$, 6, false, $c$arquivo$c$),
+  ($c$rel-corrija-a-igualdade$c$, $c$operadores-relacionais$c$, $c$fix$c$, $c$Corrija a igualdade$c$, $c$medio$c$, $c$A função `saoIguais(a, b)` deveria dizer se dois valores são iguais e do mesmo tipo, mas diz true para 5 e "5". Corrija o defeito.$c$, null, $c$saoIguais$c$, $c$function saoIguais(a, b) {
+  return a == b;
+}
+$c$, $c$[{"args":[5,5],"expected":true},{"args":[5,"5"],"expected":false},{"args":["a","a"],"expected":true},{"args":[0,false],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual operador também confere o tipo dos valores?$c$, 7, false, $c$arquivo$c$),
+  ($c$rel-comparando-textos$c$, $c$operadores-relacionais$c$, $c$interpretation$c$, $c$Ordem dos textos$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\nfalse\nfalse","misconception":"acha que as letras maiúsculas vêm depois das minúsculas"},{"text":"true\nfalse\ntrue"},{"text":"true\ntrue\ntrue","misconception":"ignora a ordem alfabética, comparando outra coisa, como o tamanho"},{"text":"false\ntrue\ntrue","misconception":"inverte a ordem alfabética"}],"correct":1,"code":"console.log(\"a\" < \"b\");\nconsole.log(\"banana\" < \"abacaxi\");\nconsole.log(\"Z\" < \"a\");","explanation":"\"a\" vem antes de \"b\" (true). \"banana\" começa com b, que vem depois de a (false). \"Z\" maiúsculo vem antes de \"a\" minúsculo (true)."}$c$::jsonb, $c$Textos são comparados letra por letra; as maiúsculas vêm antes das minúsculas.$c$, 8, false, $c$arquivo$c$),
+  ($c$rel-textos-de-numeros-e-decimais$c$, $c$operadores-relacionais$c$, $c$interpretation$c$, $c$Cuidados na comparação$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\nfalse\ntrue","misconception":"acha que comparar textos funciona como comparar números e que 0.1 + 0.2 é exatamente 0.3"},{"text":"false\nfalse\nfalse","misconception":"compara \"10\" e \"9\" como números"},{"text":"true\ntrue\nfalse","misconception":"acha que 10 é menor que 9"},{"text":"false\ntrue\nfalse"}],"correct":3,"code":"console.log(10 < 9);\nconsole.log(\"10\" < \"9\");\nconsole.log(0.1 + 0.2 === 0.3);","explanation":"10 < 9 é false (números). Já \"10\" < \"9\" compara textos: o \"1\" vem antes do \"9\", então é true. E 0.1 + 0.2 vale 0.30000000000000004, diferente de 0.3: false."}$c$::jsonb, $c$Textos são comparados letra por letra; e o computador guarda decimais de forma aproximada.$c$, 9, false, $c$arquivo$c$),
+  ($c$log-qual-e-o-e$c$, $c$operadores-logicos$c$, $c$choice$c$, $c$Qual operador é o E?$c$, $c$facil$c$, $c$Qual operador lógico significa E (os dois lados precisam ser verdadeiros)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"&&"},{"text":"||","misconception":"confunde o operador E com o operador OU"},{"text":"!","misconception":"confunde o operador E com o operador NÃO"},{"text":"&","misconception":"usa um único &, que é outro operador"}],"correct":0,"explanation":"&& é o operador E: só resulta em true se os dois lados forem true."}$c$::jsonb, $c$São dois símbolos iguais, que lembram o "e" comercial.$c$, 1, false, $c$arquivo$c$),
+  ($c$log-o-que-e-o-ou$c$, $c$operadores-logicos$c$, $c$choice$c$, $c$O que o || significa?$c$, $c$facil$c$, $c$O que o operador || faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Resulta em true só se os dois lados forem true","misconception":"confunde o operador OU com o operador E"},{"text":"Inverte o valor de um boolean","misconception":"confunde o operador OU com o operador NÃO"},{"text":"Resulta em true se pelo menos um dos lados for true"},{"text":"Compara se dois valores são iguais","misconception":"confunde um operador lógico com um relacional"}],"correct":2,"explanation":"O || é o OU: basta que um dos lados seja true para o resultado ser true."}$c$::jsonb, $c$Pense na frase "tenho cartão OU dinheiro".$c$, 2, false, $c$arquivo$c$),
+  ($c$log-true-e-false$c$, $c$operadores-logicos$c$, $c$interpretation$c$, $c$true && false$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true","misconception":"acha que o && precisa de apenas um lado verdadeiro, como o ||"},{"text":"false"},{"text":"true && false","misconception":"acha que o console.log mostra a expressão"},{"text":"undefined","misconception":"acha que combinar valores diferentes não tem resultado"}],"correct":1,"code":"console.log(true && false);","explanation":"Como um dos lados é false, o && resulta em false."}$c$::jsonb, $c$O E só dá true quando os dois lados são true.$c$, 3, false, $c$arquivo$c$),
+  ($c$log-complete-o-ou$c$, $c$operadores-logicos$c$, $c$blank$c$, $c$Cartão ou dinheiro$c$, $c$facil$c$, $c$Complete a linha para mostrar true se o cliente tiver cartão OU dinheiro.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const temCartao = false;\nconst temDinheiro = true;\nconsole.log(temCartao {{1}} temDinheiro);","blanks":[{"answers":["||"]}],"explanation":"temCartao || temDinheiro resulta em true, porque temDinheiro é true."}$c$::jsonb, $c$Use o operador que aceita que apenas um dos lados seja verdadeiro.$c$, 4, false, $c$arquivo$c$),
+  ($c$log-quatro-combinacoes$c$, $c$operadores-logicos$c$, $c$interpretation$c$, $c$Quatro combinações$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\ntrue\ntrue\ntrue","misconception":"acha que o || sempre resulta em true"},{"text":"true\nfalse\ntrue\nfalse","misconception":"ignora a inversão feita pelo !"},{"text":"false\nfalse\nfalse\ntrue","misconception":"acha que o || precisa dos dois lados verdadeiros"},{"text":"true\nfalse\nfalse\ntrue"}],"correct":3,"code":"console.log(true || false);\nconsole.log(false || false);\nconsole.log(!true);\nconsole.log(!false && true);","explanation":"true || false é true; false || false é false; !true é false; e !false vale true, então true && true é true."}$c$::jsonb, $c$Use a tabela-verdade e lembre que ! inverte o valor.$c$, 5, false, $c$arquivo$c$),
+  ($c$log-pode-entrar$c$, $c$operadores-logicos$c$, $c$code$c$, $c$Pode entrar?$c$, $c$medio$c$, $c$Escreva a função `podeEntrar(idade, temIngresso)` que devolve true apenas se a pessoa tiver 18 anos ou mais E tiver ingresso.$c$, null, $c$podeEntrar$c$, $c$function podeEntrar(idade, temIngresso) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[20,true],"expected":true},{"args":[17,true],"expected":false},{"args":[30,false],"expected":false},{"args":[18,true],"expected":true},{"args":[5,false],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Combine uma comparação com o valor temIngresso usando o operador E.$c$, 6, false, $c$arquivo$c$),
+  ($c$log-comparacoes-combinadas$c$, $c$operadores-logicos$c$, $c$interpretation$c$, $c$Autorização$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\ntrue\ntrue"},{"text":"true\ntrue\nfalse","misconception":"avalia idade >= 18 como se fosse verdadeiro"},{"text":"false\nfalse\ntrue","misconception":"acha que o || exige que os dois lados sejam true"},{"text":"false\ntrue\nfalse","misconception":"esquece de inverter o resultado com o !"}],"correct":0,"code":"const idade = 16;\nconst temAutorizacao = true;\nconsole.log(idade >= 18 && temAutorizacao);\nconsole.log(idade >= 18 || temAutorizacao);\nconsole.log(!(idade >= 18));","explanation":"idade >= 18 é false. false && true é false; false || true é true; e !(false) é true."}$c$::jsonb, $c$idade >= 18 é false para 16. Aplique cada operador a partir desse resultado.$c$, 7, false, $c$arquivo$c$),
+  ($c$log-entre-dois-valores$c$, $c$operadores-logicos$c$, $c$choice$c$, $c$Entre 1 e 10$c$, $c$medio$c$, $c$Qual expressão é true quando x está entre 1 e 10 (inclusive)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"x >= 1 || x <= 10","misconception":"usa OU, que fica verdadeiro para qualquer número"},{"text":"1 <= x <= 10","misconception":"escreve como na matemática, mas o JavaScript avalia de outra forma"},{"text":"x >= 1 && x <= 10"},{"text":"x === 1 && x === 10","misconception":"exige que x seja igual aos dois valores ao mesmo tempo"}],"correct":2,"explanation":"As duas comparações precisam ser verdadeiras: x >= 1 e x <= 10. Por isso usamos o &&."}$c$::jsonb, $c$x precisa passar nas duas condições ao mesmo tempo.$c$, 8, false, $c$arquivo$c$),
+  ($c$log-corrija-o-intervalo$c$, $c$operadores-logicos$c$, $c$fix$c$, $c$Corrija o intervalo$c$, $c$dificil$c$, $c$A função `foraDoIntervalo(n)` deveria devolver true quando n é menor que 0 ou maior que 100, mas devolve sempre false. Corrija o defeito.$c$, null, $c$foraDoIntervalo$c$, $c$function foraDoIntervalo(n) {
+  return n < 0 && n > 100;
+}
+$c$, $c$[{"args":[-5],"expected":true},{"args":[150],"expected":true},{"args":[50],"expected":false},{"args":[0],"expected":false},{"args":[100],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Nenhum número é menor que 0 e maior que 100 ao mesmo tempo.$c$, 9, false, $c$arquivo$c$),
+  ($c$log-precedencia-dos-logicos$c$, $c$operadores-logicos$c$, $c$interpretation$c$, $c$Quem vem primeiro?$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\nfalse\nfalse\nfalse","misconception":"resolve o || antes do && na primeira linha, ignorando a precedência"},{"text":"true\nfalse\nfalse\nfalse"},{"text":"true\ntrue\nfalse\nfalse","misconception":"ignora o efeito dos parênteses na segunda linha"},{"text":"true\nfalse\ntrue\ntrue","misconception":"ignora o efeito do ! nas duas últimas linhas"}],"correct":1,"code":"const a = true;\nconst b = false;\nconst c = false;\nconsole.log(a || b && c);\nconsole.log((a || b) && c);\nconsole.log(!a || b);\nconsole.log(!(a || b));","explanation":"Linha 1: b && c é false, então a || false é true. Linha 2: (a || b) é true, e true && c é false. Linha 3: !a é false, e false || b é false. Linha 4: (a || b) é true e o ! inverte para false."}$c$::jsonb, $c$O && é resolvido antes do ||, e os parênteses mudam essa ordem.$c$, 10, false, $c$arquivo$c$),
+  ($c$prec-o-que-vem-primeiro$c$, $c$precedencia-dos-operadores$c$, $c$choice$c$, $c$O que vem primeiro?$c$, $c$facil$c$, $c$Em 2 + 3 * 4, qual operação é feita primeiro?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2 + 3","misconception":"faz as operações da esquerda para a direita, ignorando a precedência"},{"text":"Todas ao mesmo tempo","misconception":"acha que o computador resolve tudo simultaneamente"},{"text":"A última da direita, sempre","misconception":"acha que a operação mais à direita é sempre a primeira"},{"text":"3 * 4"}],"correct":3,"explanation":"A multiplicação tem precedência sobre a soma, então 3 * 4 é feito primeiro."}$c$::jsonb, $c$Como na matemática, uma das operações tem prioridade.$c$, 1, false, $c$arquivo$c$),
+  ($c$prec-dois-mais-tres-vezes-quatro$c$, $c$precedencia-dos-operadores$c$, $c$interpretation$c$, $c$Quanto vale 2 + 3 * 4?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"14"},{"text":"20","misconception":"faz as operações da esquerda para a direita, ignorando a precedência"},{"text":"9","misconception":"soma todos os números"},{"text":"234","misconception":"junta os números como se fossem textos"}],"correct":0,"code":"console.log(2 + 3 * 4);","explanation":"3 * 4 = 12 e depois 2 + 12 = 14."}$c$::jsonb, $c$Primeiro a multiplicação, depois a soma.$c$, 2, false, $c$arquivo$c$),
+  ($c$prec-complete-os-parenteses$c$, $c$precedencia-dos-operadores$c$, $c$blank$c$, $c$Mude a ordem$c$, $c$facil$c$, $c$Complete com parênteses para que o programa mostre 20 (a soma deve ser feita antes da multiplicação).$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"console.log({{1}}2 + 3{{2}} * 4);","blanks":[{"answers":["("]},{"answers":[")"]}],"explanation":"(2 + 3) * 4 faz primeiro a soma (5) e depois a multiplicação: 20."}$c$::jsonb, $c$Os parênteses forçam uma conta a ser feita antes das outras.$c$, 3, false, $c$arquivo$c$),
+  ($c$prec-esquerda-direita$c$, $c$precedencia-dos-operadores$c$, $c$interpretation$c$, $c$Esquerda para a direita$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"9\n20\n512","misconception":"resolve subtração e divisão da direita para a esquerda"},{"text":"3\n5\n64","misconception":"acha que a potência também vai da esquerda para a direita"},{"text":"3\n5\n512"},{"text":"3\n20\n64","misconception":"mistura a ordem das operações em cada linha"}],"correct":2,"code":"console.log(10 - 4 - 3);\nconsole.log(100 / 10 / 2);\nconsole.log(2 ** 3 ** 2);","explanation":"10 - 4 - 3 = 6 - 3 = 3; 100 / 10 / 2 = 10 / 2 = 5; e 2 ** 3 ** 2 = 2 ** 9 = 512 (a potência vai da direita para a esquerda)."}$c$::jsonb, $c$A maioria dos operadores vai da esquerda para a direita; a potência é a exceção.$c$, 4, false, $c$arquivo$c$),
+  ($c$prec-contas-e-comparacoes$c$, $c$precedencia-dos-operadores$c$, $c$interpretation$c$, $c$Contas antes das comparações$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\ntrue\ntrue","misconception":"faz as contas da esquerda para a direita, antes de multiplicar"},{"text":"true\ntrue\nfalse"},{"text":"true\nfalse\nfalse","misconception":"acha que 2 * 3 não é igual a 6"},{"text":"false\ntrue\nfalse","misconception":"avalia 5 + 3 > 7 como falso"}],"correct":1,"code":"console.log(5 + 3 > 7);\nconsole.log(2 * 3 === 6);\nconsole.log(10 - 2 * 3 > 5);","explanation":"5 + 3 > 7 vira 8 > 7 (true). 2 * 3 === 6 vira 6 === 6 (true). 10 - 2 * 3 > 5 vira 10 - 6 > 5, isto é 4 > 5 (false)."}$c$::jsonb, $c$As contas são resolvidas antes das comparações, e a multiplicação antes da subtração.$c$, 8, false, $c$arquivo$c$),
+  ($c$prec-qual-expressao-da-24$c$, $c$precedencia-dos-operadores$c$, $c$choice$c$, $c$Qual expressão dá 24?$c$, $c$medio$c$, $c$Qual destas expressões tem como resultado 24?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2 + 4 * 4","misconception":"ignora a precedência: a multiplicação vem antes da soma (resultado 18)"},{"text":"2 * 4 + 4","misconception":"multiplica primeiro e soma depois (resultado 12)"},{"text":"2 + 4 + 4","misconception":"soma tudo, em vez de multiplicar (resultado 10)"},{"text":"(2 + 4) * 4"}],"correct":3,"explanation":"(2 + 4) * 4 = 6 * 4 = 24. Sem parênteses, 2 + 4 * 4 daria 18."}$c$::jsonb, $c$Para a soma vir antes da multiplicação, é preciso parênteses.$c$, 5, false, $c$arquivo$c$),
+  ($c$prec-celsius-para-fahrenheit$c$, $c$precedencia-dos-operadores$c$, $c$code$c$, $c$Celsius para Fahrenheit$c$, $c$medio$c$, $c$Escreva a função `fahrenheit(c)` que converte graus Celsius em Fahrenheit: multiplique por 9, divida por 5 e some 32.$c$, null, $c$fahrenheit$c$, $c$function fahrenheit(c) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[0],"expected":32},{"args":[100],"expected":212},{"args":[10],"expected":50},{"args":[-40],"expected":-40}]$c$::jsonb, $c${}$c$::jsonb, $c$A multiplicação e a divisão vêm antes da soma, e parênteses só são necessários se você quiser mudar essa ordem.$c$, 6, false, $c$arquivo$c$),
+  ($c$prec-corrija-a-media$c$, $c$precedencia-dos-operadores$c$, $c$fix$c$, $c$Corrija a média$c$, $c$medio$c$, $c$A função `media(a, b)` deveria devolver a média aritmética de dois números, mas devolve valores errados (por exemplo, 7 para 4 e 6). Corrija o defeito.$c$, null, $c$media$c$, $c$function media(a, b) {
+  return a + b / 2;
+}
+$c$, $c$[{"args":[4,6],"expected":5},{"args":[10,10],"expected":10},{"args":[0,8],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$A divisão é feita antes da soma. O que precisa ser dividido por 2?$c$, 7, false, $c$arquivo$c$),
+  ($c$prec-logicos-e-parenteses$c$, $c$precedencia-dos-operadores$c$, $c$interpretation$c$, $c$Parênteses e lógica$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\nfalse\ntrue"},{"text":"false\nfalse\ntrue","misconception":"resolve o || antes do && na primeira linha"},{"text":"true\ntrue\ntrue","misconception":"ignora o efeito dos parênteses na segunda linha"},{"text":"true\nfalse\nfalse","misconception":"aplica o ! a toda a expressão da terceira linha, e não só ao que está entre parênteses"}],"correct":0,"code":"const a = 2;\nconst b = 10;\nconsole.log(a > 3 && b < 5 || a === 2);\nconsole.log(a > 3 && (b < 5 || a === 2));\nconsole.log(!(a > 3) || b === 10 && a < 1);","explanation":"Linha 1: (false && false) || true é true. Linha 2: false && (...) é false. Linha 3: !(false) é true, e true || (...) é true."}$c$::jsonb, $c$O && vem antes do ||, e os parênteses mudam o agrupamento.$c$, 9, false, $c$arquivo$c$),
+  ($c$desafio3-calculadora$c$, $c$desafio-do-mundo-3$c$, $c$challenge$c$, $c$Desafio: calculadora simples$c$, $c$dificil$c$, $c$Escreva a função `calculadora()`: leia dois números com `lerEntrada()` (chegam como texto) e mostre seis linhas com `console.log`: Soma, Subtração, Multiplicação, Divisão, Resto e Divisão por zero? (true ou false, comparando o segundo número com 0). Use o formato `Rótulo: valor`.$c$, null, $c$calculadora$c$, $c$function calculadora() {
+  // leia os dois números e mostre as seis linhas
+}
+$c$, $c$[{"args":[],"inputs":["12","4"],"output":["Soma: 16","Subtração: 8","Multiplicação: 48","Divisão: 3","Resto: 0","Divisão por zero? false"]},{"args":[],"inputs":["7","2"],"output":["Soma: 9","Subtração: 5","Multiplicação: 14","Divisão: 3.5","Resto: 1","Divisão por zero? false"]},{"args":[],"inputs":["10","0"],"output":["Soma: 10","Subtração: 10","Multiplicação: 0","Divisão: Infinity","Resto: NaN","Divisão por zero? true"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Converta as duas entradas com Number() e use o segundo número em uma comparação com ===.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio3-corrija-a-aprovacao$c$, $c$desafio-do-mundo-3$c$, $c$fix$c$, $c$Desafio: corrija a aprovação$c$, $c$dificil$c$, $c$A função `aprovado(n1, n2, frequencia)` deveria devolver true se a média das duas notas for 7 ou mais E a frequência for 75 ou mais. Hoje ela aprova alunos que não deveriam ser aprovados. Corrija o defeito.$c$, null, $c$aprovado$c$, $c$function aprovado(n1, n2, frequencia) {
+  const media = n1 + n2 / 2;
+  return media >= 7 && frequencia >= 75;
+}
+$c$, $c$[{"args":[6,8,80],"expected":true},{"args":[6,8,70],"expected":false},{"args":[5,5,90],"expected":false},{"args":[10,4,75],"expected":true},{"args":[8,8,60],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Olhe com atenção para o cálculo da média: o que a divisão afeta?$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio3-acompanhe-o-saldo$c$, $c$desafio-do-mundo-3$c$, $c$interpretation$c$, $c$Desafio: acompanhe o saldo$c$, $c$dificil$c$, $c$Acompanhe o valor de cada variável a cada linha. O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"60\ntrue\ntrue","misconception":"acha que podeComprarOutro acompanha o saldo e é recalculado"},{"text":"40\nfalse\ntrue","misconception":"esquece a atualização feita com += depois da comparação"},{"text":"60\nfalse\ntrue"},{"text":"60\nfalse\nfalse","misconception":"acha que >= exige que o primeiro valor seja estritamente maior"}],"correct":2,"code":"let saldo = 100;\nconst preco = 60;\nsaldo -= preco;\nconst podeComprarOutro = saldo >= preco;\nsaldo += 10 * 2;\nconsole.log(saldo);\nconsole.log(podeComprarOutro);\nconsole.log(saldo >= preco && saldo % 2 === 0 || saldo === 0);","explanation":"saldo vira 40 e podeComprarOutro é 40 >= 60, isto é, false (guardado nesse momento). Depois saldo += 20 deixa o saldo em 60. Na última linha: 60 >= 60 é true e 60 % 2 === 0 também, então o resultado é true."}$c$::jsonb, $c$podeComprarOutro guarda o resultado da comparação feita naquele momento, e não é atualizado depois.$c$, 3, false, $c$arquivo$c$),
   ($c$par-ou-impar$c$, $c$condicionais$c$, $c$code$c$, $c$Par ou ímpar$c$, $c$facil$c$, $c$Escreva `parOuImpar(n)` que retorna a string "par" ou "impar".$c$, null, $c$parOuImpar$c$, $c$function parOuImpar(n) {
   // seu código aqui
 }
@@ -1214,6 +1489,54 @@ from (values
   ($c$media-ponderada$c$, $c$function mediaPonderada(a, b) {
   return (a * 3 + b * 7) / 10;
 }$c$, $c$$c$),
+  ($c$arit-ultimo-digito$c$, $c$function ultimoDigito(n) {
+  return n % 10;
+}$c$, $c$n % 10 devolve o que sobra da divisão por 10, que é exatamente o último dígito.$c$),
+  ($c$arit-corrija-o-quadrado$c$, $c$function quadrado(n) {
+  return n ** 2;
+}$c$, $c$Em JavaScript, ^ é outro operador (bit a bit), por isso 3 ^ 2 dá 1. A potência é escrita com **: n ** 2.$c$),
+  ($c$atrib-corrija-o-total$c$, $c$function somarAoTotal(n) {
+  let total = 10;
+  total += n;
+  return total;
+}$c$, $c$total =+ n guarda o valor +n em total, apagando o 10. O operador de soma e atribuição é +=.$c$),
+  ($c$atrib-aplicar-desconto$c$, $c$function aplicarDesconto(preco, percentual) {
+  const desconto = preco * percentual / 100;
+  preco -= desconto;
+  return preco;
+}$c$, $c$O desconto é preco * percentual / 100. Com preco -= desconto, o preço é atualizado e devolvido.$c$),
+  ($c$rel-pode-votar$c$, $c$function podeVotar(idade) {
+  return idade >= 16;
+}$c$, $c$idade >= 16 resulta em true ou false, que é exatamente o que a função deve devolver.$c$),
+  ($c$rel-corrija-a-igualdade$c$, $c$function saoIguais(a, b) {
+  return a === b;
+}$c$, $c$O == converte os tipos antes de comparar (5 == "5" e 0 == false são true). O === exige o mesmo tipo.$c$),
+  ($c$log-pode-entrar$c$, $c$function podeEntrar(idade, temIngresso) {
+  return idade >= 18 && temIngresso;
+}$c$, $c$idade >= 18 && temIngresso só é true quando a comparação e temIngresso forem verdadeiros ao mesmo tempo.$c$),
+  ($c$log-corrija-o-intervalo$c$, $c$function foraDoIntervalo(n) {
+  return n < 0 || n > 100;
+}$c$, $c$Com &&, as duas condições precisam valer juntas, o que nunca acontece. Com ||, basta que uma delas seja verdadeira.$c$),
+  ($c$prec-celsius-para-fahrenheit$c$, $c$function fahrenheit(c) {
+  return c * 9 / 5 + 32;
+}$c$, $c$c * 9 / 5 + 32 faz a multiplicação e a divisão (da esquerda para a direita) antes de somar 32.$c$),
+  ($c$prec-corrija-a-media$c$, $c$function media(a, b) {
+  return (a + b) / 2;
+}$c$, $c$Sem parênteses, só o b é dividido por 2. A média é (a + b) / 2.$c$),
+  ($c$desafio3-calculadora$c$, $c$function calculadora() {
+  const a = Number(lerEntrada());
+  const b = Number(lerEntrada());
+  console.log("Soma:", a + b);
+  console.log("Subtração:", a - b);
+  console.log("Multiplicação:", a * b);
+  console.log("Divisão:", a / b);
+  console.log("Resto:", a % b);
+  console.log("Divisão por zero?", b === 0);
+}$c$, $c$O programa converte as entradas, calcula cada operação e mostra o resultado. Com divisor 0 a divisão dá Infinity e o resto dá NaN, e a comparação b === 0 avisa o problema.$c$),
+  ($c$desafio3-corrija-a-aprovacao$c$, $c$function aprovado(n1, n2, frequencia) {
+  const media = (n1 + n2) / 2;
+  return media >= 7 && frequencia >= 75;
+}$c$, $c$Sem parênteses, só n2 era dividido por 2. A média correta é (n1 + n2) / 2, e o restante da função, com &&, já estava certo.$c$),
   ($c$par-ou-impar$c$, $c$function parOuImpar(n) {
   return n % 2 === 0 ? "par" : "impar";
 }$c$, $c$$c$),
@@ -1350,7 +1673,7 @@ on conflict (exercise_id) do update set solution = excluded.solution, commentary
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -1616,6 +1939,88 @@ from (values
   ($c$media-ponderada$c$, $c$m7-return$c$, 1),
   ($c$completar-media$c$, $c$m3-precedencia$c$, 2),
   ($c$completar-media$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$op-intro-quem-e-o-operador$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-grupo-relacional$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-complete-a-conta$c$, $c$m3-introducao-operadores$c$, 2),
+  ($c$op-intro-soma-e-comparacao$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-soma-e-comparacao$c$, $c$m3-relacionais$c$, 1),
+  ($c$op-intro-resultado-boolean$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-resultado-boolean$c$, $c$m3-relacionais$c$, 1),
+  ($c$op-intro-operador-unario$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-operador-unario$c$, $c$m3-logicos$c$, 1),
+  ($c$op-intro-varios-grupos$c$, $c$m3-introducao-operadores$c$, 3),
+  ($c$op-intro-varios-grupos$c$, $c$m3-atribuicao$c$, 1),
+  ($c$op-intro-varios-grupos$c$, $c$m3-relacionais$c$, 1),
+  ($c$arit-operador-da-potencia$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-resto-de-vinte-por-seis$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-complete-o-resto$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$arit-tres-contas$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-ultimo-digito$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-parte-inteira$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-corrija-o-quadrado$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$arit-divisao-por-zero$c$, $c$m3-aritmeticos$c$, 3),
+  ($c$atrib-o-que-faz-o-mais-igual$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-somar-cinco$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-complete-o-contador$c$, $c$m3-atribuicao$c$, 2),
+  ($c$atrib-varias-atualizacoes$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-forma-equivalente$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-corrija-o-total$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-aplicar-desconto$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-aplicar-desconto$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$atrib-texto-e-numero$c$, $c$m3-atribuicao$c$, 3),
+  ($c$atrib-texto-e-numero$c$, $c$m2-concatenacao$c$, 1),
+  ($c$rel-operador-de-igualdade$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-maior-ou-igual$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-complete-a-comparacao$c$, $c$m3-relacionais$c$, 2),
+  ($c$rel-igual-estrito-e-frouxo$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-qual-linha-compara$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-qual-linha-compara$c$, $c$m3-atribuicao$c$, 1),
+  ($c$rel-pode-votar$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-corrija-a-igualdade$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-comparando-textos$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-comparando-textos$c$, $c$m2-string$c$, 1),
+  ($c$rel-textos-de-numeros-e-decimais$c$, $c$m3-relacionais$c$, 3),
+  ($c$rel-textos-de-numeros-e-decimais$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$log-qual-e-o-e$c$, $c$m3-logicos$c$, 3),
+  ($c$log-o-que-e-o-ou$c$, $c$m3-logicos$c$, 3),
+  ($c$log-true-e-false$c$, $c$m3-logicos$c$, 3),
+  ($c$log-complete-o-ou$c$, $c$m3-logicos$c$, 2),
+  ($c$log-quatro-combinacoes$c$, $c$m3-logicos$c$, 3),
+  ($c$log-pode-entrar$c$, $c$m3-logicos$c$, 3),
+  ($c$log-pode-entrar$c$, $c$m3-relacionais$c$, 2),
+  ($c$log-comparacoes-combinadas$c$, $c$m3-logicos$c$, 3),
+  ($c$log-comparacoes-combinadas$c$, $c$m3-relacionais$c$, 2),
+  ($c$log-entre-dois-valores$c$, $c$m3-logicos$c$, 3),
+  ($c$log-entre-dois-valores$c$, $c$m3-relacionais$c$, 2),
+  ($c$log-corrija-o-intervalo$c$, $c$m3-logicos$c$, 3),
+  ($c$log-corrija-o-intervalo$c$, $c$m3-relacionais$c$, 2),
+  ($c$log-precedencia-dos-logicos$c$, $c$m3-logicos$c$, 3),
+  ($c$log-precedencia-dos-logicos$c$, $c$m3-precedencia$c$, 2),
+  ($c$prec-o-que-vem-primeiro$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-dois-mais-tres-vezes-quatro$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-complete-os-parenteses$c$, $c$m3-precedencia$c$, 2),
+  ($c$prec-esquerda-direita$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-contas-e-comparacoes$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-contas-e-comparacoes$c$, $c$m3-relacionais$c$, 2),
+  ($c$prec-qual-expressao-da-24$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-celsius-para-fahrenheit$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-celsius-para-fahrenheit$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$prec-corrija-a-media$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-corrija-a-media$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$prec-logicos-e-parenteses$c$, $c$m3-precedencia$c$, 3),
+  ($c$prec-logicos-e-parenteses$c$, $c$m3-logicos$c$, 2),
+  ($c$desafio3-calculadora$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$desafio3-calculadora$c$, $c$m3-relacionais$c$, 2),
+  ($c$desafio3-calculadora$c$, $c$m3-precedencia$c$, 1),
+  ($c$desafio3-calculadora$c$, $c$m2-entrada-saida$c$, 1),
+  ($c$desafio3-calculadora$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$desafio3-corrija-a-aprovacao$c$, $c$m3-precedencia$c$, 3),
+  ($c$desafio3-corrija-a-aprovacao$c$, $c$m3-logicos$c$, 2),
+  ($c$desafio3-corrija-a-aprovacao$c$, $c$m3-relacionais$c$, 1),
+  ($c$desafio3-acompanhe-o-saldo$c$, $c$m3-atribuicao$c$, 2),
+  ($c$desafio3-acompanhe-o-saldo$c$, $c$m3-relacionais$c$, 2),
+  ($c$desafio3-acompanhe-o-saldo$c$, $c$m3-logicos$c$, 2),
+  ($c$desafio3-acompanhe-o-saldo$c$, $c$m3-aritmeticos$c$, 1),
   ($c$par-ou-impar$c$, $c$m4-if-else$c$, 2),
   ($c$par-ou-impar$c$, $c$m3-aritmeticos$c$, 1),
   ($c$maior-de-tres$c$, $c$m4-if$c$, 2),
@@ -1683,7 +2088,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

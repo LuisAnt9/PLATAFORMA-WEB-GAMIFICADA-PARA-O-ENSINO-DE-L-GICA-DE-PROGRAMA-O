@@ -1,0 +1,190 @@
+{
+  "id": "concatenacao",
+  "mundo": "mundo-2",
+  "titulo": "Concatenação",
+  "foco": "Juntar textos com o operador +",
+  "posicao": 208,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Concatenar é juntar textos. Em JavaScript, usamos o operador +.\n\n- \"Bom\" + \"dia\" resulta em \"Bomdia\": o + não coloca espaço, então precisamos escrevê-lo: \"Bom\" + \" \" + \"dia\".\n- Quando um dos lados é texto, o + junta em vez de somar. Por isso \"Idade: \" + 20 resulta em \"Idade: 20\".\n- Cuidado: \"5\" + 3 resulta em \"53\" (junção de textos), mas 5 + 3 resulta em 8 (soma de números).\n- Quando há vários + seguidos, o computador resolve da esquerda para a direita, trocando de comportamento assim que aparece um texto: 1 + 2 + \"3\" resulta em \"33\" e \"1\" + 2 + 3 resulta em \"123\".",
+  "exemplo": "const nome = \"Ana\";\nconst sobrenome = \"Lima\";\nconsole.log(nome + sobrenome);          // AnaLima\nconsole.log(nome + \" \" + sobrenome);    // Ana Lima\nconsole.log(\"Idade: \" + 20);            // Idade: 20\nconsole.log(\"5\" + 3);                   // 53\nconsole.log(5 + 3);                     // 8\n\nPasso a passo:\n1. Sem espaço entre as variáveis, os textos grudam: AnaLima.\n2. O espaço entra como um texto pequeno: \" \".\n3. Um número ao lado de um texto vira texto: \"Idade: \" + 20 dá \"Idade: 20\".\n4. \"5\" + 3 junta (53), mas 5 + 3 soma (8). A diferença está nas aspas.",
+  "revisao": "- O operador + junta textos (concatenação).\n- O + não coloca espaços sozinho: escreva-os entre aspas.\n- Se um dos lados é texto, o + junta; se os dois são números, soma.\n- \"5\" + 3 é \"53\", e 5 + 3 é 8.\n- Em uma sequência de +, a conta vai da esquerda para a direita.",
+  "exercicios": [
+    {
+      "id": "concat-operador",
+      "tipo": "escolha",
+      "titulo": "Qual operador junta textos?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 }
+      ],
+      "enunciado": "Qual operador junta dois textos em JavaScript?",
+      "opcoes": [
+        { "texto": "&", "confusao": "usa o operador de outras linguagens" },
+        "+",
+        { "texto": ".", "confusao": "usa o operador de outras linguagens" },
+        { "texto": ",", "confusao": "confunde com a vírgula que separa valores no console.log" }
+      ],
+      "correta": 1,
+      "dica": "É o mesmo sinal usado para somar números.",
+      "explicacao": "O operador + junta textos. Com números dos dois lados, ele soma."
+    },
+    {
+      "id": "concat-bom-dia",
+      "tipo": "interpretacao",
+      "titulo": "Texto grudado",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = \"Bom\";\nconst b = \"dia\";\nconsole.log(a + b);",
+      "opcoes": [
+        { "texto": "Bom dia", "confusao": "acha que o + coloca um espaço automaticamente" },
+        { "texto": "Bom+dia", "confusao": "acha que o console.log mostra o sinal +" },
+        {
+          "texto": "undefined",
+          "confusao": "acha que juntar textos não funciona sem um terceiro valor"
+        },
+        "Bomdia"
+      ],
+      "correta": 3,
+      "dica": "O + junta exatamente o que está nos dois textos.",
+      "explicacao": "Os textos são juntados sem nada no meio: Bomdia. Para ter espaço, seria preciso concatenar também \" \"."
+    },
+    {
+      "id": "concat-complete-ola",
+      "tipo": "lacuna",
+      "titulo": "Complete a saudação",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 2 }
+      ],
+      "enunciado": "Complete o programa para mostrar Olá, Ana (com o nome vindo da variável).",
+      "modelo": "const nome = \"Ana\";\nconsole.log(\"Olá, \" {{1}} nome);",
+      "lacunas": [
+        { "respostas": ["+"] }
+      ],
+      "dica": "Use o operador que junta textos.",
+      "explicacao": "O + junta o texto \"Olá, \" ao valor da variável nome."
+    },
+    {
+      "id": "concat-texto-e-numero",
+      "tipo": "interpretacao",
+      "titulo": "\"5\" + 3 e 5 + 3",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(\"5\" + 3);\nconsole.log(5 + 3);",
+      "opcoes": [
+        "53\n8",
+        { "texto": "8\n8", "confusao": "acha que o + sempre soma" },
+        { "texto": "53\n53", "confusao": "acha que o + sempre junta" },
+        { "texto": "8\n53", "confusao": "inverte o comportamento do + com texto e com números" }
+      ],
+      "correta": 0,
+      "dica": "Repare em qual dos dois 5 está entre aspas.",
+      "explicacao": "Com um texto de um dos lados, o + junta: \"5\" + 3 dá \"53\". Com dois números, o + soma: 5 + 3 dá 8."
+    },
+    {
+      "id": "concat-ordene-a-saudacao",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o programa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 2 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "Coloque as linhas na ordem certa para o programa mostrar Olá, Ana!",
+      "itens": [
+        "const nome = \"Ana\";",
+        "const saudacao = \"Olá, \" + nome + \"!\";",
+        "console.log(saudacao);"
+      ],
+      "dica": "Cada linha usa uma variável criada na linha anterior.",
+      "explicacao": "Primeiro criamos nome, depois montamos a saudação juntando textos e, por último, mostramos o resultado."
+    },
+    {
+      "id": "concat-idade-na-frase",
+      "tipo": "interpretacao",
+      "titulo": "Frase com a idade",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const idade = 20;\nconsole.log(\"Tenho \" + idade + \" anos\");",
+      "opcoes": [
+        { "texto": "Tenho idade anos", "confusao": "trata o nome da variável como parte do texto" },
+        { "texto": "Tenho20anos", "confusao": "acha que o + remove os espaços do texto" },
+        "Tenho 20 anos",
+        { "texto": "Tenho + 20 + anos", "confusao": "acha que o console.log mostra os sinais de +" }
+      ],
+      "correta": 2,
+      "dica": "Os espaços estão dentro dos textos, junto às aspas.",
+      "explicacao": "A variável idade é trocada pelo seu valor (20) e os espaços escritos dentro dos textos são mantidos: Tenho 20 anos."
+    },
+    {
+      "id": "concat-da-esquerda-para-a-direita",
+      "tipo": "interpretacao",
+      "titulo": "Da esquerda para a direita",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(1 + 2 + \"3\");\nconsole.log(\"1\" + 2 + 3);",
+      "opcoes": [
+        { "texto": "6\n6", "confusao": "acha que o + sempre soma" },
+        "33\n123",
+        {
+          "texto": "123\n123",
+          "confusao": "acha que o + sempre junta, ignorando a ordem das contas"
+        },
+        { "texto": "33\n6", "confusao": "soma os números mesmo depois de aparecer um texto" }
+      ],
+      "correta": 1,
+      "dica": "O computador resolve o + da esquerda para a direita, um par de cada vez.",
+      "explicacao": "Na primeira linha, 1 + 2 vale 3 e só depois 3 + \"3\" vira \"33\". Na segunda, \"1\" + 2 já é texto (\"12\") e continua juntando: \"123\"."
+    },
+    {
+      "id": "concat-nome-completo",
+      "tipo": "codigo",
+      "titulo": "Nome completo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-concatenacao", "peso": 3 },
+        { "id": "m1-algoritmos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `nomeCompleto(nome, sobrenome)` que devolve os dois textos juntos, separados por um espaço.",
+      "funcao": "nomeCompleto",
+      "codigoInicial": "function nomeCompleto(nome, sobrenome) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["Ana", "Lima"], "esperado": "Ana Lima" },
+        { "entrada": ["Beto", "Souza"], "esperado": "Beto Souza" }
+      ],
+      "dica": "Junte nome, um texto com um espaço e sobrenome.",
+      "comentario": "Concatenamos três partes: o nome, o espaço (\" \") e o sobrenome."
+    }
+  ]
+}

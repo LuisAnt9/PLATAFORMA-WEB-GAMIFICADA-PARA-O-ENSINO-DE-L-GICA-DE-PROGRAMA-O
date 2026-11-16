@@ -1,0 +1,175 @@
+{
+  "id": "introducao-as-variaveis",
+  "mundo": "mundo-2",
+  "titulo": "Introdução às variáveis",
+  "foco": "Entender a variável como um nome que guarda um valor",
+  "posicao": 201,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um programa precisa guardar informações: o nome de uma pessoa, uma idade, um saldo. Para isso usamos variáveis.\n\nUma variável é um nome que guarda um valor na memória do computador. Pense em uma caixa com uma etiqueta: a etiqueta é o nome da variável e o que está dentro da caixa é o valor. Quando precisamos do valor, chamamos a variável pelo nome.\n\nO valor pode mudar ao longo do programa (daí o nome \"variável\"). Para guardar um valor em uma variável, usamos o sinal =. Atenção: em programação, = não significa \"igual a\" como na matemática. Ele manda guardar: \"idade = 21\" lê-se \"idade recebe 21\". Isso se chama atribuição.",
+  "exemplo": "let idade = 20;\nconsole.log(idade);   // mostra 20\n\nidade = 21;           // troca o valor guardado\nconsole.log(idade);   // mostra 21\n\nPasso a passo:\n1. let idade = 20; cria a variável idade e guarda o valor 20 nela.\n2. console.log(idade); mostra o valor guardado (20), e não a palavra \"idade\".\n3. idade = 21; substitui o valor antigo por 21. O 20 se perde.\n4. O último console.log mostra 21.\n\nRepare que o nome da variável não vai entre aspas: as aspas serviriam para mostrar o texto \"idade\" em vez do valor.",
+  "revisao": "- Variável é um nome que guarda um valor na memória.\n- O valor guardado pode mudar durante o programa.\n- O sinal = guarda um valor na variável (atribuição); não é \"igual\" da matemática.\n- Para usar o valor, escrevemos o nome da variável, sem aspas.\n- Ao guardar um novo valor, o antigo é substituído.",
+  "exercicios": [
+    {
+      "id": "variaveis-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é uma variável?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 }
+      ],
+      "enunciado": "O que é uma variável em um programa?",
+      "opcoes": [
+        {
+          "texto": "Um valor que nunca pode mudar",
+          "confusao": "confunde variável com um valor fixo"
+        },
+        "Um nome que guarda um valor na memória do computador",
+        {
+          "texto": "Um comando que mostra algo na tela",
+          "confusao": "confunde variável com o comando console.log"
+        },
+        {
+          "texto": "Um erro que aparece quando o programa muda",
+          "confusao": "associa a palavra \"variável\" a algo que dá defeito"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense em uma caixa com etiqueta: o nome é a etiqueta e o valor é o conteúdo.",
+      "explicacao": "Uma variável é um nome associado a um valor guardado na memória. O valor pode ser consultado e trocado quando for preciso."
+    },
+    {
+      "id": "variaveis-mostrar-valor",
+      "tipo": "interpretacao",
+      "titulo": "O que aparece na tela?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 }
+      ],
+      "enunciado": "Veja o programa abaixo. O que ele mostra na tela?",
+      "codigo": "let pontos = 10;\nconsole.log(pontos);",
+      "opcoes": [
+        { "texto": "pontos", "confusao": "mostra o nome da variável em vez do valor guardado nela" },
+        { "texto": "let pontos", "confusao": "acha que o console.log repete a declaração" },
+        {
+          "texto": "Nada, porque faltou o ponto e vírgula",
+          "confusao": "acha que o programa não funciona sem aquele sinal"
+        },
+        "10"
+      ],
+      "correta": 3,
+      "dica": "console.log mostra o valor que a variável guarda.",
+      "explicacao": "A variável pontos guarda o número 10. Ao escrever pontos dentro do console.log, o computador mostra o valor guardado: 10."
+    },
+    {
+      "id": "variaveis-complete-idade",
+      "tipo": "lacuna",
+      "titulo": "Guarde e mostre a idade",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 2 }
+      ],
+      "enunciado": "Complete o programa para guardar o número 18 na variável idade e mostrar o valor dela.",
+      "modelo": "let {{1}} = 18;\nconsole.log({{2}});",
+      "lacunas": [
+        { "respostas": ["idade"] },
+        { "respostas": ["idade"] }
+      ],
+      "dica": "O mesmo nome é usado para guardar e para consultar o valor.",
+      "explicacao": "O nome idade identifica a variável tanto na declaração quanto no console.log, que mostra o valor guardado (18)."
+    },
+    {
+      "id": "variaveis-trocar-o-valor",
+      "tipo": "interpretacao",
+      "titulo": "E o valor antigo?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let saldo = 100;\nsaldo = 150;\nconsole.log(saldo);",
+      "opcoes": [
+        "150",
+        { "texto": "100", "confusao": "acha que o primeiro valor guardado nunca é substituído" },
+        { "texto": "250", "confusao": "acha que o novo valor é somado ao antigo" },
+        { "texto": "saldo", "confusao": "mostra o nome da variável em vez do valor guardado nela" }
+      ],
+      "correta": 0,
+      "dica": "O que acontece com o valor antigo quando guardamos um novo?",
+      "explicacao": "A atribuição saldo = 150 substitui o valor 100. O valor antigo se perde e o console.log mostra 150."
+    },
+    {
+      "id": "variaveis-ordene-o-programa",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o programa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "Coloque as linhas na ordem certa para o programa mostrar o número 2.",
+      "itens": ["let contador = 1;", "contador = 2;", "console.log(contador);"],
+      "dica": "A variável precisa existir antes de ser usada, e o valor novo precisa ser guardado antes de ser mostrado.",
+      "explicacao": "Primeiro criamos a variável, depois guardamos o novo valor e, por fim, mostramos o resultado."
+    },
+    {
+      "id": "variaveis-sinal-de-igual",
+      "tipo": "escolha",
+      "titulo": "O que significa o =?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 }
+      ],
+      "enunciado": "Na linha idade = 21; o que o sinal = faz?",
+      "opcoes": [
+        {
+          "texto": "Afirma que idade é igual a 21, como na matemática",
+          "confusao": "lê o = como igualdade matemática e não como atribuição"
+        },
+        {
+          "texto": "Compara idade com 21 e mostra true ou false",
+          "confusao": "confunde atribuição com comparação"
+        },
+        "Guarda o valor 21 na variável idade",
+        { "texto": "Cria uma variável chamada 21", "confusao": "inverte os lados da atribuição" }
+      ],
+      "correta": 2,
+      "dica": "Leia como \"idade recebe 21\".",
+      "explicacao": "O = é o operador de atribuição: guarda o valor da direita na variável da esquerda. Comparar é outra operação, que veremos mais adiante."
+    },
+    {
+      "id": "variaveis-copia-de-valor",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale b?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-introducao-variaveis", "peso": 3 }
+      ],
+      "enunciado": "Acompanhe os valores e responda: o que o programa mostra?",
+      "codigo": "let a = 5;\nlet b = a;\na = 8;\nconsole.log(b);",
+      "opcoes": [
+        { "texto": "8", "confusao": "acha que b acompanha as mudanças de a" },
+        "5",
+        { "texto": "13", "confusao": "soma os dois valores" },
+        { "texto": "a", "confusao": "mostra o nome da variável em vez do valor guardado nela" }
+      ],
+      "correta": 1,
+      "dica": "b recebeu uma cópia do valor que a tinha naquele momento.",
+      "explicacao": "Ao fazer b = a, a variável b guarda o valor 5 (uma cópia). Mudar a depois não altera b: ele continua valendo 5."
+    }
+  ]
+}

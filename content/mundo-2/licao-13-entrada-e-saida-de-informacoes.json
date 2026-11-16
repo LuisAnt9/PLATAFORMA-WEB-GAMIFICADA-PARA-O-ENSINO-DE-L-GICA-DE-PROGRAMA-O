@@ -1,0 +1,193 @@
+{
+  "id": "entrada-e-saida-de-informacoes",
+  "mundo": "mundo-2",
+  "titulo": "Entrada e saída de informações",
+  "foco": "Ler dados, convertê-los, processá-los e mostrar o resultado",
+  "posicao": 212,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Já vimos que todo programa tem entrada, processamento e saída. Agora vamos colocar isso em prática com variáveis.\n\n- Entrada: nesta plataforma, lerEntrada() lê um valor de cada vez, na ordem em que foram informados.\n- Conversão: o valor lido costuma ser texto. Se for número, converta com Number().\n- Processamento: as contas e transformações, guardando resultados em variáveis.\n- Saída: console.log mostra o resultado; um template literal deixa a frase bem montada.\n\nUm programa de verdade, em um navegador, receberia a entrada de uma caixa de texto ou de um formulário. A lógica é a mesma.",
+  "exemplo": "function dobroDoNumero() {\n  // ENTRADA: o valor chega como texto\n  const texto = lerEntrada();\n  // CONVERSÃO: transforma em número\n  const numero = Number(texto);\n  // PROCESSAMENTO: calcula o dobro\n  const dobro = numero * 2;\n  // SAÍDA: mostra a frase\n  console.log(`O dobro de ${numero} é ${dobro}`);\n}\n\nSe a entrada for \"5\", o programa mostra: O dobro de 5 é 10.\n\nPasso a passo:\n1. lerEntrada() entrega o valor digitado.\n2. Number() converte o texto em número.\n3. A conta é feita e guardada em uma variável.\n4. O template literal monta a frase e console.log a mostra.",
+  "revisao": "- lerEntrada() lê um valor por vez, na ordem informada.\n- Entradas costumam ser texto: converta com Number() antes de calcular.\n- Guarde resultados intermediários em variáveis com nomes claros.\n- console.log mostra a saída; template literals ajudam a montar frases.\n- O caminho é sempre: ler, converter, processar e mostrar.",
+  "exercicios": [
+    {
+      "id": "es-comando-de-entrada",
+      "tipo": "escolha",
+      "titulo": "Qual comando lê a entrada?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 }
+      ],
+      "enunciado": "Qual comando da plataforma lê um valor de entrada?",
+      "opcoes": [
+        { "texto": "console.log()", "confusao": "confunde entrada com saída" },
+        "lerEntrada()",
+        { "texto": "Number()", "confusao": "confunde converter um valor com ler um valor" },
+        { "texto": "typeof", "confusao": "confunde descobrir o tipo com ler um valor" }
+      ],
+      "correta": 1,
+      "dica": "Entrada é o que o programa recebe, e não o que ele mostra.",
+      "explicacao": "lerEntrada() lê um valor. console.log mostra, Number converte e typeof descobre o tipo."
+    },
+    {
+      "id": "es-ola-nome",
+      "tipo": "interpretacao",
+      "titulo": "Olá, nome",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "Se a entrada for Ana, o que o programa abaixo mostra na tela?",
+      "codigo": "const nome = lerEntrada();\nconsole.log(\"Olá, \" + nome);",
+      "opcoes": [
+        { "texto": "Olá, nome", "confusao": "mostra o nome da variável em vez do valor lido" },
+        { "texto": "Olá, lerEntrada()", "confusao": "acha que o texto da chamada aparece na tela" },
+        { "texto": "Ana", "confusao": "esquece a parte fixa do texto" },
+        "Olá, Ana"
+      ],
+      "correta": 3,
+      "dica": "A variável nome recebe o que foi digitado.",
+      "explicacao": "lerEntrada() entrega Ana, que fica na variável nome. A saída junta o texto \"Olá, \" ao valor: Olá, Ana."
+    },
+    {
+      "id": "es-boas-vindas",
+      "tipo": "codigo",
+      "titulo": "Boas-vindas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-template-literals", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `boasVindas()`: leia um nome com `lerEntrada()` e mostre, com `console.log`, a frase Bem-vindo, NOME!",
+      "funcao": "boasVindas",
+      "codigoInicial": "function boasVindas() {\n  // leia o nome e mostre a frase\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["Ana"], "saida": ["Bem-vindo, Ana!"] },
+        { "entrada": [], "entradas": ["Beto"], "saida": ["Bem-vindo, Beto!"] }
+      ],
+      "dica": "Guarde o nome em uma variável e monte a frase com um template literal.",
+      "comentario": "A entrada fica na variável nome e a saída é montada com um template literal: `Bem-vindo, ${nome}!`."
+    },
+    {
+      "id": "es-entradas-sao-texto",
+      "tipo": "interpretacao",
+      "titulo": "Entradas são texto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-conversao-tipos", "peso": 2 }
+      ],
+      "enunciado": "As entradas são \"2\" e \"3\" (como textos). O que o programa abaixo mostra na tela?",
+      "codigo": "const a = lerEntrada();\nconst b = lerEntrada();\nconsole.log(a + b);",
+      "opcoes": [
+        "23",
+        {
+          "texto": "5",
+          "confusao": "esquece que a entrada chega como texto, e que o + junta textos"
+        },
+        { "texto": "a + b", "confusao": "mostra a expressão em vez do resultado" },
+        { "texto": "2\n3", "confusao": "acha que o console.log mostra as duas entradas" }
+      ],
+      "correta": 0,
+      "dica": "O + junta quando os dois lados são textos.",
+      "explicacao": "Como a entrada chega como texto, \"2\" + \"3\" junta os textos e resulta em \"23\". Para somar, seria preciso converter com Number()."
+    },
+    {
+      "id": "es-ordene-o-programa",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o programa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m1-sequencia", "peso": 2 }
+      ],
+      "enunciado": "Coloque as linhas na ordem certa para ler um número, calcular o dobro e mostrar o resultado.",
+      "itens": [
+        "const texto = lerEntrada();",
+        "const numero = Number(texto);",
+        "const dobro = numero * 2;",
+        "console.log(dobro);"
+      ],
+      "dica": "Cada linha usa a variável criada na linha anterior.",
+      "explicacao": "Lemos o valor, convertemos para número, calculamos o dobro e só então mostramos o resultado."
+    },
+    {
+      "id": "es-area-do-retangulo",
+      "tipo": "codigo",
+      "titulo": "Área do retângulo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-operacoes-numeros", "peso": 2 },
+        { "id": "m2-template-literals", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `areaDoRetangulo()`: leia a base e a altura com `lerEntrada()` (chegam como texto) e mostre, com `console.log`, a frase Área: VALOR.",
+      "funcao": "areaDoRetangulo",
+      "codigoInicial": "function areaDoRetangulo() {\n  // leia a base e a altura, calcule e mostre\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["5", "3"], "saida": ["Área: 15"] },
+        { "entrada": [], "entradas": ["10", "2"], "saida": ["Área: 20"] }
+      ],
+      "dica": "Converta os dois valores com Number() antes de multiplicar.",
+      "comentario": "Lemos base e altura, convertemos para número, multiplicamos e mostramos a frase com o resultado."
+    },
+    {
+      "id": "es-corrija-o-ano-que-vem",
+      "tipo": "corrigir",
+      "titulo": "Corrija o ano que vem",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-conversao-tipos", "peso": 3 }
+      ],
+      "enunciado": "O programa lê uma idade e deveria mostrar Ano que vem: 21 (se a idade for 20), mas mostra Ano que vem: 201. Corrija o defeito.",
+      "funcao": "anoQueVem",
+      "codigoInicial": "function anoQueVem() {\n  const idade = lerEntrada();\n  console.log(\"Ano que vem: \" + idade + 1);\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["20"], "saida": ["Ano que vem: 21"] },
+        { "entrada": [], "entradas": ["9"], "saida": ["Ano que vem: 10"] }
+      ],
+      "dica": "Primeiro faça a conta com números; depois junte ao texto.",
+      "comentario": "Como idade é texto, o + junta \"20\" e 1 (201). Convertendo com Number() e somando antes de juntar ao texto, o resultado é 21."
+    },
+    {
+      "id": "es-media-das-notas",
+      "tipo": "codigo",
+      "titulo": "Média das notas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 3 },
+        { "id": "m2-conversao-tipos", "peso": 2 },
+        { "id": "m2-operacoes-numeros", "peso": 2 },
+        { "id": "m2-template-literals", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `mediaDasNotas()`: leia três notas com `lerEntrada()` (chegam como texto) e mostre, com `console.log`, a frase Média: VALOR.",
+      "funcao": "mediaDasNotas",
+      "codigoInicial": "function mediaDasNotas() {\n  // leia as três notas, calcule a média e mostre\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["6", "8", "7"], "saida": ["Média: 7"] },
+        { "entrada": [], "entradas": ["10", "10", "10"], "saida": ["Média: 10"] },
+        { "entrada": [], "entradas": ["3", "6", "9"], "saida": ["Média: 6"] }
+      ],
+      "dica": "São três leituras, três conversões, uma soma entre parênteses, uma divisão e uma frase.",
+      "comentario": "O programa lê as três notas, converte cada uma com Number(), calcula (n1 + n2 + n3) / 3 e mostra a frase."
+    }
+  ]
+}

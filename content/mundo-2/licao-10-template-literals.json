@@ -1,0 +1,201 @@
+{
+  "id": "template-literals",
+  "mundo": "mundo-2",
+  "titulo": "Template literals",
+  "foco": "Montar textos com variáveis usando crases e ${ }",
+  "posicao": 209,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Montar frases com + pode ficar confuso: \"Olá, \" + nome + \"! Você tem \" + idade + \" anos.\". Os template literals tornam isso mais fácil.\n\nUm template literal é um texto escrito entre crases (`), a tecla do acento grave. Dentro dele, usamos ${ } para inserir o valor de uma variável ou o resultado de uma conta. Os espaços e a pontuação ficam exatamente como escritos.\n\nAtenção: só as crases fazem a substituição. Com aspas comuns, o texto ${nome} aparece literalmente na tela, sem trocar pelo valor da variável.",
+  "exemplo": "const nome = \"Ana\";\nconst idade = 20;\n\nconsole.log(`Olá, ${nome}! Você tem ${idade} anos.`);\n// Olá, Ana! Você tem 20 anos.\n\nconsole.log(`O dobro de ${idade} é ${idade * 2}.`);\n// O dobro de 20 é 40.\n\nconsole.log(\"Olá, ${nome}\");\n// Olá, ${nome}   (aspas comuns não substituem nada)\n\nPasso a passo:\n1. O texto está entre crases e cada ${ } é trocado pelo valor que tem dentro.\n2. Dentro do ${ } cabe até uma conta: ${idade * 2} vira 40.\n3. Na última linha, as aspas comuns mostram o texto literalmente.",
+  "revisao": "- Template literal é um texto entre crases (`).\n- ${ } insere o valor de uma variável ou de uma expressão.\n- Só as crases fazem a substituição; aspas comuns não.\n- Facilita montar frases com várias variáveis, sem muitos +.",
+  "exercicios": [
+    {
+      "id": "template-qual-simbolo",
+      "tipo": "escolha",
+      "titulo": "Qual símbolo usar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 }
+      ],
+      "enunciado": "Qual símbolo delimita um template literal?",
+      "opcoes": [
+        { "texto": "Aspas duplas (\" \")", "confusao": "confunde template literal com texto comum" },
+        { "texto": "Aspas simples (' ')", "confusao": "confunde template literal com texto comum" },
+        {
+          "texto": "Parênteses ( )",
+          "confusao": "confunde o delimitador do texto com o de uma chamada de função"
+        },
+        "Crases (` `)"
+      ],
+      "correta": 3,
+      "dica": "Fica na tecla do acento grave.",
+      "explicacao": "Os template literals usam crases. Só com elas o ${ } é substituído pelo valor."
+    },
+    {
+      "id": "template-oi-beto",
+      "tipo": "interpretacao",
+      "titulo": "O que aparece?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nome = \"Beto\";\nconsole.log(`Oi, ${nome}!`);",
+      "opcoes": [
+        "Oi, Beto!",
+        { "texto": "Oi, nome!", "confusao": "acha que ${ } mostra o nome da variável" },
+        {
+          "texto": "Oi, ${nome}!",
+          "confusao": "acha que o texto aparece exatamente como foi escrito"
+        },
+        { "texto": "Oi, Beto", "confusao": "esquece a pontuação que faz parte do texto" }
+      ],
+      "correta": 0,
+      "dica": "O ${ } é trocado pelo valor da variável.",
+      "explicacao": "${nome} é substituído por Beto, e o restante do texto é mantido: Oi, Beto!"
+    },
+    {
+      "id": "template-complete",
+      "tipo": "lacuna",
+      "titulo": "Complete o template",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para mostrar Olá, Ana! usando a variável nome.",
+      "modelo": "const nome = \"Ana\";\nconsole.log(`Olá, ${{{1}}}!`);",
+      "lacunas": [
+        { "respostas": ["nome"] }
+      ],
+      "dica": "Dentro do ${ } vai o nome da variável, sem aspas.",
+      "explicacao": "${nome} insere o valor da variável nome no meio do texto."
+    },
+    {
+      "id": "template-conta-dentro",
+      "tipo": "interpretacao",
+      "titulo": "Conta dentro do ${ }",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 },
+        { "id": "m2-operacoes-numeros", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const preco = 50;\nconsole.log(`Total: ${preco * 2} reais`);",
+      "opcoes": [
+        {
+          "texto": "Total: preco * 2 reais",
+          "confusao": "acha que o conteúdo de ${ } é apenas texto"
+        },
+        {
+          "texto": "Total: 50 * 2 reais",
+          "confusao": "troca a variável pelo valor, mas não faz a conta"
+        },
+        "Total: 100 reais",
+        { "texto": "Total: 502 reais", "confusao": "junta o 50 e o 2 como se fossem textos" }
+      ],
+      "correta": 2,
+      "dica": "Dentro do ${ } o computador calcula a expressão.",
+      "explicacao": "O computador calcula preco * 2 = 100 e coloca o resultado no lugar do ${ }."
+    },
+    {
+      "id": "template-qual-linha",
+      "tipo": "escolha",
+      "titulo": "Qual linha está certa?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 }
+      ],
+      "enunciado": "Qual linha mostra Olá, Ana! usando a variável nome (que vale \"Ana\")?",
+      "opcoes": [
+        {
+          "texto": "console.log(\"Olá, ${nome}!\");",
+          "confusao": "usa aspas comuns, que não substituem o ${nome}"
+        },
+        "console.log(`Olá, ${nome}!`);",
+        { "texto": "console.log(`Olá, nome!`);", "confusao": "esquece o ${ } ao redor da variável" },
+        { "texto": "console.log(`Olá, {nome}!`);", "confusao": "esquece o cifrão antes das chaves" }
+      ],
+      "correta": 1,
+      "dica": "Confira o tipo de aspas e o ${ }.",
+      "explicacao": "Só as crases com ${nome} trocam o nome pelo valor da variável."
+    },
+    {
+      "id": "template-corrija-a-saudacao",
+      "tipo": "corrigir",
+      "titulo": "Corrija a saudação",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 }
+      ],
+      "enunciado": "A função `saudacao(nome)` deveria devolver, por exemplo, Olá, Ana!, mas devolve o texto com ${nome} sem substituir. Corrija.",
+      "funcao": "saudacao",
+      "codigoInicial": "function saudacao(nome) {\n  return \"Olá, ${nome}!\";\n}\n",
+      "testes": [
+        { "entrada": ["Ana"], "esperado": "Olá, Ana!" },
+        { "entrada": ["Beto"], "esperado": "Olá, Beto!" }
+      ],
+      "dica": "Que símbolo é preciso trocar para o ${ } funcionar?",
+      "comentario": "Com aspas comuns, o ${nome} não é substituído. Trocando por crases, o valor da variável entra no texto."
+    },
+    {
+      "id": "template-apresentar",
+      "tipo": "codigo",
+      "titulo": "Apresentar uma pessoa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `apresentar(nome, idade)` que devolve, por exemplo, Ana tem 20 anos (use um template literal).",
+      "funcao": "apresentar",
+      "codigoInicial": "function apresentar(nome, idade) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["Ana", 20], "esperado": "Ana tem 20 anos" },
+        { "entrada": ["Beto", 35], "esperado": "Beto tem 35 anos" }
+      ],
+      "dica": "Escreva o texto entre crases e coloque cada variável dentro de um ${ }.",
+      "comentario": "O template literal `${nome} tem ${idade} anos` insere as duas variáveis no texto."
+    },
+    {
+      "id": "template-soma-na-frase",
+      "tipo": "interpretacao",
+      "titulo": "A soma na frase",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m2-template-literals", "peso": 3 },
+        { "id": "m2-operacoes-numeros", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = 3;\nconst b = 4;\nconsole.log(`${a} + ${b} = ${a + b}`);",
+      "opcoes": [
+        {
+          "texto": "a + b = 7",
+          "confusao": "troca só o último valor e esquece de substituir as variáveis do começo"
+        },
+        { "texto": "3 + 4 = 34", "confusao": "junta os valores como texto dentro do ${ }" },
+        { "texto": "3 + 4 = a + b", "confusao": "não calcula a expressão dentro do ${ }" },
+        "3 + 4 = 7"
+      ],
+      "correta": 3,
+      "dica": "Cada ${ } é resolvido separadamente, e o texto entre eles é mantido.",
+      "explicacao": "${a} vira 3, ${b} vira 4 e ${a + b} vira 7. O sinal + e o = fora dos ${ } fazem parte do texto."
+    }
+  ]
+}

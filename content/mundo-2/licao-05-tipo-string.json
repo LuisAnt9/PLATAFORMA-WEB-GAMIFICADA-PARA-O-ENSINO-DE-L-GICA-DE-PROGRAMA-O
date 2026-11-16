@@ -1,0 +1,182 @@
+{
+  "id": "tipo-string",
+  "mundo": "mundo-2",
+  "titulo": "Tipo String",
+  "foco": "Reconhecer e escrever textos (strings)",
+  "posicao": 204,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Todo valor tem um tipo, que define o que ele é e o que podemos fazer com ele. O primeiro tipo que vamos estudar é a string: um texto, isto é, uma sequência de caracteres entre aspas.\n\n- Podemos usar aspas duplas (\"Ana\"), aspas simples ('Ana') ou crases (veremos mais adiante). A aspa que abre precisa ser a mesma que fecha.\n- O texto vazio (\"\") também é uma string.\n- Atenção: \"42\" entre aspas é um texto, e não um número. O que está entre aspas é tratado como texto, mesmo que pareça outra coisa.\n- Sem aspas, o computador entende que Ana é o nome de uma variável, e não um texto.\n\nPara descobrir o tipo de um valor usamos typeof.",
+  "exemplo": "const nome = \"Ana\";\nconst sobrenome = 'Lima';\nconst vazio = \"\";\nconst numeroEmTexto = \"42\";\n\nconsole.log(typeof nome);          // string\nconsole.log(typeof numeroEmTexto); // string (as aspas fazem dele um texto)\nconsole.log(typeof 42);            // number (sem aspas, é um número)\nconsole.log('Ele disse \"oi\"');     // Ele disse \"oi\"\n\nPasso a passo:\n1. As quatro primeiras linhas guardam textos, com aspas duplas ou simples.\n2. typeof mostra o tipo: \"42\" é string, mas 42 sem aspas é number.\n3. Para mostrar aspas dentro do texto, usamos outro tipo de aspas por fora: por fora aspas simples, por dentro aspas duplas.",
+  "revisao": "- String é um texto: uma sequência de caracteres entre aspas.\n- As aspas que abrem e fecham devem ser do mesmo tipo.\n- \"42\" entre aspas é texto, não número.\n- Sem aspas, o nome é entendido como uma variável.\n- typeof mostra o tipo de um valor.",
+  "exercicios": [
+    {
+      "id": "string-qual-e-texto",
+      "tipo": "escolha",
+      "titulo": "Qual valor é uma string?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 }
+      ],
+      "enunciado": "Qual destes valores é uma string?",
+      "opcoes": [
+        { "texto": "42", "confusao": "acha que todo número é um texto" },
+        { "texto": "true", "confusao": "confunde o valor lógico true com um texto" },
+        "\"42\"",
+        {
+          "texto": "Ana",
+          "confusao": "esquece as aspas: sem aspas, Ana seria o nome de uma variável"
+        }
+      ],
+      "correta": 2,
+      "dica": "Procure o valor que está entre aspas.",
+      "explicacao": "O que está entre aspas é uma string, mesmo quando parece um número. Sem aspas, 42 é número e Ana seria o nome de uma variável."
+    },
+    {
+      "id": "string-typeof-numero-entre-aspas",
+      "tipo": "interpretacao",
+      "titulo": "Qual é o tipo?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const valor = \"7\";\nconsole.log(typeof valor);",
+      "opcoes": [
+        { "texto": "number", "confusao": "acha que um número entre aspas continua sendo número" },
+        "string",
+        { "texto": "7", "confusao": "mostra o valor em vez do tipo" },
+        { "texto": "valor", "confusao": "mostra o nome da variável em vez do tipo" }
+      ],
+      "correta": 1,
+      "dica": "Repare nas aspas em volta do 7.",
+      "explicacao": "As aspas fazem de \"7\" um texto, então typeof mostra string."
+    },
+    {
+      "id": "string-complete-as-aspas",
+      "tipo": "lacuna",
+      "titulo": "Complete as aspas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-string", "peso": 2 }
+      ],
+      "enunciado": "Complete as aspas (use aspas duplas) para guardar o texto gato na variável animal.",
+      "modelo": "const animal = {{1}}gato{{2}};\nconsole.log(typeof animal);",
+      "lacunas": [
+        { "respostas": ["\""] },
+        { "respostas": ["\""] }
+      ],
+      "dica": "O texto começa e termina com o mesmo símbolo.",
+      "explicacao": "As aspas duplas delimitam o texto. Com elas, typeof animal mostra string."
+    },
+    {
+      "id": "string-typeof-true-entre-aspas",
+      "tipo": "interpretacao",
+      "titulo": "true ou \"true\"?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 },
+        { "id": "m2-boolean", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(typeof \"true\");\nconsole.log(typeof true);",
+      "opcoes": [
+        { "texto": "boolean\nboolean", "confusao": "acha que as aspas não mudam o tipo do valor" },
+        { "texto": "string\nstring", "confusao": "acha que o valor true é sempre um texto" },
+        { "texto": "boolean\nstring", "confusao": "inverte os tipos" },
+        "string\nboolean"
+      ],
+      "correta": 3,
+      "dica": "Um dos valores está entre aspas e o outro não.",
+      "explicacao": "\"true\" entre aspas é um texto (string). true sem aspas é um valor lógico (boolean)."
+    },
+    {
+      "id": "string-aspas-dentro-do-texto",
+      "tipo": "escolha",
+      "titulo": "Aspas dentro do texto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 }
+      ],
+      "enunciado": "Qual linha mostra corretamente o texto: Ele disse \"oi\"?",
+      "opcoes": [
+        "console.log('Ele disse \"oi\"');",
+        {
+          "texto": "console.log(\"Ele disse \"oi\"\");",
+          "confusao": "usa o mesmo tipo de aspas por dentro e por fora, e o texto termina antes da hora"
+        },
+        {
+          "texto": "console.log(Ele disse \"oi\");",
+          "confusao": "esquece as aspas externas do texto"
+        },
+        {
+          "texto": "console.log(\"Ele disse 'oi);",
+          "confusao": "abre aspas simples por dentro e não fecha"
+        }
+      ],
+      "correta": 0,
+      "dica": "Use um tipo de aspas por fora e o outro por dentro.",
+      "explicacao": "Com aspas simples por fora, as aspas duplas de dentro fazem parte do texto e não o encerram."
+    },
+    {
+      "id": "string-corrija-as-aspas",
+      "tipo": "corrigir",
+      "titulo": "Corrija o texto sem aspas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 }
+      ],
+      "enunciado": "A função `cidade()` deveria devolver o texto Picos, mas dá erro. Corrija o defeito.",
+      "funcao": "cidade",
+      "codigoInicial": "function cidade() {\n  return Picos;\n}\n",
+      "testes": [
+        { "entrada": [], "esperado": "Picos" }
+      ],
+      "dica": "Como o computador entende uma palavra sem aspas?",
+      "comentario": "Sem aspas, Picos é entendido como o nome de uma variável que não existe. Entre aspas, vira um texto."
+    },
+    {
+      "id": "string-por-que-sao-diferentes",
+      "tipo": "escolha",
+      "titulo": "\"42\" e 42 são iguais?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-string", "peso": 3 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "Por que \"42\" e 42 são considerados valores diferentes pelo computador?",
+      "opcoes": [
+        {
+          "texto": "Não são diferentes: só mudam as aspas",
+          "confusao": "acha que as aspas não mudam o significado do valor"
+        },
+        {
+          "texto": "Porque \"42\" é maior que 42",
+          "confusao": "compara os valores como se as aspas mudassem o tamanho"
+        },
+        "Porque o primeiro é um texto e o segundo é um número, e cada tipo se comporta de um jeito",
+        {
+          "texto": "Porque 42 é o nome de uma variável",
+          "confusao": "confunde número com nome de variável"
+        }
+      ],
+      "correta": 2,
+      "dica": "Pense no tipo de cada um.",
+      "explicacao": "\"42\" é uma string e 42 é um number. O tipo define o que se pode fazer com o valor: contas com números, junção com textos."
+    }
+  ]
+}

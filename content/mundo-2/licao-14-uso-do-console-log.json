@@ -1,0 +1,214 @@
+{
+  "id": "uso-do-console-log",
+  "mundo": "mundo-2",
+  "titulo": "Utilização de console.log()",
+  "foco": "Usar o console.log para mostrar e acompanhar valores",
+  "posicao": 213,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O console.log é a principal ferramenta de saída: ele mostra valores na tela e também ajuda a descobrir o que está acontecendo dentro do programa.\n\n- Cada chamada mostra uma nova linha.\n- Podemos passar vários valores separados por vírgula: eles aparecem na mesma linha, separados por um espaço. console.log(\"Total:\", 50) mostra Total: 50.\n- Textos aparecem sem as aspas. Números, booleanos e resultados de contas aparecem normalmente.\n- Um texto entre aspas aparece exatamente como foi escrito, e um cálculo sem aspas é resolvido antes de ser mostrado.\n\nProgramadores usam console.log o tempo todo para acompanhar o valor de variáveis passo a passo. Isso se chama depurar (procurar defeitos).",
+  "exemplo": "console.log(\"Olá\");              // Olá\nconsole.log(\"Total:\", 50);       // Total: 50\nconsole.log(\"a\", \"b\", \"c\");      // a b c\nconsole.log(2 + 3);              // 5\nconsole.log(\"2 + 3\");            // 2 + 3\nconsole.log(true);               // true\n\nPasso a passo:\n1. Cada console.log mostra uma linha.\n2. Com vírgulas, os valores aparecem juntos, separados por um espaço.\n3. 2 + 3 sem aspas é calculado (5); com aspas é só um texto, mostrado como está.\n4. Valores booleanos também podem ser mostrados.",
+  "revisao": "- Cada console.log mostra uma nova linha.\n- Com vírgulas, os valores ficam na mesma linha, separados por espaço.\n- Textos aparecem sem aspas; contas sem aspas são calculadas.\n- console.log ajuda a acompanhar os valores das variáveis e a achar defeitos.",
+  "exercicios": [
+    {
+      "id": "log-varias-chamadas",
+      "tipo": "escolha",
+      "titulo": "Duas chamadas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 }
+      ],
+      "enunciado": "O que acontece quando chamamos console.log duas vezes seguidas?",
+      "opcoes": [
+        {
+          "texto": "Os dois valores aparecem na mesma linha",
+          "confusao": "acha que console.log não muda de linha"
+        },
+        {
+          "texto": "Só o último valor aparece",
+          "confusao": "acha que a última chamada apaga a anterior"
+        },
+        "Cada chamada mostra uma nova linha",
+        {
+          "texto": "O programa dá erro",
+          "confusao": "acha que só se pode chamar console.log uma vez"
+        }
+      ],
+      "correta": 2,
+      "dica": "Pense nas mensagens que você já viu aparecerem uma embaixo da outra.",
+      "explicacao": "Cada chamada de console.log escreve uma linha própria."
+    },
+    {
+      "id": "log-com-virgula",
+      "tipo": "interpretacao",
+      "titulo": "Valores com vírgula",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(\"Total:\", 50);",
+      "opcoes": [
+        { "texto": "Total:50", "confusao": "acha que a vírgula junta os valores sem espaço" },
+        "Total: 50",
+        { "texto": "Total:, 50", "confusao": "acha que a vírgula aparece na tela" },
+        { "texto": "50", "confusao": "acha que só o último valor é mostrado" }
+      ],
+      "correta": 1,
+      "dica": "A vírgula separa os valores, e o console.log coloca um espaço entre eles.",
+      "explicacao": "Com vários valores, o console.log mostra todos na mesma linha, separados por um espaço."
+    },
+    {
+      "id": "log-complete-a-media",
+      "tipo": "lacuna",
+      "titulo": "Mostre a média",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 2 }
+      ],
+      "enunciado": "Complete o programa para mostrar Média: 7 usando a variável media.",
+      "modelo": "const media = 7;\nconsole.log(\"Média:\", {{1}});",
+      "lacunas": [
+        { "respostas": ["media"] }
+      ],
+      "dica": "O segundo valor do console.log é o nome da variável, sem aspas.",
+      "explicacao": "media (sem aspas) é substituída pelo valor 7. Com aspas, apareceria a palavra media."
+    },
+    {
+      "id": "log-texto-ou-conta",
+      "tipo": "interpretacao",
+      "titulo": "Texto ou conta?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 },
+        { "id": "m2-string", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(\"5 + 5\");\nconsole.log(5 + 5);\nconsole.log(\"5\", \"5\");",
+      "opcoes": [
+        {
+          "texto": "10\n10\n55",
+          "confusao": "acha que o texto entre aspas também é calculado e que a vírgula junta os valores"
+        },
+        { "texto": "5 + 5\n55\n5 5", "confusao": "acha que 5 + 5 junta os valores como texto" },
+        {
+          "texto": "5 + 5\n10\n10",
+          "confusao": "calcula a última linha em vez de mostrar os dois textos"
+        },
+        "5 + 5\n10\n5 5"
+      ],
+      "correta": 3,
+      "dica": "Aspas mostram o texto como está; sem aspas, a conta é feita; a vírgula separa com espaço.",
+      "explicacao": "\"5 + 5\" é mostrado como texto, 5 + 5 é calculado (10) e os dois \"5\" separados por vírgula aparecem com um espaço entre eles."
+    },
+    {
+      "id": "log-mostrar-os-dados",
+      "tipo": "codigo",
+      "titulo": "Mostre os dados",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `mostrarDados()`: leia o nome e a idade com `lerEntrada()` e mostre duas linhas com `console.log`, no formato Nome: NOME e Idade: IDADE (use vírgulas no console.log).",
+      "funcao": "mostrarDados",
+      "codigoInicial": "function mostrarDados() {\n  // leia o nome e a idade e mostre as duas linhas\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["Ana", 20], "saida": ["Nome: Ana", "Idade: 20"] },
+        { "entrada": [], "entradas": ["Beto", 35], "saida": ["Nome: Beto", "Idade: 35"] }
+      ],
+      "dica": "Cada console.log é uma linha; use a vírgula para separar o rótulo do valor.",
+      "comentario": "Duas chamadas de console.log geram duas linhas, e a vírgula coloca o espaço entre o rótulo e o valor."
+    },
+    {
+      "id": "log-operacoes-em-linhas",
+      "tipo": "interpretacao",
+      "titulo": "Contas em linhas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 },
+        { "id": "m2-operacoes-numeros", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = 6;\nconst b = 4;\nconsole.log(\"Soma:\", a + b);\nconsole.log(\"Produto:\", a * b);\nconsole.log(\"Divisão:\", a / b);",
+      "opcoes": [
+        "Soma: 10\nProduto: 24\nDivisão: 1.5",
+        {
+          "texto": "Soma: 64\nProduto: 24\nDivisão: 1.5",
+          "confusao": "junta os números como texto na soma"
+        },
+        {
+          "texto": "Soma: 10\nProduto: 24\nDivisão: 2",
+          "confusao": "acha que a divisão sempre dá um resultado inteiro"
+        },
+        {
+          "texto": "Soma: a + b\nProduto: a * b\nDivisão: a / b",
+          "confusao": "mostra as expressões em vez de calculá-las"
+        }
+      ],
+      "correta": 0,
+      "dica": "Os valores depois da vírgula são calculados antes de serem mostrados.",
+      "explicacao": "6 + 4 = 10, 6 * 4 = 24 e 6 / 4 = 1.5. Cada console.log mostra o rótulo e o resultado."
+    },
+    {
+      "id": "log-corrija-o-total",
+      "tipo": "corrigir",
+      "titulo": "Corrija o espaço do total",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "A função `mostrarTotal(preco, quantidade)` deveria mostrar Total: 50 (para preço 10 e quantidade 5), mas mostra Total:50. Corrija o defeito.",
+      "funcao": "mostrarTotal",
+      "codigoInicial": "function mostrarTotal(preco, quantidade) {\n  const total = preco * quantidade;\n  console.log(\"Total:\" + total);\n}\n",
+      "testes": [
+        { "entrada": [10, 5], "saida": ["Total: 50"] },
+        { "entrada": [3, 3], "saida": ["Total: 9"] }
+      ],
+      "dica": "Falta um espaço entre o rótulo e o valor. Há mais de uma forma de resolver.",
+      "comentario": "Com a vírgula, o console.log coloca o espaço sozinho. Também funcionaria incluir o espaço no texto: \"Total: \" + total."
+    },
+    {
+      "id": "log-quatro-linhas",
+      "tipo": "interpretacao",
+      "titulo": "Quatro linhas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m2-console-log", "peso": 3 },
+        { "id": "m2-string", "peso": 1 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const nome = \"Ana\";\nconsole.log(\"nome\");\nconsole.log(nome);\nconsole.log(nome, nome.length);\nconsole.log(\"1\" + 1, 1 + 1);",
+      "opcoes": [
+        {
+          "texto": "Ana\nAna\nAna 3\n2 2",
+          "confusao": "mostra o valor da variável mesmo quando o nome está entre aspas e soma o \"1\" + 1"
+        },
+        { "texto": "nome\nAna\nAna 3\n2 2", "confusao": "soma \"1\" + 1 como se fosse número" },
+        "nome\nAna\nAna 3\n11 2",
+        { "texto": "nome\nAna\nAna, 3\n11, 2", "confusao": "acha que a vírgula aparece na tela" }
+      ],
+      "correta": 2,
+      "dica": "Atenção a quais valores estão entre aspas e ao que o + faz com texto.",
+      "explicacao": "\"nome\" é um texto; nome é a variável (Ana). nome.length vale 3. \"1\" + 1 junta (11) e 1 + 1 soma (2), e os dois aparecem na mesma linha."
+    }
+  ]
+}

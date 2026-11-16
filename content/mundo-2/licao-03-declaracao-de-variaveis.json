@@ -1,0 +1,181 @@
+{
+  "id": "declaracao-de-variaveis",
+  "mundo": "mundo-2",
+  "titulo": "Declaração de variáveis",
+  "foco": "Declarar variáveis e escolher nomes válidos",
+  "posicao": 202,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Declarar uma variável é criá-la. Em JavaScript usamos a palavra let, seguida do nome. Podemos já guardar um valor (inicializar) ou deixar a variável sem valor, e então ela vale undefined, que significa \"ainda não tem valor\".\n\nRegras para os nomes:\n- podem ter letras, números, _ e $;\n- não podem começar com número nem ter espaços;\n- não podem ser palavras reservadas da linguagem (let, const, if...);\n- maiúsculas e minúsculas fazem diferença: idade e Idade são variáveis diferentes.\n\nBoas práticas: use nomes que expliquem o conteúdo (notaFinal, e não x) e o estilo camelCase (a primeira palavra em minúsculas e as seguintes com inicial maiúscula). Cada instrução termina com ponto e vírgula.",
+  "exemplo": "let nome = \"Ana\";        // declara e já guarda um valor\nlet idade;               // declara sem valor\nconsole.log(idade);      // undefined\nidade = 30;              // agora guarda 30\nlet notaFinal = 8.5;     // nome em camelCase\n\nPasso a passo:\n1. let nome = \"Ana\"; cria a variável nome e guarda o texto Ana.\n2. let idade; cria a variável, mas ela ainda não tem valor: vale undefined.\n3. idade = 30; guarda o valor depois. Aqui não usamos let de novo, porque a variável já existe.\n4. notaFinal é um nome claro e segue o camelCase.",
+  "revisao": "- let cria uma variável: let nome = valor;\n- Sem valor inicial, a variável vale undefined.\n- Nomes: letras, números, _ e $; sem espaços; não começam com número; não podem ser palavras reservadas.\n- Maiúsculas e minúsculas são diferentes: idade e Idade não são a mesma variável.\n- Prefira nomes claros em camelCase.",
+  "exercicios": [
+    {
+      "id": "declaracao-nome-valido",
+      "tipo": "escolha",
+      "titulo": "Qual nome é válido?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 }
+      ],
+      "enunciado": "Qual destes é um nome de variável válido?",
+      "opcoes": [
+        { "texto": "1nota", "confusao": "acha que o nome pode começar com número" },
+        { "texto": "nota final", "confusao": "esquece que o nome não pode ter espaços" },
+        { "texto": "let", "confusao": "usa uma palavra reservada como nome" },
+        "nota1"
+      ],
+      "correta": 3,
+      "dica": "O nome pode ter números, mas não pode começar por um.",
+      "explicacao": "nota1 usa só letras e número e não começa com número. Espaços e palavras reservadas, como let, não são permitidos."
+    },
+    {
+      "id": "declaracao-linha-correta",
+      "tipo": "escolha",
+      "titulo": "Qual linha declara a variável?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 }
+      ],
+      "enunciado": "Qual linha declara a variável cidade guardando o texto \"Picos\"?",
+      "opcoes": [
+        "let cidade = \"Picos\";",
+        {
+          "texto": "cidade let = \"Picos\";",
+          "confusao": "inverte a ordem: a palavra let vem antes do nome"
+        },
+        {
+          "texto": "let cidade == \"Picos\";",
+          "confusao": "usa == (comparação) no lugar de = (atribuição)"
+        },
+        {
+          "texto": "let \"cidade\" = Picos;",
+          "confusao": "troca as aspas: o texto vai entre aspas, o nome da variável não"
+        }
+      ],
+      "correta": 0,
+      "dica": "A palavra let vem primeiro; depois o nome; depois o = e o valor.",
+      "explicacao": "A forma correta é let nome = valor;. O texto vai entre aspas e o nome da variável, não."
+    },
+    {
+      "id": "declaracao-complete",
+      "tipo": "lacuna",
+      "titulo": "Complete a declaração",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 2 },
+        { "id": "m2-introducao-variaveis", "peso": 1 }
+      ],
+      "enunciado": "Complete o programa para declarar a variável nome com o texto Ana e mostrá-la.",
+      "modelo": "{{1}} nome = \"Ana\";\nconsole.log({{2}});",
+      "lacunas": [
+        { "respostas": ["let"] },
+        { "respostas": ["nome"] }
+      ],
+      "dica": "A declaração começa com a palavra reservada que cria variáveis.",
+      "explicacao": "let cria a variável e console.log(nome) mostra o valor guardado nela."
+    },
+    {
+      "id": "declaracao-sem-valor",
+      "tipo": "interpretacao",
+      "titulo": "Variável sem valor",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let nome;\nconsole.log(nome);",
+      "opcoes": [
+        {
+          "texto": "Um texto vazio",
+          "confusao": "acha que uma variável sem valor guarda um texto vazio"
+        },
+        { "texto": "0", "confusao": "acha que uma variável sem valor guarda zero" },
+        "undefined",
+        {
+          "texto": "Nada: dá erro, porque a variável não tem valor",
+          "confusao": "acha que declarar sem valor causa erro"
+        }
+      ],
+      "correta": 2,
+      "dica": "A variável existe, mas ninguém guardou nada nela.",
+      "explicacao": "Uma variável declarada sem valor vale undefined, que significa \"ainda sem valor\". Isso não é um erro."
+    },
+    {
+      "id": "declaracao-maiuscula-minuscula",
+      "tipo": "interpretacao",
+      "titulo": "Idade ou idade?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 }
+      ],
+      "enunciado": "O que acontece ao executar o programa abaixo?",
+      "codigo": "let idade = 20;\nconsole.log(Idade);",
+      "opcoes": [
+        { "texto": "Mostra 20", "confusao": "acha que maiúsculas e minúsculas não fazem diferença" },
+        "Dá erro, porque Idade (com I maiúsculo) nunca foi declarada",
+        { "texto": "Mostra Idade", "confusao": "acha que o console.log mostra o nome como texto" },
+        {
+          "texto": "Mostra undefined",
+          "confusao": "acha que uma variável que não existe vale undefined"
+        }
+      ],
+      "correta": 1,
+      "dica": "Compare as duas grafias letra por letra.",
+      "explicacao": "O JavaScript diferencia maiúsculas de minúsculas. Idade e idade são nomes diferentes, e Idade não existe: o programa para com um erro."
+    },
+    {
+      "id": "declaracao-corrija-o-nome",
+      "tipo": "corrigir",
+      "titulo": "Corrija o nome da variável",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 },
+        { "id": "m7-return", "peso": 1 }
+      ],
+      "enunciado": "A função `quadrado(numero)` deveria devolver o número multiplicado por ele mesmo, mas tem um defeito no nome de uma variável. Corrija.",
+      "funcao": "quadrado",
+      "codigoInicial": "function quadrado(numero) {\n  let resultado = numero * numero;\n  return Resultado;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": 9 },
+        { "entrada": [5], "esperado": 25 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "Compare a variável criada com a variável devolvida.",
+      "comentario": "O defeito estava na grafia: Resultado (maiúsculo) não existe, porque a variável se chama resultado. Em JavaScript, maiúsculas e minúsculas contam."
+    },
+    {
+      "id": "declaracao-so-nomes-validos",
+      "tipo": "escolha",
+      "titulo": "Só nomes válidos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-declaracao", "peso": 3 }
+      ],
+      "enunciado": "Qual alternativa tem SOMENTE nomes de variável válidos?",
+      "opcoes": [
+        { "texto": "2aluno, total, preco", "confusao": "aceita um nome que começa com número" },
+        { "texto": "nota final, total, preco", "confusao": "aceita um nome com espaço" },
+        { "texto": "let, const, total", "confusao": "aceita palavras reservadas como nome" },
+        "total, nota_final, $preco, aluno2"
+      ],
+      "correta": 3,
+      "dica": "Verifique cada nome: começo, espaços e palavras reservadas.",
+      "explicacao": "total, nota_final, $preco e aluno2 seguem as regras: só letras, números, _ e $, e nenhum começa com número."
+    }
+  ]
+}

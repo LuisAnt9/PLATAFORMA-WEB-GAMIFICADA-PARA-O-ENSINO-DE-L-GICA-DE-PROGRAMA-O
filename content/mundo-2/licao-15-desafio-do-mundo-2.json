@@ -1,0 +1,100 @@
+{
+  "id": "desafio-do-mundo-2",
+  "mundo": "mundo-2",
+  "titulo": "Desafio final do Mundo 2",
+  "foco": "Juntar variáveis, tipos, conversões, entrada e saída em um só programa",
+  "posicao": 214,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Hora de juntar tudo o que você aprendeu no Mundo 2: variáveis, tipos de dados, concatenação, template literals, conversões e entrada e saída.\n\nO desafio principal é o primeiro exercício: criar um pequeno programa que receba os dados de uma pessoa (nome, idade e altura), guarde-os em variáveis e mostre os resultados em frases bem formatadas. Os outros dois exercícios treinam a conversão de tipos em situações em que é fácil errar.\n\nDica: antes de escrever, pense em cada dado: qual é o tipo? Ele chega como texto? Precisa ser convertido?",
+  "exemplo": "Como atacar um desafio de programa:\n1. Liste as entradas e o tipo de cada uma (nome: texto; idade: número; altura: número).\n2. Lembre que lerEntrada() entrega os valores na ordem e que eles chegam como texto.\n3. Guarde cada valor em uma variável com nome claro e converta quando for preciso.\n4. Faça as contas pedidas e guarde os resultados em variáveis.\n5. Mostre cada resultado em uma frase, com template literals.\n6. Teste mentalmente com um caso simples antes de executar.",
+  "revisao": "- Toda variável guarda um valor de um tipo: string, number ou boolean.\n- Entradas chegam como texto: converta com Number() antes de calcular.\n- O + junta textos e soma números: cuidado com a mistura.\n- Template literals montam frases com variáveis e contas.\n- console.log mostra o resultado, uma linha por chamada.",
+  "exercicios": [
+    {
+      "id": "desafio2-ficha-da-pessoa",
+      "tipo": "desafio",
+      "titulo": "Desafio: ficha da pessoa",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-entrada-saida", "peso": 2 },
+        { "id": "m2-template-literals", "peso": 2 },
+        { "id": "m2-conversao-tipos", "peso": 2 },
+        { "id": "m2-introducao-variaveis", "peso": 1 },
+        { "id": "m2-let-const", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `ficha()`: leia o nome, a idade e a altura (em metros) com `lerEntrada()` (chegam como texto) e mostre quatro linhas com `console.log`: Nome: NOME, Idade: IDADE anos, Altura: ALTURA m e Daqui a 10 anos, NOME terá IDADE+10 anos.",
+      "funcao": "ficha",
+      "codigoInicial": "function ficha() {\n  // leia nome, idade e altura\n  // mostre as quatro linhas pedidas\n}\n",
+      "testes": [
+        {
+          "entrada": [],
+          "entradas": ["Ana", "20", "1.75"],
+          "saida": ["Nome: Ana", "Idade: 20 anos", "Altura: 1.75 m", "Daqui a 10 anos, Ana terá 30 anos."]
+        },
+        {
+          "entrada": [],
+          "entradas": ["Beto", "35", "1.8"],
+          "saida": ["Nome: Beto", "Idade: 35 anos", "Altura: 1.8 m", "Daqui a 10 anos, Beto terá 45 anos."]
+        }
+      ],
+      "dica": "A idade precisa virar número para somar 10. Use const para os dados que não mudam.",
+      "comentario": "O programa lê os três dados, converte a idade para número, soma 10 e monta cada frase com template literals."
+    },
+    {
+      "id": "desafio2-corrija-o-resumo",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija o resumo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "O programa lê dois números e deveria mostrar a soma e a média, mas mostra resultados errados (por exemplo, Soma: 46 e Média: 23 para as entradas 4 e 6). Corrija o defeito.",
+      "funcao": "resumo",
+      "codigoInicial": "function resumo() {\n  const a = lerEntrada();\n  const b = lerEntrada();\n  const soma = a + b;\n  const media = soma / 2;\n  console.log(`Soma: ${soma}`);\n  console.log(`Média: ${media}`);\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["4", "6"], "saida": ["Soma: 10", "Média: 5"] },
+        { "entrada": [], "entradas": ["10", "20"], "saida": ["Soma: 30", "Média: 15"] },
+        { "entrada": [], "entradas": ["3", "4"], "saida": ["Soma: 7", "Média: 3.5"] }
+      ],
+      "dica": "Os valores lidos são textos. O que o + faz com dois textos?",
+      "comentario": "Como as entradas são texto, a + b juntava os valores (\"46\"). Convertendo com Number(), a soma e a média passam a ser calculadas com números."
+    },
+    {
+      "id": "desafio2-tipos-e-conversoes",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe os tipos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 2 },
+        { "id": "m2-concatenacao", "peso": 2 },
+        { "id": "m2-string", "peso": 1 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "Acompanhe o valor e o tipo de cada variável. O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const preco = \"20\";\nconst quantidade = 3;\nlet total = preco * quantidade;\ntotal = total + \"0\";\nconsole.log(typeof total);\nconsole.log(total);",
+      "opcoes": [
+        {
+          "texto": "number\n60",
+          "confusao": "ignora a segunda atribuição, que transforma o total em texto"
+        },
+        "string\n600",
+        {
+          "texto": "number\n600",
+          "confusao": "acha que somar um texto a um número mantém o tipo number"
+        },
+        { "texto": "string\n2060", "confusao": "junta \"20\" e 3 em vez de multiplicar" }
+      ],
+      "correta": 1,
+      "dica": "O * converte o texto em número; depois o + com um texto junta os valores.",
+      "explicacao": "preco * quantidade converte \"20\" em 20 e dá 60 (number). Depois, total + \"0\" junta 60 com \"0\" e resulta no texto \"600\" (string)."
+    }
+  ]
+}

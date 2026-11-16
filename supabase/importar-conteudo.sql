@@ -297,7 +297,335 @@ const palavra = "casa";
 palavra[0] // "c"
 palavra.length // 4
 
-Dá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: "A" não é igual a "a".$c$, $c$$c$, $c$$c$, $c$mundo-2$c$, 201, $c$arquivo$c$),
+Dá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: "A" não é igual a "a".$c$, $c$$c$, $c$$c$, $c$mundo-2$c$, 290, $c$arquivo$c$),
+  ($c$introducao-as-variaveis$c$, $c$Introdução às variáveis$c$, $c$Entender a variável como um nome que guarda um valor$c$, $c$Um programa precisa guardar informações: o nome de uma pessoa, uma idade, um saldo. Para isso usamos variáveis.
+
+Uma variável é um nome que guarda um valor na memória do computador. Pense em uma caixa com uma etiqueta: a etiqueta é o nome da variável e o que está dentro da caixa é o valor. Quando precisamos do valor, chamamos a variável pelo nome.
+
+O valor pode mudar ao longo do programa (daí o nome "variável"). Para guardar um valor em uma variável, usamos o sinal =. Atenção: em programação, = não significa "igual a" como na matemática. Ele manda guardar: "idade = 21" lê-se "idade recebe 21". Isso se chama atribuição.$c$, $c$let idade = 20;
+console.log(idade);   // mostra 20
+
+idade = 21;           // troca o valor guardado
+console.log(idade);   // mostra 21
+
+Passo a passo:
+1. let idade = 20; cria a variável idade e guarda o valor 20 nela.
+2. console.log(idade); mostra o valor guardado (20), e não a palavra "idade".
+3. idade = 21; substitui o valor antigo por 21. O 20 se perde.
+4. O último console.log mostra 21.
+
+Repare que o nome da variável não vai entre aspas: as aspas serviriam para mostrar o texto "idade" em vez do valor.$c$, $c$- Variável é um nome que guarda um valor na memória.
+- O valor guardado pode mudar durante o programa.
+- O sinal = guarda um valor na variável (atribuição); não é "igual" da matemática.
+- Para usar o valor, escrevemos o nome da variável, sem aspas.
+- Ao guardar um novo valor, o antigo é substituído.$c$, $c$mundo-2$c$, 201, $c$arquivo$c$),
+  ($c$declaracao-de-variaveis$c$, $c$Declaração de variáveis$c$, $c$Declarar variáveis e escolher nomes válidos$c$, $c$Declarar uma variável é criá-la. Em JavaScript usamos a palavra let, seguida do nome. Podemos já guardar um valor (inicializar) ou deixar a variável sem valor, e então ela vale undefined, que significa "ainda não tem valor".
+
+Regras para os nomes:
+- podem ter letras, números, _ e $;
+- não podem começar com número nem ter espaços;
+- não podem ser palavras reservadas da linguagem (let, const, if...);
+- maiúsculas e minúsculas fazem diferença: idade e Idade são variáveis diferentes.
+
+Boas práticas: use nomes que expliquem o conteúdo (notaFinal, e não x) e o estilo camelCase (a primeira palavra em minúsculas e as seguintes com inicial maiúscula). Cada instrução termina com ponto e vírgula.$c$, $c$let nome = "Ana";        // declara e já guarda um valor
+let idade;               // declara sem valor
+console.log(idade);      // undefined
+idade = 30;              // agora guarda 30
+let notaFinal = 8.5;     // nome em camelCase
+
+Passo a passo:
+1. let nome = "Ana"; cria a variável nome e guarda o texto Ana.
+2. let idade; cria a variável, mas ela ainda não tem valor: vale undefined.
+3. idade = 30; guarda o valor depois. Aqui não usamos let de novo, porque a variável já existe.
+4. notaFinal é um nome claro e segue o camelCase.$c$, $c$- let cria uma variável: let nome = valor;
+- Sem valor inicial, a variável vale undefined.
+- Nomes: letras, números, _ e $; sem espaços; não começam com número; não podem ser palavras reservadas.
+- Maiúsculas e minúsculas são diferentes: idade e Idade não são a mesma variável.
+- Prefira nomes claros em camelCase.$c$, $c$mundo-2$c$, 202, $c$arquivo$c$),
+  ($c$let-e-const$c$, $c$Utilização de let e const$c$, $c$Escolher entre let (valor muda) e const (valor fixo)$c$, $c$Há duas formas de declarar uma variável em JavaScript:
+- let: o valor pode ser trocado depois.
+- const: o valor é fixo. Depois de guardado, não pode ser substituído, e a variável precisa receber o valor na própria declaração.
+
+Se o programa tentar mudar uma const, ele para com o erro "Assignment to constant variable".
+
+Regra prática: use const para o que não muda (o valor de PI, uma taxa, o nome do curso) e let para o que muda (um contador, um saldo, uma pontuação). Assim quem lê o código sabe, só pela palavra, se o valor pode mudar. Existe também a palavra var, mais antiga; neste curso usamos só let e const.$c$, $c$const PI = 3.14159;     // não muda
+let raio = 2;           // pode mudar
+raio = 5;               // ok: let aceita um novo valor
+// PI = 3;              // ERRO: Assignment to constant variable
+console.log(PI * raio); // 15.70795
+
+Passo a passo:
+1. PI é uma const: o valor 3.14159 nunca muda.
+2. raio é uma let: começa em 2 e depois recebe 5.
+3. A linha comentada com // tentaria mudar a const PI e causaria um erro, por isso ela está desativada.
+4. O resultado é 3.14159 * 5 = 15.70795.$c$, $c$- let: o valor pode mudar. const: o valor é fixo.
+- const precisa receber o valor na declaração.
+- Mudar uma const causa o erro "Assignment to constant variable".
+- Use const por padrão e let só quando o valor precisar mudar.
+- Não declare a mesma variável duas vezes no mesmo lugar.$c$, $c$mundo-2$c$, 203, $c$arquivo$c$),
+  ($c$tipo-string$c$, $c$Tipo String$c$, $c$Reconhecer e escrever textos (strings)$c$, $c$Todo valor tem um tipo, que define o que ele é e o que podemos fazer com ele. O primeiro tipo que vamos estudar é a string: um texto, isto é, uma sequência de caracteres entre aspas.
+
+- Podemos usar aspas duplas ("Ana"), aspas simples ('Ana') ou crases (veremos mais adiante). A aspa que abre precisa ser a mesma que fecha.
+- O texto vazio ("") também é uma string.
+- Atenção: "42" entre aspas é um texto, e não um número. O que está entre aspas é tratado como texto, mesmo que pareça outra coisa.
+- Sem aspas, o computador entende que Ana é o nome de uma variável, e não um texto.
+
+Para descobrir o tipo de um valor usamos typeof.$c$, $c$const nome = "Ana";
+const sobrenome = 'Lima';
+const vazio = "";
+const numeroEmTexto = "42";
+
+console.log(typeof nome);          // string
+console.log(typeof numeroEmTexto); // string (as aspas fazem dele um texto)
+console.log(typeof 42);            // number (sem aspas, é um número)
+console.log('Ele disse "oi"');     // Ele disse "oi"
+
+Passo a passo:
+1. As quatro primeiras linhas guardam textos, com aspas duplas ou simples.
+2. typeof mostra o tipo: "42" é string, mas 42 sem aspas é number.
+3. Para mostrar aspas dentro do texto, usamos outro tipo de aspas por fora: por fora aspas simples, por dentro aspas duplas.$c$, $c$- String é um texto: uma sequência de caracteres entre aspas.
+- As aspas que abrem e fecham devem ser do mesmo tipo.
+- "42" entre aspas é texto, não número.
+- Sem aspas, o nome é entendido como uma variável.
+- typeof mostra o tipo de um valor.$c$, $c$mundo-2$c$, 204, $c$arquivo$c$),
+  ($c$tipo-number$c$, $c$Tipo Number$c$, $c$Reconhecer e escrever números (inteiros e decimais)$c$, $c$O tipo number guarda números. Em JavaScript, inteiros (7, -2) e decimais (3.14) são o mesmo tipo: number.
+
+Pontos importantes:
+- Números não levam aspas. Com aspas, viram texto.
+- O separador decimal é o ponto (3.5), e não a vírgula.
+- Podemos fazer contas com + (soma), - (subtração), * (multiplicação) e / (divisão). Veremos todos os operadores com calma no Mundo 3.
+- Algumas contas têm resultados especiais: dividir por zero dá Infinity, e uma conta sem sentido, como "abc" * 2, dá NaN (a sigla de "Not a Number", ou "não é um número").$c$, $c$const inteiro = 7;
+const decimal = 3.14;
+const negativo = -2;
+
+console.log(typeof inteiro);   // number
+console.log(typeof decimal);   // number (decimal também é number)
+console.log(10 / 4);           // 2.5
+console.log(10 / 0);           // Infinity
+console.log("abc" * 2);        // NaN
+
+Passo a passo:
+1. Inteiros, decimais e negativos são todos do tipo number.
+2. 10 / 4 dá 2.5: a divisão em JavaScript não arredonda sozinha.
+3. Dividir por zero não causa erro: o resultado é Infinity.
+4. Multiplicar um texto que não é número por 2 não faz sentido: o resultado é NaN.$c$, $c$- number é o tipo dos números, inteiros ou decimais.
+- Números não levam aspas e usam ponto como separador decimal.
+- 10 / 0 resulta em Infinity.
+- NaN significa "não é um número" e aparece em contas sem sentido.
+- typeof mostra number para qualquer número, inclusive NaN.$c$, $c$mundo-2$c$, 205, $c$arquivo$c$),
+  ($c$tipo-boolean$c$, $c$Tipo Boolean$c$, $c$Reconhecer valores lógicos: true e false$c$, $c$O tipo boolean tem apenas dois valores: true (verdadeiro) e false (falso). Eles são escritos em minúsculas e sem aspas. Com aspas, "true" vira um texto; com letra maiúscula, True não existe em JavaScript.
+
+Valores booleanos aparecem como resposta a perguntas: "5 é maior que 3?" (true), "2 é maior que 10?" (false). Usamos os operadores de comparação: > (maior), < (menor), >= (maior ou igual), <= (menor ou igual) e === (igual). Você vai estudá-los com calma no Mundo 3.
+
+No Mundo 4, os booleanos serão a base das decisões do programa: se a resposta for true, fazemos uma coisa; se for false, outra.$c$, $c$const maiorDeIdade = true;
+const temDesconto = false;
+
+console.log(typeof maiorDeIdade);  // boolean
+console.log(5 > 3);                // true
+console.log(2 > 10);               // false
+console.log("true");               // true (mas aqui é um texto!)
+
+Passo a passo:
+1. true e false, sem aspas, são valores boolean.
+2. Uma comparação como 5 > 3 é uma pergunta, e a resposta é um boolean.
+3. A última linha mostra o texto true. Na tela parece igual ao valor lógico, mas o tipo é string.$c$, $c$- boolean tem só dois valores: true e false (minúsculos, sem aspas).
+- Comparações (>, <, >=, <=, ===) resultam em boolean.
+- "true" entre aspas é texto, não boolean.
+- True com T maiúsculo não existe em JavaScript.
+- Booleanos serão a base das decisões do programa.$c$, $c$mundo-2$c$, 206, $c$arquivo$c$),
+  ($c$manipulacao-de-textos$c$, $c$Manipulação de textos$c$, $c$Consultar e transformar textos com propriedades e métodos$c$, $c$Os textos têm ferramentas prontas, que chamamos com um ponto depois do texto:
+- .length: quantos caracteres o texto tem (é uma propriedade, sem parênteses).
+- .toUpperCase() e .toLowerCase(): devolvem o texto em maiúsculas ou minúsculas.
+- .trim(): remove os espaços do início e do fim.
+- .includes("x"): diz (true ou false) se o texto contém "x".
+- .indexOf("x"): devolve a posição de "x", ou -1 se não achar.
+- .slice(inicio, fim): devolve um pedaço do texto.
+
+As posições (índices) começam em 0: o primeiro caractere é texto[0]. Os métodos não alteram o texto original: eles devolvem um novo valor.$c$, $c$const nome = "  Ana Lima ";
+console.log(nome.length);        // 11
+console.log(nome.trim());        // Ana Lima
+
+const t = "lógica";
+console.log(t.toUpperCase());    // LÓGICA
+console.log(t[0]);               // l
+console.log(t.slice(0, 3));      // lóg
+console.log(t.includes("gi"));   // true
+console.log(t.indexOf("g"));     // 2
+console.log(t.indexOf("z"));     // -1
+
+Passo a passo:
+1. O texto "  Ana Lima " tem 11 caracteres, contando os espaços. trim() devolve Ana Lima, sem os espaços das pontas.
+2. Em "lógica", as posições são l=0, ó=1, g=2, i=3, c=4, a=5.
+3. slice(0, 3) pega das posições 0 até 2 (o 3 não entra): lóg.
+4. indexOf devolve -1 quando o pedaço não existe.$c$, $c$- .length dá o tamanho do texto; os índices começam em 0.
+- toUpperCase, toLowerCase e trim devolvem um novo texto.
+- includes responde true ou false; indexOf devolve a posição ou -1.
+- slice(inicio, fim) inclui o início e não inclui o fim.
+- Os métodos não mudam o texto original.$c$, $c$mundo-2$c$, 207, $c$arquivo$c$),
+  ($c$concatenacao$c$, $c$Concatenação$c$, $c$Juntar textos com o operador +$c$, $c$Concatenar é juntar textos. Em JavaScript, usamos o operador +.
+
+- "Bom" + "dia" resulta em "Bomdia": o + não coloca espaço, então precisamos escrevê-lo: "Bom" + " " + "dia".
+- Quando um dos lados é texto, o + junta em vez de somar. Por isso "Idade: " + 20 resulta em "Idade: 20".
+- Cuidado: "5" + 3 resulta em "53" (junção de textos), mas 5 + 3 resulta em 8 (soma de números).
+- Quando há vários + seguidos, o computador resolve da esquerda para a direita, trocando de comportamento assim que aparece um texto: 1 + 2 + "3" resulta em "33" e "1" + 2 + 3 resulta em "123".$c$, $c$const nome = "Ana";
+const sobrenome = "Lima";
+console.log(nome + sobrenome);          // AnaLima
+console.log(nome + " " + sobrenome);    // Ana Lima
+console.log("Idade: " + 20);            // Idade: 20
+console.log("5" + 3);                   // 53
+console.log(5 + 3);                     // 8
+
+Passo a passo:
+1. Sem espaço entre as variáveis, os textos grudam: AnaLima.
+2. O espaço entra como um texto pequeno: " ".
+3. Um número ao lado de um texto vira texto: "Idade: " + 20 dá "Idade: 20".
+4. "5" + 3 junta (53), mas 5 + 3 soma (8). A diferença está nas aspas.$c$, $c$- O operador + junta textos (concatenação).
+- O + não coloca espaços sozinho: escreva-os entre aspas.
+- Se um dos lados é texto, o + junta; se os dois são números, soma.
+- "5" + 3 é "53", e 5 + 3 é 8.
+- Em uma sequência de +, a conta vai da esquerda para a direita.$c$, $c$mundo-2$c$, 208, $c$arquivo$c$),
+  ($c$template-literals$c$, $c$Template literals$c$, $c$Montar textos com variáveis usando crases e ${ }$c$, $c$Montar frases com + pode ficar confuso: "Olá, " + nome + "! Você tem " + idade + " anos.". Os template literals tornam isso mais fácil.
+
+Um template literal é um texto escrito entre crases (`), a tecla do acento grave. Dentro dele, usamos ${ } para inserir o valor de uma variável ou o resultado de uma conta. Os espaços e a pontuação ficam exatamente como escritos.
+
+Atenção: só as crases fazem a substituição. Com aspas comuns, o texto ${nome} aparece literalmente na tela, sem trocar pelo valor da variável.$c$, $c$const nome = "Ana";
+const idade = 20;
+
+console.log(`Olá, ${nome}! Você tem ${idade} anos.`);
+// Olá, Ana! Você tem 20 anos.
+
+console.log(`O dobro de ${idade} é ${idade * 2}.`);
+// O dobro de 20 é 40.
+
+console.log("Olá, ${nome}");
+// Olá, ${nome}   (aspas comuns não substituem nada)
+
+Passo a passo:
+1. O texto está entre crases e cada ${ } é trocado pelo valor que tem dentro.
+2. Dentro do ${ } cabe até uma conta: ${idade * 2} vira 40.
+3. Na última linha, as aspas comuns mostram o texto literalmente.$c$, $c$- Template literal é um texto entre crases (`).
+- ${ } insere o valor de uma variável ou de uma expressão.
+- Só as crases fazem a substituição; aspas comuns não.
+- Facilita montar frases com várias variáveis, sem muitos +.$c$, $c$mundo-2$c$, 209, $c$arquivo$c$),
+  ($c$operacoes-com-numeros$c$, $c$Operações com números$c$, $c$Fazer contas com números e variáveis$c$, $c$Com números, o computador faz contas:
+- + soma, - subtração, * multiplicação, / divisão;
+- % resto da divisão (7 % 2 vale 1);
+- ** potência (2 ** 3 vale 8).
+
+Como na matemática, multiplicação, divisão e resto são feitos antes de soma e subtração, e os parênteses mudam a ordem: 2 + 3 * 4 vale 14, mas (2 + 3) * 4 vale 20.
+
+Para arredondar, usamos Math.round (para o inteiro mais próximo) e Math.floor (para baixo). As contas podem usar variáveis, e o resultado pode ser guardado em outra variável.$c$, $c$const a = 7;
+const b = 2;
+console.log(a + b);             // 9
+console.log(a - b);             // 5
+console.log(a * b);             // 14
+console.log(a / b);             // 3.5
+console.log(a % b);             // 1 (resto de 7 dividido por 2)
+console.log(a ** b);            // 49 (7 elevado a 2)
+console.log(Math.round(3.6));   // 4
+console.log(Math.floor(3.9));   // 3
+
+Passo a passo:
+1. Cada linha faz uma conta com as variáveis a e b e mostra o resultado.
+2. 7 % 2 dá 1, porque 7 dividido por 2 dá 3 e sobra 1.
+3. Math.round(3.6) arredonda para o inteiro mais próximo (4); Math.floor(3.9) arredonda sempre para baixo (3).$c$, $c$- + - * / fazem as quatro operações; % dá o resto; ** é a potência.
+- Multiplicação, divisão e resto vêm antes de soma e subtração; parênteses mudam a ordem.
+- Math.round arredonda para o mais próximo; Math.floor arredonda para baixo.
+- Podemos usar variáveis nas contas e guardar o resultado em outra variável.$c$, $c$mundo-2$c$, 210, $c$arquivo$c$),
+  ($c$conversao-de-tipos$c$, $c$Conversão de tipos$c$, $c$Converter valores entre texto e número$c$, $c$Converter é mudar o tipo de um valor. As principais conversões:
+- Number("42") transforma o texto "42" no número 42. Se o texto não for um número, o resultado é NaN.
+- String(42) transforma o número 42 no texto "42".
+- parseInt("42px") e parseFloat("3.5kg") leem o número no começo do texto (42 e 3.5).
+
+Por que isso importa? Dados digitados por uma pessoa costumam chegar como texto, mesmo que pareçam números. Sem converter, "10" + 5 vira "105", e não 15.
+
+O JavaScript também converte sozinho em alguns casos: "5" * 2 vira 10. Porém o + junta textos, então "5" + 2 vira "52". Para evitar surpresas, converta de forma explícita.$c$, $c$const idadeTexto = "20";
+const idade = Number(idadeTexto);
+
+console.log(typeof idadeTexto);   // string
+console.log(typeof idade);        // number
+console.log(idade + 1);           // 21
+console.log(idadeTexto + 1);      // 201 (junta, não soma!)
+console.log(Number("abc"));       // NaN
+console.log(String(15) + "5");    // 155
+console.log(parseFloat("3.5kg")); // 3.5
+console.log(parseInt("42px"));    // 42
+
+Passo a passo:
+1. Number(idadeTexto) cria um número a partir do texto "20".
+2. Com o número, idade + 1 soma e dá 21. Com o texto, idadeTexto + 1 junta e dá "201".
+3. Textos que não são números viram NaN.
+4. parseInt e parseFloat aproveitam o número que aparece no começo do texto.$c$, $c$- Number("42") converte texto em número; texto inválido vira NaN.
+- String(42) converte número em texto.
+- parseInt e parseFloat leem o número do começo de um texto.
+- Dados de entrada costumam ser texto: converta antes de fazer contas.
+- O + junta textos; o * converte textos que parecem números.$c$, $c$mundo-2$c$, 211, $c$arquivo$c$),
+  ($c$entrada-e-saida-de-informacoes$c$, $c$Entrada e saída de informações$c$, $c$Ler dados, convertê-los, processá-los e mostrar o resultado$c$, $c$Já vimos que todo programa tem entrada, processamento e saída. Agora vamos colocar isso em prática com variáveis.
+
+- Entrada: nesta plataforma, lerEntrada() lê um valor de cada vez, na ordem em que foram informados.
+- Conversão: o valor lido costuma ser texto. Se for número, converta com Number().
+- Processamento: as contas e transformações, guardando resultados em variáveis.
+- Saída: console.log mostra o resultado; um template literal deixa a frase bem montada.
+
+Um programa de verdade, em um navegador, receberia a entrada de uma caixa de texto ou de um formulário. A lógica é a mesma.$c$, $c$function dobroDoNumero() {
+  // ENTRADA: o valor chega como texto
+  const texto = lerEntrada();
+  // CONVERSÃO: transforma em número
+  const numero = Number(texto);
+  // PROCESSAMENTO: calcula o dobro
+  const dobro = numero * 2;
+  // SAÍDA: mostra a frase
+  console.log(`O dobro de ${numero} é ${dobro}`);
+}
+
+Se a entrada for "5", o programa mostra: O dobro de 5 é 10.
+
+Passo a passo:
+1. lerEntrada() entrega o valor digitado.
+2. Number() converte o texto em número.
+3. A conta é feita e guardada em uma variável.
+4. O template literal monta a frase e console.log a mostra.$c$, $c$- lerEntrada() lê um valor por vez, na ordem informada.
+- Entradas costumam ser texto: converta com Number() antes de calcular.
+- Guarde resultados intermediários em variáveis com nomes claros.
+- console.log mostra a saída; template literals ajudam a montar frases.
+- O caminho é sempre: ler, converter, processar e mostrar.$c$, $c$mundo-2$c$, 212, $c$arquivo$c$),
+  ($c$uso-do-console-log$c$, $c$Utilização de console.log()$c$, $c$Usar o console.log para mostrar e acompanhar valores$c$, $c$O console.log é a principal ferramenta de saída: ele mostra valores na tela e também ajuda a descobrir o que está acontecendo dentro do programa.
+
+- Cada chamada mostra uma nova linha.
+- Podemos passar vários valores separados por vírgula: eles aparecem na mesma linha, separados por um espaço. console.log("Total:", 50) mostra Total: 50.
+- Textos aparecem sem as aspas. Números, booleanos e resultados de contas aparecem normalmente.
+- Um texto entre aspas aparece exatamente como foi escrito, e um cálculo sem aspas é resolvido antes de ser mostrado.
+
+Programadores usam console.log o tempo todo para acompanhar o valor de variáveis passo a passo. Isso se chama depurar (procurar defeitos).$c$, $c$console.log("Olá");              // Olá
+console.log("Total:", 50);       // Total: 50
+console.log("a", "b", "c");      // a b c
+console.log(2 + 3);              // 5
+console.log("2 + 3");            // 2 + 3
+console.log(true);               // true
+
+Passo a passo:
+1. Cada console.log mostra uma linha.
+2. Com vírgulas, os valores aparecem juntos, separados por um espaço.
+3. 2 + 3 sem aspas é calculado (5); com aspas é só um texto, mostrado como está.
+4. Valores booleanos também podem ser mostrados.$c$, $c$- Cada console.log mostra uma nova linha.
+- Com vírgulas, os valores ficam na mesma linha, separados por espaço.
+- Textos aparecem sem aspas; contas sem aspas são calculadas.
+- console.log ajuda a acompanhar os valores das variáveis e a achar defeitos.$c$, $c$mundo-2$c$, 213, $c$arquivo$c$),
+  ($c$desafio-do-mundo-2$c$, $c$Desafio final do Mundo 2$c$, $c$Juntar variáveis, tipos, conversões, entrada e saída em um só programa$c$, $c$Hora de juntar tudo o que você aprendeu no Mundo 2: variáveis, tipos de dados, concatenação, template literals, conversões e entrada e saída.
+
+O desafio principal é o primeiro exercício: criar um pequeno programa que receba os dados de uma pessoa (nome, idade e altura), guarde-os em variáveis e mostre os resultados em frases bem formatadas. Os outros dois exercícios treinam a conversão de tipos em situações em que é fácil errar.
+
+Dica: antes de escrever, pense em cada dado: qual é o tipo? Ele chega como texto? Precisa ser convertido?$c$, $c$Como atacar um desafio de programa:
+1. Liste as entradas e o tipo de cada uma (nome: texto; idade: número; altura: número).
+2. Lembre que lerEntrada() entrega os valores na ordem e que eles chegam como texto.
+3. Guarde cada valor em uma variável com nome claro e converta quando for preciso.
+4. Faça as contas pedidas e guarde os resultados em variáveis.
+5. Mostre cada resultado em uma frase, com template literals.
+6. Teste mentalmente com um caso simples antes de executar.$c$, $c$- Toda variável guarda um valor de um tipo: string, number ou boolean.
+- Entradas chegam como texto: converta com Number() antes de calcular.
+- O + junta textos e soma números: cuidado com a mistura.
+- Template literals montam frases com variáveis e contas.
+- console.log mostra o resultado, uma linha por chamada.$c$, $c$mundo-2$c$, 214, $c$arquivo$c$),
   ($c$fundamentos$c$, $c$Fundamentos$c$, $c$Traduzir um problema em passos e operações$c$, $c$Uma função recebe valores (parâmetros), faz um cálculo e devolve um resultado com return. Por exemplo:
 
 function dobro(n) {
@@ -430,6 +758,174 @@ $c$, $c$[{"args":["banana"],"expected":3},{"args":[""],"expected":0},{"args":["x
   // seu código aqui
 }
 $c$, $c$[{"args":["arara"],"expected":true},{"args":["casa"],"expected":false},{"args":["a"],"expected":true},{"args":[""],"expected":true},{"args":["radar"],"expected":true},{"args":["abca"],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Compare a primeira letra com a última, a segunda com a penúltima, e assim por diante.$c$, 105, false, $c$arquivo$c$),
+  ($c$variaveis-o-que-e$c$, $c$introducao-as-variaveis$c$, $c$choice$c$, $c$O que é uma variável?$c$, $c$facil$c$, $c$O que é uma variável em um programa?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um valor que nunca pode mudar","misconception":"confunde variável com um valor fixo"},{"text":"Um nome que guarda um valor na memória do computador"},{"text":"Um comando que mostra algo na tela","misconception":"confunde variável com o comando console.log"},{"text":"Um erro que aparece quando o programa muda","misconception":"associa a palavra \"variável\" a algo que dá defeito"}],"correct":1,"explanation":"Uma variável é um nome associado a um valor guardado na memória. O valor pode ser consultado e trocado quando for preciso."}$c$::jsonb, $c$Pense em uma caixa com etiqueta: o nome é a etiqueta e o valor é o conteúdo.$c$, 1, false, $c$arquivo$c$),
+  ($c$variaveis-mostrar-valor$c$, $c$introducao-as-variaveis$c$, $c$interpretation$c$, $c$O que aparece na tela?$c$, $c$facil$c$, $c$Veja o programa abaixo. O que ele mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"pontos","misconception":"mostra o nome da variável em vez do valor guardado nela"},{"text":"let pontos","misconception":"acha que o console.log repete a declaração"},{"text":"Nada, porque faltou o ponto e vírgula","misconception":"acha que o programa não funciona sem aquele sinal"},{"text":"10"}],"correct":3,"code":"let pontos = 10;\nconsole.log(pontos);","explanation":"A variável pontos guarda o número 10. Ao escrever pontos dentro do console.log, o computador mostra o valor guardado: 10."}$c$::jsonb, $c$console.log mostra o valor que a variável guarda.$c$, 2, false, $c$arquivo$c$),
+  ($c$variaveis-complete-idade$c$, $c$introducao-as-variaveis$c$, $c$blank$c$, $c$Guarde e mostre a idade$c$, $c$facil$c$, $c$Complete o programa para guardar o número 18 na variável idade e mostrar o valor dela.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let {{1}} = 18;\nconsole.log({{2}});","blanks":[{"answers":["idade"]},{"answers":["idade"]}],"explanation":"O nome idade identifica a variável tanto na declaração quanto no console.log, que mostra o valor guardado (18)."}$c$::jsonb, $c$O mesmo nome é usado para guardar e para consultar o valor.$c$, 3, false, $c$arquivo$c$),
+  ($c$variaveis-trocar-o-valor$c$, $c$introducao-as-variaveis$c$, $c$interpretation$c$, $c$E o valor antigo?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"150"},{"text":"100","misconception":"acha que o primeiro valor guardado nunca é substituído"},{"text":"250","misconception":"acha que o novo valor é somado ao antigo"},{"text":"saldo","misconception":"mostra o nome da variável em vez do valor guardado nela"}],"correct":0,"code":"let saldo = 100;\nsaldo = 150;\nconsole.log(saldo);","explanation":"A atribuição saldo = 150 substitui o valor 100. O valor antigo se perde e o console.log mostra 150."}$c$::jsonb, $c$O que acontece com o valor antigo quando guardamos um novo?$c$, 4, false, $c$arquivo$c$),
+  ($c$variaveis-ordene-o-programa$c$, $c$introducao-as-variaveis$c$, $c$order$c$, $c$Ordene o programa$c$, $c$medio$c$, $c$Coloque as linhas na ordem certa para o programa mostrar o número 2.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["let contador = 1;","contador = 2;","console.log(contador);"],"explanation":"Primeiro criamos a variável, depois guardamos o novo valor e, por fim, mostramos o resultado."}$c$::jsonb, $c$A variável precisa existir antes de ser usada, e o valor novo precisa ser guardado antes de ser mostrado.$c$, 5, false, $c$arquivo$c$),
+  ($c$variaveis-sinal-de-igual$c$, $c$introducao-as-variaveis$c$, $c$choice$c$, $c$O que significa o =?$c$, $c$medio$c$, $c$Na linha idade = 21; o que o sinal = faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Afirma que idade é igual a 21, como na matemática","misconception":"lê o = como igualdade matemática e não como atribuição"},{"text":"Compara idade com 21 e mostra true ou false","misconception":"confunde atribuição com comparação"},{"text":"Guarda o valor 21 na variável idade"},{"text":"Cria uma variável chamada 21","misconception":"inverte os lados da atribuição"}],"correct":2,"explanation":"O = é o operador de atribuição: guarda o valor da direita na variável da esquerda. Comparar é outra operação, que veremos mais adiante."}$c$::jsonb, $c$Leia como "idade recebe 21".$c$, 6, false, $c$arquivo$c$),
+  ($c$variaveis-copia-de-valor$c$, $c$introducao-as-variaveis$c$, $c$interpretation$c$, $c$Quanto vale b?$c$, $c$dificil$c$, $c$Acompanhe os valores e responda: o que o programa mostra?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"8","misconception":"acha que b acompanha as mudanças de a"},{"text":"5"},{"text":"13","misconception":"soma os dois valores"},{"text":"a","misconception":"mostra o nome da variável em vez do valor guardado nela"}],"correct":1,"code":"let a = 5;\nlet b = a;\na = 8;\nconsole.log(b);","explanation":"Ao fazer b = a, a variável b guarda o valor 5 (uma cópia). Mudar a depois não altera b: ele continua valendo 5."}$c$::jsonb, $c$b recebeu uma cópia do valor que a tinha naquele momento.$c$, 7, false, $c$arquivo$c$),
+  ($c$declaracao-nome-valido$c$, $c$declaracao-de-variaveis$c$, $c$choice$c$, $c$Qual nome é válido?$c$, $c$facil$c$, $c$Qual destes é um nome de variável válido?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1nota","misconception":"acha que o nome pode começar com número"},{"text":"nota final","misconception":"esquece que o nome não pode ter espaços"},{"text":"let","misconception":"usa uma palavra reservada como nome"},{"text":"nota1"}],"correct":3,"explanation":"nota1 usa só letras e número e não começa com número. Espaços e palavras reservadas, como let, não são permitidos."}$c$::jsonb, $c$O nome pode ter números, mas não pode começar por um.$c$, 1, false, $c$arquivo$c$),
+  ($c$declaracao-linha-correta$c$, $c$declaracao-de-variaveis$c$, $c$choice$c$, $c$Qual linha declara a variável?$c$, $c$facil$c$, $c$Qual linha declara a variável cidade guardando o texto "Picos"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"let cidade = \"Picos\";"},{"text":"cidade let = \"Picos\";","misconception":"inverte a ordem: a palavra let vem antes do nome"},{"text":"let cidade == \"Picos\";","misconception":"usa == (comparação) no lugar de = (atribuição)"},{"text":"let \"cidade\" = Picos;","misconception":"troca as aspas: o texto vai entre aspas, o nome da variável não"}],"correct":0,"explanation":"A forma correta é let nome = valor;. O texto vai entre aspas e o nome da variável, não."}$c$::jsonb, $c$A palavra let vem primeiro; depois o nome; depois o = e o valor.$c$, 2, false, $c$arquivo$c$),
+  ($c$declaracao-complete$c$, $c$declaracao-de-variaveis$c$, $c$blank$c$, $c$Complete a declaração$c$, $c$facil$c$, $c$Complete o programa para declarar a variável nome com o texto Ana e mostrá-la.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"{{1}} nome = \"Ana\";\nconsole.log({{2}});","blanks":[{"answers":["let"]},{"answers":["nome"]}],"explanation":"let cria a variável e console.log(nome) mostra o valor guardado nela."}$c$::jsonb, $c$A declaração começa com a palavra reservada que cria variáveis.$c$, 3, false, $c$arquivo$c$),
+  ($c$declaracao-sem-valor$c$, $c$declaracao-de-variaveis$c$, $c$interpretation$c$, $c$Variável sem valor$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um texto vazio","misconception":"acha que uma variável sem valor guarda um texto vazio"},{"text":"0","misconception":"acha que uma variável sem valor guarda zero"},{"text":"undefined"},{"text":"Nada: dá erro, porque a variável não tem valor","misconception":"acha que declarar sem valor causa erro"}],"correct":2,"code":"let nome;\nconsole.log(nome);","explanation":"Uma variável declarada sem valor vale undefined, que significa \"ainda sem valor\". Isso não é um erro."}$c$::jsonb, $c$A variável existe, mas ninguém guardou nada nela.$c$, 4, false, $c$arquivo$c$),
+  ($c$declaracao-maiuscula-minuscula$c$, $c$declaracao-de-variaveis$c$, $c$interpretation$c$, $c$Idade ou idade?$c$, $c$medio$c$, $c$O que acontece ao executar o programa abaixo?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Mostra 20","misconception":"acha que maiúsculas e minúsculas não fazem diferença"},{"text":"Dá erro, porque Idade (com I maiúsculo) nunca foi declarada"},{"text":"Mostra Idade","misconception":"acha que o console.log mostra o nome como texto"},{"text":"Mostra undefined","misconception":"acha que uma variável que não existe vale undefined"}],"correct":1,"code":"let idade = 20;\nconsole.log(Idade);","explanation":"O JavaScript diferencia maiúsculas de minúsculas. Idade e idade são nomes diferentes, e Idade não existe: o programa para com um erro."}$c$::jsonb, $c$Compare as duas grafias letra por letra.$c$, 5, false, $c$arquivo$c$),
+  ($c$declaracao-corrija-o-nome$c$, $c$declaracao-de-variaveis$c$, $c$fix$c$, $c$Corrija o nome da variável$c$, $c$medio$c$, $c$A função `quadrado(numero)` deveria devolver o número multiplicado por ele mesmo, mas tem um defeito no nome de uma variável. Corrija.$c$, null, $c$quadrado$c$, $c$function quadrado(numero) {
+  let resultado = numero * numero;
+  return Resultado;
+}
+$c$, $c$[{"args":[3],"expected":9},{"args":[5],"expected":25},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Compare a variável criada com a variável devolvida.$c$, 6, false, $c$arquivo$c$),
+  ($c$declaracao-so-nomes-validos$c$, $c$declaracao-de-variaveis$c$, $c$choice$c$, $c$Só nomes válidos$c$, $c$dificil$c$, $c$Qual alternativa tem SOMENTE nomes de variável válidos?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2aluno, total, preco","misconception":"aceita um nome que começa com número"},{"text":"nota final, total, preco","misconception":"aceita um nome com espaço"},{"text":"let, const, total","misconception":"aceita palavras reservadas como nome"},{"text":"total, nota_final, $preco, aluno2"}],"correct":3,"explanation":"total, nota_final, $preco e aluno2 seguem as regras: só letras, números, _ e $, e nenhum começa com número."}$c$::jsonb, $c$Verifique cada nome: começo, espaços e palavras reservadas.$c$, 7, false, $c$arquivo$c$),
+  ($c$letconst-palavra-que-muda$c$, $c$let-e-const$c$, $c$choice$c$, $c$Qual palavra permite mudar o valor?$c$, $c$facil$c$, $c$Qual palavra declara uma variável cujo valor pode ser trocado depois?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"let"},{"text":"const","misconception":"confunde constante com variável que pode mudar"},{"text":"mudar","misconception":"acha que existe uma palavra chamada mudar"},{"text":"valor","misconception":"confunde o conteúdo da variável com a palavra que a declara"}],"correct":0,"explanation":"let cria variáveis que podem receber novos valores. const cria valores fixos."}$c$::jsonb, $c$A outra palavra é a que fixa o valor.$c$, 1, false, $c$arquivo$c$),
+  ($c$letconst-quando-usar-const$c$, $c$let-e-const$c$, $c$choice$c$, $c$Quando usar const?$c$, $c$facil$c$, $c$Qual destes valores combina melhor com const?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"O saldo de uma conta bancária","misconception":"usa const para um valor que muda a todo momento"},{"text":"A pontuação de um jogador","misconception":"usa const para um valor que muda durante o jogo"},{"text":"O valor de PI (3,14159)"},{"text":"O número de tentativas já usadas","misconception":"usa const para um valor que aumenta a cada tentativa"}],"correct":2,"explanation":"O valor de PI é sempre o mesmo, então é uma boa const. Saldo, pontuação e tentativas mudam, e pedem let."}$c$::jsonb, $c$Escolha o valor que nunca muda.$c$, 2, false, $c$arquivo$c$),
+  ($c$letconst-complete$c$, $c$let-e-const$c$, $c$blank$c$, $c$let ou const?$c$, $c$facil$c$, $c$Complete as declarações: PI nunca muda e raio pode mudar depois.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"{{1}} PI = 3.14;\n{{2}} raio = 5;","blanks":[{"answers":["const"]},{"answers":["let"]}],"explanation":"PI é um valor fixo (const) e raio pode receber outro valor (let)."}$c$::jsonb, $c$Uma palavra fixa o valor; a outra permite trocá-lo.$c$, 3, false, $c$arquivo$c$),
+  ($c$letconst-alterando-const$c$, $c$let-e-const$c$, $c$interpretation$c$, $c$Mudando uma const$c$, $c$medio$c$, $c$O que acontece ao executar o programa abaixo?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Mostra 0.2","misconception":"acha que uma const pode receber um novo valor"},{"text":"Dá erro: não é possível alterar uma const"},{"text":"Mostra 0.1, ignorando a segunda linha","misconception":"acha que o programa ignora a tentativa de mudar a const"},{"text":"Mostra taxa","misconception":"mostra o nome da variável em vez do valor guardado nela"}],"correct":1,"code":"const taxa = 0.1;\ntaxa = 0.2;\nconsole.log(taxa);","explanation":"taxa foi declarada com const, então a linha taxa = 0.2 causa o erro \"Assignment to constant variable\" e o programa para."}$c$::jsonb, $c$Veja qual palavra declarou a variável taxa.$c$, 4, false, $c$arquivo$c$),
+  ($c$letconst-somando-pontos$c$, $c$let-e-const$c$, $c$interpretation$c$, $c$Quantos pontos?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10","misconception":"ignora a nova atribuição"},{"text":"5","misconception":"acha que o novo valor substitui o antigo sem usá-lo no cálculo"},{"text":"pontos + 5","misconception":"acha que o computador mostra a expressão em vez de calculá-la"},{"text":"15"}],"correct":3,"code":"let pontos = 10;\npontos = pontos + 5;\nconsole.log(pontos);","explanation":"pontos + 5 vale 10 + 5 = 15. Esse resultado é guardado em pontos, substituindo o 10."}$c$::jsonb, $c$Primeiro o computador calcula o lado direito, usando o valor atual de pontos.$c$, 5, false, $c$arquivo$c$),
+  ($c$letconst-corrija-a-area$c$, $c$let-e-const$c$, $c$fix$c$, $c$Corrija a área do círculo$c$, $c$medio$c$, $c$A função `areaDoCirculo(raio)` deveria devolver a área (3.14 * raio * raio), mas dá erro. Corrija o defeito.$c$, null, $c$areaDoCirculo$c$, $c$function areaDoCirculo(raio) {
+  const PI = 3.14;
+  const area = 0;
+  area = PI * raio * raio;
+  return area;
+}
+$c$, $c$[{"args":[1],"expected":3.14},{"args":[2],"expected":12.56},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual declaração está sendo alterada depois de criada?$c$, 6, false, $c$arquivo$c$),
+  ($c$letconst-qual-funciona$c$, $c$let-e-const$c$, $c$choice$c$, $c$Qual dupla de linhas funciona?$c$, $c$dificil$c$, $c$Qual das duplas de linhas abaixo funciona, sem causar erro?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"let total;\ntotal = 5;"},{"text":"const total = 0;\ntotal = 5;","misconception":"acha que uma const pode ser alterada depois"},{"text":"const total;\ntotal = 5;","misconception":"acha que uma const pode ser declarada sem valor e preenchida depois"},{"text":"let total = 0;\nlet total = 5;","misconception":"acha que a mesma variável pode ser declarada duas vezes"}],"correct":0,"explanation":"let total; cria a variável e total = 5; guarda o valor. As outras duplas alteram uma const, declaram uma const sem valor ou repetem a declaração."}$c$::jsonb, $c$Teste cada dupla: const não muda, e uma variável só é declarada uma vez.$c$, 7, false, $c$arquivo$c$),
+  ($c$string-qual-e-texto$c$, $c$tipo-string$c$, $c$choice$c$, $c$Qual valor é uma string?$c$, $c$facil$c$, $c$Qual destes valores é uma string?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"42","misconception":"acha que todo número é um texto"},{"text":"true","misconception":"confunde o valor lógico true com um texto"},{"text":"\"42\""},{"text":"Ana","misconception":"esquece as aspas: sem aspas, Ana seria o nome de uma variável"}],"correct":2,"explanation":"O que está entre aspas é uma string, mesmo quando parece um número. Sem aspas, 42 é número e Ana seria o nome de uma variável."}$c$::jsonb, $c$Procure o valor que está entre aspas.$c$, 1, false, $c$arquivo$c$),
+  ($c$string-typeof-numero-entre-aspas$c$, $c$tipo-string$c$, $c$interpretation$c$, $c$Qual é o tipo?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"number","misconception":"acha que um número entre aspas continua sendo número"},{"text":"string"},{"text":"7","misconception":"mostra o valor em vez do tipo"},{"text":"valor","misconception":"mostra o nome da variável em vez do tipo"}],"correct":1,"code":"const valor = \"7\";\nconsole.log(typeof valor);","explanation":"As aspas fazem de \"7\" um texto, então typeof mostra string."}$c$::jsonb, $c$Repare nas aspas em volta do 7.$c$, 2, false, $c$arquivo$c$),
+  ($c$string-complete-as-aspas$c$, $c$tipo-string$c$, $c$blank$c$, $c$Complete as aspas$c$, $c$facil$c$, $c$Complete as aspas (use aspas duplas) para guardar o texto gato na variável animal.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const animal = {{1}}gato{{2}};\nconsole.log(typeof animal);","blanks":[{"answers":["\""]},{"answers":["\""]}],"explanation":"As aspas duplas delimitam o texto. Com elas, typeof animal mostra string."}$c$::jsonb, $c$O texto começa e termina com o mesmo símbolo.$c$, 3, false, $c$arquivo$c$),
+  ($c$string-typeof-true-entre-aspas$c$, $c$tipo-string$c$, $c$interpretation$c$, $c$true ou "true"?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"boolean\nboolean","misconception":"acha que as aspas não mudam o tipo do valor"},{"text":"string\nstring","misconception":"acha que o valor true é sempre um texto"},{"text":"boolean\nstring","misconception":"inverte os tipos"},{"text":"string\nboolean"}],"correct":3,"code":"console.log(typeof \"true\");\nconsole.log(typeof true);","explanation":"\"true\" entre aspas é um texto (string). true sem aspas é um valor lógico (boolean)."}$c$::jsonb, $c$Um dos valores está entre aspas e o outro não.$c$, 4, false, $c$arquivo$c$),
+  ($c$string-aspas-dentro-do-texto$c$, $c$tipo-string$c$, $c$choice$c$, $c$Aspas dentro do texto$c$, $c$medio$c$, $c$Qual linha mostra corretamente o texto: Ele disse "oi"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"console.log('Ele disse \"oi\"');"},{"text":"console.log(\"Ele disse \"oi\"\");","misconception":"usa o mesmo tipo de aspas por dentro e por fora, e o texto termina antes da hora"},{"text":"console.log(Ele disse \"oi\");","misconception":"esquece as aspas externas do texto"},{"text":"console.log(\"Ele disse 'oi);","misconception":"abre aspas simples por dentro e não fecha"}],"correct":0,"explanation":"Com aspas simples por fora, as aspas duplas de dentro fazem parte do texto e não o encerram."}$c$::jsonb, $c$Use um tipo de aspas por fora e o outro por dentro.$c$, 5, false, $c$arquivo$c$),
+  ($c$string-corrija-as-aspas$c$, $c$tipo-string$c$, $c$fix$c$, $c$Corrija o texto sem aspas$c$, $c$medio$c$, $c$A função `cidade()` deveria devolver o texto Picos, mas dá erro. Corrija o defeito.$c$, null, $c$cidade$c$, $c$function cidade() {
+  return Picos;
+}
+$c$, $c$[{"args":[],"expected":"Picos"}]$c$::jsonb, $c${}$c$::jsonb, $c$Como o computador entende uma palavra sem aspas?$c$, 6, false, $c$arquivo$c$),
+  ($c$string-por-que-sao-diferentes$c$, $c$tipo-string$c$, $c$choice$c$, $c$"42" e 42 são iguais?$c$, $c$dificil$c$, $c$Por que "42" e 42 são considerados valores diferentes pelo computador?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Não são diferentes: só mudam as aspas","misconception":"acha que as aspas não mudam o significado do valor"},{"text":"Porque \"42\" é maior que 42","misconception":"compara os valores como se as aspas mudassem o tamanho"},{"text":"Porque o primeiro é um texto e o segundo é um número, e cada tipo se comporta de um jeito"},{"text":"Porque 42 é o nome de uma variável","misconception":"confunde número com nome de variável"}],"correct":2,"explanation":"\"42\" é uma string e 42 é um number. O tipo define o que se pode fazer com o valor: contas com números, junção com textos."}$c$::jsonb, $c$Pense no tipo de cada um.$c$, 7, false, $c$arquivo$c$),
+  ($c$number-como-escrever-decimal$c$, $c$tipo-number$c$, $c$choice$c$, $c$Como escrever 3,5?$c$, $c$facil$c$, $c$Como se escreve o número três e meio em JavaScript?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3,5","misconception":"usa a vírgula como separador decimal"},{"text":"3.5"},{"text":"\"3.5\"","misconception":"coloca aspas e transforma o número em texto"},{"text":"3 e meio","misconception":"escreve o número por extenso, como em um texto"}],"correct":1,"explanation":"O separador decimal é o ponto: 3.5. Com vírgula ou com aspas, o valor deixaria de ser um número."}$c$::jsonb, $c$Em programação, o separador decimal é o mesmo das calculadoras americanas.$c$, 1, false, $c$arquivo$c$),
+  ($c$number-typeof-decimal$c$, $c$tipo-number$c$, $c$interpretation$c$, $c$Qual é o tipo de 3.14?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"decimal","misconception":"acha que existe um tipo separado chamado decimal"},{"text":"float","misconception":"usa o nome de tipo de outras linguagens de programação"},{"text":"string","misconception":"acha que um número com ponto é um texto"},{"text":"number"}],"correct":3,"code":"console.log(typeof 3.14);","explanation":"Todos os números, inteiros ou decimais, são do tipo number."}$c$::jsonb, $c$Em JavaScript inteiros e decimais têm o mesmo tipo.$c$, 2, false, $c$arquivo$c$),
+  ($c$number-complete-a-altura$c$, $c$tipo-number$c$, $c$blank$c$, $c$Guarde a altura$c$, $c$facil$c$, $c$Complete a linha para guardar a altura 1,75 metro (escreva o número do jeito certo em JavaScript).$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const altura = {{1}};\nconsole.log(typeof altura);","blanks":[{"answers":["1.75"]}],"explanation":"1.75 é um número decimal válido em JavaScript, e typeof mostra number."}$c$::jsonb, $c$Decimais usam ponto e não levam aspas.$c$, 3, false, $c$arquivo$c$),
+  ($c$number-divisao-decimal$c$, $c$tipo-number$c$, $c$interpretation$c$, $c$Divisões$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2.5\n3.5"},{"text":"2\n3","misconception":"acha que a divisão sempre dá um resultado inteiro"},{"text":"2,5\n3,5","misconception":"mostra a vírgula como separador decimal"},{"text":"3\n4","misconception":"acha que o resultado é arredondado para cima"}],"correct":0,"code":"console.log(10 / 4);\nconsole.log(7 / 2);","explanation":"10 / 4 vale 2.5 e 7 / 2 vale 3.5. O resultado é mostrado com ponto decimal."}$c$::jsonb, $c$A divisão em JavaScript mantém a parte decimal.$c$, 4, false, $c$arquivo$c$),
+  ($c$number-o-que-e-nan$c$, $c$tipo-number$c$, $c$choice$c$, $c$O que é NaN?$c$, $c$medio$c$, $c$O que significa o valor NaN?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um número negativo","misconception":"confunde NaN com número negativo"},{"text":"Um número muito grande, maior que qualquer outro","misconception":"confunde NaN com Infinity"},{"text":"\"Não é um número\": o resultado de uma conta sem sentido"},{"text":"O número zero","misconception":"acha que uma conta sem sentido resulta em zero"}],"correct":2,"explanation":"NaN aparece quando uma conta não resulta em um número válido, como \"abc\" * 2."}$c$::jsonb, $c$A sigla vem do inglês: Not a Number.$c$, 5, false, $c$arquivo$c$),
+  ($c$number-media-de-dois$c$, $c$tipo-number$c$, $c$code$c$, $c$Média de dois números$c$, $c$medio$c$, $c$Escreva a função `media(a, b)` que devolve a média aritmética de dois números (soma dividida por 2).$c$, null, $c$media$c$, $c$function media(a, b) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[4,6],"expected":5},{"args":[7,8],"expected":7.5},{"args":[0,0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Some os dois valores e divida pelo total de valores. Cuidado com a ordem das contas.$c$, 6, false, $c$arquivo$c$),
+  ($c$number-contas-especiais$c$, $c$tipo-number$c$, $c$interpretation$c$, $c$Resultados especiais$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Erro\nErro","misconception":"acha que contas inválidas sempre param o programa com erro"},{"text":"Infinity\nNaN"},{"text":"0\n0","misconception":"acha que contas inválidas resultam em zero"},{"text":"Infinity\nInfinity","misconception":"acha que as duas contas dão o mesmo resultado especial"}],"correct":1,"code":"console.log(10 / 0);\nconsole.log(\"abc\" * 2);","explanation":"Dividir por zero dá Infinity, e multiplicar um texto que não é número por 2 dá NaN. Nenhuma das duas causa erro."}$c$::jsonb, $c$Uma conta é uma divisão por zero; a outra tenta multiplicar um texto sem sentido numérico.$c$, 7, false, $c$arquivo$c$),
+  ($c$boolean-quais-sao-os-valores$c$, $c$tipo-boolean$c$, $c$choice$c$, $c$Os dois valores do boolean$c$, $c$facil$c$, $c$Quais são os dois únicos valores do tipo boolean?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0 e 1","misconception":"confunde o tipo boolean com números"},{"text":"sim e não","misconception":"usa palavras do português em vez dos valores da linguagem"},{"text":"\"verdadeiro\" e \"falso\"","misconception":"escreve os valores como textos"},{"text":"true e false"}],"correct":3,"explanation":"O tipo boolean só aceita true e false, sem aspas e em minúsculas."}$c$::jsonb, $c$Os nomes vêm do inglês e são escritos em minúsculas.$c$, 1, false, $c$arquivo$c$),
+  ($c$boolean-comparacao-simples$c$, $c$tipo-boolean$c$, $c$interpretation$c$, $c$5 é maior que 3?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true"},{"text":"5 > 3","misconception":"acha que o computador mostra a expressão em vez de avaliá-la"},{"text":"false","misconception":"acha que 5 não é maior que 3"},{"text":"8","misconception":"acha que o sinal > faz uma soma"}],"correct":0,"code":"console.log(5 > 3);","explanation":"A comparação 5 > 3 é verdadeira, então o resultado é o valor boolean true."}$c$::jsonb, $c$O sinal > faz uma pergunta: o da esquerda é maior que o da direita?$c$, 2, false, $c$arquivo$c$),
+  ($c$boolean-complete-sem-desconto$c$, $c$tipo-boolean$c$, $c$blank$c$, $c$Cliente sem desconto$c$, $c$facil$c$, $c$O cliente NÃO tem desconto. Complete a linha com o valor booleano certo.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const temDesconto = {{1}};\nconsole.log(typeof temDesconto);","blanks":[{"answers":["false"]}],"explanation":"false representa \"não\". Sem aspas, ele é do tipo boolean."}$c$::jsonb, $c$É um valor lógico, escrito sem aspas.$c$, 3, false, $c$arquivo$c$),
+  ($c$boolean-qual-e-boolean$c$, $c$tipo-boolean$c$, $c$choice$c$, $c$Qual valor é boolean?$c$, $c$medio$c$, $c$Qual destes valores é do tipo boolean?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"\"false\"","misconception":"confunde o texto \"false\" com o valor lógico false"},{"text":"True","misconception":"escreve com inicial maiúscula, mas o JavaScript diferencia maiúsculas de minúsculas"},{"text":"false"},{"text":"0","misconception":"confunde número com valor lógico"}],"correct":2,"explanation":"false (minúsculo e sem aspas) é um valor boolean. \"false\" é texto, True não existe em JavaScript e 0 é um número."}$c$::jsonb, $c$O valor lógico é escrito em minúsculas e sem aspas.$c$, 4, false, $c$arquivo$c$),
+  ($c$boolean-idade-minima$c$, $c$tipo-boolean$c$, $c$interpretation$c$, $c$Pode entrar?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true","misconception":"avalia a comparação ao contrário"},{"text":"false"},{"text":"16","misconception":"mostra o valor da variável em vez do resultado da comparação"},{"text":"18","misconception":"mostra o outro valor da comparação"}],"correct":1,"code":"const idade = 16;\nconsole.log(idade >= 18);","explanation":"16 não é maior nem igual a 18, então a comparação resulta em false."}$c$::jsonb, $c$Substitua idade por 16 e responda: 16 é maior ou igual a 18?$c$, 5, false, $c$arquivo$c$),
+  ($c$boolean-tres-typeof$c$, $c$tipo-boolean$c$, $c$interpretation$c$, $c$Três tipos$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"string\nstring\nnumber","misconception":"acha que o valor true é sempre um texto"},{"text":"boolean\nboolean\nnumber","misconception":"acha que as aspas não mudam o tipo do valor"},{"text":"boolean\nstring\nboolean","misconception":"acha que o número 1 é um valor lógico"},{"text":"boolean\nstring\nnumber"}],"correct":3,"code":"console.log(typeof true);\nconsole.log(typeof \"true\");\nconsole.log(typeof 1);","explanation":"true é boolean, \"true\" entre aspas é string e 1 é number."}$c$::jsonb, $c$Observe quais valores têm aspas.$c$, 6, false, $c$arquivo$c$),
+  ($c$boolean-igualdade$c$, $c$tipo-boolean$c$, $c$interpretation$c$, $c$Resultado da comparação$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\nboolean"},{"text":"7\nnumber","misconception":"acha que a variável iguais guarda o valor de a"},{"text":"true\nstring","misconception":"acha que o resultado de uma comparação é um texto"},{"text":"false\nboolean","misconception":"avalia a comparação de igualdade ao contrário"}],"correct":0,"code":"const a = 7;\nconst b = 7;\nconst iguais = a === b;\nconsole.log(iguais);\nconsole.log(typeof iguais);","explanation":"a e b valem 7, então a === b é true. O resultado da comparação é guardado em iguais e seu tipo é boolean."}$c$::jsonb, $c$O sinal === compara se os dois valores são iguais e dá um valor lógico.$c$, 7, false, $c$arquivo$c$),
+  ($c$textos-propriedade-do-tamanho$c$, $c$manipulacao-de-textos$c$, $c$choice$c$, $c$Como saber o tamanho?$c$, $c$facil$c$, $c$Qual propriedade informa quantos caracteres tem um texto?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"size","misconception":"usa o nome de outras linguagens"},{"text":"count","misconception":"usa o nome de outras linguagens"},{"text":"length"},{"text":"tamanho","misconception":"traduz o nome da propriedade para o português"}],"correct":2,"explanation":"texto.length devolve a quantidade de caracteres, e não leva parênteses."}$c$::jsonb, $c$O nome vem do inglês e significa "comprimento".$c$, 1, false, $c$arquivo$c$),
+  ($c$textos-tamanho-de-casa$c$, $c$manipulacao-de-textos$c$, $c$interpretation$c$, $c$Quantas letras?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"esquece de contar uma das letras, confundindo tamanho com último índice"},{"text":"4"},{"text":"casa","misconception":"mostra o texto em vez do tamanho"},{"text":"5","misconception":"conta um caractere a mais do que o texto tem"}],"correct":1,"code":"const palavra = \"casa\";\nconsole.log(palavra.length);","explanation":"length conta todos os caracteres: c, a, s, a. São 4."}$c$::jsonb, $c$Conte as letras de casa.$c$, 2, false, $c$arquivo$c$),
+  ($c$textos-complete-maiusculas$c$, $c$manipulacao-de-textos$c$, $c$blank$c$, $c$Texto em maiúsculas$c$, $c$facil$c$, $c$Complete a linha para mostrar o nome em letras maiúsculas.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const nome = \"ana\";\nconsole.log(nome.{{1}}());","blanks":[{"answers":["toUpperCase"]}],"explanation":"toUpperCase() devolve o texto em maiúsculas: ANA."}$c$::jsonb, $c$O método tem o nome em inglês e usa letra maiúscula no meio.$c$, 3, false, $c$arquivo$c$),
+  ($c$textos-indices-de-banana$c$, $c$manipulacao-de-textos$c$, $c$interpretation$c$, $c$Letras e posições$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"b\na\n5","misconception":"acha que length é o último índice, e não a quantidade de letras"},{"text":"a\nb\n6","misconception":"inverte as posições 0 e 5"},{"text":"b\nn\n6","misconception":"erra a letra da posição 5"},{"text":"b\na\n6"}],"correct":3,"code":"const palavra = \"banana\";\nconsole.log(palavra[0]);\nconsole.log(palavra[5]);\nconsole.log(palavra.length);","explanation":"palavra[0] é b, palavra[5] é a (a sexta letra) e palavra.length vale 6."}$c$::jsonb, $c$A posição 0 é a primeira letra; a última letra está na posição length - 1.$c$, 4, false, $c$arquivo$c$),
+  ($c$textos-recorte-com-slice$c$, $c$manipulacao-de-textos$c$, $c$choice$c$, $c$Recortando um texto$c$, $c$medio$c$, $c$O que "Programação".slice(0, 4) devolve?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"\"Prog\""},{"text":"\"Progr\"","misconception":"acha que a posição final também entra no pedaço"},{"text":"\"rogr\"","misconception":"começa a contar as posições do 1 em vez do 0"},{"text":"\"ção\"","misconception":"acha que slice pega o final do texto"}],"correct":0,"explanation":"slice(0, 4) pega as posições 0, 1, 2 e 3: P, r, o, g. O 4 não entra."}$c$::jsonb, $c$slice pega da posição inicial até a posição final, sem incluí-la.$c$, 5, false, $c$arquivo$c$),
+  ($c$textos-email$c$, $c$manipulacao-de-textos$c$, $c$interpretation$c$, $c$Analisando um e-mail$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"ana@escola.com\ntrue\n3","misconception":"acha que includes ignora a diferença entre maiúsculas e minúsculas"},{"text":"ana@escola.com\nfalse\n4","misconception":"conta a posição do @ a partir de 1"},{"text":"ana@escola.com\nfalse\n3"},{"text":"ana@escola.com\n3\nfalse","misconception":"inverte as respostas de includes e indexOf"}],"correct":2,"code":"const email = \"Ana@Escola.com\";\nconsole.log(email.toLowerCase());\nconsole.log(email.includes(\"ESCOLA\"));\nconsole.log(email.indexOf(\"@\"));","explanation":"toLowerCase deixa o texto em minúsculas. includes(\"ESCOLA\") procura exatamente esse texto no original (que tem \"Escola\"), então é false. O @ está na posição 3 (A=0, n=1, a=2, @=3)."}$c$::jsonb, $c$includes diferencia maiúsculas de minúsculas, e os índices começam em 0.$c$, 6, false, $c$arquivo$c$),
+  ($c$textos-inicial-em-maiuscula$c$, $c$manipulacao-de-textos$c$, $c$code$c$, $c$Inicial em maiúscula$c$, $c$dificil$c$, $c$Escreva a função `inicial(nome)` que devolve a primeira letra do nome, em maiúscula, ignorando espaços no começo do texto.$c$, null, $c$inicial$c$, $c$function inicial(nome) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["  ana "],"expected":"A"},{"args":["beto"],"expected":"B"},{"args":["Carla"],"expected":"C"}]$c$::jsonb, $c${}$c$::jsonb, $c$Primeiro tire os espaços, depois pegue a letra de posição 0 e deixe em maiúscula.$c$, 7, false, $c$arquivo$c$),
+  ($c$concat-operador$c$, $c$concatenacao$c$, $c$choice$c$, $c$Qual operador junta textos?$c$, $c$facil$c$, $c$Qual operador junta dois textos em JavaScript?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"&","misconception":"usa o operador de outras linguagens"},{"text":"+"},{"text":".","misconception":"usa o operador de outras linguagens"},{"text":",","misconception":"confunde com a vírgula que separa valores no console.log"}],"correct":1,"explanation":"O operador + junta textos. Com números dos dois lados, ele soma."}$c$::jsonb, $c$É o mesmo sinal usado para somar números.$c$, 1, false, $c$arquivo$c$),
+  ($c$concat-bom-dia$c$, $c$concatenacao$c$, $c$interpretation$c$, $c$Texto grudado$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Bom dia","misconception":"acha que o + coloca um espaço automaticamente"},{"text":"Bom+dia","misconception":"acha que o console.log mostra o sinal +"},{"text":"undefined","misconception":"acha que juntar textos não funciona sem um terceiro valor"},{"text":"Bomdia"}],"correct":3,"code":"const a = \"Bom\";\nconst b = \"dia\";\nconsole.log(a + b);","explanation":"Os textos são juntados sem nada no meio: Bomdia. Para ter espaço, seria preciso concatenar também \" \"."}$c$::jsonb, $c$O + junta exatamente o que está nos dois textos.$c$, 2, false, $c$arquivo$c$),
+  ($c$concat-complete-ola$c$, $c$concatenacao$c$, $c$blank$c$, $c$Complete a saudação$c$, $c$facil$c$, $c$Complete o programa para mostrar Olá, Ana (com o nome vindo da variável).$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const nome = \"Ana\";\nconsole.log(\"Olá, \" {{1}} nome);","blanks":[{"answers":["+"]}],"explanation":"O + junta o texto \"Olá, \" ao valor da variável nome."}$c$::jsonb, $c$Use o operador que junta textos.$c$, 3, false, $c$arquivo$c$),
+  ($c$concat-texto-e-numero$c$, $c$concatenacao$c$, $c$interpretation$c$, $c$"5" + 3 e 5 + 3$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"53\n8"},{"text":"8\n8","misconception":"acha que o + sempre soma"},{"text":"53\n53","misconception":"acha que o + sempre junta"},{"text":"8\n53","misconception":"inverte o comportamento do + com texto e com números"}],"correct":0,"code":"console.log(\"5\" + 3);\nconsole.log(5 + 3);","explanation":"Com um texto de um dos lados, o + junta: \"5\" + 3 dá \"53\". Com dois números, o + soma: 5 + 3 dá 8."}$c$::jsonb, $c$Repare em qual dos dois 5 está entre aspas.$c$, 4, false, $c$arquivo$c$),
+  ($c$concat-ordene-a-saudacao$c$, $c$concatenacao$c$, $c$order$c$, $c$Ordene o programa$c$, $c$medio$c$, $c$Coloque as linhas na ordem certa para o programa mostrar Olá, Ana!$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["const nome = \"Ana\";","const saudacao = \"Olá, \" + nome + \"!\";","console.log(saudacao);"],"explanation":"Primeiro criamos nome, depois montamos a saudação juntando textos e, por último, mostramos o resultado."}$c$::jsonb, $c$Cada linha usa uma variável criada na linha anterior.$c$, 5, false, $c$arquivo$c$),
+  ($c$concat-idade-na-frase$c$, $c$concatenacao$c$, $c$interpretation$c$, $c$Frase com a idade$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Tenho idade anos","misconception":"trata o nome da variável como parte do texto"},{"text":"Tenho20anos","misconception":"acha que o + remove os espaços do texto"},{"text":"Tenho 20 anos"},{"text":"Tenho + 20 + anos","misconception":"acha que o console.log mostra os sinais de +"}],"correct":2,"code":"const idade = 20;\nconsole.log(\"Tenho \" + idade + \" anos\");","explanation":"A variável idade é trocada pelo seu valor (20) e os espaços escritos dentro dos textos são mantidos: Tenho 20 anos."}$c$::jsonb, $c$Os espaços estão dentro dos textos, junto às aspas.$c$, 6, false, $c$arquivo$c$),
+  ($c$concat-da-esquerda-para-a-direita$c$, $c$concatenacao$c$, $c$interpretation$c$, $c$Da esquerda para a direita$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6\n6","misconception":"acha que o + sempre soma"},{"text":"33\n123"},{"text":"123\n123","misconception":"acha que o + sempre junta, ignorando a ordem das contas"},{"text":"33\n6","misconception":"soma os números mesmo depois de aparecer um texto"}],"correct":1,"code":"console.log(1 + 2 + \"3\");\nconsole.log(\"1\" + 2 + 3);","explanation":"Na primeira linha, 1 + 2 vale 3 e só depois 3 + \"3\" vira \"33\". Na segunda, \"1\" + 2 já é texto (\"12\") e continua juntando: \"123\"."}$c$::jsonb, $c$O computador resolve o + da esquerda para a direita, um par de cada vez.$c$, 8, false, $c$arquivo$c$),
+  ($c$concat-nome-completo$c$, $c$concatenacao$c$, $c$code$c$, $c$Nome completo$c$, $c$medio$c$, $c$Escreva a função `nomeCompleto(nome, sobrenome)` que devolve os dois textos juntos, separados por um espaço.$c$, null, $c$nomeCompleto$c$, $c$function nomeCompleto(nome, sobrenome) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["Ana","Lima"],"expected":"Ana Lima"},{"args":["Beto","Souza"],"expected":"Beto Souza"}]$c$::jsonb, $c${}$c$::jsonb, $c$Junte nome, um texto com um espaço e sobrenome.$c$, 7, false, $c$arquivo$c$),
+  ($c$template-qual-simbolo$c$, $c$template-literals$c$, $c$choice$c$, $c$Qual símbolo usar?$c$, $c$facil$c$, $c$Qual símbolo delimita um template literal?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Aspas duplas (\" \")","misconception":"confunde template literal com texto comum"},{"text":"Aspas simples (' ')","misconception":"confunde template literal com texto comum"},{"text":"Parênteses ( )","misconception":"confunde o delimitador do texto com o de uma chamada de função"},{"text":"Crases (` `)"}],"correct":3,"explanation":"Os template literals usam crases. Só com elas o ${ } é substituído pelo valor."}$c$::jsonb, $c$Fica na tecla do acento grave.$c$, 1, false, $c$arquivo$c$),
+  ($c$template-oi-beto$c$, $c$template-literals$c$, $c$interpretation$c$, $c$O que aparece?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Oi, Beto!"},{"text":"Oi, nome!","misconception":"acha que ${ } mostra o nome da variável"},{"text":"Oi, ${nome}!","misconception":"acha que o texto aparece exatamente como foi escrito"},{"text":"Oi, Beto","misconception":"esquece a pontuação que faz parte do texto"}],"correct":0,"code":"const nome = \"Beto\";\nconsole.log(`Oi, ${nome}!`);","explanation":"${nome} é substituído por Beto, e o restante do texto é mantido: Oi, Beto!"}$c$::jsonb, $c$O ${ } é trocado pelo valor da variável.$c$, 2, false, $c$arquivo$c$),
+  ($c$template-complete$c$, $c$template-literals$c$, $c$blank$c$, $c$Complete o template$c$, $c$facil$c$, $c$Complete a linha para mostrar Olá, Ana! usando a variável nome.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const nome = \"Ana\";\nconsole.log(`Olá, ${{{1}}}!`);","blanks":[{"answers":["nome"]}],"explanation":"${nome} insere o valor da variável nome no meio do texto."}$c$::jsonb, $c$Dentro do ${ } vai o nome da variável, sem aspas.$c$, 3, false, $c$arquivo$c$),
+  ($c$template-conta-dentro$c$, $c$template-literals$c$, $c$interpretation$c$, $c$Conta dentro do ${ }$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Total: preco * 2 reais","misconception":"acha que o conteúdo de ${ } é apenas texto"},{"text":"Total: 50 * 2 reais","misconception":"troca a variável pelo valor, mas não faz a conta"},{"text":"Total: 100 reais"},{"text":"Total: 502 reais","misconception":"junta o 50 e o 2 como se fossem textos"}],"correct":2,"code":"const preco = 50;\nconsole.log(`Total: ${preco * 2} reais`);","explanation":"O computador calcula preco * 2 = 100 e coloca o resultado no lugar do ${ }."}$c$::jsonb, $c$Dentro do ${ } o computador calcula a expressão.$c$, 4, false, $c$arquivo$c$),
+  ($c$template-qual-linha$c$, $c$template-literals$c$, $c$choice$c$, $c$Qual linha está certa?$c$, $c$medio$c$, $c$Qual linha mostra Olá, Ana! usando a variável nome (que vale "Ana")?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"console.log(\"Olá, ${nome}!\");","misconception":"usa aspas comuns, que não substituem o ${nome}"},{"text":"console.log(`Olá, ${nome}!`);"},{"text":"console.log(`Olá, nome!`);","misconception":"esquece o ${ } ao redor da variável"},{"text":"console.log(`Olá, {nome}!`);","misconception":"esquece o cifrão antes das chaves"}],"correct":1,"explanation":"Só as crases com ${nome} trocam o nome pelo valor da variável."}$c$::jsonb, $c$Confira o tipo de aspas e o ${ }.$c$, 5, false, $c$arquivo$c$),
+  ($c$template-corrija-a-saudacao$c$, $c$template-literals$c$, $c$fix$c$, $c$Corrija a saudação$c$, $c$medio$c$, $c$A função `saudacao(nome)` deveria devolver, por exemplo, Olá, Ana!, mas devolve o texto com ${nome} sem substituir. Corrija.$c$, null, $c$saudacao$c$, $c$function saudacao(nome) {
+  return "Olá, ${nome}!";
+}
+$c$, $c$[{"args":["Ana"],"expected":"Olá, Ana!"},{"args":["Beto"],"expected":"Olá, Beto!"}]$c$::jsonb, $c${}$c$::jsonb, $c$Que símbolo é preciso trocar para o ${ } funcionar?$c$, 6, false, $c$arquivo$c$),
+  ($c$template-apresentar$c$, $c$template-literals$c$, $c$code$c$, $c$Apresentar uma pessoa$c$, $c$medio$c$, $c$Escreva a função `apresentar(nome, idade)` que devolve, por exemplo, Ana tem 20 anos (use um template literal).$c$, null, $c$apresentar$c$, $c$function apresentar(nome, idade) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["Ana",20],"expected":"Ana tem 20 anos"},{"args":["Beto",35],"expected":"Beto tem 35 anos"}]$c$::jsonb, $c${}$c$::jsonb, $c$Escreva o texto entre crases e coloque cada variável dentro de um ${ }.$c$, 7, false, $c$arquivo$c$),
+  ($c$template-soma-na-frase$c$, $c$template-literals$c$, $c$interpretation$c$, $c$A soma na frase$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"a + b = 7","misconception":"troca só o último valor e esquece de substituir as variáveis do começo"},{"text":"3 + 4 = 34","misconception":"junta os valores como texto dentro do ${ }"},{"text":"3 + 4 = a + b","misconception":"não calcula a expressão dentro do ${ }"},{"text":"3 + 4 = 7"}],"correct":3,"code":"const a = 3;\nconst b = 4;\nconsole.log(`${a} + ${b} = ${a + b}`);","explanation":"${a} vira 3, ${b} vira 4 e ${a + b} vira 7. O sinal + e o = fora dos ${ } fazem parte do texto."}$c$::jsonb, $c$Cada ${ } é resolvido separadamente, e o texto entre eles é mantido.$c$, 8, false, $c$arquivo$c$),
+  ($c$operacoes-resto$c$, $c$operacoes-com-numeros$c$, $c$choice$c$, $c$Qual operador dá o resto?$c$, $c$facil$c$, $c$Qual operador dá o resto de uma divisão?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"%"},{"text":"/","misconception":"confunde o resto com o resultado da divisão"},{"text":"*","misconception":"confunde resto com multiplicação"},{"text":"**","misconception":"confunde resto com potência"}],"correct":0,"explanation":"O operador % devolve o resto da divisão. Por exemplo, 7 % 2 vale 1."}$c$::jsonb, $c$É um símbolo que lembra uma porcentagem, mas que aqui tem outro significado.$c$, 1, false, $c$arquivo$c$),
+  ($c$operacoes-resto-de-sete$c$, $c$operacoes-com-numeros$c$, $c$interpretation$c$, $c$Quanto vale 7 % 2?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"mostra o resultado inteiro da divisão em vez do resto"},{"text":"3.5","misconception":"mostra o resultado decimal da divisão"},{"text":"1"},{"text":"0","misconception":"acha que o resto de 7 por 2 é zero"}],"correct":2,"code":"console.log(7 % 2);","explanation":"2 cabe 3 vezes em 7 (6) e sobra 1. O % devolve essa sobra."}$c$::jsonb, $c$7 dividido por 2 dá 3 e sobra...$c$, 2, false, $c$arquivo$c$),
+  ($c$operacoes-area-do-quadrado$c$, $c$operacoes-com-numeros$c$, $c$blank$c$, $c$Área do quadrado$c$, $c$facil$c$, $c$Complete a conta para calcular a área de um quadrado (lado vezes lado).$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const lado = 5;\nconst area = lado {{1}} lado;\nconsole.log(area);","blanks":[{"answers":["*"]}],"explanation":"A área do quadrado é lado * lado, que dá 25."}$c$::jsonb, $c$Área é um lado multiplicado pelo outro.$c$, 3, false, $c$arquivo$c$),
+  ($c$operacoes-media-de-duas-notas$c$, $c$operacoes-com-numeros$c$, $c$interpretation$c$, $c$Média das notas$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10","misconception":"ignora os parênteses e divide só a segunda nota por 2"},{"text":"7"},{"text":"14","misconception":"só soma as notas, esquecendo de dividir"},{"text":"3.5","misconception":"divide só a primeira nota por 2 e esquece a soma"}],"correct":1,"code":"const nota1 = 6;\nconst nota2 = 8;\nconst media = (nota1 + nota2) / 2;\nconsole.log(media);","explanation":"(6 + 8) / 2 = 14 / 2 = 7. Sem os parênteses, 6 + 8 / 2 daria 10."}$c$::jsonb, $c$Os parênteses fazem a soma acontecer antes da divisão.$c$, 4, false, $c$arquivo$c$),
+  ($c$operacoes-media-de-tres$c$, $c$operacoes-com-numeros$c$, $c$code$c$, $c$Média de três números$c$, $c$medio$c$, $c$Escreva a função `mediaDeTres(a, b, c)` que devolve a média aritmética dos três números.$c$, null, $c$mediaDeTres$c$, $c$function mediaDeTres(a, b, c) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[3,6,9],"expected":6},{"args":[0,0,0],"expected":0},{"args":[1,2,3],"expected":2},{"args":[10,10,10],"expected":10}]$c$::jsonb, $c${}$c$::jsonb, $c$Some os três valores entre parênteses e divida por 3.$c$, 5, false, $c$arquivo$c$),
+  ($c$operacoes-porcentagem$c$, $c$operacoes-com-numeros$c$, $c$choice$c$, $c$Vinte por cento do preço$c$, $c$medio$c$, $c$Qual expressão calcula 20% de um preço guardado em p?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"p * 20","misconception":"usa 20 em vez de 0.2: confunde porcentagem com o número inteiro"},{"text":"p / 20","misconception":"divide em vez de multiplicar pela fração"},{"text":"p + 0.2","misconception":"soma em vez de multiplicar"},{"text":"p * 0.2"}],"correct":3,"explanation":"20% equivale a 0.2, e calcular uma parte de um valor é multiplicar: p * 0.2."}$c$::jsonb, $c$20% é o mesmo que 0.2, e "vinte por cento de p" é uma multiplicação.$c$, 6, false, $c$arquivo$c$),
+  ($c$operacoes-precedencia-e-arredondamento$c$, $c$operacoes-com-numeros$c$, $c$interpretation$c$, $c$Quatro contas$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"14\n20\n8\n3"},{"text":"20\n20\n8\n3","misconception":"calcula 2 + 3 * 4 da esquerda para a direita, ignorando a precedência"},{"text":"14\n20\n6\n3","misconception":"acha que ** multiplica em vez de elevar à potência"},{"text":"14\n20\n8\n3.5","misconception":"esquece que Math.floor arredonda para baixo"}],"correct":0,"code":"console.log(2 + 3 * 4);\nconsole.log((2 + 3) * 4);\nconsole.log(2 ** 3);\nconsole.log(Math.floor(7 / 2));","explanation":"2 + 3 * 4 = 14; (2 + 3) * 4 = 20; 2 ** 3 = 8; e 7 / 2 = 3.5, que Math.floor arredonda para 3."}$c$::jsonb, $c$Multiplicação vem antes da soma, e os parênteses mudam a ordem.$c$, 7, false, $c$arquivo$c$),
+  ($c$conversao-qual-funcao$c$, $c$conversao-de-tipos$c$, $c$choice$c$, $c$Texto para número$c$, $c$facil$c$, $c$Qual expressão converte o texto "42" no número 42?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"String(\"42\")","misconception":"usa a função que converte para texto, mas \"42\" já é texto"},{"text":"Texto(\"42\")","misconception":"inventa uma função que não existe"},{"text":"Number(\"42\")"},{"text":"Converter(\"42\")","misconception":"inventa uma função que não existe"}],"correct":2,"explanation":"Number(\"42\") devolve o número 42. String() faz o contrário: transforma números em texto."}$c$::jsonb, $c$O resultado deve ser do tipo number.$c$, 1, false, $c$arquivo$c$),
+  ($c$conversao-tipo-depois-de-number$c$, $c$conversao-de-tipos$c$, $c$interpretation$c$, $c$Tipo depois de converter$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"string","misconception":"acha que Number() mantém o valor como texto"},{"text":"number"},{"text":"15","misconception":"mostra o valor em vez do tipo"},{"text":"n","misconception":"mostra o nome da variável em vez do tipo"}],"correct":1,"code":"const n = Number(\"15\");\nconsole.log(typeof n);","explanation":"Number(\"15\") devolve o número 15, então typeof n mostra number."}$c$::jsonb, $c$Number() converte para o tipo number.$c$, 2, false, $c$arquivo$c$),
+  ($c$conversao-complete$c$, $c$conversao-de-tipos$c$, $c$blank$c$, $c$Converta antes de somar$c$, $c$facil$c$, $c$A idade chegou como texto. Complete a linha para convertê-la em número e depois somar 1.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const idade = {{1}}(\"20\");\nconsole.log(idade + 1);","blanks":[{"answers":["Number"]}],"explanation":"Number(\"20\") vira o número 20, e 20 + 1 resulta em 21."}$c$::jsonb, $c$A função tem o mesmo nome do tipo que queremos.$c$, 3, false, $c$arquivo$c$),
+  ($c$conversao-texto-ou-numero$c$, $c$conversao-de-tipos$c$, $c$interpretation$c$, $c$Com e sem conversão$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"15\n15","misconception":"acha que o texto \"10\" é somado como número automaticamente"},{"text":"105\n105","misconception":"acha que Number() não muda o comportamento do +"},{"text":"15\n105","misconception":"inverte os resultados com e sem conversão"},{"text":"105\n15"}],"correct":3,"code":"const x = \"10\";\nconsole.log(x + 5);\nconsole.log(Number(x) + 5);","explanation":"\"10\" + 5 junta os textos (105). Number(x) + 5 soma os números (15)."}$c$::jsonb, $c$Na primeira linha x é texto; na segunda, é número.$c$, 4, false, $c$arquivo$c$),
+  ($c$conversao-resultados$c$, $c$conversao-de-tipos$c$, $c$interpretation$c$, $c$Três conversões$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"NaN\n12\n71"},{"text":"Erro\n12\n8","misconception":"acha que converter um texto inválido causa erro e que String(7) + 1 soma"},{"text":"0\n12\n71","misconception":"acha que um texto inválido vira zero"},{"text":"NaN\n12\n8","misconception":"acha que String(7) + 1 soma como se fosse número"}],"correct":0,"code":"console.log(Number(\"abc\"));\nconsole.log(Number(\"12\"));\nconsole.log(String(7) + 1);","explanation":"\"abc\" não é um número (NaN), \"12\" vira 12, e \"7\" + 1 junta os textos: 71."}$c$::jsonb, $c$String(7) transforma o 7 em texto antes do +.$c$, 5, false, $c$arquivo$c$),
+  ($c$conversao-corrija-a-soma$c$, $c$conversao-de-tipos$c$, $c$fix$c$, $c$Corrija a soma$c$, $c$medio$c$, $c$A função `somar(a, b)` recebe dois números escritos como texto (por exemplo, "2" e "3") e deveria devolver a soma (5), mas junta os textos. Corrija.$c$, null, $c$somar$c$, $c$function somar(a, b) {
+  return a + b;
+}
+$c$, $c$[{"args":["2","3"],"expected":5},{"args":["10","5"],"expected":15},{"args":["0","0"],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$O que o + faz quando os dois lados são textos? Converta antes.$c$, 6, false, $c$arquivo$c$),
+  ($c$conversao-somar-entradas$c$, $c$conversao-de-tipos$c$, $c$code$c$, $c$Some duas entradas$c$, $c$medio$c$, $c$Escreva a função `somarEntradas()`: ela deve ler dois valores com `lerEntrada()` (que chegam como texto), converter para número e mostrar a soma com `console.log`.$c$, null, $c$somarEntradas$c$, $c$function somarEntradas() {
+  // leia dois valores, converta e mostre a soma
+}
+$c$, $c$[{"args":[],"inputs":["4","6"],"output":["10"]},{"args":[],"inputs":["10","25"],"output":["35"]},{"args":[],"inputs":["0","0"],"output":["0"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Cada lerEntrada() lê um valor. Converta com Number() antes de somar.$c$, 7, false, $c$arquivo$c$),
+  ($c$conversao-multiplicar-e-somar$c$, $c$conversao-de-tipos$c$, $c$interpretation$c$, $c$O * e o + com texto$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7\n7\nnumber","misconception":"acha que o texto \"3\" é sempre somado como número"},{"text":"12\n12\nnumber","misconception":"acha que o + também converte o texto em número"},{"text":"12\n34\nnumber"},{"text":"34\n34\nstring","misconception":"acha que o * também junta textos"}],"correct":2,"code":"const a = \"3\";\nconst b = 4;\nconsole.log(a * b);\nconsole.log(a + b);\nconsole.log(typeof (a * b));","explanation":"a * b converte \"3\" em 3 e multiplica: 12 (number). a + b junta os valores como texto: \"34\"."}$c$::jsonb, $c$O * converte o texto em número; o + junta quando um dos lados é texto.$c$, 8, false, $c$arquivo$c$),
+  ($c$es-comando-de-entrada$c$, $c$entrada-e-saida-de-informacoes$c$, $c$choice$c$, $c$Qual comando lê a entrada?$c$, $c$facil$c$, $c$Qual comando da plataforma lê um valor de entrada?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"console.log()","misconception":"confunde entrada com saída"},{"text":"lerEntrada()"},{"text":"Number()","misconception":"confunde converter um valor com ler um valor"},{"text":"typeof","misconception":"confunde descobrir o tipo com ler um valor"}],"correct":1,"explanation":"lerEntrada() lê um valor. console.log mostra, Number converte e typeof descobre o tipo."}$c$::jsonb, $c$Entrada é o que o programa recebe, e não o que ele mostra.$c$, 1, false, $c$arquivo$c$),
+  ($c$es-ola-nome$c$, $c$entrada-e-saida-de-informacoes$c$, $c$interpretation$c$, $c$Olá, nome$c$, $c$facil$c$, $c$Se a entrada for Ana, o que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Olá, nome","misconception":"mostra o nome da variável em vez do valor lido"},{"text":"Olá, lerEntrada()","misconception":"acha que o texto da chamada aparece na tela"},{"text":"Ana","misconception":"esquece a parte fixa do texto"},{"text":"Olá, Ana"}],"correct":3,"code":"const nome = lerEntrada();\nconsole.log(\"Olá, \" + nome);","explanation":"lerEntrada() entrega Ana, que fica na variável nome. A saída junta o texto \"Olá, \" ao valor: Olá, Ana."}$c$::jsonb, $c$A variável nome recebe o que foi digitado.$c$, 2, false, $c$arquivo$c$),
+  ($c$es-boas-vindas$c$, $c$entrada-e-saida-de-informacoes$c$, $c$code$c$, $c$Boas-vindas$c$, $c$facil$c$, $c$Escreva a função `boasVindas()`: leia um nome com `lerEntrada()` e mostre, com `console.log`, a frase Bem-vindo, NOME!$c$, null, $c$boasVindas$c$, $c$function boasVindas() {
+  // leia o nome e mostre a frase
+}
+$c$, $c$[{"args":[],"inputs":["Ana"],"output":["Bem-vindo, Ana!"]},{"args":[],"inputs":["Beto"],"output":["Bem-vindo, Beto!"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde o nome em uma variável e monte a frase com um template literal.$c$, 3, false, $c$arquivo$c$),
+  ($c$es-entradas-sao-texto$c$, $c$entrada-e-saida-de-informacoes$c$, $c$interpretation$c$, $c$Entradas são texto$c$, $c$medio$c$, $c$As entradas são "2" e "3" (como textos). O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"23"},{"text":"5","misconception":"esquece que a entrada chega como texto, e que o + junta textos"},{"text":"a + b","misconception":"mostra a expressão em vez do resultado"},{"text":"2\n3","misconception":"acha que o console.log mostra as duas entradas"}],"correct":0,"code":"const a = lerEntrada();\nconst b = lerEntrada();\nconsole.log(a + b);","explanation":"Como a entrada chega como texto, \"2\" + \"3\" junta os textos e resulta em \"23\". Para somar, seria preciso converter com Number()."}$c$::jsonb, $c$O + junta quando os dois lados são textos.$c$, 4, false, $c$arquivo$c$),
+  ($c$es-ordene-o-programa$c$, $c$entrada-e-saida-de-informacoes$c$, $c$order$c$, $c$Ordene o programa$c$, $c$medio$c$, $c$Coloque as linhas na ordem certa para ler um número, calcular o dobro e mostrar o resultado.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["const texto = lerEntrada();","const numero = Number(texto);","const dobro = numero * 2;","console.log(dobro);"],"explanation":"Lemos o valor, convertemos para número, calculamos o dobro e só então mostramos o resultado."}$c$::jsonb, $c$Cada linha usa a variável criada na linha anterior.$c$, 5, false, $c$arquivo$c$),
+  ($c$es-area-do-retangulo$c$, $c$entrada-e-saida-de-informacoes$c$, $c$code$c$, $c$Área do retângulo$c$, $c$medio$c$, $c$Escreva a função `areaDoRetangulo()`: leia a base e a altura com `lerEntrada()` (chegam como texto) e mostre, com `console.log`, a frase Área: VALOR.$c$, null, $c$areaDoRetangulo$c$, $c$function areaDoRetangulo() {
+  // leia a base e a altura, calcule e mostre
+}
+$c$, $c$[{"args":[],"inputs":["5","3"],"output":["Área: 15"]},{"args":[],"inputs":["10","2"],"output":["Área: 20"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Converta os dois valores com Number() antes de multiplicar.$c$, 6, false, $c$arquivo$c$),
+  ($c$es-corrija-o-ano-que-vem$c$, $c$entrada-e-saida-de-informacoes$c$, $c$fix$c$, $c$Corrija o ano que vem$c$, $c$medio$c$, $c$O programa lê uma idade e deveria mostrar Ano que vem: 21 (se a idade for 20), mas mostra Ano que vem: 201. Corrija o defeito.$c$, null, $c$anoQueVem$c$, $c$function anoQueVem() {
+  const idade = lerEntrada();
+  console.log("Ano que vem: " + idade + 1);
+}
+$c$, $c$[{"args":[],"inputs":["20"],"output":["Ano que vem: 21"]},{"args":[],"inputs":["9"],"output":["Ano que vem: 10"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Primeiro faça a conta com números; depois junte ao texto.$c$, 7, false, $c$arquivo$c$),
+  ($c$es-media-das-notas$c$, $c$entrada-e-saida-de-informacoes$c$, $c$code$c$, $c$Média das notas$c$, $c$dificil$c$, $c$Escreva a função `mediaDasNotas()`: leia três notas com `lerEntrada()` (chegam como texto) e mostre, com `console.log`, a frase Média: VALOR.$c$, null, $c$mediaDasNotas$c$, $c$function mediaDasNotas() {
+  // leia as três notas, calcule a média e mostre
+}
+$c$, $c$[{"args":[],"inputs":["6","8","7"],"output":["Média: 7"]},{"args":[],"inputs":["10","10","10"],"output":["Média: 10"]},{"args":[],"inputs":["3","6","9"],"output":["Média: 6"]}]$c$::jsonb, $c${}$c$::jsonb, $c$São três leituras, três conversões, uma soma entre parênteses, uma divisão e uma frase.$c$, 8, false, $c$arquivo$c$),
+  ($c$log-varias-chamadas$c$, $c$uso-do-console-log$c$, $c$choice$c$, $c$Duas chamadas$c$, $c$facil$c$, $c$O que acontece quando chamamos console.log duas vezes seguidas?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Os dois valores aparecem na mesma linha","misconception":"acha que console.log não muda de linha"},{"text":"Só o último valor aparece","misconception":"acha que a última chamada apaga a anterior"},{"text":"Cada chamada mostra uma nova linha"},{"text":"O programa dá erro","misconception":"acha que só se pode chamar console.log uma vez"}],"correct":2,"explanation":"Cada chamada de console.log escreve uma linha própria."}$c$::jsonb, $c$Pense nas mensagens que você já viu aparecerem uma embaixo da outra.$c$, 1, false, $c$arquivo$c$),
+  ($c$log-com-virgula$c$, $c$uso-do-console-log$c$, $c$interpretation$c$, $c$Valores com vírgula$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Total:50","misconception":"acha que a vírgula junta os valores sem espaço"},{"text":"Total: 50"},{"text":"Total:, 50","misconception":"acha que a vírgula aparece na tela"},{"text":"50","misconception":"acha que só o último valor é mostrado"}],"correct":1,"code":"console.log(\"Total:\", 50);","explanation":"Com vários valores, o console.log mostra todos na mesma linha, separados por um espaço."}$c$::jsonb, $c$A vírgula separa os valores, e o console.log coloca um espaço entre eles.$c$, 2, false, $c$arquivo$c$),
+  ($c$log-complete-a-media$c$, $c$uso-do-console-log$c$, $c$blank$c$, $c$Mostre a média$c$, $c$facil$c$, $c$Complete o programa para mostrar Média: 7 usando a variável media.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const media = 7;\nconsole.log(\"Média:\", {{1}});","blanks":[{"answers":["media"]}],"explanation":"media (sem aspas) é substituída pelo valor 7. Com aspas, apareceria a palavra media."}$c$::jsonb, $c$O segundo valor do console.log é o nome da variável, sem aspas.$c$, 3, false, $c$arquivo$c$),
+  ($c$log-texto-ou-conta$c$, $c$uso-do-console-log$c$, $c$interpretation$c$, $c$Texto ou conta?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10\n10\n55","misconception":"acha que o texto entre aspas também é calculado e que a vírgula junta os valores"},{"text":"5 + 5\n55\n5 5","misconception":"acha que 5 + 5 junta os valores como texto"},{"text":"5 + 5\n10\n10","misconception":"calcula a última linha em vez de mostrar os dois textos"},{"text":"5 + 5\n10\n5 5"}],"correct":3,"code":"console.log(\"5 + 5\");\nconsole.log(5 + 5);\nconsole.log(\"5\", \"5\");","explanation":"\"5 + 5\" é mostrado como texto, 5 + 5 é calculado (10) e os dois \"5\" separados por vírgula aparecem com um espaço entre eles."}$c$::jsonb, $c$Aspas mostram o texto como está; sem aspas, a conta é feita; a vírgula separa com espaço.$c$, 4, false, $c$arquivo$c$),
+  ($c$log-mostrar-os-dados$c$, $c$uso-do-console-log$c$, $c$code$c$, $c$Mostre os dados$c$, $c$medio$c$, $c$Escreva a função `mostrarDados()`: leia o nome e a idade com `lerEntrada()` e mostre duas linhas com `console.log`, no formato Nome: NOME e Idade: IDADE (use vírgulas no console.log).$c$, null, $c$mostrarDados$c$, $c$function mostrarDados() {
+  // leia o nome e a idade e mostre as duas linhas
+}
+$c$, $c$[{"args":[],"inputs":["Ana",20],"output":["Nome: Ana","Idade: 20"]},{"args":[],"inputs":["Beto",35],"output":["Nome: Beto","Idade: 35"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Cada console.log é uma linha; use a vírgula para separar o rótulo do valor.$c$, 5, false, $c$arquivo$c$),
+  ($c$log-operacoes-em-linhas$c$, $c$uso-do-console-log$c$, $c$interpretation$c$, $c$Contas em linhas$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Soma: 10\nProduto: 24\nDivisão: 1.5"},{"text":"Soma: 64\nProduto: 24\nDivisão: 1.5","misconception":"junta os números como texto na soma"},{"text":"Soma: 10\nProduto: 24\nDivisão: 2","misconception":"acha que a divisão sempre dá um resultado inteiro"},{"text":"Soma: a + b\nProduto: a * b\nDivisão: a / b","misconception":"mostra as expressões em vez de calculá-las"}],"correct":0,"code":"const a = 6;\nconst b = 4;\nconsole.log(\"Soma:\", a + b);\nconsole.log(\"Produto:\", a * b);\nconsole.log(\"Divisão:\", a / b);","explanation":"6 + 4 = 10, 6 * 4 = 24 e 6 / 4 = 1.5. Cada console.log mostra o rótulo e o resultado."}$c$::jsonb, $c$Os valores depois da vírgula são calculados antes de serem mostrados.$c$, 6, false, $c$arquivo$c$),
+  ($c$log-corrija-o-total$c$, $c$uso-do-console-log$c$, $c$fix$c$, $c$Corrija o espaço do total$c$, $c$medio$c$, $c$A função `mostrarTotal(preco, quantidade)` deveria mostrar Total: 50 (para preço 10 e quantidade 5), mas mostra Total:50. Corrija o defeito.$c$, null, $c$mostrarTotal$c$, $c$function mostrarTotal(preco, quantidade) {
+  const total = preco * quantidade;
+  console.log("Total:" + total);
+}
+$c$, $c$[{"args":[10,5],"output":["Total: 50"]},{"args":[3,3],"output":["Total: 9"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Falta um espaço entre o rótulo e o valor. Há mais de uma forma de resolver.$c$, 7, false, $c$arquivo$c$),
+  ($c$log-quatro-linhas$c$, $c$uso-do-console-log$c$, $c$interpretation$c$, $c$Quatro linhas$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Ana\nAna\nAna 3\n2 2","misconception":"mostra o valor da variável mesmo quando o nome está entre aspas e soma o \"1\" + 1"},{"text":"nome\nAna\nAna 3\n2 2","misconception":"soma \"1\" + 1 como se fosse número"},{"text":"nome\nAna\nAna 3\n11 2"},{"text":"nome\nAna\nAna, 3\n11, 2","misconception":"acha que a vírgula aparece na tela"}],"correct":2,"code":"const nome = \"Ana\";\nconsole.log(\"nome\");\nconsole.log(nome);\nconsole.log(nome, nome.length);\nconsole.log(\"1\" + 1, 1 + 1);","explanation":"\"nome\" é um texto; nome é a variável (Ana). nome.length vale 3. \"1\" + 1 junta (11) e 1 + 1 soma (2), e os dois aparecem na mesma linha."}$c$::jsonb, $c$Atenção a quais valores estão entre aspas e ao que o + faz com texto.$c$, 8, false, $c$arquivo$c$),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$desafio-do-mundo-2$c$, $c$challenge$c$, $c$Desafio: ficha da pessoa$c$, $c$dificil$c$, $c$Escreva a função `ficha()`: leia o nome, a idade e a altura (em metros) com `lerEntrada()` (chegam como texto) e mostre quatro linhas com `console.log`: Nome: NOME, Idade: IDADE anos, Altura: ALTURA m e Daqui a 10 anos, NOME terá IDADE+10 anos.$c$, null, $c$ficha$c$, $c$function ficha() {
+  // leia nome, idade e altura
+  // mostre as quatro linhas pedidas
+}
+$c$, $c$[{"args":[],"inputs":["Ana","20","1.75"],"output":["Nome: Ana","Idade: 20 anos","Altura: 1.75 m","Daqui a 10 anos, Ana terá 30 anos."]},{"args":[],"inputs":["Beto","35","1.8"],"output":["Nome: Beto","Idade: 35 anos","Altura: 1.8 m","Daqui a 10 anos, Beto terá 45 anos."]}]$c$::jsonb, $c${}$c$::jsonb, $c$A idade precisa virar número para somar 10. Use const para os dados que não mudam.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio2-corrija-o-resumo$c$, $c$desafio-do-mundo-2$c$, $c$fix$c$, $c$Desafio: corrija o resumo$c$, $c$dificil$c$, $c$O programa lê dois números e deveria mostrar a soma e a média, mas mostra resultados errados (por exemplo, Soma: 46 e Média: 23 para as entradas 4 e 6). Corrija o defeito.$c$, null, $c$resumo$c$, $c$function resumo() {
+  const a = lerEntrada();
+  const b = lerEntrada();
+  const soma = a + b;
+  const media = soma / 2;
+  console.log(`Soma: ${soma}`);
+  console.log(`Média: ${media}`);
+}
+$c$, $c$[{"args":[],"inputs":["4","6"],"output":["Soma: 10","Média: 5"]},{"args":[],"inputs":["10","20"],"output":["Soma: 30","Média: 15"]},{"args":[],"inputs":["3","4"],"output":["Soma: 7","Média: 3.5"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Os valores lidos são textos. O que o + faz com dois textos?$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio2-tipos-e-conversoes$c$, $c$desafio-do-mundo-2$c$, $c$interpretation$c$, $c$Desafio: acompanhe os tipos$c$, $c$dificil$c$, $c$Acompanhe o valor e o tipo de cada variável. O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"number\n60","misconception":"ignora a segunda atribuição, que transforma o total em texto"},{"text":"string\n600"},{"text":"number\n600","misconception":"acha que somar um texto a um número mantém o tipo number"},{"text":"string\n2060","misconception":"junta \"20\" e 3 em vez de multiplicar"}],"correct":1,"code":"const preco = \"20\";\nconst quantidade = 3;\nlet total = preco * quantidade;\ntotal = total + \"0\";\nconsole.log(typeof total);\nconsole.log(total);","explanation":"preco * quantidade converte \"20\" em 20 e dá 60 (number). Depois, total + \"0\" junta 60 com \"0\" e resulta no texto \"600\" (string)."}$c$::jsonb, $c$O * converte o texto em número; depois o + com um texto junta os valores.$c$, 3, false, $c$arquivo$c$),
   ($c$soma$c$, $c$fundamentos$c$, $c$code$c$, $c$Somar dois números$c$, $c$facil$c$, $c$Escreva a função `soma(a, b)` que retorna a soma de dois números.$c$, null, $c$soma$c$, $c$function soma(a, b) {
   // seu código aqui
 }
@@ -614,6 +1110,92 @@ from (values
     if (s[i] !== s[j]) return false;
   return true;
 }$c$, $c$$c$),
+  ($c$declaracao-corrija-o-nome$c$, $c$function quadrado(numero) {
+  let resultado = numero * numero;
+  return resultado;
+}$c$, $c$O defeito estava na grafia: Resultado (maiúsculo) não existe, porque a variável se chama resultado. Em JavaScript, maiúsculas e minúsculas contam.$c$),
+  ($c$letconst-corrija-a-area$c$, $c$function areaDoCirculo(raio) {
+  const PI = 3.14;
+  let area = 0;
+  area = PI * raio * raio;
+  return area;
+}$c$, $c$area foi declarada com const e depois recebeu outro valor. Como ela muda, deve ser let (ou ser declarada já com o resultado).$c$),
+  ($c$string-corrija-as-aspas$c$, $c$function cidade() {
+  return "Picos";
+}$c$, $c$Sem aspas, Picos é entendido como o nome de uma variável que não existe. Entre aspas, vira um texto.$c$),
+  ($c$number-media-de-dois$c$, $c$function media(a, b) {
+  return (a + b) / 2;
+}$c$, $c$A média é a soma dos valores dividida pela quantidade deles: (a + b) / 2. Os parênteses garantem que a soma aconteça antes da divisão.$c$),
+  ($c$textos-inicial-em-maiuscula$c$, $c$function inicial(nome) {
+  return nome.trim()[0].toUpperCase();
+}$c$, $c$trim() remove os espaços das pontas, [0] pega a primeira letra e toUpperCase() a deixa em maiúscula. Os métodos podem ser encadeados.$c$),
+  ($c$concat-nome-completo$c$, $c$function nomeCompleto(nome, sobrenome) {
+  return nome + " " + sobrenome;
+}$c$, $c$Concatenamos três partes: o nome, o espaço (" ") e o sobrenome.$c$),
+  ($c$template-corrija-a-saudacao$c$, $c$function saudacao(nome) {
+  return `Olá, ${nome}!`;
+}$c$, $c$Com aspas comuns, o ${nome} não é substituído. Trocando por crases, o valor da variável entra no texto.$c$),
+  ($c$template-apresentar$c$, $c$function apresentar(nome, idade) {
+  return `${nome} tem ${idade} anos`;
+}$c$, $c$O template literal `${nome} tem ${idade} anos` insere as duas variáveis no texto.$c$),
+  ($c$operacoes-media-de-tres$c$, $c$function mediaDeTres(a, b, c) {
+  return (a + b + c) / 3;
+}$c$, $c$A média é (a + b + c) / 3. Os parênteses fazem a soma acontecer antes da divisão.$c$),
+  ($c$conversao-corrija-a-soma$c$, $c$function somar(a, b) {
+  return Number(a) + Number(b);
+}$c$, $c$Com textos, o + junta ("23"). Convertendo cada valor com Number(), o + soma de verdade.$c$),
+  ($c$conversao-somar-entradas$c$, $c$function somarEntradas() {
+  const a = Number(lerEntrada());
+  const b = Number(lerEntrada());
+  console.log(a + b);
+}$c$, $c$Sem a conversão, "4" + "6" daria "46". Com Number() em cada valor, a soma é feita entre números.$c$),
+  ($c$es-boas-vindas$c$, $c$function boasVindas() {
+  const nome = lerEntrada();
+  console.log(`Bem-vindo, ${nome}!`);
+}$c$, $c$A entrada fica na variável nome e a saída é montada com um template literal: `Bem-vindo, ${nome}!`.$c$),
+  ($c$es-area-do-retangulo$c$, $c$function areaDoRetangulo() {
+  const base = Number(lerEntrada());
+  const altura = Number(lerEntrada());
+  console.log(`Área: ${base * altura}`);
+}$c$, $c$Lemos base e altura, convertemos para número, multiplicamos e mostramos a frase com o resultado.$c$),
+  ($c$es-corrija-o-ano-que-vem$c$, $c$function anoQueVem() {
+  const idade = Number(lerEntrada());
+  console.log("Ano que vem: " + (idade + 1));
+}$c$, $c$Como idade é texto, o + junta "20" e 1 (201). Convertendo com Number() e somando antes de juntar ao texto, o resultado é 21.$c$),
+  ($c$es-media-das-notas$c$, $c$function mediaDasNotas() {
+  const n1 = Number(lerEntrada());
+  const n2 = Number(lerEntrada());
+  const n3 = Number(lerEntrada());
+  const media = (n1 + n2 + n3) / 3;
+  console.log(`Média: ${media}`);
+}$c$, $c$O programa lê as três notas, converte cada uma com Number(), calcula (n1 + n2 + n3) / 3 e mostra a frase.$c$),
+  ($c$log-mostrar-os-dados$c$, $c$function mostrarDados() {
+  const nome = lerEntrada();
+  const idade = lerEntrada();
+  console.log("Nome:", nome);
+  console.log("Idade:", idade);
+}$c$, $c$Duas chamadas de console.log geram duas linhas, e a vírgula coloca o espaço entre o rótulo e o valor.$c$),
+  ($c$log-corrija-o-total$c$, $c$function mostrarTotal(preco, quantidade) {
+  const total = preco * quantidade;
+  console.log("Total:", total);
+}$c$, $c$Com a vírgula, o console.log coloca o espaço sozinho. Também funcionaria incluir o espaço no texto: "Total: " + total.$c$),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$function ficha() {
+  const nome = lerEntrada();
+  const idade = Number(lerEntrada());
+  const altura = Number(lerEntrada());
+  console.log(`Nome: ${nome}`);
+  console.log(`Idade: ${idade} anos`);
+  console.log(`Altura: ${altura} m`);
+  console.log(`Daqui a 10 anos, ${nome} terá ${idade + 10} anos.`);
+}$c$, $c$O programa lê os três dados, converte a idade para número, soma 10 e monta cada frase com template literals.$c$),
+  ($c$desafio2-corrija-o-resumo$c$, $c$function resumo() {
+  const a = Number(lerEntrada());
+  const b = Number(lerEntrada());
+  const soma = a + b;
+  const media = soma / 2;
+  console.log(`Soma: ${soma}`);
+  console.log(`Média: ${media}`);
+}$c$, $c$Como as entradas são texto, a + b juntava os valores ("46"). Convertendo com Number(), a soma e a média passam a ser calculadas com números.$c$),
   ($c$soma$c$, $c$function soma(a, b) {
   return a + b;
 }$c$, $c$$c$),
@@ -768,7 +1350,7 @@ on conflict (exercise_id) do update set solution = excluded.solution, commentary
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -866,6 +1448,159 @@ from (values
   ($c$conta-vogais$c$, $c$m5-contadores$c$, 1),
   ($c$palindromo$c$, $c$m2-manipulacao-textos$c$, 2),
   ($c$palindromo$c$, $c$m5-for$c$, 1),
+  ($c$variaveis-o-que-e$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$variaveis-mostrar-valor$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$variaveis-complete-idade$c$, $c$m2-introducao-variaveis$c$, 2),
+  ($c$variaveis-trocar-o-valor$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$variaveis-ordene-o-programa$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$variaveis-ordene-o-programa$c$, $c$m1-sequencia$c$, 1),
+  ($c$variaveis-sinal-de-igual$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$variaveis-copia-de-valor$c$, $c$m2-introducao-variaveis$c$, 3),
+  ($c$declaracao-nome-valido$c$, $c$m2-declaracao$c$, 3),
+  ($c$declaracao-linha-correta$c$, $c$m2-declaracao$c$, 3),
+  ($c$declaracao-complete$c$, $c$m2-declaracao$c$, 2),
+  ($c$declaracao-complete$c$, $c$m2-introducao-variaveis$c$, 1),
+  ($c$declaracao-sem-valor$c$, $c$m2-declaracao$c$, 3),
+  ($c$declaracao-maiuscula-minuscula$c$, $c$m2-declaracao$c$, 3),
+  ($c$declaracao-corrija-o-nome$c$, $c$m2-declaracao$c$, 3),
+  ($c$declaracao-corrija-o-nome$c$, $c$m7-return$c$, 1),
+  ($c$declaracao-so-nomes-validos$c$, $c$m2-declaracao$c$, 3),
+  ($c$letconst-palavra-que-muda$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-quando-usar-const$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-complete$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-alterando-const$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-somando-pontos$c$, $c$m2-let-const$c$, 2),
+  ($c$letconst-somando-pontos$c$, $c$m2-introducao-variaveis$c$, 1),
+  ($c$letconst-corrija-a-area$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-corrija-a-area$c$, $c$m2-number$c$, 1),
+  ($c$letconst-qual-funciona$c$, $c$m2-let-const$c$, 3),
+  ($c$letconst-qual-funciona$c$, $c$m2-declaracao$c$, 1),
+  ($c$string-qual-e-texto$c$, $c$m2-string$c$, 3),
+  ($c$string-typeof-numero-entre-aspas$c$, $c$m2-string$c$, 3),
+  ($c$string-complete-as-aspas$c$, $c$m2-string$c$, 2),
+  ($c$string-typeof-true-entre-aspas$c$, $c$m2-string$c$, 3),
+  ($c$string-typeof-true-entre-aspas$c$, $c$m2-boolean$c$, 1),
+  ($c$string-aspas-dentro-do-texto$c$, $c$m2-string$c$, 3),
+  ($c$string-corrija-as-aspas$c$, $c$m2-string$c$, 3),
+  ($c$string-por-que-sao-diferentes$c$, $c$m2-string$c$, 3),
+  ($c$string-por-que-sao-diferentes$c$, $c$m2-number$c$, 1),
+  ($c$number-como-escrever-decimal$c$, $c$m2-number$c$, 3),
+  ($c$number-typeof-decimal$c$, $c$m2-number$c$, 3),
+  ($c$number-complete-a-altura$c$, $c$m2-number$c$, 2),
+  ($c$number-divisao-decimal$c$, $c$m2-number$c$, 3),
+  ($c$number-o-que-e-nan$c$, $c$m2-number$c$, 3),
+  ($c$number-media-de-dois$c$, $c$m2-number$c$, 2),
+  ($c$number-media-de-dois$c$, $c$m2-operacoes-numeros$c$, 1),
+  ($c$number-contas-especiais$c$, $c$m2-number$c$, 3),
+  ($c$boolean-quais-sao-os-valores$c$, $c$m2-boolean$c$, 3),
+  ($c$boolean-comparacao-simples$c$, $c$m2-boolean$c$, 3),
+  ($c$boolean-complete-sem-desconto$c$, $c$m2-boolean$c$, 2),
+  ($c$boolean-qual-e-boolean$c$, $c$m2-boolean$c$, 3),
+  ($c$boolean-qual-e-boolean$c$, $c$m2-string$c$, 1),
+  ($c$boolean-idade-minima$c$, $c$m2-boolean$c$, 3),
+  ($c$boolean-idade-minima$c$, $c$m2-introducao-variaveis$c$, 1),
+  ($c$boolean-tres-typeof$c$, $c$m2-boolean$c$, 2),
+  ($c$boolean-tres-typeof$c$, $c$m2-string$c$, 1),
+  ($c$boolean-tres-typeof$c$, $c$m2-number$c$, 1),
+  ($c$boolean-igualdade$c$, $c$m2-boolean$c$, 3),
+  ($c$boolean-igualdade$c$, $c$m2-introducao-variaveis$c$, 1),
+  ($c$textos-propriedade-do-tamanho$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$textos-tamanho-de-casa$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$textos-complete-maiusculas$c$, $c$m2-manipulacao-textos$c$, 2),
+  ($c$textos-indices-de-banana$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$textos-recorte-com-slice$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$textos-email$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$textos-inicial-em-maiuscula$c$, $c$m2-manipulacao-textos$c$, 3),
+  ($c$concat-operador$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-bom-dia$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-complete-ola$c$, $c$m2-concatenacao$c$, 2),
+  ($c$concat-texto-e-numero$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-texto-e-numero$c$, $c$m2-number$c$, 1),
+  ($c$concat-ordene-a-saudacao$c$, $c$m2-concatenacao$c$, 2),
+  ($c$concat-ordene-a-saudacao$c$, $c$m1-sequencia$c$, 1),
+  ($c$concat-idade-na-frase$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-da-esquerda-para-a-direita$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-da-esquerda-para-a-direita$c$, $c$m2-number$c$, 1),
+  ($c$concat-nome-completo$c$, $c$m2-concatenacao$c$, 3),
+  ($c$concat-nome-completo$c$, $c$m1-algoritmos$c$, 1),
+  ($c$template-qual-simbolo$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-oi-beto$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-complete$c$, $c$m2-template-literals$c$, 2),
+  ($c$template-conta-dentro$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-conta-dentro$c$, $c$m2-operacoes-numeros$c$, 1),
+  ($c$template-qual-linha$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-corrija-a-saudacao$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-apresentar$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-apresentar$c$, $c$m2-concatenacao$c$, 1),
+  ($c$template-soma-na-frase$c$, $c$m2-template-literals$c$, 3),
+  ($c$template-soma-na-frase$c$, $c$m2-operacoes-numeros$c$, 1),
+  ($c$operacoes-resto$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$operacoes-resto-de-sete$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$operacoes-area-do-quadrado$c$, $c$m2-operacoes-numeros$c$, 2),
+  ($c$operacoes-media-de-duas-notas$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$operacoes-media-de-duas-notas$c$, $c$m2-number$c$, 1),
+  ($c$operacoes-media-de-tres$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$operacoes-media-de-tres$c$, $c$m2-number$c$, 1),
+  ($c$operacoes-porcentagem$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$operacoes-porcentagem$c$, $c$m2-number$c$, 1),
+  ($c$operacoes-precedencia-e-arredondamento$c$, $c$m2-operacoes-numeros$c$, 3),
+  ($c$conversao-qual-funcao$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-tipo-depois-de-number$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-complete$c$, $c$m2-conversao-tipos$c$, 2),
+  ($c$conversao-texto-ou-numero$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-texto-ou-numero$c$, $c$m2-concatenacao$c$, 1),
+  ($c$conversao-resultados$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-resultados$c$, $c$m2-number$c$, 1),
+  ($c$conversao-corrija-a-soma$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-corrija-a-soma$c$, $c$m2-concatenacao$c$, 1),
+  ($c$conversao-somar-entradas$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-somar-entradas$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$conversao-multiplicar-e-somar$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$conversao-multiplicar-e-somar$c$, $c$m2-concatenacao$c$, 2),
+  ($c$es-comando-de-entrada$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-ola-nome$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-ola-nome$c$, $c$m2-concatenacao$c$, 1),
+  ($c$es-boas-vindas$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-boas-vindas$c$, $c$m2-template-literals$c$, 1),
+  ($c$es-entradas-sao-texto$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-entradas-sao-texto$c$, $c$m2-conversao-tipos$c$, 2),
+  ($c$es-ordene-o-programa$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-ordene-o-programa$c$, $c$m1-sequencia$c$, 2),
+  ($c$es-area-do-retangulo$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-area-do-retangulo$c$, $c$m2-operacoes-numeros$c$, 2),
+  ($c$es-area-do-retangulo$c$, $c$m2-template-literals$c$, 1),
+  ($c$es-corrija-o-ano-que-vem$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-corrija-o-ano-que-vem$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$es-media-das-notas$c$, $c$m2-entrada-saida$c$, 3),
+  ($c$es-media-das-notas$c$, $c$m2-conversao-tipos$c$, 2),
+  ($c$es-media-das-notas$c$, $c$m2-operacoes-numeros$c$, 2),
+  ($c$es-media-das-notas$c$, $c$m2-template-literals$c$, 1),
+  ($c$log-varias-chamadas$c$, $c$m2-console-log$c$, 3),
+  ($c$log-com-virgula$c$, $c$m2-console-log$c$, 3),
+  ($c$log-complete-a-media$c$, $c$m2-console-log$c$, 2),
+  ($c$log-texto-ou-conta$c$, $c$m2-console-log$c$, 3),
+  ($c$log-texto-ou-conta$c$, $c$m2-string$c$, 1),
+  ($c$log-mostrar-os-dados$c$, $c$m2-console-log$c$, 3),
+  ($c$log-mostrar-os-dados$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$log-operacoes-em-linhas$c$, $c$m2-console-log$c$, 3),
+  ($c$log-operacoes-em-linhas$c$, $c$m2-operacoes-numeros$c$, 1),
+  ($c$log-corrija-o-total$c$, $c$m2-console-log$c$, 3),
+  ($c$log-corrija-o-total$c$, $c$m2-concatenacao$c$, 1),
+  ($c$log-quatro-linhas$c$, $c$m2-console-log$c$, 3),
+  ($c$log-quatro-linhas$c$, $c$m2-string$c$, 1),
+  ($c$log-quatro-linhas$c$, $c$m2-concatenacao$c$, 1),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$m2-template-literals$c$, 2),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$m2-conversao-tipos$c$, 2),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$m2-introducao-variaveis$c$, 1),
+  ($c$desafio2-ficha-da-pessoa$c$, $c$m2-let-const$c$, 1),
+  ($c$desafio2-corrija-o-resumo$c$, $c$m2-conversao-tipos$c$, 3),
+  ($c$desafio2-corrija-o-resumo$c$, $c$m2-concatenacao$c$, 2),
+  ($c$desafio2-corrija-o-resumo$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$desafio2-tipos-e-conversoes$c$, $c$m2-conversao-tipos$c$, 2),
+  ($c$desafio2-tipos-e-conversoes$c$, $c$m2-concatenacao$c$, 2),
+  ($c$desafio2-tipos-e-conversoes$c$, $c$m2-string$c$, 1),
+  ($c$desafio2-tipos-e-conversoes$c$, $c$m2-number$c$, 1),
   ($c$soma$c$, $c$m3-aritmeticos$c$, 2),
   ($c$soma$c$, $c$m7-return$c$, 1),
   ($c$media$c$, $c$m3-aritmeticos$c$, 2),
@@ -948,7 +1683,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

@@ -1,0 +1,3 @@
+function cidade() {
+  return "Picos";
+}

@@ -1,0 +1,197 @@
+{
+  "id": "let-e-const",
+  "mundo": "mundo-2",
+  "titulo": "Utilização de let e const",
+  "foco": "Escolher entre let (valor muda) e const (valor fixo)",
+  "posicao": 203,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Há duas formas de declarar uma variável em JavaScript:\n- let: o valor pode ser trocado depois.\n- const: o valor é fixo. Depois de guardado, não pode ser substituído, e a variável precisa receber o valor na própria declaração.\n\nSe o programa tentar mudar uma const, ele para com o erro \"Assignment to constant variable\".\n\nRegra prática: use const para o que não muda (o valor de PI, uma taxa, o nome do curso) e let para o que muda (um contador, um saldo, uma pontuação). Assim quem lê o código sabe, só pela palavra, se o valor pode mudar. Existe também a palavra var, mais antiga; neste curso usamos só let e const.",
+  "exemplo": "const PI = 3.14159;     // não muda\nlet raio = 2;           // pode mudar\nraio = 5;               // ok: let aceita um novo valor\n// PI = 3;              // ERRO: Assignment to constant variable\nconsole.log(PI * raio); // 15.70795\n\nPasso a passo:\n1. PI é uma const: o valor 3.14159 nunca muda.\n2. raio é uma let: começa em 2 e depois recebe 5.\n3. A linha comentada com // tentaria mudar a const PI e causaria um erro, por isso ela está desativada.\n4. O resultado é 3.14159 * 5 = 15.70795.",
+  "revisao": "- let: o valor pode mudar. const: o valor é fixo.\n- const precisa receber o valor na declaração.\n- Mudar uma const causa o erro \"Assignment to constant variable\".\n- Use const por padrão e let só quando o valor precisar mudar.\n- Não declare a mesma variável duas vezes no mesmo lugar.",
+  "exercicios": [
+    {
+      "id": "letconst-palavra-que-muda",
+      "tipo": "escolha",
+      "titulo": "Qual palavra permite mudar o valor?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 }
+      ],
+      "enunciado": "Qual palavra declara uma variável cujo valor pode ser trocado depois?",
+      "opcoes": [
+        "let",
+        { "texto": "const", "confusao": "confunde constante com variável que pode mudar" },
+        { "texto": "mudar", "confusao": "acha que existe uma palavra chamada mudar" },
+        {
+          "texto": "valor",
+          "confusao": "confunde o conteúdo da variável com a palavra que a declara"
+        }
+      ],
+      "correta": 0,
+      "dica": "A outra palavra é a que fixa o valor.",
+      "explicacao": "let cria variáveis que podem receber novos valores. const cria valores fixos."
+    },
+    {
+      "id": "letconst-quando-usar-const",
+      "tipo": "escolha",
+      "titulo": "Quando usar const?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 }
+      ],
+      "enunciado": "Qual destes valores combina melhor com const?",
+      "opcoes": [
+        {
+          "texto": "O saldo de uma conta bancária",
+          "confusao": "usa const para um valor que muda a todo momento"
+        },
+        {
+          "texto": "A pontuação de um jogador",
+          "confusao": "usa const para um valor que muda durante o jogo"
+        },
+        "O valor de PI (3,14159)",
+        {
+          "texto": "O número de tentativas já usadas",
+          "confusao": "usa const para um valor que aumenta a cada tentativa"
+        }
+      ],
+      "correta": 2,
+      "dica": "Escolha o valor que nunca muda.",
+      "explicacao": "O valor de PI é sempre o mesmo, então é uma boa const. Saldo, pontuação e tentativas mudam, e pedem let."
+    },
+    {
+      "id": "letconst-complete",
+      "tipo": "lacuna",
+      "titulo": "let ou const?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 }
+      ],
+      "enunciado": "Complete as declarações: PI nunca muda e raio pode mudar depois.",
+      "modelo": "{{1}} PI = 3.14;\n{{2}} raio = 5;",
+      "lacunas": [
+        { "respostas": ["const"] },
+        { "respostas": ["let"] }
+      ],
+      "dica": "Uma palavra fixa o valor; a outra permite trocá-lo.",
+      "explicacao": "PI é um valor fixo (const) e raio pode receber outro valor (let)."
+    },
+    {
+      "id": "letconst-alterando-const",
+      "tipo": "interpretacao",
+      "titulo": "Mudando uma const",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 }
+      ],
+      "enunciado": "O que acontece ao executar o programa abaixo?",
+      "codigo": "const taxa = 0.1;\ntaxa = 0.2;\nconsole.log(taxa);",
+      "opcoes": [
+        { "texto": "Mostra 0.2", "confusao": "acha que uma const pode receber um novo valor" },
+        "Dá erro: não é possível alterar uma const",
+        {
+          "texto": "Mostra 0.1, ignorando a segunda linha",
+          "confusao": "acha que o programa ignora a tentativa de mudar a const"
+        },
+        {
+          "texto": "Mostra taxa",
+          "confusao": "mostra o nome da variável em vez do valor guardado nela"
+        }
+      ],
+      "correta": 1,
+      "dica": "Veja qual palavra declarou a variável taxa.",
+      "explicacao": "taxa foi declarada com const, então a linha taxa = 0.2 causa o erro \"Assignment to constant variable\" e o programa para."
+    },
+    {
+      "id": "letconst-somando-pontos",
+      "tipo": "interpretacao",
+      "titulo": "Quantos pontos?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 2 },
+        { "id": "m2-introducao-variaveis", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let pontos = 10;\npontos = pontos + 5;\nconsole.log(pontos);",
+      "opcoes": [
+        { "texto": "10", "confusao": "ignora a nova atribuição" },
+        {
+          "texto": "5",
+          "confusao": "acha que o novo valor substitui o antigo sem usá-lo no cálculo"
+        },
+        {
+          "texto": "pontos + 5",
+          "confusao": "acha que o computador mostra a expressão em vez de calculá-la"
+        },
+        "15"
+      ],
+      "correta": 3,
+      "dica": "Primeiro o computador calcula o lado direito, usando o valor atual de pontos.",
+      "explicacao": "pontos + 5 vale 10 + 5 = 15. Esse resultado é guardado em pontos, substituindo o 10."
+    },
+    {
+      "id": "letconst-corrija-a-area",
+      "tipo": "corrigir",
+      "titulo": "Corrija a área do círculo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "A função `areaDoCirculo(raio)` deveria devolver a área (3.14 * raio * raio), mas dá erro. Corrija o defeito.",
+      "funcao": "areaDoCirculo",
+      "codigoInicial": "function areaDoCirculo(raio) {\n  const PI = 3.14;\n  const area = 0;\n  area = PI * raio * raio;\n  return area;\n}\n",
+      "testes": [
+        { "entrada": [1], "esperado": 3.14 },
+        { "entrada": [2], "esperado": 12.56 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "Qual declaração está sendo alterada depois de criada?",
+      "comentario": "area foi declarada com const e depois recebeu outro valor. Como ela muda, deve ser let (ou ser declarada já com o resultado)."
+    },
+    {
+      "id": "letconst-qual-funciona",
+      "tipo": "escolha",
+      "titulo": "Qual dupla de linhas funciona?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-let-const", "peso": 3 },
+        { "id": "m2-declaracao", "peso": 1 }
+      ],
+      "enunciado": "Qual das duplas de linhas abaixo funciona, sem causar erro?",
+      "opcoes": [
+        "let total;\ntotal = 5;",
+        {
+          "texto": "const total = 0;\ntotal = 5;",
+          "confusao": "acha que uma const pode ser alterada depois"
+        },
+        {
+          "texto": "const total;\ntotal = 5;",
+          "confusao": "acha que uma const pode ser declarada sem valor e preenchida depois"
+        },
+        {
+          "texto": "let total = 0;\nlet total = 5;",
+          "confusao": "acha que a mesma variável pode ser declarada duas vezes"
+        }
+      ],
+      "correta": 0,
+      "dica": "Teste cada dupla: const não muda, e uma variável só é declarada uma vez.",
+      "explicacao": "let total; cria a variável e total = 5; guarda o valor. As outras duplas alteram uma const, declaram uma const sem valor ou repetem a declaração."
+    }
+  ]
+}

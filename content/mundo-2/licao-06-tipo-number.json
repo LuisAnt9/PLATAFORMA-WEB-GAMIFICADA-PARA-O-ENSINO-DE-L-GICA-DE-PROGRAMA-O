@@ -1,0 +1,171 @@
+{
+  "id": "tipo-number",
+  "mundo": "mundo-2",
+  "titulo": "Tipo Number",
+  "foco": "Reconhecer e escrever números (inteiros e decimais)",
+  "posicao": 205,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O tipo number guarda números. Em JavaScript, inteiros (7, -2) e decimais (3.14) são o mesmo tipo: number.\n\nPontos importantes:\n- Números não levam aspas. Com aspas, viram texto.\n- O separador decimal é o ponto (3.5), e não a vírgula.\n- Podemos fazer contas com + (soma), - (subtração), * (multiplicação) e / (divisão). Veremos todos os operadores com calma no Mundo 3.\n- Algumas contas têm resultados especiais: dividir por zero dá Infinity, e uma conta sem sentido, como \"abc\" * 2, dá NaN (a sigla de \"Not a Number\", ou \"não é um número\").",
+  "exemplo": "const inteiro = 7;\nconst decimal = 3.14;\nconst negativo = -2;\n\nconsole.log(typeof inteiro);   // number\nconsole.log(typeof decimal);   // number (decimal também é number)\nconsole.log(10 / 4);           // 2.5\nconsole.log(10 / 0);           // Infinity\nconsole.log(\"abc\" * 2);        // NaN\n\nPasso a passo:\n1. Inteiros, decimais e negativos são todos do tipo number.\n2. 10 / 4 dá 2.5: a divisão em JavaScript não arredonda sozinha.\n3. Dividir por zero não causa erro: o resultado é Infinity.\n4. Multiplicar um texto que não é número por 2 não faz sentido: o resultado é NaN.",
+  "revisao": "- number é o tipo dos números, inteiros ou decimais.\n- Números não levam aspas e usam ponto como separador decimal.\n- 10 / 0 resulta em Infinity.\n- NaN significa \"não é um número\" e aparece em contas sem sentido.\n- typeof mostra number para qualquer número, inclusive NaN.",
+  "exercicios": [
+    {
+      "id": "number-como-escrever-decimal",
+      "tipo": "escolha",
+      "titulo": "Como escrever 3,5?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-number", "peso": 3 }
+      ],
+      "enunciado": "Como se escreve o número três e meio em JavaScript?",
+      "opcoes": [
+        { "texto": "3,5", "confusao": "usa a vírgula como separador decimal" },
+        "3.5",
+        { "texto": "\"3.5\"", "confusao": "coloca aspas e transforma o número em texto" },
+        { "texto": "3 e meio", "confusao": "escreve o número por extenso, como em um texto" }
+      ],
+      "correta": 1,
+      "dica": "Em programação, o separador decimal é o mesmo das calculadoras americanas.",
+      "explicacao": "O separador decimal é o ponto: 3.5. Com vírgula ou com aspas, o valor deixaria de ser um número."
+    },
+    {
+      "id": "number-typeof-decimal",
+      "tipo": "interpretacao",
+      "titulo": "Qual é o tipo de 3.14?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-number", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(typeof 3.14);",
+      "opcoes": [
+        { "texto": "decimal", "confusao": "acha que existe um tipo separado chamado decimal" },
+        { "texto": "float", "confusao": "usa o nome de tipo de outras linguagens de programação" },
+        { "texto": "string", "confusao": "acha que um número com ponto é um texto" },
+        "number"
+      ],
+      "correta": 3,
+      "dica": "Em JavaScript inteiros e decimais têm o mesmo tipo.",
+      "explicacao": "Todos os números, inteiros ou decimais, são do tipo number."
+    },
+    {
+      "id": "number-complete-a-altura",
+      "tipo": "lacuna",
+      "titulo": "Guarde a altura",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-number", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para guardar a altura 1,75 metro (escreva o número do jeito certo em JavaScript).",
+      "modelo": "const altura = {{1}};\nconsole.log(typeof altura);",
+      "lacunas": [
+        { "respostas": ["1.75"] }
+      ],
+      "dica": "Decimais usam ponto e não levam aspas.",
+      "explicacao": "1.75 é um número decimal válido em JavaScript, e typeof mostra number."
+    },
+    {
+      "id": "number-divisao-decimal",
+      "tipo": "interpretacao",
+      "titulo": "Divisões",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-number", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(10 / 4);\nconsole.log(7 / 2);",
+      "opcoes": [
+        "2.5\n3.5",
+        { "texto": "2\n3", "confusao": "acha que a divisão sempre dá um resultado inteiro" },
+        { "texto": "2,5\n3,5", "confusao": "mostra a vírgula como separador decimal" },
+        { "texto": "3\n4", "confusao": "acha que o resultado é arredondado para cima" }
+      ],
+      "correta": 0,
+      "dica": "A divisão em JavaScript mantém a parte decimal.",
+      "explicacao": "10 / 4 vale 2.5 e 7 / 2 vale 3.5. O resultado é mostrado com ponto decimal."
+    },
+    {
+      "id": "number-o-que-e-nan",
+      "tipo": "escolha",
+      "titulo": "O que é NaN?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-number", "peso": 3 }
+      ],
+      "enunciado": "O que significa o valor NaN?",
+      "opcoes": [
+        { "texto": "Um número negativo", "confusao": "confunde NaN com número negativo" },
+        {
+          "texto": "Um número muito grande, maior que qualquer outro",
+          "confusao": "confunde NaN com Infinity"
+        },
+        "\"Não é um número\": o resultado de uma conta sem sentido",
+        { "texto": "O número zero", "confusao": "acha que uma conta sem sentido resulta em zero" }
+      ],
+      "correta": 2,
+      "dica": "A sigla vem do inglês: Not a Number.",
+      "explicacao": "NaN aparece quando uma conta não resulta em um número válido, como \"abc\" * 2."
+    },
+    {
+      "id": "number-media-de-dois",
+      "tipo": "codigo",
+      "titulo": "Média de dois números",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-number", "peso": 2 },
+        { "id": "m2-operacoes-numeros", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `media(a, b)` que devolve a média aritmética de dois números (soma dividida por 2).",
+      "funcao": "media",
+      "codigoInicial": "function media(a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [4, 6], "esperado": 5 },
+        { "entrada": [7, 8], "esperado": 7.5 },
+        { "entrada": [0, 0], "esperado": 0 }
+      ],
+      "dica": "Some os dois valores e divida pelo total de valores. Cuidado com a ordem das contas.",
+      "comentario": "A média é a soma dos valores dividida pela quantidade deles: (a + b) / 2. Os parênteses garantem que a soma aconteça antes da divisão."
+    },
+    {
+      "id": "number-contas-especiais",
+      "tipo": "interpretacao",
+      "titulo": "Resultados especiais",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-number", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(10 / 0);\nconsole.log(\"abc\" * 2);",
+      "opcoes": [
+        {
+          "texto": "Erro\nErro",
+          "confusao": "acha que contas inválidas sempre param o programa com erro"
+        },
+        "Infinity\nNaN",
+        { "texto": "0\n0", "confusao": "acha que contas inválidas resultam em zero" },
+        {
+          "texto": "Infinity\nInfinity",
+          "confusao": "acha que as duas contas dão o mesmo resultado especial"
+        }
+      ],
+      "correta": 1,
+      "dica": "Uma conta é uma divisão por zero; a outra tenta multiplicar um texto sem sentido numérico.",
+      "explicacao": "Dividir por zero dá Infinity, e multiplicar um texto que não é número por 2 dá NaN. Nenhuma das duas causa erro."
+    }
+  ]
+}

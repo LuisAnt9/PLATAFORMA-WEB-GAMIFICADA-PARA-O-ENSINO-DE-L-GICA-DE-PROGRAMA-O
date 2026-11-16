@@ -59,6 +59,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Conteúdo do Mundo 1** (etapa E4): 8 lições e 47 exercícios (algoritmos, sequência, entrada e saída, pseudocódigo, fluxogramas e o desafio final), em `content/mundo-1/`, **como rascunho**. O documento `docs/revisao/mundo-1.md` reúne tudo para o professor revisar; depois da aprovação, `npm run content:publish -- mundo-1` gera o SQL que publica.
 
+- **Conteúdo do Mundo 2** (etapa E5): 14 lições (variáveis, `let` e `const`, string, number, boolean, manipulação de textos, concatenação, template literals, operações, conversão de tipos, entrada e saída, `console.log` e o desafio final) e 99 exercícios, **como rascunho**, em `content/mundo-2/`. Revisão em `docs/revisao/mundo-2.md`; publicação com `npm run content:publish -- mundo-2`. A lição antiga "Textos" (rascunho) ficou no fim do mundo, na posição 290.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

@@ -1,0 +1,173 @@
+{
+  "id": "manipulacao-de-textos",
+  "mundo": "mundo-2",
+  "titulo": "Manipulação de textos",
+  "foco": "Consultar e transformar textos com propriedades e métodos",
+  "posicao": 207,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Os textos têm ferramentas prontas, que chamamos com um ponto depois do texto:\n- .length: quantos caracteres o texto tem (é uma propriedade, sem parênteses).\n- .toUpperCase() e .toLowerCase(): devolvem o texto em maiúsculas ou minúsculas.\n- .trim(): remove os espaços do início e do fim.\n- .includes(\"x\"): diz (true ou false) se o texto contém \"x\".\n- .indexOf(\"x\"): devolve a posição de \"x\", ou -1 se não achar.\n- .slice(inicio, fim): devolve um pedaço do texto.\n\nAs posições (índices) começam em 0: o primeiro caractere é texto[0]. Os métodos não alteram o texto original: eles devolvem um novo valor.",
+  "exemplo": "const nome = \"  Ana Lima \";\nconsole.log(nome.length);        // 11\nconsole.log(nome.trim());        // Ana Lima\n\nconst t = \"lógica\";\nconsole.log(t.toUpperCase());    // LÓGICA\nconsole.log(t[0]);               // l\nconsole.log(t.slice(0, 3));      // lóg\nconsole.log(t.includes(\"gi\"));   // true\nconsole.log(t.indexOf(\"g\"));     // 2\nconsole.log(t.indexOf(\"z\"));     // -1\n\nPasso a passo:\n1. O texto \"  Ana Lima \" tem 11 caracteres, contando os espaços. trim() devolve Ana Lima, sem os espaços das pontas.\n2. Em \"lógica\", as posições são l=0, ó=1, g=2, i=3, c=4, a=5.\n3. slice(0, 3) pega das posições 0 até 2 (o 3 não entra): lóg.\n4. indexOf devolve -1 quando o pedaço não existe.",
+  "revisao": "- .length dá o tamanho do texto; os índices começam em 0.\n- toUpperCase, toLowerCase e trim devolvem um novo texto.\n- includes responde true ou false; indexOf devolve a posição ou -1.\n- slice(inicio, fim) inclui o início e não inclui o fim.\n- Os métodos não mudam o texto original.",
+  "exercicios": [
+    {
+      "id": "textos-propriedade-do-tamanho",
+      "tipo": "escolha",
+      "titulo": "Como saber o tamanho?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "Qual propriedade informa quantos caracteres tem um texto?",
+      "opcoes": [
+        { "texto": "size", "confusao": "usa o nome de outras linguagens" },
+        { "texto": "count", "confusao": "usa o nome de outras linguagens" },
+        "length",
+        { "texto": "tamanho", "confusao": "traduz o nome da propriedade para o português" }
+      ],
+      "correta": 2,
+      "dica": "O nome vem do inglês e significa \"comprimento\".",
+      "explicacao": "texto.length devolve a quantidade de caracteres, e não leva parênteses."
+    },
+    {
+      "id": "textos-tamanho-de-casa",
+      "tipo": "interpretacao",
+      "titulo": "Quantas letras?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const palavra = \"casa\";\nconsole.log(palavra.length);",
+      "opcoes": [
+        {
+          "texto": "3",
+          "confusao": "esquece de contar uma das letras, confundindo tamanho com último índice"
+        },
+        "4",
+        { "texto": "casa", "confusao": "mostra o texto em vez do tamanho" },
+        { "texto": "5", "confusao": "conta um caractere a mais do que o texto tem" }
+      ],
+      "correta": 1,
+      "dica": "Conte as letras de casa.",
+      "explicacao": "length conta todos os caracteres: c, a, s, a. São 4."
+    },
+    {
+      "id": "textos-complete-maiusculas",
+      "tipo": "lacuna",
+      "titulo": "Texto em maiúsculas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 2 }
+      ],
+      "enunciado": "Complete a linha para mostrar o nome em letras maiúsculas.",
+      "modelo": "const nome = \"ana\";\nconsole.log(nome.{{1}}());",
+      "lacunas": [
+        { "respostas": ["toUpperCase"] }
+      ],
+      "dica": "O método tem o nome em inglês e usa letra maiúscula no meio.",
+      "explicacao": "toUpperCase() devolve o texto em maiúsculas: ANA."
+    },
+    {
+      "id": "textos-indices-de-banana",
+      "tipo": "interpretacao",
+      "titulo": "Letras e posições",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const palavra = \"banana\";\nconsole.log(palavra[0]);\nconsole.log(palavra[5]);\nconsole.log(palavra.length);",
+      "opcoes": [
+        {
+          "texto": "b\na\n5",
+          "confusao": "acha que length é o último índice, e não a quantidade de letras"
+        },
+        { "texto": "a\nb\n6", "confusao": "inverte as posições 0 e 5" },
+        { "texto": "b\nn\n6", "confusao": "erra a letra da posição 5" },
+        "b\na\n6"
+      ],
+      "correta": 3,
+      "dica": "A posição 0 é a primeira letra; a última letra está na posição length - 1.",
+      "explicacao": "palavra[0] é b, palavra[5] é a (a sexta letra) e palavra.length vale 6."
+    },
+    {
+      "id": "textos-recorte-com-slice",
+      "tipo": "escolha",
+      "titulo": "Recortando um texto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "O que \"Programação\".slice(0, 4) devolve?",
+      "opcoes": [
+        "\"Prog\"",
+        { "texto": "\"Progr\"", "confusao": "acha que a posição final também entra no pedaço" },
+        { "texto": "\"rogr\"", "confusao": "começa a contar as posições do 1 em vez do 0" },
+        { "texto": "\"ção\"", "confusao": "acha que slice pega o final do texto" }
+      ],
+      "correta": 0,
+      "dica": "slice pega da posição inicial até a posição final, sem incluí-la.",
+      "explicacao": "slice(0, 4) pega as posições 0, 1, 2 e 3: P, r, o, g. O 4 não entra."
+    },
+    {
+      "id": "textos-email",
+      "tipo": "interpretacao",
+      "titulo": "Analisando um e-mail",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const email = \"Ana@Escola.com\";\nconsole.log(email.toLowerCase());\nconsole.log(email.includes(\"ESCOLA\"));\nconsole.log(email.indexOf(\"@\"));",
+      "opcoes": [
+        {
+          "texto": "ana@escola.com\ntrue\n3",
+          "confusao": "acha que includes ignora a diferença entre maiúsculas e minúsculas"
+        },
+        { "texto": "ana@escola.com\nfalse\n4", "confusao": "conta a posição do @ a partir de 1" },
+        "ana@escola.com\nfalse\n3",
+        {
+          "texto": "ana@escola.com\n3\nfalse",
+          "confusao": "inverte as respostas de includes e indexOf"
+        }
+      ],
+      "correta": 2,
+      "dica": "includes diferencia maiúsculas de minúsculas, e os índices começam em 0.",
+      "explicacao": "toLowerCase deixa o texto em minúsculas. includes(\"ESCOLA\") procura exatamente esse texto no original (que tem \"Escola\"), então é false. O @ está na posição 3 (A=0, n=1, a=2, @=3)."
+    },
+    {
+      "id": "textos-inicial-em-maiuscula",
+      "tipo": "codigo",
+      "titulo": "Inicial em maiúscula",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-manipulacao-textos", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `inicial(nome)` que devolve a primeira letra do nome, em maiúscula, ignorando espaços no começo do texto.",
+      "funcao": "inicial",
+      "codigoInicial": "function inicial(nome) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["  ana "], "esperado": "A" },
+        { "entrada": ["beto"], "esperado": "B" },
+        { "entrada": ["Carla"], "esperado": "C" }
+      ],
+      "dica": "Primeiro tire os espaços, depois pegue a letra de posição 0 e deixe em maiúscula.",
+      "comentario": "trim() remove os espaços das pontas, [0] pega a primeira letra e toUpperCase() a deixa em maiúscula. Os métodos podem ser encadeados."
+    }
+  ]
+}

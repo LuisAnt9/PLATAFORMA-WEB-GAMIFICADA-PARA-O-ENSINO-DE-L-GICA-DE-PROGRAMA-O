@@ -1,0 +1,182 @@
+{
+  "id": "tipo-boolean",
+  "mundo": "mundo-2",
+  "titulo": "Tipo Boolean",
+  "foco": "Reconhecer valores lógicos: true e false",
+  "posicao": 206,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O tipo boolean tem apenas dois valores: true (verdadeiro) e false (falso). Eles são escritos em minúsculas e sem aspas. Com aspas, \"true\" vira um texto; com letra maiúscula, True não existe em JavaScript.\n\nValores booleanos aparecem como resposta a perguntas: \"5 é maior que 3?\" (true), \"2 é maior que 10?\" (false). Usamos os operadores de comparação: > (maior), < (menor), >= (maior ou igual), <= (menor ou igual) e === (igual). Você vai estudá-los com calma no Mundo 3.\n\nNo Mundo 4, os booleanos serão a base das decisões do programa: se a resposta for true, fazemos uma coisa; se for false, outra.",
+  "exemplo": "const maiorDeIdade = true;\nconst temDesconto = false;\n\nconsole.log(typeof maiorDeIdade);  // boolean\nconsole.log(5 > 3);                // true\nconsole.log(2 > 10);               // false\nconsole.log(\"true\");               // true (mas aqui é um texto!)\n\nPasso a passo:\n1. true e false, sem aspas, são valores boolean.\n2. Uma comparação como 5 > 3 é uma pergunta, e a resposta é um boolean.\n3. A última linha mostra o texto true. Na tela parece igual ao valor lógico, mas o tipo é string.",
+  "revisao": "- boolean tem só dois valores: true e false (minúsculos, sem aspas).\n- Comparações (>, <, >=, <=, ===) resultam em boolean.\n- \"true\" entre aspas é texto, não boolean.\n- True com T maiúsculo não existe em JavaScript.\n- Booleanos serão a base das decisões do programa.",
+  "exercicios": [
+    {
+      "id": "boolean-quais-sao-os-valores",
+      "tipo": "escolha",
+      "titulo": "Os dois valores do boolean",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 3 }
+      ],
+      "enunciado": "Quais são os dois únicos valores do tipo boolean?",
+      "opcoes": [
+        { "texto": "0 e 1", "confusao": "confunde o tipo boolean com números" },
+        {
+          "texto": "sim e não",
+          "confusao": "usa palavras do português em vez dos valores da linguagem"
+        },
+        { "texto": "\"verdadeiro\" e \"falso\"", "confusao": "escreve os valores como textos" },
+        "true e false"
+      ],
+      "correta": 3,
+      "dica": "Os nomes vêm do inglês e são escritos em minúsculas.",
+      "explicacao": "O tipo boolean só aceita true e false, sem aspas e em minúsculas."
+    },
+    {
+      "id": "boolean-comparacao-simples",
+      "tipo": "interpretacao",
+      "titulo": "5 é maior que 3?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(5 > 3);",
+      "opcoes": [
+        "true",
+        {
+          "texto": "5 > 3",
+          "confusao": "acha que o computador mostra a expressão em vez de avaliá-la"
+        },
+        { "texto": "false", "confusao": "acha que 5 não é maior que 3" },
+        { "texto": "8", "confusao": "acha que o sinal > faz uma soma" }
+      ],
+      "correta": 0,
+      "dica": "O sinal > faz uma pergunta: o da esquerda é maior que o da direita?",
+      "explicacao": "A comparação 5 > 3 é verdadeira, então o resultado é o valor boolean true."
+    },
+    {
+      "id": "boolean-complete-sem-desconto",
+      "tipo": "lacuna",
+      "titulo": "Cliente sem desconto",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 2 }
+      ],
+      "enunciado": "O cliente NÃO tem desconto. Complete a linha com o valor booleano certo.",
+      "modelo": "const temDesconto = {{1}};\nconsole.log(typeof temDesconto);",
+      "lacunas": [
+        { "respostas": ["false"] }
+      ],
+      "dica": "É um valor lógico, escrito sem aspas.",
+      "explicacao": "false representa \"não\". Sem aspas, ele é do tipo boolean."
+    },
+    {
+      "id": "boolean-qual-e-boolean",
+      "tipo": "escolha",
+      "titulo": "Qual valor é boolean?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 3 },
+        { "id": "m2-string", "peso": 1 }
+      ],
+      "enunciado": "Qual destes valores é do tipo boolean?",
+      "opcoes": [
+        { "texto": "\"false\"", "confusao": "confunde o texto \"false\" com o valor lógico false" },
+        {
+          "texto": "True",
+          "confusao": "escreve com inicial maiúscula, mas o JavaScript diferencia maiúsculas de minúsculas"
+        },
+        "false",
+        { "texto": "0", "confusao": "confunde número com valor lógico" }
+      ],
+      "correta": 2,
+      "dica": "O valor lógico é escrito em minúsculas e sem aspas.",
+      "explicacao": "false (minúsculo e sem aspas) é um valor boolean. \"false\" é texto, True não existe em JavaScript e 0 é um número."
+    },
+    {
+      "id": "boolean-idade-minima",
+      "tipo": "interpretacao",
+      "titulo": "Pode entrar?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 3 },
+        { "id": "m2-introducao-variaveis", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const idade = 16;\nconsole.log(idade >= 18);",
+      "opcoes": [
+        { "texto": "true", "confusao": "avalia a comparação ao contrário" },
+        "false",
+        {
+          "texto": "16",
+          "confusao": "mostra o valor da variável em vez do resultado da comparação"
+        },
+        { "texto": "18", "confusao": "mostra o outro valor da comparação" }
+      ],
+      "correta": 1,
+      "dica": "Substitua idade por 16 e responda: 16 é maior ou igual a 18?",
+      "explicacao": "16 não é maior nem igual a 18, então a comparação resulta em false."
+    },
+    {
+      "id": "boolean-tres-typeof",
+      "tipo": "interpretacao",
+      "titulo": "Três tipos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 2 },
+        { "id": "m2-string", "peso": 1 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(typeof true);\nconsole.log(typeof \"true\");\nconsole.log(typeof 1);",
+      "opcoes": [
+        { "texto": "string\nstring\nnumber", "confusao": "acha que o valor true é sempre um texto" },
+        {
+          "texto": "boolean\nboolean\nnumber",
+          "confusao": "acha que as aspas não mudam o tipo do valor"
+        },
+        { "texto": "boolean\nstring\nboolean", "confusao": "acha que o número 1 é um valor lógico" },
+        "boolean\nstring\nnumber"
+      ],
+      "correta": 3,
+      "dica": "Observe quais valores têm aspas.",
+      "explicacao": "true é boolean, \"true\" entre aspas é string e 1 é number."
+    },
+    {
+      "id": "boolean-igualdade",
+      "tipo": "interpretacao",
+      "titulo": "Resultado da comparação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-boolean", "peso": 3 },
+        { "id": "m2-introducao-variaveis", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = 7;\nconst b = 7;\nconst iguais = a === b;\nconsole.log(iguais);\nconsole.log(typeof iguais);",
+      "opcoes": [
+        "true\nboolean",
+        { "texto": "7\nnumber", "confusao": "acha que a variável iguais guarda o valor de a" },
+        { "texto": "true\nstring", "confusao": "acha que o resultado de uma comparação é um texto" },
+        { "texto": "false\nboolean", "confusao": "avalia a comparação de igualdade ao contrário" }
+      ],
+      "correta": 0,
+      "dica": "O sinal === compara se os dois valores são iguais e dá um valor lógico.",
+      "explicacao": "a e b valem 7, então a === b é true. O resultado da comparação é guardado em iguais e seu tipo é boolean."
+    }
+  ]
+}

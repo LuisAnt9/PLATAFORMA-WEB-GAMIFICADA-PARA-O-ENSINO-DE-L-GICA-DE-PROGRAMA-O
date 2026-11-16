@@ -1,0 +1,200 @@
+{
+  "id": "conversao-de-tipos",
+  "mundo": "mundo-2",
+  "titulo": "Conversão de tipos",
+  "foco": "Converter valores entre texto e número",
+  "posicao": 211,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Converter é mudar o tipo de um valor. As principais conversões:\n- Number(\"42\") transforma o texto \"42\" no número 42. Se o texto não for um número, o resultado é NaN.\n- String(42) transforma o número 42 no texto \"42\".\n- parseInt(\"42px\") e parseFloat(\"3.5kg\") leem o número no começo do texto (42 e 3.5).\n\nPor que isso importa? Dados digitados por uma pessoa costumam chegar como texto, mesmo que pareçam números. Sem converter, \"10\" + 5 vira \"105\", e não 15.\n\nO JavaScript também converte sozinho em alguns casos: \"5\" * 2 vira 10. Porém o + junta textos, então \"5\" + 2 vira \"52\". Para evitar surpresas, converta de forma explícita.",
+  "exemplo": "const idadeTexto = \"20\";\nconst idade = Number(idadeTexto);\n\nconsole.log(typeof idadeTexto);   // string\nconsole.log(typeof idade);        // number\nconsole.log(idade + 1);           // 21\nconsole.log(idadeTexto + 1);      // 201 (junta, não soma!)\nconsole.log(Number(\"abc\"));       // NaN\nconsole.log(String(15) + \"5\");    // 155\nconsole.log(parseFloat(\"3.5kg\")); // 3.5\nconsole.log(parseInt(\"42px\"));    // 42\n\nPasso a passo:\n1. Number(idadeTexto) cria um número a partir do texto \"20\".\n2. Com o número, idade + 1 soma e dá 21. Com o texto, idadeTexto + 1 junta e dá \"201\".\n3. Textos que não são números viram NaN.\n4. parseInt e parseFloat aproveitam o número que aparece no começo do texto.",
+  "revisao": "- Number(\"42\") converte texto em número; texto inválido vira NaN.\n- String(42) converte número em texto.\n- parseInt e parseFloat leem o número do começo de um texto.\n- Dados de entrada costumam ser texto: converta antes de fazer contas.\n- O + junta textos; o * converte textos que parecem números.",
+  "exercicios": [
+    {
+      "id": "conversao-qual-funcao",
+      "tipo": "escolha",
+      "titulo": "Texto para número",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 }
+      ],
+      "enunciado": "Qual expressão converte o texto \"42\" no número 42?",
+      "opcoes": [
+        {
+          "texto": "String(\"42\")",
+          "confusao": "usa a função que converte para texto, mas \"42\" já é texto"
+        },
+        { "texto": "Texto(\"42\")", "confusao": "inventa uma função que não existe" },
+        "Number(\"42\")",
+        { "texto": "Converter(\"42\")", "confusao": "inventa uma função que não existe" }
+      ],
+      "correta": 2,
+      "dica": "O resultado deve ser do tipo number.",
+      "explicacao": "Number(\"42\") devolve o número 42. String() faz o contrário: transforma números em texto."
+    },
+    {
+      "id": "conversao-tipo-depois-de-number",
+      "tipo": "interpretacao",
+      "titulo": "Tipo depois de converter",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const n = Number(\"15\");\nconsole.log(typeof n);",
+      "opcoes": [
+        { "texto": "string", "confusao": "acha que Number() mantém o valor como texto" },
+        "number",
+        { "texto": "15", "confusao": "mostra o valor em vez do tipo" },
+        { "texto": "n", "confusao": "mostra o nome da variável em vez do tipo" }
+      ],
+      "correta": 1,
+      "dica": "Number() converte para o tipo number.",
+      "explicacao": "Number(\"15\") devolve o número 15, então typeof n mostra number."
+    },
+    {
+      "id": "conversao-complete",
+      "tipo": "lacuna",
+      "titulo": "Converta antes de somar",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 2 }
+      ],
+      "enunciado": "A idade chegou como texto. Complete a linha para convertê-la em número e depois somar 1.",
+      "modelo": "const idade = {{1}}(\"20\");\nconsole.log(idade + 1);",
+      "lacunas": [
+        { "respostas": ["Number"] }
+      ],
+      "dica": "A função tem o mesmo nome do tipo que queremos.",
+      "explicacao": "Number(\"20\") vira o número 20, e 20 + 1 resulta em 21."
+    },
+    {
+      "id": "conversao-texto-ou-numero",
+      "tipo": "interpretacao",
+      "titulo": "Com e sem conversão",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const x = \"10\";\nconsole.log(x + 5);\nconsole.log(Number(x) + 5);",
+      "opcoes": [
+        {
+          "texto": "15\n15",
+          "confusao": "acha que o texto \"10\" é somado como número automaticamente"
+        },
+        { "texto": "105\n105", "confusao": "acha que Number() não muda o comportamento do +" },
+        { "texto": "15\n105", "confusao": "inverte os resultados com e sem conversão" },
+        "105\n15"
+      ],
+      "correta": 3,
+      "dica": "Na primeira linha x é texto; na segunda, é número.",
+      "explicacao": "\"10\" + 5 junta os textos (105). Number(x) + 5 soma os números (15)."
+    },
+    {
+      "id": "conversao-resultados",
+      "tipo": "interpretacao",
+      "titulo": "Três conversões",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-number", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(Number(\"abc\"));\nconsole.log(Number(\"12\"));\nconsole.log(String(7) + 1);",
+      "opcoes": [
+        "NaN\n12\n71",
+        {
+          "texto": "Erro\n12\n8",
+          "confusao": "acha que converter um texto inválido causa erro e que String(7) + 1 soma"
+        },
+        { "texto": "0\n12\n71", "confusao": "acha que um texto inválido vira zero" },
+        { "texto": "NaN\n12\n8", "confusao": "acha que String(7) + 1 soma como se fosse número" }
+      ],
+      "correta": 0,
+      "dica": "String(7) transforma o 7 em texto antes do +.",
+      "explicacao": "\"abc\" não é um número (NaN), \"12\" vira 12, e \"7\" + 1 junta os textos: 71."
+    },
+    {
+      "id": "conversao-corrija-a-soma",
+      "tipo": "corrigir",
+      "titulo": "Corrija a soma",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "A função `somar(a, b)` recebe dois números escritos como texto (por exemplo, \"2\" e \"3\") e deveria devolver a soma (5), mas junta os textos. Corrija.",
+      "funcao": "somar",
+      "codigoInicial": "function somar(a, b) {\n  return a + b;\n}\n",
+      "testes": [
+        { "entrada": ["2", "3"], "esperado": 5 },
+        { "entrada": ["10", "5"], "esperado": 15 },
+        { "entrada": ["0", "0"], "esperado": 0 }
+      ],
+      "dica": "O que o + faz quando os dois lados são textos? Converta antes.",
+      "comentario": "Com textos, o + junta (\"23\"). Convertendo cada valor com Number(), o + soma de verdade."
+    },
+    {
+      "id": "conversao-somar-entradas",
+      "tipo": "codigo",
+      "titulo": "Some duas entradas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somarEntradas()`: ela deve ler dois valores com `lerEntrada()` (que chegam como texto), converter para número e mostrar a soma com `console.log`.",
+      "funcao": "somarEntradas",
+      "codigoInicial": "function somarEntradas() {\n  // leia dois valores, converta e mostre a soma\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["4", "6"], "saida": ["10"] },
+        { "entrada": [], "entradas": ["10", "25"], "saida": ["35"] },
+        { "entrada": [], "entradas": ["0", "0"], "saida": ["0"] }
+      ],
+      "dica": "Cada lerEntrada() lê um valor. Converta com Number() antes de somar.",
+      "comentario": "Sem a conversão, \"4\" + \"6\" daria \"46\". Com Number() em cada valor, a soma é feita entre números."
+    },
+    {
+      "id": "conversao-multiplicar-e-somar",
+      "tipo": "interpretacao",
+      "titulo": "O * e o + com texto",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m2-conversao-tipos", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = \"3\";\nconst b = 4;\nconsole.log(a * b);\nconsole.log(a + b);\nconsole.log(typeof (a * b));",
+      "opcoes": [
+        {
+          "texto": "7\n7\nnumber",
+          "confusao": "acha que o texto \"3\" é sempre somado como número"
+        },
+        { "texto": "12\n12\nnumber", "confusao": "acha que o + também converte o texto em número" },
+        "12\n34\nnumber",
+        { "texto": "34\n34\nstring", "confusao": "acha que o * também junta textos" }
+      ],
+      "correta": 2,
+      "dica": "O * converte o texto em número; o + junta quando um dos lados é texto.",
+      "explicacao": "a * b converte \"3\" em 3 e multiplica: 12 (number). a + b junta os valores como texto: \"34\"."
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "id": "entrada-processamento-saida",
+  "mundo": "mundo-1",
+  "titulo": "Entrada, processamento e saída",
+  "foco": "Identificar as três etapas de qualquer programa",
+  "posicao": 105,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Quase todo programa segue o mesmo caminho em três etapas:\n- Entrada: os dados que o programa recebe (o que a pessoa digita, clica ou informa).\n- Processamento: o que o programa faz com esses dados (cálculos, comparações, decisões).\n- Saída: o resultado que o programa entrega (algo mostrado na tela, por exemplo).\n\nNa calculadora, você digita 2 + 3 (entrada), o aparelho faz a conta (processamento) e mostra 5 (saída). No caixa do supermercado, o código de barras é a entrada, a busca do preço é o processamento e o valor na tela é a saída.\n\nNos exercícios de código desta plataforma, a entrada vem de uma função chamada lerEntrada(), e a saída é mostrada com console.log().",
+  "exemplo": "Este programa lê um nome e mostra uma saudação:\n\n// ENTRADA: lê o nome da pessoa\nconst nome = lerEntrada();\n// PROCESSAMENTO: monta a frase juntando \"Olá, \" ao nome\nconst frase = \"Olá, \" + nome + \"!\";\n// SAÍDA: mostra a frase na tela\nconsole.log(frase);\n\nSe a entrada for Ana, a saída será: Olá, Ana!\n\nNão se preocupe com os detalhes de const e do sinal de +: você vai estudá-los no Mundo 2. Por ora, observe as três etapas, que aparecem em quase todos os programas: receber, processar e mostrar.",
+  "revisao": "- Entrada: dados que o programa recebe.\n- Processamento: o que o programa faz com os dados.\n- Saída: o resultado que o programa entrega.\n- Em JavaScript, aqui na plataforma: lerEntrada() lê a entrada e console.log() mostra a saída.\n- Mostrar um resultado é saída; calcular é processamento; receber um valor é entrada.",
+  "exercicios": [
+    {
+      "id": "eps-o-que-e-entrada",
+      "tipo": "escolha",
+      "titulo": "O que é a entrada?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Em uma calculadora, você digita 2 + 3 e a tela mostra 5. O que é a ENTRADA nesse caso?",
+      "opcoes": [
+        "Os números 2 e 3 e a operação que foram digitados",
+        { "texto": "O resultado 5", "confusao": "confunde entrada com saída" },
+        {
+          "texto": "A conta que a calculadora faz internamente",
+          "confusao": "confunde entrada com processamento"
+        },
+        {
+          "texto": "A tela da calculadora",
+          "confusao": "confunde os dados com o aparelho que os mostra"
+        }
+      ],
+      "correta": 0,
+      "dica": "Entrada é o que o programa recebe antes de fazer qualquer coisa.",
+      "explicacao": "A entrada são os dados fornecidos ao programa: 2, 3 e a operação. A conta é o processamento e o 5 na tela é a saída."
+    },
+    {
+      "id": "eps-classificar-saida",
+      "tipo": "escolha",
+      "titulo": "Entrada, processamento ou saída?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Mostrar o valor do troco na tela do caixa é um exemplo de:",
+      "opcoes": [
+        { "texto": "Entrada", "confusao": "confunde mostrar um resultado com receber dados" },
+        { "texto": "Processamento", "confusao": "confunde exibir o resultado com calculá-lo" },
+        "Saída",
+        {
+          "texto": "Linguagem de programação",
+          "confusao": "confunde uma etapa do programa com a linguagem em que ele é escrito"
+        }
+      ],
+      "correta": 2,
+      "dica": "O resultado chegou à pessoa. Em qual etapa isso acontece?",
+      "explicacao": "Saída é o resultado que o programa entrega. Quando o valor do troco aparece na tela, o programa está fazendo uma saída."
+    },
+    {
+      "id": "eps-eco",
+      "tipo": "codigo",
+      "titulo": "Mostre o que foi lido",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `eco()`: ela deve ler um valor com `lerEntrada()` e mostrá-lo na tela, do mesmo jeito, com `console.log`.",
+      "codigoInicial": "function eco() {\n  // leia o valor com lerEntrada() e mostre com console.log\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["Olá"], "saida": ["Olá"] },
+        { "entrada": [], "entradas": ["Ana"], "saida": ["Ana"] }
+      ],
+      "dica": "Guarde o que lerEntrada() devolve e mostre com console.log.",
+      "funcao": "eco",
+      "comentario": "O programa tem só duas etapas: a entrada (lerEntrada) e a saída (console.log). Aqui não há processamento, porque o valor é mostrado do jeito que chegou."
+    },
+    {
+      "id": "eps-quais-sao-entrada",
+      "tipo": "interpretacao",
+      "titulo": "Quais passos são de entrada?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Leia o algoritmo abaixo. Quais passos são de ENTRADA?",
+      "codigo": "1. Ler o preço do produto\n2. Ler o desconto, em reais\n3. Calcular: preço - desconto\n4. Mostrar o resultado",
+      "opcoes": [
+        { "texto": "O passo 3", "confusao": "acha que calcular é receber dados" },
+        "Os passos 1 e 2",
+        { "texto": "O passo 4", "confusao": "confunde saída com entrada" },
+        {
+          "texto": "Os passos 1, 2 e 4",
+          "confusao": "agrupa mostrar o resultado com receber dados"
+        }
+      ],
+      "correta": 1,
+      "dica": "Entrada é tudo o que o programa lê antes de calcular.",
+      "explicacao": "Os passos 1 e 2 recebem dados (entrada). O passo 3 é processamento e o passo 4 é saída."
+    },
+    {
+      "id": "eps-qual-e-o-processamento",
+      "tipo": "escolha",
+      "titulo": "Onde está o processamento?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Um programa lê o nome de uma pessoa e mostra \"Olá, NOME!\". Qual parte é o processamento?",
+      "opcoes": [
+        { "texto": "Digitar o nome", "confusao": "confunde processamento com entrada" },
+        { "texto": "Ver a frase aparecer na tela", "confusao": "confunde processamento com saída" },
+        {
+          "texto": "Ligar o computador",
+          "confusao": "inclui uma ação que não faz parte do programa"
+        },
+        "Montar a frase juntando \"Olá\" ao nome"
+      ],
+      "correta": 3,
+      "dica": "Processamento é o que o programa faz com os dados que recebeu.",
+      "explicacao": "Montar a frase com o nome é o que o programa faz com a entrada. Digitar é entrada e ver a frase na tela é saída."
+    },
+    {
+      "id": "eps-dobro",
+      "tipo": "codigo",
+      "titulo": "Leia um número e mostre o dobro",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `dobro()`: ela deve ler um número com `lerEntrada()` e mostrar o dobro dele com `console.log`.",
+      "codigoInicial": "function dobro() {\n  // leia o número, calcule o dobro e mostre o resultado\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": [4], "saida": ["8"] },
+        { "entrada": [], "entradas": [10], "saida": ["20"] },
+        { "entrada": [], "entradas": [0], "saida": ["0"] }
+      ],
+      "dica": "O dobro de um número é ele multiplicado por 2. Use * para multiplicar.",
+      "funcao": "dobro",
+      "comentario": "Agora o programa tem as três etapas: lê o número (entrada), multiplica por 2 (processamento) e mostra o resultado (saída)."
+    },
+    {
+      "id": "eps-soma-de-entradas",
+      "tipo": "interpretacao",
+      "titulo": "Qual será a saída?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m1-entrada-processamento-saida", "peso": 3 }
+      ],
+      "enunciado": "O programa abaixo recebe as entradas 4 e 6, nessa ordem. O que ele mostra na tela?",
+      "codigo": "const a = lerEntrada();\nconst b = lerEntrada();\nconsole.log(a + b);",
+      "opcoes": [
+        "10",
+        {
+          "texto": "4 e 6, em linhas separadas",
+          "confusao": "acha que console.log mostra as entradas, e não o resultado do processamento"
+        },
+        { "texto": "a + b", "confusao": "confunde o nome das variáveis com o resultado do cálculo" },
+        { "texto": "46", "confusao": "confunde a soma de números com juntar os dois como texto" }
+      ],
+      "correta": 0,
+      "dica": "Os dois valores são lidos, somados e só então mostrados.",
+      "explicacao": "Cada lerEntrada() lê um valor: a recebe 4 e b recebe 6. O processamento soma os dois e console.log mostra o resultado: 10."
+    }
+  ]
+}

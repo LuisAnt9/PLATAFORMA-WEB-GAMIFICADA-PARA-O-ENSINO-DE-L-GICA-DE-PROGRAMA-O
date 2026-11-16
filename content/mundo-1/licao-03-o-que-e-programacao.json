@@ -1,0 +1,181 @@
+{
+  "id": "o-que-e-programacao",
+  "mundo": "mundo-1",
+  "titulo": "O que é programação?",
+  "foco": "Entender que programar é escrever instruções para o computador executar",
+  "posicao": 101,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Programar é escrever instruções para que o computador faça uma tarefa. O computador é muito rápido e não se cansa, mas não pensa por conta própria: ele só faz exatamente o que mandamos, na ordem em que mandamos.\n\nTrês palavras aparecem o tempo todo:\n- Programador: a pessoa que escreve as instruções.\n- Programa: o conjunto de instruções escrito pelo programador (um jogo, um aplicativo de banco, o semáforo de uma rua).\n- Linguagem de programação: a \"língua\" usada para escrever as instruções de um jeito que o computador entenda. Neste curso, a linguagem é o JavaScript.\n\nPor isso as instruções precisam ser claras e completas. Dizer \"faça um café\" funciona entre pessoas, mas o computador precisa de cada passo, sem nada subentendido.",
+  "exemplo": "Este é um programa de uma única instrução, escrito em JavaScript:\n\nconsole.log(\"Olá, mundo!\");\n\nPasso a passo:\n1. console.log é o comando que manda o computador mostrar algo na tela.\n2. O que está entre parênteses é o que será mostrado. O que está entre aspas é um texto e aparece exatamente como foi escrito.\n3. O ponto e vírgula (;) marca o fim da instrução.\n\nAo executar, o computador mostra: Olá, mundo!\n\nCom duas instruções, o computador as executa de cima para baixo, uma de cada vez:\n\nconsole.log(\"Bom dia\");\nconsole.log(\"Tudo bem?\");\n\nResultado: primeiro Bom dia, depois Tudo bem?.",
+  "revisao": "- Programar é escrever instruções para o computador executar.\n- O programador escreve o programa; a linguagem de programação é a \"língua\" usada para escrevê-lo.\n- O computador não pensa sozinho: segue as instruções, em ordem, do jeito que foram escritas.\n- Instruções precisam ser claras e completas.\n- console.log mostra um resultado na tela.",
+  "exercicios": [
+    {
+      "id": "prog-o-que-e-programar",
+      "tipo": "escolha",
+      "titulo": "O que é programar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 3 }
+      ],
+      "enunciado": "Qual alternativa descreve melhor o que é programar?",
+      "opcoes": [
+        {
+          "texto": "Consertar computadores que quebraram",
+          "confusao": "confunde programar com fazer manutenção de equipamentos"
+        },
+        "Escrever instruções para o computador executar",
+        {
+          "texto": "Usar aplicativos prontos, como o WhatsApp",
+          "confusao": "confunde usar um programa com criar um programa"
+        },
+        {
+          "texto": "Digitar textos em um editor de documentos",
+          "confusao": "acha que programar é só digitar"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense em quem cria o aplicativo, e não em quem o usa.",
+      "explicacao": "Programar é escrever instruções que o computador consegue executar. Quem usa um aplicativo não está programando: está usando o resultado de um programa."
+    },
+    {
+      "id": "prog-quem-e-quem",
+      "tipo": "escolha",
+      "titulo": "Linguagem, programa e programador",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 3 }
+      ],
+      "enunciado": "Na frase \"o programador escreve um programa em JavaScript\", o que é o JavaScript?",
+      "opcoes": [
+        {
+          "texto": "O computador que executa as instruções",
+          "confusao": "confunde a linguagem com a máquina"
+        },
+        {
+          "texto": "O programa que foi escrito",
+          "confusao": "confunde a linguagem com o resultado escrito nela"
+        },
+        {
+          "texto": "A pessoa que escreve as instruções",
+          "confusao": "confunde a linguagem com o programador"
+        },
+        "A linguagem de programação usada para escrever o programa"
+      ],
+      "correta": 3,
+      "dica": "Quem escreve, o que é escrito e a língua em que se escreve são três coisas diferentes.",
+      "explicacao": "O JavaScript é a linguagem: a \"língua\" em que as instruções são escritas. O programador escreve, o programa é o resultado e o computador o executa."
+    },
+    {
+      "id": "prog-complete-ola-mundo",
+      "tipo": "lacuna",
+      "titulo": "Complete o primeiro programa",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 2 }
+      ],
+      "enunciado": "Complete o programa para que o computador mostre a mensagem Olá, mundo! na tela.",
+      "modelo": "{{1}}.{{2}}(\"Olá, mundo!\");",
+      "lacunas": [
+        { "respostas": ["console"] },
+        { "respostas": ["log"] }
+      ],
+      "dica": "O comando que mostra algo na tela tem duas partes separadas por um ponto.",
+      "explicacao": "console.log é o comando que manda o computador mostrar o que está entre parênteses."
+    },
+    {
+      "id": "prog-ordem-das-instrucoes",
+      "tipo": "interpretacao",
+      "titulo": "O que aparece na tela?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 2 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "O computador executa o programa abaixo. O que ele mostra na tela, em ordem?",
+      "codigo": "console.log(\"Bom dia\");\nconsole.log(\"Boa tarde\");",
+      "opcoes": [
+        "Bom dia e depois Boa tarde",
+        {
+          "texto": "Boa tarde e depois Bom dia",
+          "confusao": "acha que o computador executa as instruções de baixo para cima"
+        },
+        {
+          "texto": "Apenas Boa tarde",
+          "confusao": "acha que a última instrução apaga o resultado das anteriores"
+        },
+        {
+          "texto": "As duas frases, em qualquer ordem",
+          "confusao": "acha que a ordem das instruções não importa"
+        }
+      ],
+      "correta": 0,
+      "dica": "O computador lê o programa de cima para baixo.",
+      "explicacao": "Cada console.log mostra uma linha, e as instruções são executadas na ordem em que aparecem: primeiro Bom dia, depois Boa tarde."
+    },
+    {
+      "id": "prog-texto-ou-conta",
+      "tipo": "interpretacao",
+      "titulo": "Texto ou conta?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 2 }
+      ],
+      "enunciado": "Veja o programa abaixo. O que o computador mostra, em ordem?",
+      "codigo": "console.log(\"2 + 3\");\nconsole.log(2 + 3);",
+      "opcoes": [
+        { "texto": "5 e depois 5", "confusao": "acha que o texto entre aspas também é calculado" },
+        { "texto": "2 + 3 e depois 2 + 3", "confusao": "acha que o computador não faz contas" },
+        "2 + 3 e depois 5",
+        {
+          "texto": "5 e depois 2 + 3",
+          "confusao": "acha que o computador executa as instruções de baixo para cima"
+        }
+      ],
+      "correta": 2,
+      "dica": "O que está entre aspas é um texto e é mostrado exatamente como foi escrito.",
+      "explicacao": "Com aspas, o computador mostra o texto como está: 2 + 3. Sem aspas, ele calcula a conta e mostra o resultado: 5."
+    },
+    {
+      "id": "prog-quem-responde-pelo-erro",
+      "tipo": "escolha",
+      "titulo": "De quem é o erro?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-programacao", "peso": 3 },
+        { "id": "m1-logica", "peso": 1 }
+      ],
+      "enunciado": "O programa de um semáforo mostra as cores na ordem errada e causa confusão no cruzamento. Quem deve corrigir o problema?",
+      "opcoes": [
+        {
+          "texto": "O próprio computador, que decidiu errar",
+          "confusao": "acha que o computador toma decisões próprias"
+        },
+        "Quem escreveu o programa, revisando as instruções",
+        {
+          "texto": "A linguagem JavaScript, que estava com defeito",
+          "confusao": "culpa a linguagem em vez de rever as instruções escritas"
+        },
+        {
+          "texto": "Ninguém: programas não têm erros",
+          "confusao": "acha que programas não podem conter erros"
+        }
+      ],
+      "correta": 1,
+      "dica": "Lembre que o computador só faz o que foi mandado.",
+      "explicacao": "O computador obedece às instruções exatamente como foram escritas. Se a ordem das cores está errada, o erro está nas instruções, e quem as escreveu precisa revisá-las."
+    }
+  ]
+}

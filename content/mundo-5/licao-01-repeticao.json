@@ -3,7 +3,7 @@
   "mundo": "mundo-5",
   "titulo": "Estruturas de repetição",
   "foco": "Compreender o passo a passo de um laço",
-  "posicao": 3,
+  "posicao": 501,
   "diagnostica": false,
   "intro": "Um laço repete um bloco de código. O mais comum é o for:\n\nfor (let i = 1; i <= 5; i++) {\n  total = total + i;\n}\n\nEle tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.",
   "exemplo": "",

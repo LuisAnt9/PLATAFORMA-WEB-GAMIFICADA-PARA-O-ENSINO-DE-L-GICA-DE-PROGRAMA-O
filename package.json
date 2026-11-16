@@ -11,7 +11,9 @@
     "db:bundle": "node scripts/bundle-migrations.mjs",
     "e2e": "node e2e/run-all.mjs",
     "content:check": "node scripts/content-check.mjs",
-    "content:build": "node scripts/content-build.mjs"
+    "content:build": "node scripts/content-build.mjs",
+    "content:review": "node scripts/content-review.mjs",
+    "content:publish": "node scripts/content-publish.mjs"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.5",
@@ -21,7 +23,7 @@
     "@lezer/highlight": "^1.2.5",
     "@supabase/supabase-js": "^2.117.2",
     "@uiw/react-codemirror": "^4.25.12",
-    "next": "^16.4.3",
+    "next": "^16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

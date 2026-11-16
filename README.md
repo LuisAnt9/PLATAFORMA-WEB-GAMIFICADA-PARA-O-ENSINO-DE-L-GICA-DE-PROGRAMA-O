@@ -57,6 +57,8 @@ Outros comandos: `npm run lint`, `npm test`, `npm run build`, `npm run e2e` (tes
 
 - **Tipos de exercício** (etapa E3): além de código, escolha e lacuna, há **interpretação de código**, **ordenação** (acessível pelo teclado), **corrigir o erro** e **desafio**. Exercícios de código podem ter **entrada simulada** (`lerEntrada()`) e **saída impressa** conferida (`console.log`). O executor roda isolado (sem rede, sem DOM, sem `import`, sem forjar o resultado). **Dicas em três níveis** (professor, conceito, IA) registradas nas tentativas e **solução comentada** liberada pelo banco só depois de acertar (migration 0012).
 
+- **Conteúdo do Mundo 1** (etapa E4): 8 lições e 47 exercícios (algoritmos, sequência, entrada e saída, pseudocódigo, fluxogramas e o desafio final), em `content/mundo-1/`, **como rascunho**. O documento `docs/revisao/mundo-1.md` reúne tudo para o professor revisar; depois da aprovação, `npm run content:publish -- mundo-1` gera o SQL que publica.
+
 ## Próximos passos
 
 1. Questionários SUS e Likert dentro da plataforma e exportação dos dados (CSV) para a avaliação.

@@ -29,12 +29,10 @@ beforeAll(async () => {
 const json = (v: unknown) => JSON.stringify(v);
 
 describe("exercícios de código da migration", () => {
-  it("há uma solução para cada exercício, e só para eles", () => {
-    // os exercícios "exemplo-*" só existem em content/ (não nas migrations): ficam de fora desta conferência
-    const dasMigrations = Object.keys(solutions).filter(
-      (id) => !id.startsWith("exemplo-"),
-    );
-    expect(dasMigrations.sort()).toEqual(rows.map((r) => r.id).sort());
+  it("há uma solução de referência para cada exercício de código das migrations", () => {
+    // content/solucoes também guarda as soluções de conteúdo novo (que não está nas migrations)
+    const faltando = rows.map((r) => r.id).filter((id) => !(id in solutions));
+    expect(faltando).toEqual([]);
   });
   it("o código inicial declara a função esperada", () => {
     for (const r of rows)

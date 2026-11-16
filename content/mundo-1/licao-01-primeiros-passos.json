@@ -3,7 +3,7 @@
   "mundo": "mundo-1",
   "titulo": "Primeiros passos",
   "foco": "Entender o que é um algoritmo e como o computador segue instruções",
-  "posicao": 0,
+  "posicao": 100,
   "diagnostica": false,
   "intro": "Um algoritmo é uma sequência de passos para resolver um problema, como uma receita de bolo. O computador só faz o que mandamos, na ordem em que mandamos, e por isso cada passo precisa ser claro.\n\nNeste módulo você vai conhecer o vocabulário básico: valores, tipos (número, texto, lógico) e operadores. Não se preocupe em decorar: errar faz parte, e cada exercício explica a resposta.",
   "exemplo": "",

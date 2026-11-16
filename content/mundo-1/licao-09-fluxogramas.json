@@ -1,0 +1,171 @@
+{
+  "id": "fluxogramas",
+  "mundo": "mundo-1",
+  "titulo": "Fluxogramas",
+  "foco": "Ler e interpretar algoritmos desenhados com símbolos",
+  "posicao": 107,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um fluxograma é um desenho que mostra o algoritmo com símbolos e setas. Cada símbolo tem um significado:\n- Oval, escrito (INÍCIO) ou (FIM): onde o algoritmo começa e termina.\n- Paralelogramo, escrito / Ler idade /: entrada ou saída de dados.\n- Retângulo, escrito [ dobro ← n * 2 ]: processamento (uma conta ou uma ação).\n- Losango, escrito < idade ≥ 18? >: decisão, uma pergunta cuja resposta é Sim ou Não e que abre dois caminhos.\n- Setas: mostram a ordem em que os passos são seguidos.\n\nAqui usamos esses símbolos escritos em texto, para ler o fluxograma de cima para baixo, seguindo as setas.",
+  "exemplo": "Fluxograma que lê um número e mostra o dobro:\n\n(INÍCIO)\n   ↓\n/ Ler numero /\n   ↓\n[ dobro ← numero * 2 ]\n   ↓\n/ Escrever dobro /\n   ↓\n(FIM)\n\nComo ler:\n1. Começamos no (INÍCIO) e seguimos as setas.\n2. O paralelogramo / Ler numero / é uma entrada.\n3. O retângulo é o processamento: calcula o dobro.\n4. O paralelogramo / Escrever dobro / é a saída.\n5. A oval (FIM) encerra o algoritmo.\n\nCom a entrada 5, o fluxograma escreve 10.",
+  "revisao": "- Fluxograma é um algoritmo desenhado com símbolos e setas.\n- Oval: início e fim. Paralelogramo: entrada e saída. Retângulo: processamento. Losango: decisão (Sim ou Não).\n- As setas indicam a ordem dos passos.\n- Em uma decisão, só um dos caminhos é seguido, de acordo com a resposta.",
+  "exercicios": [
+    {
+      "id": "fluxo-simbolo-da-decisao",
+      "tipo": "escolha",
+      "titulo": "Qual símbolo representa uma decisão?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 }
+      ],
+      "enunciado": "Qual símbolo do fluxograma representa uma decisão, isto é, uma pergunta com resposta Sim ou Não?",
+      "opcoes": [
+        { "texto": "Retângulo", "confusao": "confunde processamento com decisão" },
+        { "texto": "Oval", "confusao": "confunde o início e o fim do algoritmo com uma decisão" },
+        "Losango",
+        { "texto": "Seta", "confusao": "confunde o caminho do fluxo com a decisão" }
+      ],
+      "correta": 2,
+      "dica": "É o símbolo que abre dois caminhos.",
+      "explicacao": "O losango faz uma pergunta e, de acordo com a resposta, o fluxo segue por um de dois caminhos: Sim ou Não."
+    },
+    {
+      "id": "fluxo-o-que-as-setas-indicam",
+      "tipo": "escolha",
+      "titulo": "O que as setas indicam?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "O que as setas indicam em um fluxograma?",
+      "opcoes": [
+        { "texto": "A importância de cada passo", "confusao": "acha que a seta indica prioridade" },
+        "A ordem, isto é, o caminho que o algoritmo segue",
+        {
+          "texto": "Que o passo anterior deve ser repetido",
+          "confusao": "confunde a seta de sequência com repetição"
+        },
+        {
+          "texto": "O tamanho do algoritmo",
+          "confusao": "associa as setas a uma medida e não ao fluxo"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense no que você faz para ler o fluxograma de um passo ao seguinte.",
+      "explicacao": "As setas ligam um passo ao próximo e mostram a ordem de execução."
+    },
+    {
+      "id": "fluxo-simbolo-da-entrada",
+      "tipo": "escolha",
+      "titulo": "Qual símbolo para ler um dado?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "No fluxograma, \"Ler idade\" deve ser desenhado com qual símbolo?",
+      "opcoes": [
+        { "texto": "Losango", "confusao": "confunde entrada de dados com decisão" },
+        { "texto": "Oval", "confusao": "confunde entrada de dados com o início do algoritmo" },
+        { "texto": "Retângulo", "confusao": "confunde entrada de dados com processamento" },
+        "Paralelogramo, o símbolo de entrada e saída"
+      ],
+      "correta": 3,
+      "dica": "Ler um dado é uma entrada.",
+      "explicacao": "Entrada e saída de dados usam o paralelogramo. O retângulo é para cálculos e ações."
+    },
+    {
+      "id": "fluxo-dobro",
+      "tipo": "interpretacao",
+      "titulo": "O que será escrito?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "Siga as setas do fluxograma abaixo. Se numero for 5, o que será escrito?",
+      "codigo": "(INÍCIO)\n   ↓\n/ Ler numero /\n   ↓\n[ dobro ← numero * 2 ]\n   ↓\n/ Escrever dobro /\n   ↓\n(FIM)",
+      "opcoes": [
+        "10",
+        {
+          "texto": "5",
+          "confusao": "acha que o fluxograma mostra a entrada e não o resultado do cálculo"
+        },
+        { "texto": "7", "confusao": "soma 2 em vez de multiplicar por 2" },
+        { "texto": "dobro", "confusao": "escreve o nome da variável em vez do valor guardado nela" }
+      ],
+      "correta": 0,
+      "dica": "Siga as setas e acompanhe o valor de cada variável.",
+      "explicacao": "numero vale 5. O retângulo calcula dobro ← 5 * 2 = 10, e o paralelogramo de saída escreve esse valor."
+    },
+    {
+      "id": "fluxo-maior-de-idade",
+      "tipo": "interpretacao",
+      "titulo": "Qual caminho é seguido?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 },
+        { "id": "m1-logica", "peso": 1 }
+      ],
+      "enunciado": "Siga o fluxograma abaixo. Se a idade digitada for 16, o que será escrito?",
+      "codigo": "(INÍCIO)\n   ↓\n/ Ler idade /\n   ↓\n< idade ≥ 18? >\n  Sim → / Escrever \"Maior de idade\" /\n  Não → / Escrever \"Menor de idade\" /\n   ↓\n(FIM)",
+      "opcoes": [
+        { "texto": "Maior de idade", "confusao": "segue o caminho do Sim sem avaliar a condição" },
+        {
+          "texto": "Maior de idade e Menor de idade",
+          "confusao": "acha que os dois caminhos da decisão são executados"
+        },
+        "Menor de idade",
+        {
+          "texto": "Nada: o fluxograma termina na decisão",
+          "confusao": "acha que a decisão não leva a nenhum caminho"
+        }
+      ],
+      "correta": 2,
+      "dica": "Responda à pergunta do losango com a idade 16.",
+      "explicacao": "16 não é maior ou igual a 18, então a resposta é Não e o fluxo segue pelo caminho do Não: Menor de idade."
+    },
+    {
+      "id": "fluxo-guarda-chuva",
+      "tipo": "escolha",
+      "titulo": "Qual fluxograma está correto?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 3 },
+        { "id": "m1-logica", "peso": 2 }
+      ],
+      "enunciado": "Qual destes trechos de fluxograma representa corretamente: \"se estiver chovendo, levo o guarda-chuva; senão, não levo\"?",
+      "opcoes": [
+        {
+          "texto": "[ Está chovendo? ]\nSim → [ Levar guarda-chuva ]\nNão → [ Não levar guarda-chuva ]",
+          "confusao": "usa um retângulo (processamento) onde seria preciso um losango (decisão)"
+        },
+        "< Está chovendo? >\nSim → [ Levar guarda-chuva ]\nNão → [ Não levar guarda-chuva ]",
+        {
+          "texto": "< Está chovendo? >\nSim → [ Levar guarda-chuva ]",
+          "confusao": "esquece o caminho do Não: o que fazer se a resposta for outra?"
+        },
+        {
+          "texto": "[ Levar guarda-chuva ]\n[ Não levar guarda-chuva ]",
+          "confusao": "coloca os dois passos em sequência, sem decisão: os dois seriam executados"
+        }
+      ],
+      "correta": 1,
+      "dica": "Uma decisão precisa de um losango e de um caminho para cada resposta.",
+      "explicacao": "A decisão pede um losango com a pergunta e dois caminhos: um para Sim e outro para Não. Sem isso, o fluxo executaria passos que não deveriam ser executados."
+    }
+  ]
+}

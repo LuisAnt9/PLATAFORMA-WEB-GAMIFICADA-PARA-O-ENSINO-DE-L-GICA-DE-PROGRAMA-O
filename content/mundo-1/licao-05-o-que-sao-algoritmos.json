@@ -1,0 +1,176 @@
+{
+  "id": "o-que-sao-algoritmos",
+  "mundo": "mundo-1",
+  "titulo": "O que são algoritmos?",
+  "foco": "Reconhecer um algoritmo e suas características",
+  "posicao": 103,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um algoritmo é uma sequência finita de passos, claros e ordenados, que resolve um problema ou realiza uma tarefa. Uma receita de bolo, as instruções para montar um móvel e o caminho de casa até a escola são algoritmos.\n\nUm bom algoritmo tem quatro características:\n- Finito: termina em algum momento.\n- Claro: cada passo é preciso, sem dar margem a dúvidas (\"adicione 2 colheres de açúcar\", e não \"adicione um pouco\").\n- Ordenado: os passos seguem uma ordem que faz sentido.\n- Tem objetivo: parte de informações iniciais e chega a um resultado.\n\nAlgoritmo e programa não são a mesma coisa. O algoritmo é a ideia, o plano de solução. O programa é esse plano escrito em uma linguagem de programação para o computador executar.",
+  "exemplo": "Algoritmo: trocar uma lâmpada queimada.\n\n1. Desligar o interruptor.\n2. Esperar a lâmpada esfriar.\n3. Desenroscar a lâmpada queimada.\n4. Enroscar a lâmpada nova.\n5. Ligar o interruptor para testar.\n\nPor que isso é um bom algoritmo?\n- Tem fim: depois do passo 5, a tarefa termina.\n- Cada passo é uma ação clara.\n- A ordem importa: não dá para enroscar a lâmpada nova antes de tirar a velha, nem mexer nela com o interruptor ligado.\n- Parte de uma situação inicial (lâmpada queimada) e chega a um resultado (lâmpada nova funcionando).",
+  "revisao": "- Algoritmo é uma sequência finita de passos claros e ordenados que resolve um problema.\n- Um algoritmo precisa ter fim, passos precisos e uma ordem que faça sentido.\n- Receitas, manuais e trajetos são algoritmos do dia a dia.\n- O algoritmo é a ideia; o programa é o algoritmo escrito em uma linguagem de programação.",
+  "exercicios": [
+    {
+      "id": "algoritmo-qual-e-algoritmo",
+      "tipo": "escolha",
+      "titulo": "Qual deles é um algoritmo?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 3 }
+      ],
+      "enunciado": "Qual das opções é um algoritmo?",
+      "opcoes": [
+        "Uma receita de bolo com os passos numerados",
+        {
+          "texto": "Uma lista de ingredientes, sem os passos",
+          "confusao": "confunde dados com os passos que devem ser executados"
+        },
+        {
+          "texto": "A vontade de fazer um bolo",
+          "confusao": "confunde o objetivo com os passos para alcançá-lo"
+        },
+        {
+          "texto": "A foto do bolo pronto",
+          "confusao": "confunde o resultado com o caminho até ele"
+        }
+      ],
+      "correta": 0,
+      "dica": "Um algoritmo diz o que fazer, e em que ordem.",
+      "explicacao": "Um algoritmo é uma sequência de passos. A lista de ingredientes é apenas um dado, e o bolo pronto é o resultado, não o caminho até ele."
+    },
+    {
+      "id": "algoritmo-o-que-nao-precisa",
+      "tipo": "escolha",
+      "titulo": "O que um algoritmo não precisa ter?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 3 }
+      ],
+      "enunciado": "Qual destas características um algoritmo NÃO precisa ter?",
+      "opcoes": [
+        {
+          "texto": "Terminar depois de um número finito de passos",
+          "confusao": "acha que um algoritmo pode ficar executando para sempre"
+        },
+        {
+          "texto": "Ter passos claros e sem ambiguidade",
+          "confusao": "acha que o algoritmo pode deixar passos vagos"
+        },
+        "Ser escrito em uma linguagem de programação",
+        { "texto": "Seguir uma ordem definida", "confusao": "acha que a ordem dos passos é livre" }
+      ],
+      "correta": 2,
+      "dica": "Receitas de bolo também são algoritmos.",
+      "explicacao": "Um algoritmo pode estar escrito em português, em desenhos ou em uma linguagem de programação. O que importa é ser finito, claro e ordenado."
+    },
+    {
+      "id": "algoritmo-trocar-lampada",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o algoritmo da lâmpada",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 2 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "Coloque na ordem certa os passos para trocar uma lâmpada queimada.",
+      "itens": [
+        "Desligar o interruptor",
+        "Esperar a lâmpada esfriar",
+        "Desenroscar a lâmpada queimada",
+        "Enroscar a lâmpada nova",
+        "Ligar o interruptor para testar"
+      ],
+      "dica": "Segurança primeiro: o que deve acontecer antes de tocar na lâmpada?",
+      "explicacao": "A ordem protege quem executa o algoritmo: primeiro desligamos a energia e esperamos a lâmpada esfriar; só então a trocamos e testamos."
+    },
+    {
+      "id": "algoritmo-contar-ate-tres",
+      "tipo": "interpretacao",
+      "titulo": "O que a pessoa diz?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 2 }
+      ],
+      "enunciado": "Uma pessoa segue o algoritmo abaixo. O que ela diz, em ordem?",
+      "codigo": "Algoritmo: contar até 3\n1. Dizer \"1\"\n2. Dizer \"2\"\n3. Dizer \"3\"\n4. Parar",
+      "opcoes": [
+        { "texto": "3, 2, 1", "confusao": "lê os passos de baixo para cima" },
+        "1, 2, 3",
+        { "texto": "1, 2, 3, 4", "confusao": "confunde o número do passo com o que deve ser dito" },
+        { "texto": "Apenas 3", "confusao": "acha que só o último passo de dizer vale" }
+      ],
+      "correta": 1,
+      "dica": "O número do passo não é o que a pessoa diz: leia o que cada passo manda fazer.",
+      "explicacao": "Os passos 1, 2 e 3 mandam dizer \"1\", \"2\" e \"3\", nessa ordem. O passo 4 manda parar, e não dizer nada."
+    },
+    {
+      "id": "algoritmo-instrucao-clara",
+      "tipo": "escolha",
+      "titulo": "Qual instrução é clara?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 3 }
+      ],
+      "enunciado": "Qual destas instruções é clara o bastante para fazer parte de um algoritmo?",
+      "opcoes": [
+        {
+          "texto": "Adicione um pouco de açúcar",
+          "confusao": "aceita instruções vagas, que cada pessoa interpreta de um jeito"
+        },
+        {
+          "texto": "Faça o bolo ficar gostoso",
+          "confusao": "confunde o objetivo com uma ação que pode ser executada"
+        },
+        {
+          "texto": "Adicione açúcar se der vontade",
+          "confusao": "aceita um passo que depende de opinião, e não de um critério claro"
+        },
+        "Adicione 2 colheres de açúcar"
+      ],
+      "correta": 3,
+      "dica": "Duas pessoas diferentes fariam exatamente a mesma coisa?",
+      "explicacao": "Uma instrução clara indica uma ação exata, que qualquer pessoa executa do mesmo jeito. \"Um pouco\" e \"se der vontade\" dependem de interpretação."
+    },
+    {
+      "id": "algoritmo-que-nunca-termina",
+      "tipo": "interpretacao",
+      "titulo": "Esse algoritmo é bom?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 3 }
+      ],
+      "enunciado": "Analise o conjunto de instruções abaixo. Ele é um bom algoritmo?",
+      "codigo": "Algoritmo: caminhar\n1. Dar um passo\n2. Voltar ao passo 1",
+      "opcoes": [
+        "Não: ele nunca termina, e todo algoritmo precisa ter fim",
+        {
+          "texto": "Sim, porque tem passos e uma ordem",
+          "confusao": "ignora que um algoritmo precisa ser finito"
+        },
+        {
+          "texto": "Sim, porque caminhar é uma tarefa simples",
+          "confusao": "avalia a tarefa e não a estrutura do algoritmo"
+        },
+        {
+          "texto": "Não, porque faltou escrevê-lo em JavaScript",
+          "confusao": "acha que um algoritmo só existe em uma linguagem de programação"
+        }
+      ],
+      "correta": 0,
+      "dica": "Siga as instruções e veja se algum passo manda parar.",
+      "explicacao": "O passo 2 sempre manda voltar ao passo 1, então a pessoa caminha para sempre. Um algoritmo precisa terminar depois de um número finito de passos."
+    }
+  ]
+}

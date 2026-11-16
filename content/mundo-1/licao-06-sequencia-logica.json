@@ -1,0 +1,160 @@
+{
+  "id": "sequencia-logica",
+  "mundo": "mundo-1",
+  "titulo": "Sequência lógica",
+  "foco": "Perceber que a ordem dos passos muda o resultado",
+  "posicao": 104,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Sequência lógica é organizar os passos na ordem em que eles fazem sentido. Em geral, cada passo depende do que foi feito antes: não dá para calçar o sapato antes de vestir a meia.\n\nTrocar a ordem pode:\n- impedir a tarefa de funcionar (despejar a água no filtro antes de colocar o pó);\n- ou mudar o resultado (colocar o macarrão antes de a água ferver).\n\nO computador segue a mesma regra: ele executa as instruções de cima para baixo, uma de cada vez, na ordem em que foram escritas. Por isso, a ordem das instruções de um programa é tão importante quanto a ordem dos passos de uma receita.",
+  "exemplo": "Observe estas três instruções:\n\nconsole.log(\"1\");\nconsole.log(\"2\");\nconsole.log(\"3\");\n\nO computador executa de cima para baixo e mostra:\n1\n2\n3\n\nAgora trocamos a ordem das linhas:\n\nconsole.log(\"3\");\nconsole.log(\"2\");\nconsole.log(\"1\");\n\nO resultado muda:\n3\n2\n1\n\nAs instruções continuam as mesmas, mas a ordem mudou e, com ela, o resultado. Nenhuma instrução foi \"errada\": a sequência é que determina o que o programa faz.",
+  "revisao": "- Sequência lógica é a ordem em que os passos fazem sentido.\n- Cada passo costuma depender dos anteriores.\n- Mudar a ordem pode impedir a tarefa ou mudar o resultado.\n- O computador executa as instruções de cima para baixo, uma por vez.",
+  "exercicios": [
+    {
+      "id": "sequencia-escovar-os-dentes",
+      "tipo": "ordenacao",
+      "titulo": "Ordene: escovar os dentes",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 }
+      ],
+      "enunciado": "Coloque na ordem certa os passos para escovar os dentes.",
+      "itens": [
+        "Pegar a escova e a pasta",
+        "Colocar a pasta na escova",
+        "Escovar os dentes",
+        "Enxaguar a boca",
+        "Guardar a escova"
+      ],
+      "dica": "Cada passo só pode acontecer depois de o anterior estar pronto.",
+      "explicacao": "A pasta só vai para a escova depois de pegarmos os dois; enxaguamos depois de escovar; guardamos por último."
+    },
+    {
+      "id": "sequencia-por-que-importa",
+      "tipo": "escolha",
+      "titulo": "Por que a ordem importa?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 }
+      ],
+      "enunciado": "Por que a ordem dos passos é importante em um algoritmo?",
+      "opcoes": [
+        {
+          "texto": "Porque o computador gosta de organização",
+          "confusao": "acha que a ordem é só uma questão de estilo"
+        },
+        {
+          "texto": "Não é importante: o resultado é sempre o mesmo",
+          "confusao": "acha que a ordem dos passos não altera o resultado"
+        },
+        "Porque cada passo pode depender do resultado do passo anterior",
+        {
+          "texto": "Porque o computador executa tudo ao mesmo tempo",
+          "confusao": "acha que o computador executa todas as instruções ao mesmo tempo"
+        }
+      ],
+      "correta": 2,
+      "dica": "Pense na meia e no sapato.",
+      "explicacao": "Muitos passos dependem do que foi feito antes. Por isso o computador os executa um de cada vez, na ordem escrita."
+    },
+    {
+      "id": "sequencia-abc",
+      "tipo": "interpretacao",
+      "titulo": "Em que ordem aparece?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 }
+      ],
+      "enunciado": "O computador executa o programa abaixo. O que ele mostra na tela?",
+      "codigo": "console.log(\"A\");\nconsole.log(\"B\");\nconsole.log(\"C\");",
+      "opcoes": [
+        { "texto": "C, B e A", "confusao": "acha que o computador começa pela última instrução" },
+        "A, B e C, nessa ordem, cada um em uma linha",
+        { "texto": "Apenas C", "confusao": "acha que cada instrução apaga a anterior" },
+        {
+          "texto": "A, B e C em ordem sorteada",
+          "confusao": "acha que o computador escolhe a ordem de forma aleatória"
+        }
+      ],
+      "correta": 1,
+      "dica": "Leia de cima para baixo, como o computador faz.",
+      "explicacao": "As instruções são executadas na ordem em que aparecem, e cada console.log mostra uma linha: A, depois B, depois C."
+    },
+    {
+      "id": "sequencia-ordem-do-programa",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o programa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 },
+        { "id": "m1-programacao", "peso": 1 }
+      ],
+      "enunciado": "Coloque as instruções na ordem certa para o programa mostrar Olá, depois Tudo bem? e, por fim, Até logo.",
+      "itens": ["console.log(\"Olá\");", "console.log(\"Tudo bem?\");", "console.log(\"Até logo\");"],
+      "dica": "O programa mostra as frases na ordem em que as instruções aparecem.",
+      "explicacao": "Como o computador executa de cima para baixo, a primeira instrução deve ser a que mostra Olá e a última, a que mostra Até logo."
+    },
+    {
+      "id": "sequencia-macarrao",
+      "tipo": "interpretacao",
+      "titulo": "E se trocássemos os passos?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 }
+      ],
+      "enunciado": "Veja o algoritmo abaixo. O que aconteceria se trocássemos os passos 3 e 4 de lugar?",
+      "codigo": "Algoritmo: cozinhar macarrão\n1. Encher a panela com água\n2. Colocar a panela no fogo\n3. Esperar a água ferver\n4. Colocar o macarrão",
+      "opcoes": [
+        {
+          "texto": "Nada: o resultado seria o mesmo",
+          "confusao": "acha que a ordem dos passos não altera o resultado"
+        },
+        {
+          "texto": "O fogo apagaria",
+          "confusao": "inventa uma consequência que não tem relação com a ordem dos passos"
+        },
+        {
+          "texto": "O algoritmo deixaria de ter passos",
+          "confusao": "acha que trocar a ordem apaga os passos"
+        },
+        "O macarrão seria colocado antes de a água ferver, e o resultado mudaria"
+      ],
+      "correta": 3,
+      "dica": "Pense no que cada passo precisa que já tenha acontecido.",
+      "explicacao": "Trocar os passos 3 e 4 faz o macarrão entrar na água ainda fria. Os passos continuam existindo, mas a ordem muda o resultado."
+    },
+    {
+      "id": "sequencia-saque-no-caixa",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o saque no caixa eletrônico",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-sequencia", "peso": 3 },
+        { "id": "m1-algoritmos", "peso": 1 }
+      ],
+      "enunciado": "Coloque na ordem certa os passos para sacar dinheiro em um caixa eletrônico.",
+      "itens": [
+        "Chegar ao caixa eletrônico",
+        "Inserir o cartão",
+        "Digitar a senha",
+        "Escolher a opção Saque",
+        "Digitar o valor desejado",
+        "Retirar as notas e o cartão"
+      ],
+      "dica": "O caixa só libera o saque depois de reconhecer você.",
+      "explicacao": "O cartão vem antes da senha, e a senha antes de qualquer operação. Só depois de escolher o saque e o valor o caixa entrega o dinheiro."
+    }
+  ]
+}

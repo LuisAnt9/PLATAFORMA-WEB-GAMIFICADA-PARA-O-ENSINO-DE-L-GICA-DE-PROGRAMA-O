@@ -1,0 +1,192 @@
+{
+  "id": "o-que-e-logica",
+  "mundo": "mundo-1",
+  "titulo": "O que é lógica de programação?",
+  "foco": "Organizar o raciocínio em passos claros e coerentes antes de programar",
+  "posicao": 102,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Lógica é pensar de forma organizada, sem contradições, para chegar a uma conclusão. Lógica de programação é aplicar esse raciocínio para planejar a solução de um problema em passos claros, antes de escrever qualquer código.\n\nAntes de programar, vale responder quatro perguntas:\n1. Qual é o problema?\n2. Que informações eu tenho?\n3. O que eu quero obter no final?\n4. Em que passos chego lá?\n\nUsamos lógica o tempo todo: \"se estiver chovendo, levo o guarda-chuva; senão, não levo\". Também há raciocínios com premissas e conclusão: \"Todo gato é animal. Mimi é um gato. Logo, Mimi é um animal.\"\n\nAprender lógica de programação não exige ser bom em matemática avançada: exige ordem, atenção e vontade de testar o raciocínio.",
+  "exemplo": "Problema: decidir se devo levar o guarda-chuva.\n\n1. Informação que eu tenho: está chovendo ou não está chovendo.\n2. O que eu quero obter: a decisão de levar ou não o guarda-chuva.\n3. Raciocínio em passos:\n   - Verificar se está chovendo.\n   - Se estiver, levar o guarda-chuva.\n   - Se não estiver, deixar o guarda-chuva em casa.\n\nRepare que ainda não escrevemos nenhum código. Primeiro organizamos o raciocínio; depois, será fácil transformá-lo em programa. Quem pula essa etapa costuma escrever instruções confusas ou incompletas.",
+  "revisao": "- Lógica de programação é organizar o raciocínio em passos claros e coerentes.\n- Antes de programar: qual é o problema, que informações tenho, o que quero obter e em quais passos.\n- Um bom raciocínio não tem contradições.\n- Cuidado ao inverter regras: \"todo A é B\" não significa \"todo B é A\".\n- Não é preciso decorar comandos para começar: é preciso treinar o raciocínio.",
+  "exercicios": [
+    {
+      "id": "logica-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é lógica de programação?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 3 }
+      ],
+      "enunciado": "Qual alternativa descreve melhor a lógica de programação?",
+      "opcoes": [
+        {
+          "texto": "Decorar todos os comandos de uma linguagem",
+          "confusao": "confunde lógica com memorizar a sintaxe da linguagem"
+        },
+        {
+          "texto": "Ser bom em matemática avançada",
+          "confusao": "acha que lógica de programação exige matemática avançada"
+        },
+        {
+          "texto": "Usar um computador mais rápido",
+          "confusao": "associa a lógica à velocidade da máquina"
+        },
+        "Organizar o raciocínio em passos claros para resolver um problema"
+      ],
+      "correta": 3,
+      "dica": "Pense no que você faz antes de escrever qualquer código.",
+      "explicacao": "Lógica de programação é o raciocínio organizado que planeja a solução em passos. A linguagem é só a forma de escrever esse plano para o computador."
+    },
+    {
+      "id": "logica-deducao-simples",
+      "tipo": "escolha",
+      "titulo": "O que podemos concluir?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 3 }
+      ],
+      "enunciado": "Todo aluno do curso estuda lógica. Ana é aluna do curso. O que podemos concluir?",
+      "opcoes": [
+        "Ana estuda lógica",
+        {
+          "texto": "Todos que estudam lógica são alunos do curso",
+          "confusao": "inverte a regra, confundindo \"todo A é B\" com \"todo B é A\""
+        },
+        { "texto": "Ana não estuda lógica", "confusao": "contradiz uma informação que foi dada" },
+        {
+          "texto": "Não dá para concluir nada",
+          "confusao": "não aplica as informações que foram dadas"
+        }
+      ],
+      "correta": 0,
+      "dica": "Aplique a regra geral ao caso da Ana.",
+      "explicacao": "A regra vale para todos os alunos do curso. Como Ana é aluna, a regra vale para ela: Ana estuda lógica."
+    },
+    {
+      "id": "logica-se-entao-senao",
+      "tipo": "lacuna",
+      "titulo": "Complete o raciocínio",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 2 }
+      ],
+      "enunciado": "Complete a frase com as palavras que faltam.",
+      "modelo": "Se estiver chovendo, {{1}} levo o guarda-chuva; {{2}} não levo.",
+      "lacunas": [
+        { "respostas": ["então", "ENTÃO", "Então"] },
+        { "respostas": ["senão", "SENÃO", "Senão"] }
+      ],
+      "dica": "Uma palavra indica a consequência; a outra, o que acontece no caso contrário.",
+      "explicacao": "\"Se... então... senão...\" é a estrutura básica de uma decisão: o que fazer se a condição for verdadeira e o que fazer se não for."
+    },
+    {
+      "id": "logica-calculo-do-troco",
+      "tipo": "interpretacao",
+      "titulo": "Qual é o troco?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 2 },
+        { "id": "m1-algoritmos", "peso": 1 }
+      ],
+      "enunciado": "Leia o raciocínio abaixo e responda: qual é o valor do troco?",
+      "codigo": "Problema: pagar um lanche de R$ 8,00 com uma nota de R$ 10,00.\n1. Receber a nota de R$ 10,00.\n2. Calcular o troco: 10 - 8.\n3. Devolver o troco.",
+      "opcoes": [
+        { "texto": "R$ 18,00", "confusao": "soma os valores em vez de subtrair" },
+        { "texto": "R$ 8,00", "confusao": "confunde o troco com o valor do lanche" },
+        "R$ 2,00",
+        { "texto": "R$ 10,00", "confusao": "confunde o troco com o valor entregue" }
+      ],
+      "correta": 2,
+      "dica": "Siga o passo 2 com os números do problema.",
+      "explicacao": "O troco é a diferença entre o que foi pago e o que foi gasto: 10 - 8 = 2."
+    },
+    {
+      "id": "logica-quem-pode-entrar",
+      "tipo": "interpretacao",
+      "titulo": "Quem pode entrar?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 3 }
+      ],
+      "enunciado": "Leia as informações abaixo e responda: quem pode entrar no cinema?",
+      "codigo": "Regra: só entra no cinema quem tem ingresso.\nJoão tem ingresso.\nMaria não tem ingresso.",
+      "opcoes": [
+        {
+          "texto": "Só Maria",
+          "confusao": "inverte a regra, acreditando que quem não tem ingresso é quem entra"
+        },
+        "Só João",
+        { "texto": "João e Maria", "confusao": "ignora a condição da regra" },
+        {
+          "texto": "Ninguém",
+          "confusao": "acha que a regra só vale se todos a cumprirem ao mesmo tempo"
+        }
+      ],
+      "correta": 1,
+      "dica": "Aplique a regra a cada pessoa, uma de cada vez.",
+      "explicacao": "A regra exige ingresso. João tem, então pode entrar; Maria não tem, então não pode."
+    },
+    {
+      "id": "logica-etapas-do-raciocinio",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o raciocínio",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 3 }
+      ],
+      "enunciado": "Coloque na ordem certa as etapas para resolver um problema com lógica.",
+      "itens": [
+        "Entender qual é o problema",
+        "Identificar as informações que temos",
+        "Definir o que queremos obter",
+        "Planejar os passos da solução",
+        "Testar se a solução funciona"
+      ],
+      "dica": "Só dá para testar uma solução depois de planejá-la.",
+      "explicacao": "Primeiro entendemos o problema e reunimos as informações; depois definimos o objetivo, planejamos os passos e, por fim, testamos."
+    },
+    {
+      "id": "logica-raciocinio-invertido",
+      "tipo": "escolha",
+      "titulo": "Encontre o erro no raciocínio",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m1-logica", "peso": 3 }
+      ],
+      "enunciado": "Um colega diz: \"Todo programador usa computador, então quem usa computador é programador\". Qual é o erro desse raciocínio?",
+      "opcoes": [
+        {
+          "texto": "Não há erro: a conclusão está correta",
+          "confusao": "confunde \"todo A é B\" com \"todo B é A\""
+        },
+        {
+          "texto": "O erro é dizer \"computador\" em vez de \"celular\"",
+          "confusao": "olha para as palavras usadas e não para a estrutura do raciocínio"
+        },
+        {
+          "texto": "A premissa é falsa, porque programadores não usam computador",
+          "confusao": "contesta a premissa em vez de analisar o raciocínio"
+        },
+        "Ele inverteu a regra: usar computador não torna ninguém programador"
+      ],
+      "correta": 3,
+      "dica": "A regra vale em um sentido. Ela vale também no sentido contrário?",
+      "explicacao": "A regra diz que todo programador usa computador, mas não diz que todo usuário de computador programa. Inverter regras é um erro de lógica muito comum."
+    }
+  ]
+}

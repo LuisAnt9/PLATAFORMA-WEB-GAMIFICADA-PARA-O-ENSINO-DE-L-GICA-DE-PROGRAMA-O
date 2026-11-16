@@ -3,7 +3,7 @@
   "mundo": "mundo-3",
   "titulo": "Fundamentos",
   "foco": "Traduzir um problema em passos e operações",
-  "posicao": 1,
+  "posicao": 301,
   "diagnostica": false,
   "intro": "Uma função recebe valores (parâmetros), faz um cálculo e devolve um resultado com return. Por exemplo:\n\nfunction dobro(n) {\n  return n * 2;\n}\n\ndobro(4) devolve 8. Nos exercícios você escreve funções assim: leia o enunciado, pense no passo a passo e só então escreva o código. Use os testes como guia: eles mostram o que a função deveria devolver.",
   "exemplo": "",

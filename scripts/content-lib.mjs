@@ -167,6 +167,7 @@ export function validateContent(content) {
       err(file, "exercicios deve ser uma lista");
       continue;
     }
+    checkLessonFormat(l, file, err, warn);
     if (l.exercicios.length === 0) warn(file, "lição sem exercícios");
 
     for (const e of l.exercicios) {
@@ -254,6 +255,64 @@ export function validateContent(content) {
       warn(`solucoes/${id}.js`, "solução sem exercício correspondente");
   }
   return { errors, warnings, stats };
+}
+
+/**
+ * Lições marcadas com "formato" seguem o modelo de 7 passos da especificação:
+ *  - "completa": introdução, exemplo e revisão preenchidos; pelo menos 5 exercícios, 2 deles de
+ *    interpretação, e ao menos um fácil, um médio e um difícil;
+ *  - "desafio": introdução, exemplo e revisão preenchidos; só exercícios difíceis, e ao menos um
+ *    deles avaliando vários conceitos.
+ */
+function checkLessonFormat(l, file, err, warn) {
+  if (l.formato === undefined) return;
+  if (l.formato !== "completa" && l.formato !== "desafio") {
+    err(file, `formato inválido "${l.formato}" (use "completa" ou "desafio")`);
+    return;
+  }
+  for (const [campo, nome] of [
+    ["intro", "introdução"],
+    ["exemplo", "exemplo"],
+    ["revisao", "revisão"],
+  ]) {
+    if (!texto(l[campo]))
+      err(file, `lição "${l.formato}" precisa de ${nome} (campo "${campo}")`);
+  }
+  if (len(l.intro) > 1200)
+    warn(file, "a introdução passa de 1200 caracteres: prefira textos curtos");
+  const exs = l.exercicios;
+  const dif = (d) => exs.filter((e) => e.dificuldade === d).length;
+  if (l.formato === "completa") {
+    if (exs.length < 5)
+      err(
+        file,
+        `lição completa precisa de pelo menos 5 exercícios (tem ${exs.length})`,
+      );
+    const interp = exs.filter((e) => e.tipo === "interpretacao").length;
+    if (interp < 2)
+      err(
+        file,
+        `lição completa precisa de pelo menos 2 exercícios de interpretação (tem ${interp})`,
+      );
+    for (const [d, nome] of [
+      ["facil", "fácil"],
+      ["medio", "médio"],
+      ["dificil", "difícil"],
+    ]) {
+      if (dif(d) === 0)
+        err(file, `lição completa precisa de pelo menos um exercício ${nome}`);
+    }
+  } else {
+    if (exs.length < 1)
+      err(file, "lição de desafio precisa de pelo menos 1 exercício");
+    if (exs.some((e) => e.dificuldade !== "dificil"))
+      err(file, "lição de desafio só tem exercícios difíceis");
+    if (!exs.some((e) => (e.conceitos?.length ?? 0) >= 2))
+      err(
+        file,
+        "lição de desafio precisa de pelo menos um exercício que avalie vários conceitos",
+      );
+  }
 }
 
 function checkCode(e, where, solutions, err) {
@@ -613,4 +672,170 @@ begin
 end $$;
 `);
   return out.join("\n");
+}
+
+// ---------------------------------------------------------------------------------------------
+// Publicação e revisão por mundo
+// ---------------------------------------------------------------------------------------------
+
+/** Lições de um mundo que seguem o modelo oficial (campo "formato"), ou só as pedidas por id. */
+export function lessonsOfWorld(content, worldId, lessonIds = []) {
+  const doMundo = content.lessons
+    .map((x) => x.data)
+    .filter((l) => l.mundo === worldId);
+  if (lessonIds.length > 0) {
+    const faltando = lessonIds.filter(
+      (id) => !doMundo.some((l) => l.id === id),
+    );
+    if (faltando.length > 0)
+      throw new Error(
+        `Lição(ões) não encontrada(s) em ${worldId}: ${faltando.join(", ")}`,
+      );
+    return doMundo.filter((l) => lessonIds.includes(l.id));
+  }
+  return doMundo.filter((l) => l.formato !== undefined);
+}
+
+/**
+ * SQL que publica (ou despublica) os exercícios das lições de um mundo. É o passo que vem depois
+ * da revisão do professor: o importador cria tudo como rascunho e nunca muda "published".
+ */
+export function buildPublishSql(
+  content,
+  worldId,
+  { lessonIds = [], publish = true } = {},
+) {
+  const lessons = lessonsOfWorld(content, worldId, lessonIds);
+  if (lessons.length === 0)
+    throw new Error(
+      `Nenhuma lição para ${publish ? "publicar" : "despublicar"} em ${worldId}.`,
+    );
+  const ids = lessons.flatMap((l) => l.exercicios.map((e) => e.id));
+  const verbo = publish ? "Publica" : "Despublica";
+  return `-- GERADO por "npm run content:publish". Não edite à mão.
+-- ${verbo} ${ids.length} exercício(s) de ${lessons.length} lição(ões) de ${worldId}: ${lessons.map((l) => l.id).join(", ")}.
+-- ${publish ? "Rode só depois de revisar o conteúdo (veja docs/revisao/)." : "Os exercícios voltam a ser rascunho: os alunos deixam de vê-los."}
+-- Pode ser executado várias vezes.
+
+update public.exercises
+set published = ${publish ? "true" : "false"}
+where id in (${ids.map(q).join(", ")});
+`;
+}
+
+const OPCAO = (o) => (typeof o === "string" ? { texto: o } : o);
+const cerca = (txt, lang = "") =>
+  "```" + lang + "\n" + String(txt).replace(/\n+$/, "") + "\n```";
+const NOME_TIPO = {
+  codigo: "Código",
+  escolha: "Múltipla escolha",
+  lacuna: "Completar a lacuna",
+  interpretacao: "Interpretação de código",
+  ordenacao: "Ordenação",
+  corrigir: "Corrigir o erro",
+  desafio: "Desafio",
+};
+const NOME_DIF = { facil: "fácil", medio: "médio", dificil: "difícil" };
+
+/** Documento para o professor ler e aprovar o conteúdo de um mundo antes de publicar. */
+export function buildReviewMarkdown(content, worldId, { lessonIds = [] } = {}) {
+  const mundo = content.worlds.find((w) => w.id === worldId);
+  if (!mundo) throw new Error(`Mundo inexistente: ${worldId}`);
+  const lessons = lessonsOfWorld(content, worldId, lessonIds).sort(
+    (a, b) => a.posicao - b.posicao,
+  );
+  if (lessons.length === 0)
+    throw new Error(`Nenhuma lição com "formato" em ${worldId}.`);
+  const conceitos = new Map(content.concepts.map((c) => [c.id, c.titulo]));
+  const out = [];
+  const total = lessons.reduce((n, l) => n + l.exercicios.length, 0);
+  out.push(`# Revisão do conteúdo — ${mundo.titulo}
+
+> GERADO por \`npm run content:review\`. Não edite este arquivo: ele muda quando o conteúdo mudar.
+
+**Objetivo do mundo:** ${mundo.objetivo ?? ""}
+
+Este documento reúne tudo o que os alunos vão ver neste mundo: ${lessons.length} lições e ${total} exercícios. **Nada foi publicado:** os exercícios estão como rascunho e só o professor os vê.
+
+## Como revisar
+1. Leia cada lição (texto, exemplo, revisão e exercícios) como se fosse um aluno iniciante.
+2. Confira o gabarito (✔) e as "confusões" das alternativas erradas: elas alimentam o painel de dificuldades.
+3. Anote ajustes por lição. Peça a correção ao Claude, que altera os arquivos de \`content/\`.
+4. Quando aprovar, publique com \`npm run content:publish -- ${worldId}\` (gera o SQL para colar no Supabase).
+
+## Resumo
+| Lição | Exercícios | Fácil | Médio | Difícil | Tipos |
+|---|---:|---:|---:|---:|---|`);
+  for (const l of lessons) {
+    const n = (d) => l.exercicios.filter((e) => e.dificuldade === d).length;
+    const tipos = Object.entries(Object.groupBy(l.exercicios, (e) => e.tipo))
+      .map(([t, xs]) => `${xs.length} ${NOME_TIPO[t]?.toLowerCase() ?? t}`)
+      .join(", ");
+    out.push(
+      `| ${l.titulo} | ${l.exercicios.length} | ${n("facil")} | ${n("medio")} | ${n("dificil")} | ${tipos} |`,
+    );
+  }
+  out.push("");
+
+  lessons.forEach((l, i) => {
+    out.push(`---\n\n## Lição ${i + 1} — ${l.titulo}\n`);
+    out.push(`**Foco:** ${l.foco}\n`);
+    out.push(
+      `- [ ] Aprovada  - [ ] Precisa de ajustes: ______________________________\n`,
+    );
+    out.push(
+      `### Introdução e explicação\n\n${l.intro
+        .split("\n")
+        .map((x) => `> ${x}`)
+        .join("\n")}\n`,
+    );
+    out.push(`### Exemplo\n\n${cerca(l.exemplo)}\n`);
+    out.push(`### Revisão\n\n${l.revisao}\n`);
+    out.push(`### Exercícios\n`);
+    l.exercicios.forEach((e, j) => {
+      const cs = (e.conceitos ?? [])
+        .map((c) => `${conceitos.get(c.id) ?? c.id} (peso ${c.peso})`)
+        .join("; ");
+      out.push(
+        `#### ${j + 1}. ${e.titulo}\n\n*${NOME_TIPO[e.tipo] ?? e.tipo} · ${NOME_DIF[e.dificuldade] ?? e.dificuldade} · id \`${e.id}\` · conceitos: ${cs}*\n`,
+      );
+      if (e.minilicao) out.push(`**Antes de começar:** ${e.minilicao}\n`);
+      out.push(`${e.enunciado}\n`);
+      if (e.codigo) out.push(`${cerca(e.codigo)}\n`);
+      if (e.opcoes) {
+        out.push(
+          e.opcoes
+            .map((raw, k) => {
+              const o = OPCAO(raw);
+              return k === e.correta
+                ? `- ✔ **${o.texto.replace(/\n/g, " / ")}** (correta)`
+                : `- ✗ ${o.texto.replace(/\n/g, " / ")}${o.confusao ? ` — *confusão: ${o.confusao}*` : ""}`;
+            })
+            .join("\n") + "\n",
+        );
+      }
+      if (e.itens)
+        out.push(
+          `Ordem correta:\n\n${e.itens.map((it, k) => `${k + 1}. ${it}`).join("\n")}\n`,
+        );
+      if (e.modelo)
+        out.push(
+          `${cerca(e.modelo)}\n\nRespostas aceitas: ${e.lacunas.map((lc, k) => `lacuna ${k + 1}: ${lc.respostas.join(" ou ")}`).join("; ")}\n`,
+        );
+      if (e.funcao) {
+        out.push(
+          `Função: \`${e.funcao}\`\n\nCódigo inicial:\n\n${cerca(e.codigoInicial, "js")}\n`,
+        );
+        out.push(
+          `Testes:\n\n${e.testes.map((t) => `- entrada ${JSON.stringify(t.entrada)}${t.entradas ? `, lê ${JSON.stringify(t.entradas)}` : ""}${"esperado" in t ? ` → retorna ${JSON.stringify(t.esperado)}` : ""}${t.saida ? ` → imprime ${JSON.stringify(t.saida)}` : ""}`).join("\n")}\n`,
+        );
+        const sol = content.solutions[e.id];
+        if (sol) out.push(`Solução de referência:\n\n${cerca(sol, "js")}\n`);
+      }
+      if (e.dica) out.push(`**Dica:** ${e.dica}\n`);
+      if (e.explicacao) out.push(`**Ao acertar:** ${e.explicacao}\n`);
+      if (e.comentario) out.push(`**Solução comentada:** ${e.comentario}\n`);
+    });
+  });
+  return out.join("\n") + "\n";
 }

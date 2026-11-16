@@ -1,7 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { beforeAll, describe, expect, it } from "vitest";
-import { buildImportSql, loadContent } from "../../scripts/content-lib.mjs";
+import {
+  buildImportSql,
+  buildPublishSql,
+  loadContent,
+} from "../../scripts/content-lib.mjs";
 import { createDb } from "./helpers";
 
 // Etapa E2: o SQL gerado a partir de content/ reproduz os exercícios atuais sem alterar ids,
@@ -27,11 +31,17 @@ async function as(uid, sql) {
   }
 }
 const rows = async (sql) => (await db.query(sql)).rows;
-// Só os 53 exercícios que já existiam antes do conteúdo em arquivos (os "exemplos dos tipos" são novos).
+// Os 53 exercícios que já existiam antes do conteúdo em arquivos (o resto é conteúdo novo).
+let idsOriginais = null;
 const exercises = () =>
-  rows(
-    `select ${COLS} from public.exercises where id not like 'exemplo-%' order by id`,
-  );
+  idsOriginais
+    ? db
+        .query(
+          `select ${COLS} from public.exercises where id = any($1) order by id`,
+          [idsOriginais],
+        )
+        .then((r) => r.rows)
+    : rows(`select ${COLS} from public.exercises order by id`);
 const one = async (sql) => (await db.query(sql)).rows[0];
 
 beforeAll(async () => {
@@ -44,6 +54,7 @@ beforeAll(async () => {
     `update public.profiles set role = 'professor' where id = '${prof}'`,
   );
   snapshot = await exercises();
+  idsOriginais = snapshot.map((e) => e.id);
 }, 60_000);
 
 describe("origem do conteúdo (0011)", () => {
@@ -161,15 +172,34 @@ describe("importação do conteúdo", () => {
     const l = await rows(
       "select id, world_id from public.modules order by position",
     );
+    // posições: mundo * 100 + n (primeiros-passos 100; as 8 lições novas do Mundo 1 vão de 101 a 108)
+    expect(l.map((m) => m.id)).toEqual([
+      "primeiros-passos",
+      "o-que-e-programacao",
+      "o-que-e-logica",
+      "o-que-sao-algoritmos",
+      "sequencia-logica",
+      "entrada-processamento-saida",
+      "pseudocodigo",
+      "fluxogramas",
+      "desafio-do-mundo-1",
+      "textos",
+      "fundamentos",
+      "condicionais",
+      "repeticao",
+      "vetores",
+      "funcoes",
+      "exemplos-dos-tipos",
+    ]);
     expect(l.map((m) => m.world_id)).toEqual([
-      "mundo-1",
+      ...Array(9).fill("mundo-1"),
+      "mundo-2",
       "mundo-3",
       "mundo-4",
       "mundo-5",
       "mundo-6",
       "mundo-7",
-      "mundo-2",
-      "mundo-1", // lição dos exemplos dos tipos (posição 99)
+      "mundo-1",
     ]);
   });
 
@@ -205,10 +235,10 @@ describe("importação do conteúdo", () => {
     expect("expected" in e["exemplo-entrada-saida"].tests[0]).toBe(false);
   });
 
-  it("importa as soluções dos exercícios de código (33 + 2 exemplos), com o comentário", async () => {
+  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1), com o comentário", async () => {
     expect(
       (await one("select count(*)::int as n from public.exercise_solutions")).n,
-    ).toBe(35);
+    ).toBe(37);
     const s = await one(
       "select solution, commentary from public.exercise_solutions where exercise_id = 'exemplo-corrigir'",
     );
@@ -348,5 +378,112 @@ describe("importação do conteúdo", () => {
         "select weight from public.exercise_concepts where exercise_id = 'teste-novo' and concept_id = 'm2-string'",
       ),
     ).toEqual({ weight: 3 });
+  });
+});
+
+describe("Mundo 1 (E4): importação, rascunho e publicação", () => {
+  const novos = async () =>
+    (
+      await rows(
+        "select e.id from public.exercises e join public.modules m on m.id = e.module_id where m.id in ('o-que-e-programacao','o-que-e-logica','o-que-sao-algoritmos','sequencia-logica','entrada-processamento-saida','pseudocodigo','fluxogramas','desafio-do-mundo-1') order by e.id",
+      )
+    ).map((r) => r.id);
+
+  it("importa as 8 lições e os 47 exercícios, todos como rascunho e com conceitos", async () => {
+    await db.exec(buildImportSql(content()));
+    expect(await novos()).toHaveLength(47);
+    const pub = await one(
+      "select count(*)::int as n from public.exercises e join public.modules m on m.id = e.module_id where m.world_id = 'mundo-1' and m.id <> 'primeiros-passos' and m.id <> 'exemplos-dos-tipos' and e.published",
+    );
+    expect(pub.n).toBe(0);
+    const semConceito = await rows(
+      "select e.id from public.exercises e join public.modules m on m.id = e.module_id where m.world_id = 'mundo-1' and not exists (select 1 from public.exercise_concepts c where c.exercise_id = e.id)",
+    );
+    expect(semConceito).toEqual([]);
+  });
+
+  it("as alternativas erradas guardam a confusão e a posição da correta varia", async () => {
+    const r = await rows(
+      "select config from public.exercises where id like 'prog-%' and kind in ('choice','interpretation')",
+    );
+    for (const x of r) {
+      const erradas = x.config.options.filter((_, i) => i !== x.config.correct);
+      expect(
+        erradas.every((o) => typeof o === "object" && o.misconception),
+      ).toBe(true);
+    }
+    const todas = await rows(
+      "select (config ->> 'correct')::int as c from public.exercises e join public.modules m on m.id = e.module_id where m.world_id = 'mundo-1' and kind in ('choice','interpretation') and e.id not in (select id from public.exercises where id like 'exemplo-%') and m.id not in ('primeiros-passos')",
+    );
+    expect(new Set(todas.map((x) => x.c)).size).toBe(4);
+  });
+
+  it("o SQL de publicação publica só o Mundo 1 novo e o de despublicação desfaz", async () => {
+    await db.exec(buildPublishSql(content(), "mundo-1"));
+    const pub = await rows(
+      "select e.id from public.exercises e where e.published and e.module_id in ('o-que-e-programacao','o-que-e-logica','o-que-sao-algoritmos','sequencia-logica','entrada-processamento-saida','pseudocodigo','fluxogramas','desafio-do-mundo-1')",
+    );
+    expect(pub).toHaveLength(47);
+    // exercícios de outros mundos e os exemplos continuam como estavam
+    expect(
+      (
+        await one(
+          "select published from public.exercises where id = 'exemplo-ordenacao'",
+        )
+      ).published,
+    ).toBe(false);
+    expect(
+      (
+        await one(
+          "select published from public.exercises where id = 'quadrado'",
+        )
+      ).published,
+    ).toBe(false);
+    expect(
+      (await one("select published from public.exercises where id = 'soma'"))
+        .published,
+    ).toBe(true);
+    await db.exec(buildPublishSql(content(), "mundo-1", { publish: false }));
+    expect(
+      (
+        await one(
+          "select count(*)::int as n from public.exercises where published and module_id = 'pseudocodigo'",
+        )
+      ).n,
+    ).toBe(0);
+  });
+
+  it("publicação parcial: só as lições pedidas", async () => {
+    await db.exec(
+      buildPublishSql(content(), "mundo-1", { lessonIds: ["fluxogramas"] }),
+    );
+    expect(
+      (
+        await one(
+          "select count(*)::int as n from public.exercises where published and module_id = 'fluxogramas'",
+        )
+      ).n,
+    ).toBe(6);
+    expect(
+      (
+        await one(
+          "select count(*)::int as n from public.exercises where published and module_id = 'pseudocodigo'",
+        )
+      ).n,
+    ).toBe(0);
+    await db.exec(
+      buildPublishSql(content(), "mundo-1", {
+        lessonIds: ["fluxogramas"],
+        publish: false,
+      }),
+    );
+  });
+
+  it("os exercícios de entrada e saída do Mundo 1 são importados com entradas simuladas e saída", async () => {
+    const e = await one(
+      "select tests, kind from public.exercises where id = 'eps-dobro'",
+    );
+    expect(e.kind).toBe("code");
+    expect(e.tests[0]).toEqual({ args: [], inputs: [4], output: ["8"] });
   });
 });

@@ -3,7 +3,7 @@
   "mundo": "mundo-4",
   "titulo": "Condicionais",
   "foco": "Tomar decisões no fluxo do algoritmo",
-  "posicao": 2,
+  "posicao": 401,
   "diagnostica": false,
   "intro": "Condicionais fazem o programa escolher um caminho. A estrutura básica é:\n\nif (idade >= 18) {\n  return \"maior\";\n} else {\n  return \"menor\";\n}\n\nA condição entre parênteses vale verdadeiro ou falso. Operadores úteis: ===, !==, >, <, >=, <=, e && (e) e || (ou). Dica: teste os casos de borda, como o valor exatamente igual ao limite.",
   "exemplo": "",

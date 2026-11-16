@@ -40,6 +40,10 @@ content/
 
 - `id`: letras minúsculas, números e hífen, até 40 caracteres. **Nunca mude o id** de uma lição ou exercício que já existe: o progresso dos alunos depende dele.
 - `diagnostica: true` faz o validador exigir `confusao` em **toda** alternativa errada das questões de escolha da lição.
+- `formato` marca a lição como parte do currículo oficial e liga as regras do modelo de 7 passos:
+  - `"completa"`: precisa de `intro`, `exemplo` e `revisao`; no mínimo 5 exercícios, 2 deles de **interpretação**, e pelo menos um fácil, um médio e um difícil;
+  - `"desafio"`: lição final do mundo, só com exercícios difíceis e pelo menos um que avalie vários conceitos.
+- `posicao` ordena as lições em todo o currículo. Usamos **mundo × 100 + número** (Mundo 1: 101, 102...; Mundo 2: 201...), deixando espaço entre os mundos.
 
 ## Formato dos exercícios
 
@@ -158,9 +162,21 @@ Nos exercícios do site não existem `prompt()`, `alert()`, `document`, rede nem
 
 Os marcadores `{{1}}`, `{{2}}`... precisam corresponder às `lacunas`, na mesma quantidade. Cada lacuna aceita uma ou mais respostas.
 
+## Revisão e publicação de um mundo
+
+O importador cria tudo como **rascunho**. O fluxo para colocar um mundo no ar:
+
+1. `npm run content:review -- mundo-1` gera `docs/revisao/mundo-1.md`: um documento com todas as lições e exercícios (gabarito, confusões, dicas e soluções) para o professor **ler e aprovar**.
+2. Ajustes pedidos na revisão são feitos nos arquivos de `content/` (rode `content:check`, `content:build` e importe de novo).
+3. Depois da aprovação, `npm run content:publish -- mundo-1` gera `supabase/publicar-mundo-1.sql`. Cole no SQL Editor do Supabase: ele marca os exercícios do mundo como publicados.
+   - Para publicar só algumas lições: `npm run content:publish -- mundo-1 pseudocodigo fluxogramas`.
+   - Para voltar atrás: acrescente `--despublicar`.
+
+Os arquivos de revisão e de publicação são gerados: não os edite à mão.
+
 ## O que o validador confere
 
-Exercício sem conceito, conceito ou mundo inexistente, ids repetidos, textos maiores do que o banco aceita, código sem solução ou com solução que não passa nos testes, testes que não reprovam o código inicial, alternativas repetidas, gabarito inválido, confusão ausente em lição diagnóstica, lacunas que não batem com o modelo.
+Exercício sem conceito, conceito ou mundo inexistente, ids repetidos, textos maiores do que o banco aceita, lições "completa"/"desafio" fora do modelo (sem exemplo, poucos exercícios, sem os três níveis de dificuldade), código sem solução ou com solução que não passa nos testes, testes que não reprovam o código inicial, alternativas repetidas, gabarito inválido, confusão ausente em lição diagnóstica, lacunas que não batem com o modelo.
 
 ## O que o importador faz (e o que ele nunca faz)
 

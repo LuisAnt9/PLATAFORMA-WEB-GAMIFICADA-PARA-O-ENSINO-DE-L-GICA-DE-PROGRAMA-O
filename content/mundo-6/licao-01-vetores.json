@@ -3,7 +3,7 @@
   "mundo": "mundo-6",
   "titulo": "Vetores",
   "foco": "Manipular coleções de dados",
-  "posicao": 4,
+  "posicao": 601,
   "diagnostica": false,
   "intro": "Um vetor (array) guarda vários valores numa lista ordenada:\n\nconst notas = [7, 9, 5];\n\nA primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são \"percorra e acumule\": somar, contar, achar o maior.",
   "exemplo": "",

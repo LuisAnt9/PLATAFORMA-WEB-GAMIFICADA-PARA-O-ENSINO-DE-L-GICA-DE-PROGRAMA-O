@@ -1,0 +1,93 @@
+{
+  "id": "desafio-do-mundo-1",
+  "mundo": "mundo-1",
+  "titulo": "Desafio final do Mundo 1",
+  "foco": "Juntar tudo: algoritmos, sequência, pseudocódigo e fluxogramas",
+  "posicao": 108,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou a hora de juntar o que você aprendeu no Mundo 1. Neste desafio, você vai usar lógica, sequência, entrada e saída, pseudocódigo e fluxogramas para resolver situações do dia a dia.\n\nO desafio principal é o primeiro exercício: montar, na ordem certa, um algoritmo para uma tarefa cotidiana. Os outros dois exercícios aplicam o mesmo raciocínio a um pseudocódigo e a um fluxograma.\n\nDica: antes de responder, leia todos os passos e pense no que precisa ter acontecido antes de cada um.",
+  "exemplo": "Como atacar um desafio de algoritmo:\n1. Entenda o problema: qual é a tarefa e qual é o resultado esperado?\n2. Liste os passos, sem se preocupar com a ordem.\n3. Pergunte, para cada passo: o que precisa ter acontecido antes dele?\n4. Organize a sequência e releia do começo ao fim, como se você fosse o computador executando cada passo.\n5. Teste com um caso simples (por exemplo, notas 6 e 8) e veja se o resultado faz sentido.",
+  "revisao": "- Um algoritmo resolve um problema em passos claros, finitos e ordenados.\n- A ordem dos passos importa, porque cada passo costuma depender dos anteriores.\n- Todo programa tem entrada, processamento e saída.\n- Pseudocódigo e fluxogramas servem para planejar o algoritmo antes de programar.\n- Testar o algoritmo com um caso simples ajuda a encontrar erros de raciocínio.",
+  "exercicios": [
+    {
+      "id": "desafio1-trocar-o-pneu",
+      "tipo": "ordenacao",
+      "titulo": "Desafio: trocar o pneu de um carro",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-algoritmos", "peso": 2 },
+        { "id": "m1-sequencia", "peso": 2 },
+        { "id": "m1-logica", "peso": 1 }
+      ],
+      "enunciado": "Elabore o algoritmo para trocar o pneu furado de um carro: coloque os passos na ordem certa.",
+      "itens": [
+        "Estacionar em local plano e acionar o freio de mão",
+        "Afrouxar os parafusos da roda com a chave",
+        "Levantar o carro com o macaco",
+        "Retirar os parafusos e o pneu furado",
+        "Colocar o pneu novo e apertar levemente os parafusos",
+        "Abaixar o carro",
+        "Apertar totalmente os parafusos",
+        "Guardar o pneu furado e as ferramentas"
+      ],
+      "dica": "Por segurança, os parafusos são afrouxados com o carro ainda no chão.",
+      "explicacao": "Primeiro garantimos a segurança do carro e afrouxamos os parafusos com o pneu apoiado no chão; só depois levantamos o carro, trocamos o pneu, abaixamos e apertamos tudo."
+    },
+    {
+      "id": "desafio1-pseudocodigo-da-media",
+      "tipo": "lacuna",
+      "titulo": "Desafio: pseudocódigo da média",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 2 },
+        { "id": "m1-entrada-processamento-saida", "peso": 2 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "Complete o pseudocódigo que lê duas notas, calcula a média e escreve o resultado.",
+      "modelo": "INÍCIO\n  {{1}} nota1\n  {{2}} nota2\n  media {{3}} (nota1 + nota2) / 2\n  {{4}} media\nFIM",
+      "lacunas": [
+        { "respostas": ["LEIA", "leia", "Leia"] },
+        { "respostas": ["LEIA", "leia", "Leia"] },
+        { "respostas": ["←", "<-"] },
+        { "respostas": ["ESCREVA", "escreva", "Escreva"] }
+      ],
+      "dica": "Duas linhas leem, uma guarda o resultado da conta e outra mostra o resultado.",
+      "explicacao": "LEIA recebe as notas (entrada), a seta guarda o resultado da conta (processamento) e ESCREVA mostra a média (saída)."
+    },
+    {
+      "id": "desafio1-aprovado-ou-nao",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: aprovado ou não?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-fluxogramas", "peso": 2 },
+        { "id": "m1-logica", "peso": 2 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "Siga o fluxograma abaixo. Se as notas digitadas forem 6 e 8, o que será escrito?",
+      "codigo": "(INÍCIO)\n   ↓\n/ Ler nota1 /\n/ Ler nota2 /\n   ↓\n[ media ← (nota1 + nota2) / 2 ]\n   ↓\n< media ≥ 7? >\n  Sim → / Escrever \"Aprovado\" /\n  Não → / Escrever \"Reprovado\" /\n   ↓\n(FIM)",
+      "opcoes": [
+        {
+          "texto": "Reprovado",
+          "confusao": "trata o valor igual ao limite como se ficasse abaixo dele"
+        },
+        { "texto": "7", "confusao": "escreve a média em vez do resultado da decisão" },
+        {
+          "texto": "Aprovado e Reprovado",
+          "confusao": "acha que os dois caminhos da decisão são executados"
+        },
+        "Aprovado"
+      ],
+      "correta": 3,
+      "dica": "Calcule a média e responda à pergunta do losango: 7 é maior ou igual a 7?",
+      "explicacao": "A média é (6 + 8) / 2 = 7. A condição é media ≥ 7, e 7 é igual a 7, então a resposta é Sim e o fluxo escreve Aprovado."
+    }
+  ]
+}

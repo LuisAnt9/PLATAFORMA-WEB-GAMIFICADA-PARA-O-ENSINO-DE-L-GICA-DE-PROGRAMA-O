@@ -1,0 +1,154 @@
+{
+  "id": "pseudocodigo",
+  "mundo": "mundo-1",
+  "titulo": "Pseudocódigo",
+  "foco": "Escrever algoritmos em linguagem próxima do português",
+  "posicao": 106,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Pseudocódigo é uma forma de escrever algoritmos com palavras do nosso dia a dia, sem as regras rígidas de uma linguagem de programação. O computador não executa pseudocódigo: ele serve para planejar e conversar sobre a solução antes de programar.\n\nNesta plataforma usamos estas palavras:\n- INÍCIO e FIM: abrem e fecham o algoritmo.\n- LEIA x: recebe um valor (entrada) e guarda em x.\n- ESCREVA x: mostra um valor (saída).\n- x ← valor: guarda o resultado de uma conta em x (a seta significa \"recebe\").\n\nCada instrução fica em uma linha, e o algoritmo é lido de cima para baixo.",
+  "exemplo": "Pseudocódigo para calcular a média de duas notas:\n\nINÍCIO\n  LEIA nota1\n  LEIA nota2\n  media ← (nota1 + nota2) / 2\n  ESCREVA media\nFIM\n\nPasso a passo:\n1. INÍCIO marca onde o algoritmo começa.\n2. LEIA nota1 e LEIA nota2 recebem as duas notas (entrada).\n3. media ← (nota1 + nota2) / 2 soma as notas e divide por 2 (processamento). O resultado fica guardado em media.\n4. ESCREVA media mostra o resultado (saída).\n5. FIM encerra o algoritmo.\n\nSe as notas forem 6 e 8, o algoritmo escreve 7.",
+  "revisao": "- Pseudocódigo é um algoritmo escrito em linguagem próxima do português.\n- O computador não executa pseudocódigo: ele serve para planejar.\n- LEIA recebe dados; ESCREVA mostra resultados; a seta (←) guarda o valor de uma conta.\n- INÍCIO e FIM delimitam o algoritmo, que é lido de cima para baixo.",
+  "exercicios": [
+    {
+      "id": "pseudo-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é pseudocódigo?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 3 }
+      ],
+      "enunciado": "O que é pseudocódigo?",
+      "opcoes": [
+        {
+          "texto": "Uma linguagem de programação que o computador executa diretamente",
+          "confusao": "acha que o pseudocódigo roda no computador"
+        },
+        {
+          "texto": "Um código falso, que não serve para nada",
+          "confusao": "acha que \"pseudo\" significa inútil"
+        },
+        "Uma forma de escrever algoritmos em linguagem próxima do português, para planejar a solução",
+        {
+          "texto": "Um programa escrito em JavaScript",
+          "confusao": "confunde pseudocódigo com uma linguagem de programação real"
+        }
+      ],
+      "correta": 2,
+      "dica": "Pense em para que ele serve: planejar antes de programar.",
+      "explicacao": "Pseudocódigo descreve o algoritmo com palavras comuns e sem regras rígidas. Para o computador executar, é preciso reescrevê-lo em uma linguagem de programação."
+    },
+    {
+      "id": "pseudo-comando-de-saida",
+      "tipo": "escolha",
+      "titulo": "Qual palavra mostra o resultado?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 3 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "No pseudocódigo desta plataforma, qual comando mostra um resultado ao usuário?",
+      "opcoes": [
+        { "texto": "LEIA", "confusao": "confunde mostrar um dado com receber um dado" },
+        "ESCREVA",
+        { "texto": "INÍCIO", "confusao": "confunde o começo do algoritmo com mostrar resultado" },
+        { "texto": "FIM", "confusao": "confunde encerrar o algoritmo com mostrar o resultado" }
+      ],
+      "correta": 1,
+      "dica": "O resultado é uma saída.",
+      "explicacao": "ESCREVA é o comando de saída. LEIA é de entrada, e INÍCIO e FIM apenas marcam onde o algoritmo começa e termina."
+    },
+    {
+      "id": "pseudo-complete-saudacao",
+      "tipo": "lacuna",
+      "titulo": "Complete o pseudocódigo",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 2 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "Complete o pseudocódigo que lê um nome e escreve uma saudação.",
+      "modelo": "INÍCIO\n  {{1}} nome\n  ESCREVA \"Olá, \", nome\n{{2}}",
+      "lacunas": [
+        { "respostas": ["LEIA", "leia", "Leia"] },
+        { "respostas": ["FIM", "fim", "Fim"] }
+      ],
+      "dica": "Uma palavra recebe o nome; a outra encerra o algoritmo.",
+      "explicacao": "LEIA recebe o nome (entrada), ESCREVA mostra a saudação (saída) e FIM encerra o algoritmo."
+    },
+    {
+      "id": "pseudo-soma",
+      "tipo": "interpretacao",
+      "titulo": "O que será escrito?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 3 }
+      ],
+      "enunciado": "O usuário digita 3 e depois 4. O que o algoritmo abaixo escreve?",
+      "codigo": "INÍCIO\n  LEIA a\n  LEIA b\n  soma ← a + b\n  ESCREVA soma\nFIM",
+      "opcoes": [
+        { "texto": "34", "confusao": "junta os valores em vez de somá-los" },
+        { "texto": "a + b", "confusao": "escreve a fórmula em vez do resultado da conta" },
+        { "texto": "3 e 4", "confusao": "acha que ESCREVA mostra as entradas lidas" },
+        "7"
+      ],
+      "correta": 3,
+      "dica": "Siga as linhas de cima para baixo, guardando o valor de cada variável.",
+      "explicacao": "a recebe 3 e b recebe 4. A linha soma ← a + b guarda 7 em soma, e ESCREVA mostra esse valor."
+    },
+    {
+      "id": "pseudo-desconto",
+      "tipo": "interpretacao",
+      "titulo": "Qual é o total?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 3 },
+        { "id": "m1-entrada-processamento-saida", "peso": 1 }
+      ],
+      "enunciado": "O usuário digita 200. O que o algoritmo abaixo escreve?",
+      "codigo": "INÍCIO\n  LEIA preco\n  desconto ← preco * 0,1\n  total ← preco - desconto\n  ESCREVA total\nFIM",
+      "opcoes": [
+        "180",
+        { "texto": "20", "confusao": "mostra o desconto em vez do total" },
+        { "texto": "200", "confusao": "ignora as contas e mostra a entrada" },
+        { "texto": "220", "confusao": "soma o desconto em vez de subtraí-lo" }
+      ],
+      "correta": 0,
+      "dica": "Calcule primeiro o desconto e depois o total.",
+      "explicacao": "O desconto é 200 * 0,1 = 20. O total é 200 - 20 = 180, e é isso que ESCREVA mostra."
+    },
+    {
+      "id": "pseudo-ordene-o-algoritmo",
+      "tipo": "ordenacao",
+      "titulo": "Ordene as linhas do pseudocódigo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m1-pseudocodigo", "peso": 3 },
+        { "id": "m1-sequencia", "peso": 2 }
+      ],
+      "enunciado": "Coloque as linhas na ordem certa para calcular o preço com desconto de 10%.",
+      "itens": [
+        "INÍCIO",
+        "LEIA preco",
+        "desconto ← preco * 0,1",
+        "total ← preco - desconto",
+        "ESCREVA total",
+        "FIM"
+      ],
+      "dica": "Cada linha usa um valor que precisa ter sido calculado antes.",
+      "explicacao": "Só dá para calcular o desconto depois de ler o preço, e o total só depois do desconto. O resultado é escrito por último, antes do FIM."
+    }
+  ]
+}

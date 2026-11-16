@@ -3,7 +3,7 @@
   "mundo": "mundo-2",
   "titulo": "Textos",
   "foco": "Percorrer e transformar sequências de caracteres",
-  "posicao": 6,
+  "posicao": 201,
   "diagnostica": false,
   "intro": "Um texto (string) é uma sequência de caracteres entre aspas. Cada caractere tem uma posição, começando em 0:\n\nconst palavra = \"casa\";\npalavra[0] // \"c\"\npalavra.length // 4\n\nDá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: \"A\" não é igual a \"a\".",
   "exemplo": "",

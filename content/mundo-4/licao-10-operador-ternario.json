@@ -1,0 +1,174 @@
+{
+  "id": "operador-ternario",
+  "mundo": "mundo-4",
+  "titulo": "Operador ternário",
+  "foco": "Escrever uma decisão simples em uma só linha",
+  "posicao": 409,
+  "diagnostica": true,
+  "formato": "completa",
+  "complementar": true,
+  "intro": "Este é um conteúdo complementar: ele não bloqueia a liberação do que vem a seguir. Vale estudar, mas você pode seguir em frente sem concluí-lo.\n\nO operador ternário é um atalho para um if/else simples que escolhe um valor:\n\ncondição ? valorSeVerdadeira : valorSeFalsa\n\nEle é uma expressão: produz um valor, que pode ser guardado em uma variável ou devolvido por uma função. Compare:\n\nlet texto;\nif (idade >= 18) { texto = \"maior\"; } else { texto = \"menor\"; }\n\nconst texto = idade >= 18 ? \"maior\" : \"menor\";\n\nUse o ternário para decisões curtas. Quando houver muitos caminhos ou blocos com várias instruções, prefira if/else, que fica mais legível.",
+  "exemplo": "const nota = 8;\nconst situacao = nota >= 7 ? \"Aprovado\" : \"Reprovado\";\nconsole.log(situacao);\n\nPasso a passo:\n1. A condição nota >= 7 é testada: 8 >= 7 é true.\n2. Como é verdadeira, o ternário resulta no valor antes dos dois-pontos: \"Aprovado\".\n3. Esse valor é guardado em situacao e mostrado na tela.\n\nSe a nota fosse 5, o resultado seria o valor depois dos dois-pontos: \"Reprovado\".",
+  "revisao": "- condição ? valorSeVerdadeira : valorSeFalsa: um if/else que produz um valor.\n- É uma expressão: pode ser guardada em variável ou usada em um return.\n- Bom para decisões curtas; para muitos caminhos, prefira if/else.\n- Esta lição é complementar e não bloqueia a liberação do que vem depois.",
+  "exercicios": [
+    {
+      "id": "ternario-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é o ternário?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 }
+      ],
+      "enunciado": "O que é o operador ternário?",
+      "opcoes": [
+        {
+          "texto": "Um operador que compara três valores ao mesmo tempo",
+          "confusao": "acha que \"ternário\" significa comparar três valores"
+        },
+        {
+          "texto": "Um laço que repete uma instrução três vezes",
+          "confusao": "confunde ternário com repetição"
+        },
+        {
+          "texto": "Uma forma de declarar uma variável com três valores",
+          "confusao": "confunde ternário com declaração"
+        },
+        "Um atalho para um if/else simples que produz um valor"
+      ],
+      "correta": 3,
+      "dica": "Ele tem três partes: condição, valor se verdadeira e valor se falsa.",
+      "explicacao": "O ternário é um if/else escrito em uma expressão só: condição ? valorSeVerdadeira : valorSeFalsa."
+    },
+    {
+      "id": "ternario-situacao",
+      "tipo": "interpretacao",
+      "titulo": "Aprovado ou reprovado?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nota = 5;\nconst situacao = nota >= 7 ? \"Aprovado\" : \"Reprovado\";\nconsole.log(situacao);",
+      "opcoes": [
+        "Reprovado",
+        { "texto": "Aprovado", "confusao": "acha que o ternário devolve sempre o primeiro valor" },
+        { "texto": "true", "confusao": "acha que o ternário devolve o resultado da condição" },
+        { "texto": "Aprovado Reprovado", "confusao": "acha que o ternário devolve os dois valores" }
+      ],
+      "correta": 0,
+      "dica": "5 >= 7 é verdadeiro ou falso?",
+      "explicacao": "A condição é falsa, então o ternário resulta no valor depois dos dois-pontos: Reprovado."
+    },
+    {
+      "id": "ternario-complete-os-simbolos",
+      "tipo": "lacuna",
+      "titulo": "Complete o ternário",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 2 }
+      ],
+      "enunciado": "Complete o símbolo que separa a condição do primeiro valor.",
+      "modelo": "const idade = 20;\nconst texto = idade >= 18 {{1}} \"maior\" : \"menor\";",
+      "lacunas": [
+        { "respostas": ["?"] }
+      ],
+      "dica": "Ele aparece logo depois da condição.",
+      "explicacao": "O ponto de interrogação vem depois da condição e os dois-pontos separam os dois valores."
+    },
+    {
+      "id": "ternario-par-ou-impar",
+      "tipo": "codigo",
+      "titulo": "Par ou ímpar em uma linha",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `parOuImpar(n)` que devolve \"par\" ou \"impar\" usando o operador ternário, em um único return.",
+      "funcao": "parOuImpar",
+      "codigoInicial": "function parOuImpar(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2], "esperado": "par" },
+        { "entrada": [9], "esperado": "impar" },
+        { "entrada": [0], "esperado": "par" }
+      ],
+      "dica": "return condição ? \"par\" : \"impar\";",
+      "comentario": "O ternário escolhe o valor a devolver conforme n % 2 === 0."
+    },
+    {
+      "id": "ternario-valor-absoluto",
+      "tipo": "codigo",
+      "titulo": "Valor absoluto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `absoluto(n)` que devolve o número sem sinal (por exemplo, -5 vira 5). Use o operador ternário e não use Math.abs.",
+      "funcao": "absoluto",
+      "codigoInicial": "function absoluto(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": 5 },
+        { "entrada": [-5], "esperado": 5 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-2.5], "esperado": 2.5 }
+      ],
+      "dica": "Se n for negativo, devolva -n; senão, devolva n.",
+      "comentario": "Quando n < 0, o oposto -n é positivo; caso contrário, o próprio n já serve."
+    },
+    {
+      "id": "ternario-corrija-a-ordem",
+      "tipo": "corrigir",
+      "titulo": "Corrija o ternário",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 }
+      ],
+      "enunciado": "A função `situacao(nota)` deveria devolver \"aprovado\" para 7 ou mais, mas devolve o contrário. Corrija o defeito.",
+      "funcao": "situacao",
+      "codigoInicial": "function situacao(nota) {\n  return nota >= 7 ? \"reprovado\" : \"aprovado\";\n}\n",
+      "testes": [
+        { "entrada": [8], "esperado": "aprovado" },
+        { "entrada": [7], "esperado": "aprovado" },
+        { "entrada": [3], "esperado": "reprovado" }
+      ],
+      "dica": "Qual valor fica depois do ponto de interrogação?",
+      "comentario": "O valor depois do ? é usado quando a condição é verdadeira. Os dois textos estavam trocados."
+    },
+    {
+      "id": "ternario-aninhado",
+      "tipo": "interpretacao",
+      "titulo": "Ternário em cadeia",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-ternario", "peso": 3 },
+        { "id": "m4-else-if", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const n = 0;\nconst texto = n > 0 ? \"positivo\" : n < 0 ? \"negativo\" : \"zero\";\nconsole.log(texto);",
+      "opcoes": [
+        { "texto": "positivo", "confusao": "avalia n > 0 como verdadeiro" },
+        { "texto": "negativo", "confusao": "avalia n < 0 como verdadeiro" },
+        "zero",
+        { "texto": "true", "confusao": "acha que o ternário devolve o resultado da condição" }
+      ],
+      "correta": 2,
+      "dica": "Leia como uma cadeia if / else if / else.",
+      "explicacao": "0 > 0 é falso; 0 < 0 também é falso; resta o último valor: zero."
+    }
+  ]
+}

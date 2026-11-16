@@ -24,6 +24,7 @@ const mod = (id: string, position: number) => ({
   title: id.toUpperCase(),
   focus: "",
   intro: "",
+  optional: false,
   worldId: null,
   example: "",
   review: "",
@@ -87,5 +88,51 @@ describe("moduleStates", () => {
     const all = solved(...catalog.exercises.map((e) => e.id));
     const s = moduleStates(catalog, all);
     expect(Object.values(s).every((m) => m.unlocked && m.complete)).toBe(true);
+  });
+});
+
+describe("lições complementares (optional)", () => {
+  const cat = (opcional: boolean): Catalog => ({
+    modules: [mod("a", 1), { ...mod("b", 2), optional: opcional }, mod("c", 3)],
+    exercises: [
+      ...["a1", "a2"].map((i) => ex(i, "a")),
+      ...["b1", "b2"].map((i) => ex(i, "b")),
+      ...["c1", "c2"].map((i) => ex(i, "c")),
+    ],
+  });
+  const feitos = (...ids: string[]): Progress =>
+    Object.fromEntries(
+      ids.map((id) => [
+        id,
+        { attempts: 1, solved: true, firstTry: true, xp: 10 },
+      ]),
+    );
+
+  it("sem ser complementar, a lição do meio trava a seguinte", () => {
+    const s = moduleStates(cat(false), feitos("a1", "a2"));
+    expect(s.b.unlocked).toBe(true);
+    expect(s.c.unlocked).toBe(false);
+    expect(s.c.blockedBy).toEqual({ id: "b", title: "B" });
+  });
+  it("sendo complementar, a seguinte libera sem concluí-la", () => {
+    const s = moduleStates(cat(true), feitos("a1", "a2"));
+    expect(s.b.unlocked).toBe(true); // a complementar também abre depois da anterior
+    expect(s.c.unlocked).toBe(true);
+    expect(s.c.blockedBy).toBeNull();
+  });
+  it("a complementar não libera nada por si só: a seguinte depende da última lição obrigatória", () => {
+    const s = moduleStates(cat(true), feitos("b1", "b2"));
+    expect(s.b.complete).toBe(true);
+    expect(s.c.unlocked).toBe(false);
+    expect(s.c.blockedBy).toEqual({ id: "a", title: "A" });
+  });
+  it("complementar no começo não trava a primeira lição obrigatória", () => {
+    const c: Catalog = {
+      modules: [{ ...mod("x", 1), optional: true }, mod("y", 2)],
+      exercises: [ex("x1", "x"), ex("y1", "y")],
+    };
+    const s = moduleStates(c, {});
+    expect(s.x.unlocked).toBe(true);
+    expect(s.y.unlocked).toBe(true);
   });
 });

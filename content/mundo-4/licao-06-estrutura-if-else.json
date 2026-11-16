@@ -1,0 +1,191 @@
+{
+  "id": "estrutura-if-else",
+  "mundo": "mundo-4",
+  "titulo": "Estrutura if/else",
+  "foco": "Escolher entre dois caminhos",
+  "posicao": 405,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Muitas vezes precisamos de dois caminhos: um para quando a condição é verdadeira e outro para quando é falsa. A estrutura if/else faz isso:\n\nif (condição) {\n  // executa se for verdadeira\n} else {\n  // executa se for falsa\n}\n\nExatamente um dos dois blocos é executado, nunca os dois e nunca nenhum. O else não tem condição: ele cobre \"todo o resto\".\n\nCuidado: dois if seguidos não são um if/else. Em if (x > 5) {...} if (x <= 5) {...}, as duas condições são testadas separadamente; com else, o segundo teste não é necessário.\n\nUm uso clássico é separar par de ímpar: um número é par quando o resto da divisão por 2 é zero.",
+  "exemplo": "const numero = 7;\n\nif (numero % 2 === 0) {\n  console.log(\"Par\");\n} else {\n  console.log(\"Ímpar\");\n}\n\nPasso a passo:\n1. numero % 2 vale 1, e 1 === 0 é false.\n2. Como a condição é falsa, o bloco do if é ignorado e o bloco do else executa.\n3. O programa mostra Ímpar.\n\nCom numero = 8, 8 % 2 é 0, a condição seria verdadeira e o programa mostraria Par.",
+  "revisao": "- if/else escolhe entre dois caminhos: exatamente um dos blocos executa.\n- O else não tem condição: vale quando a condição do if é falsa.\n- Dois if seguidos são testes independentes; if/else são caminhos excludentes.\n- Número par: n % 2 === 0.",
+  "exercicios": [
+    {
+      "id": "ifelse-o-que-faz-o-else",
+      "tipo": "escolha",
+      "titulo": "O que faz o else?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 }
+      ],
+      "enunciado": "O que o else faz em uma estrutura if/else?",
+      "opcoes": [
+        {
+          "texto": "Executa um bloco sempre, depois do if",
+          "confusao": "acha que o else executa em qualquer caso"
+        },
+        "Executa um bloco quando a condição do if for falsa",
+        { "texto": "Testa uma segunda condição", "confusao": "confunde else com else if" },
+        { "texto": "Repete o bloco do if", "confusao": "confunde else com repetição" }
+      ],
+      "correta": 1,
+      "dica": "O else cobre o \"senão\".",
+      "explicacao": "O bloco do else só executa quando a condição do if é falsa."
+    },
+    {
+      "id": "ifelse-par-ou-impar",
+      "tipo": "interpretacao",
+      "titulo": "Par ou ímpar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const numero = 7;\nif (numero % 2 === 0) {\n  console.log(\"Par\");\n} else {\n  console.log(\"Ímpar\");\n}",
+      "opcoes": [
+        { "texto": "Par", "confusao": "acha que 7 % 2 vale zero" },
+        { "texto": "Par\nÍmpar", "confusao": "acha que os dois blocos executam" },
+        { "texto": "7", "confusao": "mostra o valor da variável em vez da mensagem" },
+        "Ímpar"
+      ],
+      "correta": 3,
+      "dica": "7 % 2 é o resto de 7 dividido por 2.",
+      "explicacao": "7 % 2 vale 1, então a condição é falsa e o else executa: Ímpar."
+    },
+    {
+      "id": "ifelse-complete-o-else",
+      "tipo": "lacuna",
+      "titulo": "Complete o else",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 2 }
+      ],
+      "enunciado": "Complete a palavra que inicia o caminho alternativo.",
+      "modelo": "const idade = 15;\nif (idade >= 18) {\n  console.log(\"Maior\");\n} {{1}} {\n  console.log(\"Menor\");\n}",
+      "lacunas": [
+        { "respostas": ["else"] }
+      ],
+      "dica": "A palavra vem do inglês e significa \"senão\".",
+      "explicacao": "else abre o bloco que executa quando a condição do if é falsa."
+    },
+    {
+      "id": "ifelse-reprovado",
+      "tipo": "interpretacao",
+      "titulo": "Aprovado ou reprovado?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const nota = 6;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n} else {\n  console.log(\"Reprovado\");\n}\nconsole.log(\"Fim\");",
+      "opcoes": [
+        "Reprovado\nFim",
+        { "texto": "Aprovado\nFim", "confusao": "avalia 6 >= 7 como verdadeiro" },
+        { "texto": "Aprovado\nReprovado\nFim", "confusao": "acha que os dois blocos executam" },
+        { "texto": "Reprovado", "confusao": "acha que o programa termina dentro do else" }
+      ],
+      "correta": 0,
+      "dica": "6 >= 7 é falso. Depois do if/else, o programa continua.",
+      "explicacao": "A condição é falsa, então executa o else (Reprovado). Depois do bloco, o programa mostra Fim."
+    },
+    {
+      "id": "ifelse-par-ou-impar-funcao",
+      "tipo": "codigo",
+      "titulo": "Par ou ímpar",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `parOuImpar(n)` que devolve \"par\" se n for par e \"impar\" caso contrário. Use if/else.",
+      "funcao": "parOuImpar",
+      "codigoInicial": "function parOuImpar(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": "par" },
+        { "entrada": [7], "esperado": "impar" },
+        { "entrada": [0], "esperado": "par" },
+        { "entrada": [-3], "esperado": "impar" }
+      ],
+      "dica": "Um número é par quando o resto da divisão por 2 é zero.",
+      "comentario": "n % 2 === 0 identifica os pares. O else cobre todos os outros números (inclusive negativos ímpares)."
+    },
+    {
+      "id": "ifelse-o-maior-de-dois",
+      "tipo": "codigo",
+      "titulo": "O maior de dois",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `maior(a, b)` que devolve o maior entre dois números. Use if/else.",
+      "funcao": "maior",
+      "codigoInicial": "function maior(a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [3, 5], "esperado": 5 },
+        { "entrada": [9, 2], "esperado": 9 },
+        { "entrada": [4, 4], "esperado": 4 },
+        { "entrada": [-1, -7], "esperado": -1 }
+      ],
+      "dica": "Se a for maior, devolva a; senão, devolva b.",
+      "comentario": "Se a > b, o maior é a; no caso contrário (inclusive empate), b serve."
+    },
+    {
+      "id": "ifelse-corrija-o-else-que-faltou",
+      "tipo": "corrigir",
+      "titulo": "Corrija o else que faltou",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 }
+      ],
+      "enunciado": "A função `situacao(nota)` deveria devolver \"aprovado\" para 7 ou mais e \"reprovado\" para os outros, mas devolve \"reprovado\" sempre. Corrija o defeito.",
+      "funcao": "situacao",
+      "codigoInicial": "function situacao(nota) {\n  let texto = \"\";\n  if (nota >= 7) {\n    texto = \"aprovado\";\n  }\n  texto = \"reprovado\";\n  return texto;\n}\n",
+      "testes": [
+        { "entrada": [8], "esperado": "aprovado" },
+        { "entrada": [5], "esperado": "reprovado" },
+        { "entrada": [7], "esperado": "aprovado" },
+        { "entrada": [6.9], "esperado": "reprovado" }
+      ],
+      "dica": "A linha que define \"reprovado\" está fora de qualquer else: ela executa sempre.",
+      "comentario": "A atribuição de \"reprovado\" ficava depois do if e sobrescrevia o resultado. Colocando-a dentro de um else, ela só executa quando a nota é menor que 7."
+    },
+    {
+      "id": "ifelse-dois-pares-de-blocos",
+      "tipo": "interpretacao",
+      "titulo": "Duas decisões",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-if-else", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const x = 7;\nif (x > 5) {\n  console.log(\"A\");\n} else {\n  console.log(\"B\");\n}\nif (x > 8) {\n  console.log(\"C\");\n} else {\n  console.log(\"D\");\n}",
+      "opcoes": [
+        { "texto": "A\nB\nC\nD", "confusao": "acha que todos os blocos executam" },
+        { "texto": "A\nC", "confusao": "avalia a segunda condição como verdadeira" },
+        "A\nD",
+        { "texto": "B\nD", "confusao": "avalia a primeira condição como falsa" }
+      ],
+      "correta": 2,
+      "dica": "São dois if/else independentes: cada um escolhe o seu caminho.",
+      "explicacao": "7 > 5 é true (A). Já 7 > 8 é false, então o segundo executa o else (D)."
+    }
+  ]
+}

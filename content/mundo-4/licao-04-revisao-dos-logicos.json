@@ -1,0 +1,195 @@
+{
+  "id": "revisao-dos-logicos",
+  "mundo": "mundo-4",
+  "titulo": "Revisão dos operadores lógicos",
+  "foco": "Revisar &&, || e ! para montar condições com mais de uma regra",
+  "posicao": 403,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Muitas decisões dependem de mais de uma regra. Os operadores lógicos, que você viu no Mundo 3, combinam condições:\n- && (E): true somente se as duas condições são true;\n- || (OU): true se pelo menos uma é true;\n- ! (NÃO): inverte o resultado.\n\nTraduzindo: \"idade entre 18 e 65\" vira idade >= 18 && idade <= 65 (repita a variável nas duas comparações!); \"criança ou idoso\" vira idade < 12 || idade >= 60; \"não é fim de semana\" vira !ehFimDeSemana.\n\nUma regra útil, a lei de De Morgan, mostra que !(a && b) equivale a !a || !b, e que !(a || b) equivale a !a && !b: ao inverter uma combinação, trocamos E por OU e invertemos cada parte.",
+  "exemplo": "const idade = 70;\nconst ehCrianca = idade < 12;\nconst ehIdoso = idade >= 60;\nconsole.log(ehCrianca || ehIdoso);            // true  (tem desconto)\nconsole.log(idade >= 18 && idade <= 65);      // false (fora da faixa)\nconsole.log(!(idade >= 18 && idade <= 65));   // true\n\nPasso a passo:\n1. ehCrianca é false e ehIdoso é true: o || resulta em true.\n2. 70 é maior que 18, mas não é menor ou igual a 65: o && resulta em false.\n3. O ! inverte esse false em true.",
+  "revisao": "- && exige as duas condições; || aceita uma delas; ! inverte.\n- \"Entre 18 e 65\" é idade >= 18 && idade <= 65.\n- \"Criança ou idoso\" é idade < 12 || idade >= 60.\n- De Morgan: !(a && b) é !a || !b; !(a || b) é !a && !b.\n- Use parênteses quando misturar && e ||.",
+  "exercicios": [
+    {
+      "id": "revlog-entre-dois-valores",
+      "tipo": "escolha",
+      "titulo": "Entre 18 e 65",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "Como se escreve \"a idade está entre 18 e 65 (inclusive)\"?",
+      "opcoes": [
+        {
+          "texto": "idade >= 18 || idade <= 65",
+          "confusao": "usa OU, que fica verdadeiro para quase qualquer número"
+        },
+        {
+          "texto": "18 <= idade <= 65",
+          "confusao": "escreve como na matemática, mas o JavaScript avalia de outra forma"
+        },
+        "idade >= 18 && idade <= 65",
+        {
+          "texto": "idade >= 18 && <= 65",
+          "confusao": "esquece de repetir a variável na segunda comparação"
+        }
+      ],
+      "correta": 2,
+      "dica": "As duas condições precisam valer ao mesmo tempo, cada uma com a variável.",
+      "explicacao": "O && exige as duas comparações verdadeiras: idade >= 18 e idade <= 65."
+    },
+    {
+      "id": "revlog-crianca-ou-idoso",
+      "tipo": "escolha",
+      "titulo": "Criança ou idoso",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "Como se escreve \"a idade é menor que 12 OU maior ou igual a 60\"?",
+      "opcoes": [
+        { "texto": "idade < 12 && idade >= 60", "confusao": "usa E, que nenhum número satisfaz" },
+        "idade < 12 || idade >= 60",
+        { "texto": "idade < 12 || 60", "confusao": "esquece de comparar a variável com o 60" },
+        {
+          "texto": "!(idade < 12) || idade >= 60",
+          "confusao": "inverte a primeira condição sem querer"
+        }
+      ],
+      "correta": 1,
+      "dica": "Basta uma das duas condições ser verdadeira.",
+      "explicacao": "O || aceita que qualquer um dos lados seja verdadeiro: idade < 12 || idade >= 60."
+    },
+    {
+      "id": "revlog-tabela-verdade",
+      "tipo": "interpretacao",
+      "titulo": "Combinações básicas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(true && true);\nconsole.log(true && false);\nconsole.log(false || true);\nconsole.log(!true);",
+      "opcoes": [
+        {
+          "texto": "true\ntrue\ntrue\ntrue",
+          "confusao": "acha que o && só precisa de um lado verdadeiro"
+        },
+        {
+          "texto": "true\nfalse\nfalse\nfalse",
+          "confusao": "acha que o || precisa dos dois lados verdadeiros"
+        },
+        { "texto": "true\nfalse\ntrue\ntrue", "confusao": "esquece que o ! inverte o valor" },
+        "true\nfalse\ntrue\nfalse"
+      ],
+      "correta": 3,
+      "dica": "Use a tabela-verdade do Mundo 3.",
+      "explicacao": "true && true é true; true && false é false; false || true é true; e !true é false."
+    },
+    {
+      "id": "revlog-tem-desconto",
+      "tipo": "codigo",
+      "titulo": "Tem desconto?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `temDesconto(idade)` que devolve true para crianças (menores de 12 anos) e para idosos (60 anos ou mais), e false para os demais.",
+      "funcao": "temDesconto",
+      "codigoInicial": "function temDesconto(idade) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [10], "esperado": true },
+        { "entrada": [12], "esperado": false },
+        { "entrada": [59], "esperado": false },
+        { "entrada": [60], "esperado": true },
+        { "entrada": [70], "esperado": true }
+      ],
+      "dica": "As duas regras valem de forma independente: basta uma delas.",
+      "comentario": "idade < 12 || idade >= 60 é true quando a pessoa é criança ou idosa."
+    },
+    {
+      "id": "revlog-corrija-o-fim-de-semana",
+      "tipo": "corrigir",
+      "titulo": "Corrija o fim de semana",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "A função `ehFimDeSemana(dia)` deveria devolver true para \"sábado\" e \"domingo\", mas devolve sempre false. Corrija o defeito.",
+      "funcao": "ehFimDeSemana",
+      "codigoInicial": "function ehFimDeSemana(dia) {\n  return dia === \"sábado\" && dia === \"domingo\";\n}\n",
+      "testes": [
+        { "entrada": ["sábado"], "esperado": true },
+        { "entrada": ["domingo"], "esperado": true },
+        { "entrada": ["segunda"], "esperado": false },
+        { "entrada": ["sexta"], "esperado": false }
+      ],
+      "dica": "Um dia não pode ser sábado e domingo ao mesmo tempo.",
+      "comentario": "Com &&, o dia teria que ser igual aos dois valores ao mesmo tempo, o que nunca acontece. Com ||, basta ser um dos dois."
+    },
+    {
+      "id": "revlog-parenteses-mudam-o-resultado",
+      "tipo": "interpretacao",
+      "titulo": "Parênteses e lógica",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-precedencia", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const temCartao = true;\nconst temDinheiro = false;\nconst estaAberto = false;\nconsole.log((temCartao || temDinheiro) && estaAberto);\nconsole.log(temCartao || temDinheiro && estaAberto);\nconsole.log(!estaAberto);",
+      "opcoes": [
+        "false\ntrue\ntrue",
+        {
+          "texto": "true\ntrue\ntrue",
+          "confusao": "ignora o efeito dos parênteses na primeira linha"
+        },
+        { "texto": "false\nfalse\ntrue", "confusao": "resolve o || antes do && na segunda linha" },
+        { "texto": "false\ntrue\nfalse", "confusao": "esquece que o ! inverte false em true" }
+      ],
+      "correta": 0,
+      "dica": "Na segunda linha, o && é resolvido antes do ||.",
+      "explicacao": "Linha 1: (true || false) é true e true && false é false. Linha 2: false && false é false, e true || false é true. Linha 3: !false é true."
+    },
+    {
+      "id": "revlog-de-morgan",
+      "tipo": "escolha",
+      "titulo": "Invertendo uma combinação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-revisao-logicos", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "Qual expressão é equivalente a !(a && b)?",
+      "opcoes": [
+        { "texto": "!a && !b", "confusao": "inverte os operandos, mas mantém o &&" },
+        { "texto": "a || b", "confusao": "troca o && por || sem inverter os operandos" },
+        "!a || !b",
+        { "texto": "!a || b", "confusao": "inverte só um dos operandos" }
+      ],
+      "correta": 2,
+      "dica": "Ao inverter uma combinação, o E vira OU e cada parte é invertida.",
+      "explicacao": "Pela lei de De Morgan, !(a && b) equivale a !a || !b: o resultado é true quando pelo menos uma das partes é false."
+    }
+  ]
+}

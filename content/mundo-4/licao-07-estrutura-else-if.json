@@ -1,0 +1,209 @@
+{
+  "id": "estrutura-else-if",
+  "mundo": "mundo-4",
+  "titulo": "Estrutura else if",
+  "foco": "Decidir entre várias faixas ou opções",
+  "posicao": 406,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Quando há mais de dois caminhos, encadeamos condições com else if:\n\nif (condição1) {\n  ...\n} else if (condição2) {\n  ...\n} else if (condição3) {\n  ...\n} else {\n  ...\n}\n\nO computador testa as condições de cima para baixo. A primeira que for verdadeira executa o seu bloco, e todas as outras são ignoradas, mesmo que também fossem verdadeiras. O else final, que é opcional, cobre o que sobrou.\n\nPor isso a ordem importa: coloque as condições mais específicas antes das mais gerais. Em uma escala de notas, se você testar nota >= 5 antes de nota >= 7, quem tirou 9 cai na primeira faixa e nunca chega à segunda.\n\nE atenção: vários if seguidos não são a mesma coisa que else if: cada if é testado de forma independente.",
+  "exemplo": "const nota = 7.5;\n\nif (nota >= 9) {\n  console.log(\"Excelente\");\n} else if (nota >= 7) {\n  console.log(\"Bom\");\n} else if (nota >= 5) {\n  console.log(\"Regular\");\n} else {\n  console.log(\"Insuficiente\");\n}\n\nPasso a passo:\n1. 7.5 >= 9 é false: segue para a próxima condição.\n2. 7.5 >= 7 é true: executa o bloco e mostra Bom.\n3. As condições seguintes nem são testadas, mesmo que 7.5 >= 5 também seja verdadeiro.",
+  "revisao": "- else if encadeia várias condições: só o primeiro bloco verdadeiro executa.\n- As condições são testadas de cima para baixo: a ordem importa.\n- Coloque as faixas mais específicas antes das mais gerais.\n- O else final cobre os demais casos.\n- else if não é o mesmo que vários if seguidos.",
+  "exercicios": [
+    {
+      "id": "elseif-quantos-blocos-executam",
+      "tipo": "escolha",
+      "titulo": "Quantos blocos executam?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 }
+      ],
+      "enunciado": "Em uma cadeia if / else if / else, quantos blocos são executados?",
+      "opcoes": [
+        {
+          "texto": "Todos os blocos cujas condições forem verdadeiras",
+          "confusao": "acha que executa todos os blocos verdadeiros, como em vários if separados"
+        },
+        "No máximo um: o primeiro com condição verdadeira (ou o else)",
+        {
+          "texto": "Todos os blocos, sempre",
+          "confusao": "acha que o else if não impede a execução dos blocos seguintes"
+        },
+        {
+          "texto": "Sempre o último bloco",
+          "confusao": "acha que a cadeia sempre termina no último bloco"
+        }
+      ],
+      "correta": 1,
+      "dica": "Depois que uma condição é verdadeira, o computador ignora o resto da cadeia.",
+      "explicacao": "Em uma cadeia if / else if / else, só o primeiro bloco com condição verdadeira executa. Se nenhum for verdadeiro, o else executa."
+    },
+    {
+      "id": "elseif-escala-de-notas",
+      "tipo": "interpretacao",
+      "titulo": "Qual faixa?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nota = 7.5;\nif (nota >= 9) {\n  console.log(\"Excelente\");\n} else if (nota >= 7) {\n  console.log(\"Bom\");\n} else if (nota >= 5) {\n  console.log(\"Regular\");\n} else {\n  console.log(\"Insuficiente\");\n}",
+      "opcoes": [
+        { "texto": "Excelente", "confusao": "acha que 7.5 é maior ou igual a 9" },
+        { "texto": "Bom\nRegular", "confusao": "acha que os blocos seguintes também executam" },
+        { "texto": "Regular", "confusao": "pula a faixa correta" },
+        "Bom"
+      ],
+      "correta": 3,
+      "dica": "Teste as condições de cima para baixo e pare na primeira verdadeira.",
+      "explicacao": "7.5 >= 9 é falso; 7.5 >= 7 é verdadeiro, então mostra Bom e ignora o resto."
+    },
+    {
+      "id": "elseif-complete-a-cadeia",
+      "tipo": "lacuna",
+      "titulo": "Complete a cadeia",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 2 }
+      ],
+      "enunciado": "Complete a palavra que liga a segunda condição à primeira.",
+      "modelo": "const n = -4;\nif (n > 0) {\n  console.log(\"positivo\");\n} {{1}} if (n < 0) {\n  console.log(\"negativo\");\n} else {\n  console.log(\"zero\");\n}",
+      "lacunas": [
+        { "respostas": ["else"] }
+      ],
+      "dica": "A segunda condição só é testada se a primeira for falsa.",
+      "explicacao": "else if testa uma nova condição quando a anterior foi falsa."
+    },
+    {
+      "id": "elseif-ordem-errada",
+      "tipo": "interpretacao",
+      "titulo": "A ordem importa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nota = 9.5;\nif (nota >= 5) {\n  console.log(\"Regular\");\n} else if (nota >= 7) {\n  console.log(\"Bom\");\n} else if (nota >= 9) {\n  console.log(\"Excelente\");\n}",
+      "opcoes": [
+        "Regular",
+        {
+          "texto": "Excelente",
+          "confusao": "acha que o computador escolhe a melhor faixa, e não a primeira verdadeira"
+        },
+        {
+          "texto": "Regular\nBom\nExcelente",
+          "confusao": "acha que todas as condições verdadeiras executam"
+        },
+        { "texto": "Nada", "confusao": "acha que a nota não se encaixa em nenhuma faixa" }
+      ],
+      "correta": 0,
+      "dica": "A primeira condição já é verdadeira para 9.5.",
+      "explicacao": "9.5 >= 5 é verdadeiro, então mostra Regular e as demais faixas nem são testadas. As faixas deveriam estar da maior para a menor."
+    },
+    {
+      "id": "elseif-classificar-nota",
+      "tipo": "codigo",
+      "titulo": "Classificar a nota",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `classificarNota(nota)` que devolve \"A\" para 9 ou mais, \"B\" para 7 ou mais, \"C\" para 5 ou mais e \"D\" para o resto.",
+      "funcao": "classificarNota",
+      "codigoInicial": "function classificarNota(nota) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [9.5], "esperado": "A" },
+        { "entrada": [9], "esperado": "A" },
+        { "entrada": [8], "esperado": "B" },
+        { "entrada": [7], "esperado": "B" },
+        { "entrada": [6], "esperado": "C" },
+        { "entrada": [5], "esperado": "C" },
+        { "entrada": [4.9], "esperado": "D" }
+      ],
+      "dica": "Comece pela faixa mais alta e vá descendo.",
+      "comentario": "As condições vão da maior faixa para a menor, e o else cobre as notas abaixo de 5."
+    },
+    {
+      "id": "elseif-sinal-do-numero",
+      "tipo": "codigo",
+      "titulo": "Sinal do número",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `sinal(n)` que devolve \"positivo\" se n for maior que zero, \"negativo\" se for menor que zero e \"zero\" se for zero.",
+      "funcao": "sinal",
+      "codigoInicial": "function sinal(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": "positivo" },
+        { "entrada": [-2], "esperado": "negativo" },
+        { "entrada": [0], "esperado": "zero" },
+        { "entrada": [0.1], "esperado": "positivo" }
+      ],
+      "dica": "Três caminhos: positivo, negativo e o que sobrar.",
+      "comentario": "if (n > 0) cobre os positivos, else if (n < 0) os negativos, e o else, o zero."
+    },
+    {
+      "id": "elseif-corrija-a-ordem",
+      "tipo": "corrigir",
+      "titulo": "Corrija a ordem das faixas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 }
+      ],
+      "enunciado": "A função `faixa(nota)` deveria devolver \"Bom\" para notas de 7 a 8.9, mas devolve \"Regular\" para quem tira 8. Corrija o defeito.",
+      "funcao": "faixa",
+      "codigoInicial": "function faixa(nota) {\n  if (nota >= 5) {\n    return \"Regular\";\n  } else if (nota >= 7) {\n    return \"Bom\";\n  } else {\n    return \"Insuficiente\";\n  }\n}\n",
+      "testes": [
+        { "entrada": [8], "esperado": "Bom" },
+        { "entrada": [6], "esperado": "Regular" },
+        { "entrada": [3], "esperado": "Insuficiente" },
+        { "entrada": [7], "esperado": "Bom" },
+        { "entrada": [5], "esperado": "Regular" }
+      ],
+      "dica": "Qual condição pega todo mundo que tem 7 ou mais antes da hora?",
+      "comentario": "nota >= 5 é verdadeira também para 8, então a faixa Bom nunca era alcançada. Testando >= 7 antes de >= 5, cada nota cai na faixa certa."
+    },
+    {
+      "id": "elseif-versus-ifs-separados",
+      "tipo": "interpretacao",
+      "titulo": "else if e if separado",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const n = 15;\nif (n % 3 === 0) {\n  console.log(\"Fizz\");\n} else if (n % 5 === 0) {\n  console.log(\"Buzz\");\n}\nif (n % 3 === 0) {\n  console.log(\"Fizz2\");\n}\nif (n % 5 === 0) {\n  console.log(\"Buzz2\");\n}",
+      "opcoes": [
+        {
+          "texto": "Fizz\nBuzz\nFizz2\nBuzz2",
+          "confusao": "acha que o else if também executa quando o if anterior foi verdadeiro"
+        },
+        { "texto": "Fizz\nFizz2", "confusao": "acha que só um bloco executa em todo o programa" },
+        "Fizz\nFizz2\nBuzz2",
+        { "texto": "Buzz\nFizz2\nBuzz2", "confusao": "acha que o else if é testado antes do if" }
+      ],
+      "correta": 2,
+      "dica": "A primeira cadeia executa um bloco só; os dois if finais são independentes.",
+      "explicacao": "15 é divisível por 3 e por 5. Na primeira cadeia, só o primeiro bloco verdadeiro executa (Fizz). Os dois if seguintes são testados separadamente, e os dois são verdadeiros (Fizz2 e Buzz2)."
+    }
+  ]
+}

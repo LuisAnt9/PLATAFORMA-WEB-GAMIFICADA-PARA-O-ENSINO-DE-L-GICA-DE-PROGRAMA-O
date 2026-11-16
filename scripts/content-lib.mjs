@@ -167,6 +167,9 @@ export function validateContent(content) {
       err(file, "exercicios deve ser uma lista");
       continue;
     }
+    if (l.complementar !== undefined && typeof l.complementar !== "boolean") {
+      err(file, '"complementar" deve ser true ou false');
+    }
     checkLessonFormat(l, file, err, warn);
     if (l.exercicios.length === 0) warn(file, "lição sem exercícios");
 
@@ -578,7 +581,7 @@ export function buildImportSql(content) {
   const out = [];
   out.push(`-- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0012. Não altera "published" nem "position" de exercícios que já existem
+-- Requer as migrations até a 0013. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 `);
 
@@ -593,10 +596,11 @@ on conflict (id) do update set title = excluded.title, description = excluded.de
   world_id = excluded.world_id, position = excluded.position;
 `);
 
-  out.push(`insert into public.modules (id, title, focus, intro, example, review, world_id, position, origem) values
-${lines(content.lessons.map(({ data: l }) => [q(l.id), q(l.titulo), q(l.foco ?? ""), q(l.intro ?? ""), q(l.exemplo ?? ""), q(l.revisao ?? ""), q(l.mundo), String(l.posicao), q("arquivo")]))}
+  out.push(`insert into public.modules (id, title, focus, intro, example, review, world_id, position, optional, origem) values
+${lines(content.lessons.map(({ data: l }) => [q(l.id), q(l.titulo), q(l.foco ?? ""), q(l.intro ?? ""), q(l.exemplo ?? ""), q(l.revisao ?? ""), q(l.mundo), String(l.posicao), bool(l.complementar === true), q("arquivo")]))}
 on conflict (id) do update set title = excluded.title, focus = excluded.focus, intro = excluded.intro,
-  example = excluded.example, review = excluded.review, world_id = excluded.world_id, position = excluded.position
+  example = excluded.example, review = excluded.review, world_id = excluded.world_id, position = excluded.position,
+  optional = excluded.optional
   where public.modules.origem = 'arquivo';
 `);
 

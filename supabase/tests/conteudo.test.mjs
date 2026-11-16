@@ -57,6 +57,18 @@ const LICOES_MUNDO_3 = [
   "precedencia-dos-operadores",
   "desafio-do-mundo-3",
 ];
+const LICOES_MUNDO_4 = [
+  "introducao-as-condicionais",
+  "revisao-dos-relacionais",
+  "revisao-dos-logicos",
+  "estrutura-if",
+  "estrutura-if-else",
+  "estrutura-else-if",
+  "condicionais-aninhadas",
+  "estrutura-switch",
+  "operador-ternario",
+  "desafio-do-mundo-4",
+];
 let idsOriginais = null;
 const exercises = () =>
   idsOriginais
@@ -212,6 +224,7 @@ describe("importação do conteúdo", () => {
       "textos",
       ...LICOES_MUNDO_3,
       "fundamentos",
+      ...LICOES_MUNDO_4,
       "condicionais",
       "repeticao",
       "vetores",
@@ -224,7 +237,8 @@ describe("importação do conteúdo", () => {
       "mundo-2", // a lição antiga "textos" (posição 290)
       ...Array(LICOES_MUNDO_3.length).fill("mundo-3"),
       "mundo-3", // a lição antiga "fundamentos" (posição 390)
-      "mundo-4",
+      ...Array(LICOES_MUNDO_4.length).fill("mundo-4"),
+      "mundo-4", // a lição antiga "condicionais" (posição 490)
       "mundo-5",
       "mundo-6",
       "mundo-7",
@@ -264,10 +278,10 @@ describe("importação do conteúdo", () => {
     expect("expected" in e["exemplo-entrada-saida"].tests[0]).toBe(false);
   });
 
-  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2 + 12 do Mundo 3), com o comentário", async () => {
+  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2 + 12 do Mundo 3 + 23 do Mundo 4), com o comentário", async () => {
     expect(
       (await one("select count(*)::int as n from public.exercise_solutions")).n,
-    ).toBe(68);
+    ).toBe(91);
     const s = await one(
       "select solution, commentary from public.exercise_solutions where exercise_id = 'exemplo-corrigir'",
     );
@@ -639,5 +653,67 @@ describe("Mundo 3 (E6): importação, rascunho e publicação", () => {
       (await one("select published from public.exercises where id = 'soma'"))
         .published,
     ).toBe(true);
+  });
+});
+
+describe("Mundo 4 (E7): importação, rascunho, publicação e lição complementar", () => {
+  const lista = LICOES_MUNDO_4.map((l) => `'${l}'`).join(",");
+  const doMundo4 = () =>
+    rows(
+      `select e.* from public.exercises e where e.module_id in (${lista}) order by e.id`,
+    );
+
+  it("importa as 10 lições e os 72 exercícios, todos como rascunho e com conceitos", async () => {
+    await db.exec(buildImportSql(content()));
+    const ex = await doMundo4();
+    expect(ex).toHaveLength(72);
+    expect(ex.every((e) => e.published === false)).toBe(true);
+    const sem = await rows(
+      `select e.id from public.exercises e where e.module_id in (${lista}) and not exists (select 1 from public.exercise_concepts c where c.exercise_id = e.id)`,
+    );
+    expect(sem).toEqual([]);
+    const conceitos = await rows(
+      `select distinct c.concept_id from public.exercise_concepts c join public.exercises e on e.id = c.exercise_id where e.module_id in (${lista}) and c.concept_id like 'm4-%' order by 1`,
+    );
+    expect(conceitos).toHaveLength(9); // todos os conceitos do mundo são avaliados
+  });
+
+  it("só a lição do operador ternário é complementar", async () => {
+    await db.exec(buildImportSql(content()));
+    const comp = await rows(
+      "select id from public.modules where optional order by id",
+    );
+    expect(comp.map((m) => m.id)).toEqual(["operador-ternario"]);
+  });
+
+  it("toda alternativa errada das questões de escolha traz a confusão", async () => {
+    const escolha = (await doMundo4()).filter(
+      (e) => e.kind === "choice" || e.kind === "interpretation",
+    );
+    expect(escolha.length).toBeGreaterThan(25);
+    for (const e of escolha) {
+      const erradas = e.config.options.filter((_, i) => i !== e.config.correct);
+      expect(
+        erradas.every((o) => typeof o === "object" && o.misconception),
+        e.id,
+      ).toBe(true);
+    }
+    expect(new Set(escolha.map((e) => e.config.correct)).size).toBe(4);
+  });
+
+  it("o sistema de notas testa os limites 7 e 5 da média", async () => {
+    const e = await one(
+      "select tests from public.exercises where id = 'desafio4-sistema-de-notas'",
+    );
+    const saidas = e.tests.map((t) => t.output.join("|"));
+    expect(saidas).toContain("Média: 7|Situação: Aprovado");
+    expect(saidas).toContain("Média: 5|Situação: Recuperação");
+  });
+
+  it("publicar o Mundo 4 não mexe na lição antiga (que continua com seus exercícios publicados)", async () => {
+    await db.exec(buildPublishSql(content(), "mundo-4"));
+    expect((await doMundo4()).every((e) => e.published)).toBe(true);
+    await db.exec(buildPublishSql(content(), "mundo-4", { publish: false }));
+    expect((await doMundo4()).some((e) => e.published)).toBe(false);
   });
 });

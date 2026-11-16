@@ -1,0 +1,210 @@
+{
+  "id": "estrutura-switch",
+  "mundo": "mundo-4",
+  "titulo": "Estrutura switch",
+  "foco": "Escolher entre várias opções exatas",
+  "posicao": 408,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Quando queremos comparar uma mesma variável com vários valores exatos (como o número do dia da semana ou a opção de um menu), o switch deixa o código mais organizado que uma longa cadeia de else if.\n\nswitch (valor) {\n  case 1:\n    ...\n    break;\n  case 2:\n    ...\n    break;\n  default:\n    ...\n}\n\nO computador compara o valor com cada case usando ===. Ao encontrar o primeiro igual, executa as instruções a partir dali. O break encerra o switch; sem ele, a execução \"cai\" nos cases seguintes (efeito cascata), mesmo que eles não combinem.\n\nO default é opcional e funciona como o else: executa quando nenhum case combina. O switch só serve para igualdade exata: para faixas (nota >= 7), use if/else if.",
+  "exemplo": "const dia = 3;\n\nswitch (dia) {\n  case 1:\n    console.log(\"Domingo\");\n    break;\n  case 2:\n    console.log(\"Segunda\");\n    break;\n  case 3:\n    console.log(\"Terça\");\n    break;\n  default:\n    console.log(\"Outro dia\");\n}\n\nPasso a passo:\n1. O valor de dia (3) é comparado com cada case, de cima para baixo.\n2. case 3 combina: executa console.log(\"Terça\").\n3. O break encerra o switch. Se ele faltasse, \"Outro dia\" também seria mostrado.",
+  "revisao": "- switch compara um valor com vários cases usando === (igualdade exata).\n- O break encerra o switch; sem ele, a execução cai nos cases seguintes.\n- default executa quando nenhum case combina (é opcional).\n- Para faixas de valores, use if/else if, não switch.",
+  "exercicios": [
+    {
+      "id": "switch-quando-usar",
+      "tipo": "escolha",
+      "titulo": "Quando usar o switch?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "Em que situação o switch é mais indicado?",
+      "opcoes": [
+        {
+          "texto": "Para testar faixas de valores, como nota >= 7",
+          "confusao": "acha que o switch aceita comparações de faixa"
+        },
+        {
+          "texto": "Para repetir um bloco várias vezes",
+          "confusao": "confunde switch com repetição"
+        },
+        {
+          "texto": "Para combinar várias condições com E e OU",
+          "confusao": "confunde switch com operadores lógicos"
+        },
+        "Para comparar uma variável com vários valores exatos"
+      ],
+      "correta": 3,
+      "dica": "O switch compara com ===, valor por valor.",
+      "explicacao": "O switch é ideal para comparar uma variável com valores exatos, como a opção escolhida em um menu."
+    },
+    {
+      "id": "switch-dia-da-semana",
+      "tipo": "interpretacao",
+      "titulo": "Qual dia?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const dia = 2;\nswitch (dia) {\n  case 1:\n    console.log(\"Domingo\");\n    break;\n  case 2:\n    console.log(\"Segunda\");\n    break;\n  default:\n    console.log(\"Outro dia\");\n}",
+      "opcoes": [
+        "Segunda",
+        { "texto": "Domingo", "confusao": "acha que o switch executa sempre o primeiro case" },
+        {
+          "texto": "Segunda\nOutro dia",
+          "confusao": "acha que o default executa depois de um case que combinou"
+        },
+        {
+          "texto": "Outro dia",
+          "confusao": "acha que o default executa mesmo quando um case combina"
+        }
+      ],
+      "correta": 0,
+      "dica": "Procure o case que combina com 2.",
+      "explicacao": "case 2 combina, mostra Segunda, e o break encerra o switch."
+    },
+    {
+      "id": "switch-complete-o-break",
+      "tipo": "lacuna",
+      "titulo": "Complete o break",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "Complete a palavra que encerra o switch depois de um case.",
+      "modelo": "const opcao = 1;\nswitch (opcao) {\n  case 1:\n    console.log(\"Novo jogo\");\n    {{1}};\n  case 2:\n    console.log(\"Sair\");\n    break;\n}",
+      "lacunas": [
+        { "respostas": ["break"] }
+      ],
+      "dica": "Sem essa palavra, o código cai no case seguinte.",
+      "explicacao": "break encerra o switch e impede que os cases seguintes também executem."
+    },
+    {
+      "id": "switch-sem-break",
+      "tipo": "interpretacao",
+      "titulo": "Sem break",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const n = 1;\nswitch (n) {\n  case 1:\n    console.log(\"Um\");\n  case 2:\n    console.log(\"Dois\");\n    break;\n  case 3:\n    console.log(\"Três\");\n}",
+      "opcoes": [
+        {
+          "texto": "Um",
+          "confusao": "acha que o switch encerra sozinho depois do case que combinou"
+        },
+        { "texto": "Um\nDois\nTrês", "confusao": "acha que o break não interrompe a execução" },
+        "Um\nDois",
+        { "texto": "Dois", "confusao": "acha que a execução começa no case seguinte" }
+      ],
+      "correta": 2,
+      "dica": "O primeiro case não tem break.",
+      "explicacao": "case 1 combina e mostra Um. Sem break, a execução cai no case 2 (Dois), onde o break finalmente encerra o switch."
+    },
+    {
+      "id": "switch-nome-do-dia",
+      "tipo": "codigo",
+      "titulo": "Nome do dia",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `nomeDoDia(numero)` que devolve o nome do dia da semana (1 = \"domingo\", 2 = \"segunda\", 3 = \"terca\", 4 = \"quarta\", 5 = \"quinta\", 6 = \"sexta\", 7 = \"sabado\") e \"invalido\" para qualquer outro número. Use switch.",
+      "funcao": "nomeDoDia",
+      "codigoInicial": "function nomeDoDia(numero) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [1], "esperado": "domingo" },
+        { "entrada": [4], "esperado": "quarta" },
+        { "entrada": [7], "esperado": "sabado" },
+        { "entrada": [0], "esperado": "invalido" },
+        { "entrada": [9], "esperado": "invalido" }
+      ],
+      "dica": "Um case para cada dia e um default para o resto.",
+      "comentario": "Cada case devolve o nome; como return já encerra a função, o break não é necessário. O default trata os números fora da lista."
+    },
+    {
+      "id": "switch-calculadora-de-operacao",
+      "tipo": "codigo",
+      "titulo": "Operação escolhida",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `calcular(operacao, a, b)`: para \"+\" devolve a + b, para \"-\" devolve a - b, para \"*\" devolve a * b, para \"/\" devolve a / b. Para qualquer outra operação, devolve \"operacao invalida\". Use switch.",
+      "funcao": "calcular",
+      "codigoInicial": "function calcular(operacao, a, b) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["+", 6, 3], "esperado": 9 },
+        { "entrada": ["-", 6, 3], "esperado": 3 },
+        { "entrada": ["*", 6, 3], "esperado": 18 },
+        { "entrada": ["/", 6, 3], "esperado": 2 },
+        { "entrada": ["%", 6, 3], "esperado": "operacao invalida" }
+      ],
+      "dica": "Compare a operação (um texto) com cada case.",
+      "comentario": "O switch compara o texto da operação com cada case. O default devolve a mensagem para operações desconhecidas."
+    },
+    {
+      "id": "switch-corrija-o-break",
+      "tipo": "corrigir",
+      "titulo": "Corrija o break que faltou",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 }
+      ],
+      "enunciado": "A função `tipo(codigo)` deveria devolver \"fruta\" para 1, \"legume\" para 2 e \"outro\" nos demais casos, mas devolve sempre \"outro\" para 1 e 2. Corrija o defeito.",
+      "funcao": "tipo",
+      "codigoInicial": "function tipo(codigo) {\n  let t = \"\";\n  switch (codigo) {\n    case 1:\n      t = \"fruta\";\n    case 2:\n      t = \"legume\";\n    default:\n      t = \"outro\";\n  }\n  return t;\n}\n",
+      "testes": [
+        { "entrada": [1], "esperado": "fruta" },
+        { "entrada": [2], "esperado": "legume" },
+        { "entrada": [3], "esperado": "outro" },
+        { "entrada": [0], "esperado": "outro" }
+      ],
+      "dica": "O que acontece depois que um case termina sem break?",
+      "comentario": "Sem break, a execução cai para os cases seguintes e o último valor (outro) sobrescreve os anteriores. Um break depois de cada atribuição resolve."
+    },
+    {
+      "id": "switch-igualdade-estrita",
+      "tipo": "interpretacao",
+      "titulo": "Igualdade estrita no switch",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-switch", "peso": 3 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const opcao = \"2\";\nswitch (opcao) {\n  case 1:\n    console.log(\"Um\");\n    break;\n  case 2:\n    console.log(\"Dois\");\n    break;\n  default:\n    console.log(\"Nenhuma\");\n}",
+      "opcoes": [
+        {
+          "texto": "Um",
+          "confusao": "acha que o switch converte o texto e escolhe o primeiro case"
+        },
+        "Nenhuma",
+        { "texto": "Dois", "confusao": "acha que o switch compara sem considerar o tipo (como ==)" },
+        { "texto": "Um\nDois", "confusao": "acha que os dois cases combinam" }
+      ],
+      "correta": 1,
+      "dica": "O switch compara usando ===: o texto \"2\" é igual ao número 2?",
+      "explicacao": "O switch usa igualdade estrita (===). O texto \"2\" não é estritamente igual ao número 2, então nenhum case combina e o default executa."
+    }
+  ]
+}

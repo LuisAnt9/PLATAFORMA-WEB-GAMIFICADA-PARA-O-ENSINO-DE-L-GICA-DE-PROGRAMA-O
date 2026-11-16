@@ -86,6 +86,8 @@ export interface Module {
   focus: string;
   /** Texto do conceito, lido antes dos exercícios (modo aprendizado). */
   intro: string;
+  /** Lição complementar: não trava a liberação da próxima lição (migration 0013). */
+  optional: boolean;
   /** Mundo ao qual a lição pertence (migration 0010). */
   worldId: string | null;
   /** Exemplo demonstrativo e revisão da lição (migration 0010). */
@@ -183,6 +185,7 @@ export interface ModuleRow {
   focus: string;
   /** Coluna da migration 0009: pode não existir se o banco ainda não a recebeu. */
   intro?: string;
+  optional?: boolean;
   world_id?: string | null;
   example?: string;
   review?: string;
@@ -218,6 +221,7 @@ export function moduleFromRow(r: ModuleRow): Module {
     title: r.title,
     focus: r.focus,
     intro: r.intro ?? "",
+    optional: r.optional ?? false,
     worldId: r.world_id ?? null,
     example: r.example ?? "",
     review: r.review ?? "",

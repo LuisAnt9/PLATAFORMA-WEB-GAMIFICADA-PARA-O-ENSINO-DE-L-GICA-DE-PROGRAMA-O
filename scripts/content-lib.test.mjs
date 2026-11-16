@@ -909,3 +909,32 @@ describe("runTests: valores especiais impressos como no console real", () => {
     expect(r.passou).toBe(true);
   });
 });
+
+describe("lições complementares", () => {
+  it("aceita true/false e recusa outros valores", () => {
+    expect(erros(lic("completa", completaOk(), { complementar: true }))).toBe(
+      "",
+    );
+    expect(
+      erros(lic("completa", completaOk(), { complementar: "sim" })),
+    ).toContain("complementar");
+  });
+  it("o SQL de importação grava a coluna optional (true só para as complementares)", () => {
+    const c = lic("completa", completaOk(), { complementar: true });
+    c.lessons.push({
+      file: "mundo-1/licao-02-normal.json",
+      data: {
+        id: "normal",
+        mundo: "mundo-1",
+        titulo: "Normal",
+        posicao: 5,
+        exercicios: [esc("outro-x", "facil")],
+      },
+    });
+    const sql = buildImportSql(c);
+    expect(sql).toContain("optional, origem) values");
+    expect(sql).toMatch(/\$c\$l1\$c\$[^\n]*, true, \$c\$arquivo\$c\$/);
+    expect(sql).toMatch(/\$c\$normal\$c\$[^\n]*, false, \$c\$arquivo\$c\$/);
+    expect(sql).toContain("optional = excluded.optional");
+  });
+});

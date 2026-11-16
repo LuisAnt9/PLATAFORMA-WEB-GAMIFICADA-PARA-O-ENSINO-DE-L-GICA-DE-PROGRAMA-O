@@ -1,6 +1,6 @@
 -- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0012. Não altera "published" nem "position" de exercícios que já existem
+-- Requer as migrations até a 0013. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 
 insert into public.worlds (id, title, objective, position) values
@@ -83,11 +83,11 @@ insert into public.concepts (id, title, description, world_id, position) values
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   world_id = excluded.world_id, position = excluded.position;
 
-insert into public.modules (id, title, focus, intro, example, review, world_id, position, origem) values
+insert into public.modules (id, title, focus, intro, example, review, world_id, position, optional, origem) values
   ($c$primeiros-passos$c$, $c$Primeiros passos$c$, $c$Entender o que é um algoritmo e como o computador segue instruções$c$, $c$Um algoritmo é uma sequência de passos para resolver um problema, como uma receita de bolo. O computador só faz o que mandamos, na ordem em que mandamos, e por isso cada passo precisa ser claro.
 
-Neste módulo você vai conhecer o vocabulário básico: valores, tipos (número, texto, lógico) e operadores. Não se preocupe em decorar: errar faz parte, e cada exercício explica a resposta.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 100, $c$arquivo$c$),
-  ($c$exemplos-dos-tipos$c$, $c$Exemplos dos tipos de exercício$c$, $c$Modelos para o professor copiar (rascunhos)$c$, $c$Esta lição reúne um exemplo de cada tipo novo de exercício, como modelo para escrever os seus. Todos estão como rascunho: só o professor os vê.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 999, $c$arquivo$c$),
+Neste módulo você vai conhecer o vocabulário básico: valores, tipos (número, texto, lógico) e operadores. Não se preocupe em decorar: errar faz parte, e cada exercício explica a resposta.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 100, false, $c$arquivo$c$),
+  ($c$exemplos-dos-tipos$c$, $c$Exemplos dos tipos de exercício$c$, $c$Modelos para o professor copiar (rascunhos)$c$, $c$Esta lição reúne um exemplo de cada tipo novo de exercício, como modelo para escrever os seus. Todos estão como rascunho: só o professor os vê.$c$, $c$$c$, $c$$c$, $c$mundo-1$c$, 999, false, $c$arquivo$c$),
   ($c$o-que-e-programacao$c$, $c$O que é programação?$c$, $c$Entender que programar é escrever instruções para o computador executar$c$, $c$Programar é escrever instruções para que o computador faça uma tarefa. O computador é muito rápido e não se cansa, mas não pensa por conta própria: ele só faz exatamente o que mandamos, na ordem em que mandamos.
 
 Três palavras aparecem o tempo todo:
@@ -115,7 +115,7 @@ Resultado: primeiro Bom dia, depois Tudo bem?.$c$, $c$- Programar é escrever in
 - O programador escreve o programa; a linguagem de programação é a "língua" usada para escrevê-lo.
 - O computador não pensa sozinho: segue as instruções, em ordem, do jeito que foram escritas.
 - Instruções precisam ser claras e completas.
-- console.log mostra um resultado na tela.$c$, $c$mundo-1$c$, 101, $c$arquivo$c$),
+- console.log mostra um resultado na tela.$c$, $c$mundo-1$c$, 101, false, $c$arquivo$c$),
   ($c$o-que-e-logica$c$, $c$O que é lógica de programação?$c$, $c$Organizar o raciocínio em passos claros e coerentes antes de programar$c$, $c$Lógica é pensar de forma organizada, sem contradições, para chegar a uma conclusão. Lógica de programação é aplicar esse raciocínio para planejar a solução de um problema em passos claros, antes de escrever qualquer código.
 
 Antes de programar, vale responder quatro perguntas:
@@ -139,7 +139,7 @@ Repare que ainda não escrevemos nenhum código. Primeiro organizamos o raciocí
 - Antes de programar: qual é o problema, que informações tenho, o que quero obter e em quais passos.
 - Um bom raciocínio não tem contradições.
 - Cuidado ao inverter regras: "todo A é B" não significa "todo B é A".
-- Não é preciso decorar comandos para começar: é preciso treinar o raciocínio.$c$, $c$mundo-1$c$, 102, $c$arquivo$c$),
+- Não é preciso decorar comandos para começar: é preciso treinar o raciocínio.$c$, $c$mundo-1$c$, 102, false, $c$arquivo$c$),
   ($c$o-que-sao-algoritmos$c$, $c$O que são algoritmos?$c$, $c$Reconhecer um algoritmo e suas características$c$, $c$Um algoritmo é uma sequência finita de passos, claros e ordenados, que resolve um problema ou realiza uma tarefa. Uma receita de bolo, as instruções para montar um móvel e o caminho de casa até a escola são algoritmos.
 
 Um bom algoritmo tem quatro características:
@@ -163,7 +163,7 @@ Por que isso é um bom algoritmo?
 - Parte de uma situação inicial (lâmpada queimada) e chega a um resultado (lâmpada nova funcionando).$c$, $c$- Algoritmo é uma sequência finita de passos claros e ordenados que resolve um problema.
 - Um algoritmo precisa ter fim, passos precisos e uma ordem que faça sentido.
 - Receitas, manuais e trajetos são algoritmos do dia a dia.
-- O algoritmo é a ideia; o programa é o algoritmo escrito em uma linguagem de programação.$c$, $c$mundo-1$c$, 103, $c$arquivo$c$),
+- O algoritmo é a ideia; o programa é o algoritmo escrito em uma linguagem de programação.$c$, $c$mundo-1$c$, 103, false, $c$arquivo$c$),
   ($c$sequencia-logica$c$, $c$Sequência lógica$c$, $c$Perceber que a ordem dos passos muda o resultado$c$, $c$Sequência lógica é organizar os passos na ordem em que eles fazem sentido. Em geral, cada passo depende do que foi feito antes: não dá para calçar o sapato antes de vestir a meia.
 
 Trocar a ordem pode:
@@ -195,7 +195,7 @@ O resultado muda:
 As instruções continuam as mesmas, mas a ordem mudou e, com ela, o resultado. Nenhuma instrução foi "errada": a sequência é que determina o que o programa faz.$c$, $c$- Sequência lógica é a ordem em que os passos fazem sentido.
 - Cada passo costuma depender dos anteriores.
 - Mudar a ordem pode impedir a tarefa ou mudar o resultado.
-- O computador executa as instruções de cima para baixo, uma por vez.$c$, $c$mundo-1$c$, 104, $c$arquivo$c$),
+- O computador executa as instruções de cima para baixo, uma por vez.$c$, $c$mundo-1$c$, 104, false, $c$arquivo$c$),
   ($c$entrada-processamento-saida$c$, $c$Entrada, processamento e saída$c$, $c$Identificar as três etapas de qualquer programa$c$, $c$Quase todo programa segue o mesmo caminho em três etapas:
 - Entrada: os dados que o programa recebe (o que a pessoa digita, clica ou informa).
 - Processamento: o que o programa faz com esses dados (cálculos, comparações, decisões).
@@ -218,7 +218,7 @@ Não se preocupe com os detalhes de const e do sinal de +: você vai estudá-los
 - Processamento: o que o programa faz com os dados.
 - Saída: o resultado que o programa entrega.
 - Em JavaScript, aqui na plataforma: lerEntrada() lê a entrada e console.log() mostra a saída.
-- Mostrar um resultado é saída; calcular é processamento; receber um valor é entrada.$c$, $c$mundo-1$c$, 105, $c$arquivo$c$),
+- Mostrar um resultado é saída; calcular é processamento; receber um valor é entrada.$c$, $c$mundo-1$c$, 105, false, $c$arquivo$c$),
   ($c$pseudocodigo$c$, $c$Pseudocódigo$c$, $c$Escrever algoritmos em linguagem próxima do português$c$, $c$Pseudocódigo é uma forma de escrever algoritmos com palavras do nosso dia a dia, sem as regras rígidas de uma linguagem de programação. O computador não executa pseudocódigo: ele serve para planejar e conversar sobre a solução antes de programar.
 
 Nesta plataforma usamos estas palavras:
@@ -246,7 +246,7 @@ Passo a passo:
 Se as notas forem 6 e 8, o algoritmo escreve 7.$c$, $c$- Pseudocódigo é um algoritmo escrito em linguagem próxima do português.
 - O computador não executa pseudocódigo: ele serve para planejar.
 - LEIA recebe dados; ESCREVA mostra resultados; a seta (←) guarda o valor de uma conta.
-- INÍCIO e FIM delimitam o algoritmo, que é lido de cima para baixo.$c$, $c$mundo-1$c$, 106, $c$arquivo$c$),
+- INÍCIO e FIM delimitam o algoritmo, que é lido de cima para baixo.$c$, $c$mundo-1$c$, 106, false, $c$arquivo$c$),
   ($c$fluxogramas$c$, $c$Fluxogramas$c$, $c$Ler e interpretar algoritmos desenhados com símbolos$c$, $c$Um fluxograma é um desenho que mostra o algoritmo com símbolos e setas. Cada símbolo tem um significado:
 - Oval, escrito (INÍCIO) ou (FIM): onde o algoritmo começa e termina.
 - Paralelogramo, escrito / Ler idade /: entrada ou saída de dados.
@@ -276,7 +276,7 @@ Como ler:
 Com a entrada 5, o fluxograma escreve 10.$c$, $c$- Fluxograma é um algoritmo desenhado com símbolos e setas.
 - Oval: início e fim. Paralelogramo: entrada e saída. Retângulo: processamento. Losango: decisão (Sim ou Não).
 - As setas indicam a ordem dos passos.
-- Em uma decisão, só um dos caminhos é seguido, de acordo com a resposta.$c$, $c$mundo-1$c$, 107, $c$arquivo$c$),
+- Em uma decisão, só um dos caminhos é seguido, de acordo com a resposta.$c$, $c$mundo-1$c$, 107, false, $c$arquivo$c$),
   ($c$desafio-do-mundo-1$c$, $c$Desafio final do Mundo 1$c$, $c$Juntar tudo: algoritmos, sequência, pseudocódigo e fluxogramas$c$, $c$Chegou a hora de juntar o que você aprendeu no Mundo 1. Neste desafio, você vai usar lógica, sequência, entrada e saída, pseudocódigo e fluxogramas para resolver situações do dia a dia.
 
 O desafio principal é o primeiro exercício: montar, na ordem certa, um algoritmo para uma tarefa cotidiana. Os outros dois exercícios aplicam o mesmo raciocínio a um pseudocódigo e a um fluxograma.
@@ -290,14 +290,14 @@ Dica: antes de responder, leia todos os passos e pense no que precisa ter aconte
 - A ordem dos passos importa, porque cada passo costuma depender dos anteriores.
 - Todo programa tem entrada, processamento e saída.
 - Pseudocódigo e fluxogramas servem para planejar o algoritmo antes de programar.
-- Testar o algoritmo com um caso simples ajuda a encontrar erros de raciocínio.$c$, $c$mundo-1$c$, 108, $c$arquivo$c$),
+- Testar o algoritmo com um caso simples ajuda a encontrar erros de raciocínio.$c$, $c$mundo-1$c$, 108, false, $c$arquivo$c$),
   ($c$textos$c$, $c$Textos$c$, $c$Percorrer e transformar sequências de caracteres$c$, $c$Um texto (string) é uma sequência de caracteres entre aspas. Cada caractere tem uma posição, começando em 0:
 
 const palavra = "casa";
 palavra[0] // "c"
 palavra.length // 4
 
-Dá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: "A" não é igual a "a".$c$, $c$$c$, $c$$c$, $c$mundo-2$c$, 290, $c$arquivo$c$),
+Dá para percorrer um texto com um laço, como num vetor. Lembre que maiúsculas e minúsculas são caracteres diferentes: "A" não é igual a "a".$c$, $c$$c$, $c$$c$, $c$mundo-2$c$, 290, false, $c$arquivo$c$),
   ($c$introducao-as-variaveis$c$, $c$Introdução às variáveis$c$, $c$Entender a variável como um nome que guarda um valor$c$, $c$Um programa precisa guardar informações: o nome de uma pessoa, uma idade, um saldo. Para isso usamos variáveis.
 
 Uma variável é um nome que guarda um valor na memória do computador. Pense em uma caixa com uma etiqueta: a etiqueta é o nome da variável e o que está dentro da caixa é o valor. Quando precisamos do valor, chamamos a variável pelo nome.
@@ -318,7 +318,7 @@ Repare que o nome da variável não vai entre aspas: as aspas serviriam para mos
 - O valor guardado pode mudar durante o programa.
 - O sinal = guarda um valor na variável (atribuição); não é "igual" da matemática.
 - Para usar o valor, escrevemos o nome da variável, sem aspas.
-- Ao guardar um novo valor, o antigo é substituído.$c$, $c$mundo-2$c$, 201, $c$arquivo$c$),
+- Ao guardar um novo valor, o antigo é substituído.$c$, $c$mundo-2$c$, 201, false, $c$arquivo$c$),
   ($c$declaracao-de-variaveis$c$, $c$Declaração de variáveis$c$, $c$Declarar variáveis e escolher nomes válidos$c$, $c$Declarar uma variável é criá-la. Em JavaScript usamos a palavra let, seguida do nome. Podemos já guardar um valor (inicializar) ou deixar a variável sem valor, e então ela vale undefined, que significa "ainda não tem valor".
 
 Regras para os nomes:
@@ -341,7 +341,7 @@ Passo a passo:
 - Sem valor inicial, a variável vale undefined.
 - Nomes: letras, números, _ e $; sem espaços; não começam com número; não podem ser palavras reservadas.
 - Maiúsculas e minúsculas são diferentes: idade e Idade não são a mesma variável.
-- Prefira nomes claros em camelCase.$c$, $c$mundo-2$c$, 202, $c$arquivo$c$),
+- Prefira nomes claros em camelCase.$c$, $c$mundo-2$c$, 202, false, $c$arquivo$c$),
   ($c$let-e-const$c$, $c$Utilização de let e const$c$, $c$Escolher entre let (valor muda) e const (valor fixo)$c$, $c$Há duas formas de declarar uma variável em JavaScript:
 - let: o valor pode ser trocado depois.
 - const: o valor é fixo. Depois de guardado, não pode ser substituído, e a variável precisa receber o valor na própria declaração.
@@ -362,7 +362,7 @@ Passo a passo:
 - const precisa receber o valor na declaração.
 - Mudar uma const causa o erro "Assignment to constant variable".
 - Use const por padrão e let só quando o valor precisar mudar.
-- Não declare a mesma variável duas vezes no mesmo lugar.$c$, $c$mundo-2$c$, 203, $c$arquivo$c$),
+- Não declare a mesma variável duas vezes no mesmo lugar.$c$, $c$mundo-2$c$, 203, false, $c$arquivo$c$),
   ($c$tipo-string$c$, $c$Tipo String$c$, $c$Reconhecer e escrever textos (strings)$c$, $c$Todo valor tem um tipo, que define o que ele é e o que podemos fazer com ele. O primeiro tipo que vamos estudar é a string: um texto, isto é, uma sequência de caracteres entre aspas.
 
 - Podemos usar aspas duplas ("Ana"), aspas simples ('Ana') ou crases (veremos mais adiante). A aspa que abre precisa ser a mesma que fecha.
@@ -387,7 +387,7 @@ Passo a passo:
 - As aspas que abrem e fecham devem ser do mesmo tipo.
 - "42" entre aspas é texto, não número.
 - Sem aspas, o nome é entendido como uma variável.
-- typeof mostra o tipo de um valor.$c$, $c$mundo-2$c$, 204, $c$arquivo$c$),
+- typeof mostra o tipo de um valor.$c$, $c$mundo-2$c$, 204, false, $c$arquivo$c$),
   ($c$tipo-number$c$, $c$Tipo Number$c$, $c$Reconhecer e escrever números (inteiros e decimais)$c$, $c$O tipo number guarda números. Em JavaScript, inteiros (7, -2) e decimais (3.14) são o mesmo tipo: number.
 
 Pontos importantes:
@@ -412,7 +412,7 @@ Passo a passo:
 - Números não levam aspas e usam ponto como separador decimal.
 - 10 / 0 resulta em Infinity.
 - NaN significa "não é um número" e aparece em contas sem sentido.
-- typeof mostra number para qualquer número, inclusive NaN.$c$, $c$mundo-2$c$, 205, $c$arquivo$c$),
+- typeof mostra number para qualquer número, inclusive NaN.$c$, $c$mundo-2$c$, 205, false, $c$arquivo$c$),
   ($c$tipo-boolean$c$, $c$Tipo Boolean$c$, $c$Reconhecer valores lógicos: true e false$c$, $c$O tipo boolean tem apenas dois valores: true (verdadeiro) e false (falso). Eles são escritos em minúsculas e sem aspas. Com aspas, "true" vira um texto; com letra maiúscula, True não existe em JavaScript.
 
 Valores booleanos aparecem como resposta a perguntas: "5 é maior que 3?" (true), "2 é maior que 10?" (false). Usamos os operadores de comparação: > (maior), < (menor), >= (maior ou igual), <= (menor ou igual) e === (igual). Você vai estudá-los com calma no Mundo 3.
@@ -432,7 +432,7 @@ Passo a passo:
 - Comparações (>, <, >=, <=, ===) resultam em boolean.
 - "true" entre aspas é texto, não boolean.
 - True com T maiúsculo não existe em JavaScript.
-- Booleanos serão a base das decisões do programa.$c$, $c$mundo-2$c$, 206, $c$arquivo$c$),
+- Booleanos serão a base das decisões do programa.$c$, $c$mundo-2$c$, 206, false, $c$arquivo$c$),
   ($c$manipulacao-de-textos$c$, $c$Manipulação de textos$c$, $c$Consultar e transformar textos com propriedades e métodos$c$, $c$Os textos têm ferramentas prontas, que chamamos com um ponto depois do texto:
 - .length: quantos caracteres o texto tem (é uma propriedade, sem parênteses).
 - .toUpperCase() e .toLowerCase(): devolvem o texto em maiúsculas ou minúsculas.
@@ -461,7 +461,7 @@ Passo a passo:
 - toUpperCase, toLowerCase e trim devolvem um novo texto.
 - includes responde true ou false; indexOf devolve a posição ou -1.
 - slice(inicio, fim) inclui o início e não inclui o fim.
-- Os métodos não mudam o texto original.$c$, $c$mundo-2$c$, 207, $c$arquivo$c$),
+- Os métodos não mudam o texto original.$c$, $c$mundo-2$c$, 207, false, $c$arquivo$c$),
   ($c$concatenacao$c$, $c$Concatenação$c$, $c$Juntar textos com o operador +$c$, $c$Concatenar é juntar textos. Em JavaScript, usamos o operador +.
 
 - "Bom" + "dia" resulta em "Bomdia": o + não coloca espaço, então precisamos escrevê-lo: "Bom" + " " + "dia".
@@ -483,7 +483,7 @@ Passo a passo:
 - O + não coloca espaços sozinho: escreva-os entre aspas.
 - Se um dos lados é texto, o + junta; se os dois são números, soma.
 - "5" + 3 é "53", e 5 + 3 é 8.
-- Em uma sequência de +, a conta vai da esquerda para a direita.$c$, $c$mundo-2$c$, 208, $c$arquivo$c$),
+- Em uma sequência de +, a conta vai da esquerda para a direita.$c$, $c$mundo-2$c$, 208, false, $c$arquivo$c$),
   ($c$template-literals$c$, $c$Template literals$c$, $c$Montar textos com variáveis usando crases e ${ }$c$, $c$Montar frases com + pode ficar confuso: "Olá, " + nome + "! Você tem " + idade + " anos.". Os template literals tornam isso mais fácil.
 
 Um template literal é um texto escrito entre crases (`), a tecla do acento grave. Dentro dele, usamos ${ } para inserir o valor de uma variável ou o resultado de uma conta. Os espaços e a pontuação ficam exatamente como escritos.
@@ -506,7 +506,7 @@ Passo a passo:
 3. Na última linha, as aspas comuns mostram o texto literalmente.$c$, $c$- Template literal é um texto entre crases (`).
 - ${ } insere o valor de uma variável ou de uma expressão.
 - Só as crases fazem a substituição; aspas comuns não.
-- Facilita montar frases com várias variáveis, sem muitos +.$c$, $c$mundo-2$c$, 209, $c$arquivo$c$),
+- Facilita montar frases com várias variáveis, sem muitos +.$c$, $c$mundo-2$c$, 209, false, $c$arquivo$c$),
   ($c$operacoes-com-numeros$c$, $c$Operações com números$c$, $c$Fazer contas com números e variáveis$c$, $c$Com números, o computador faz contas:
 - + soma, - subtração, * multiplicação, / divisão;
 - % resto da divisão (7 % 2 vale 1);
@@ -531,7 +531,7 @@ Passo a passo:
 3. Math.round(3.6) arredonda para o inteiro mais próximo (4); Math.floor(3.9) arredonda sempre para baixo (3).$c$, $c$- + - * / fazem as quatro operações; % dá o resto; ** é a potência.
 - Multiplicação, divisão e resto vêm antes de soma e subtração; parênteses mudam a ordem.
 - Math.round arredonda para o mais próximo; Math.floor arredonda para baixo.
-- Podemos usar variáveis nas contas e guardar o resultado em outra variável.$c$, $c$mundo-2$c$, 210, $c$arquivo$c$),
+- Podemos usar variáveis nas contas e guardar o resultado em outra variável.$c$, $c$mundo-2$c$, 210, false, $c$arquivo$c$),
   ($c$conversao-de-tipos$c$, $c$Conversão de tipos$c$, $c$Converter valores entre texto e número$c$, $c$Converter é mudar o tipo de um valor. As principais conversões:
 - Number("42") transforma o texto "42" no número 42. Se o texto não for um número, o resultado é NaN.
 - String(42) transforma o número 42 no texto "42".
@@ -559,7 +559,7 @@ Passo a passo:
 - String(42) converte número em texto.
 - parseInt e parseFloat leem o número do começo de um texto.
 - Dados de entrada costumam ser texto: converta antes de fazer contas.
-- O + junta textos; o * converte textos que parecem números.$c$, $c$mundo-2$c$, 211, $c$arquivo$c$),
+- O + junta textos; o * converte textos que parecem números.$c$, $c$mundo-2$c$, 211, false, $c$arquivo$c$),
   ($c$entrada-e-saida-de-informacoes$c$, $c$Entrada e saída de informações$c$, $c$Ler dados, convertê-los, processá-los e mostrar o resultado$c$, $c$Já vimos que todo programa tem entrada, processamento e saída. Agora vamos colocar isso em prática com variáveis.
 
 - Entrada: nesta plataforma, lerEntrada() lê um valor de cada vez, na ordem em que foram informados.
@@ -588,7 +588,7 @@ Passo a passo:
 - Entradas costumam ser texto: converta com Number() antes de calcular.
 - Guarde resultados intermediários em variáveis com nomes claros.
 - console.log mostra a saída; template literals ajudam a montar frases.
-- O caminho é sempre: ler, converter, processar e mostrar.$c$, $c$mundo-2$c$, 212, $c$arquivo$c$),
+- O caminho é sempre: ler, converter, processar e mostrar.$c$, $c$mundo-2$c$, 212, false, $c$arquivo$c$),
   ($c$uso-do-console-log$c$, $c$Utilização de console.log()$c$, $c$Usar o console.log para mostrar e acompanhar valores$c$, $c$O console.log é a principal ferramenta de saída: ele mostra valores na tela e também ajuda a descobrir o que está acontecendo dentro do programa.
 
 - Cada chamada mostra uma nova linha.
@@ -610,7 +610,7 @@ Passo a passo:
 4. Valores booleanos também podem ser mostrados.$c$, $c$- Cada console.log mostra uma nova linha.
 - Com vírgulas, os valores ficam na mesma linha, separados por espaço.
 - Textos aparecem sem aspas; contas sem aspas são calculadas.
-- console.log ajuda a acompanhar os valores das variáveis e a achar defeitos.$c$, $c$mundo-2$c$, 213, $c$arquivo$c$),
+- console.log ajuda a acompanhar os valores das variáveis e a achar defeitos.$c$, $c$mundo-2$c$, 213, false, $c$arquivo$c$),
   ($c$desafio-do-mundo-2$c$, $c$Desafio final do Mundo 2$c$, $c$Juntar variáveis, tipos, conversões, entrada e saída em um só programa$c$, $c$Hora de juntar tudo o que você aprendeu no Mundo 2: variáveis, tipos de dados, concatenação, template literals, conversões e entrada e saída.
 
 O desafio principal é o primeiro exercício: criar um pequeno programa que receba os dados de uma pessoa (nome, idade e altura), guarde-os em variáveis e mostre os resultados em frases bem formatadas. Os outros dois exercícios treinam a conversão de tipos em situações em que é fácil errar.
@@ -625,14 +625,14 @@ Dica: antes de escrever, pense em cada dado: qual é o tipo? Ele chega como text
 - Entradas chegam como texto: converta com Number() antes de calcular.
 - O + junta textos e soma números: cuidado com a mistura.
 - Template literals montam frases com variáveis e contas.
-- console.log mostra o resultado, uma linha por chamada.$c$, $c$mundo-2$c$, 214, $c$arquivo$c$),
+- console.log mostra o resultado, uma linha por chamada.$c$, $c$mundo-2$c$, 214, false, $c$arquivo$c$),
   ($c$fundamentos$c$, $c$Fundamentos$c$, $c$Traduzir um problema em passos e operações$c$, $c$Uma função recebe valores (parâmetros), faz um cálculo e devolve um resultado com return. Por exemplo:
 
 function dobro(n) {
   return n * 2;
 }
 
-dobro(4) devolve 8. Nos exercícios você escreve funções assim: leia o enunciado, pense no passo a passo e só então escreva o código. Use os testes como guia: eles mostram o que a função deveria devolver.$c$, $c$$c$, $c$$c$, $c$mundo-3$c$, 390, $c$arquivo$c$),
+dobro(4) devolve 8. Nos exercícios você escreve funções assim: leia o enunciado, pense no passo a passo e só então escreva o código. Use os testes como guia: eles mostram o que a função deveria devolver.$c$, $c$$c$, $c$$c$, $c$mundo-3$c$, 390, false, $c$arquivo$c$),
   ($c$introducao-aos-operadores$c$, $c$Introdução aos operadores$c$, $c$Reconhecer operadores, operandos e os quatro grupos de operadores$c$, $c$Um operador é um símbolo que faz uma operação com valores. Os valores sobre os quais ele atua se chamam operandos. Em 2 + 3, o + é o operador e 2 e 3 são os operandos. Uma expressão é qualquer combinação de valores e operadores que produz um resultado.
 
 Os operadores se dividem em quatro grupos:
@@ -657,7 +657,7 @@ Passo a passo:
 - Expressão é uma combinação de valores e operadores que produz um resultado.
 - Aritméticos resultam em número; relacionais e lógicos resultam em boolean.
 - Atribuição guarda um valor em uma variável.
-- Alguns operadores usam um operando só (como o !).$c$, $c$mundo-3$c$, 301, $c$arquivo$c$),
+- Alguns operadores usam um operando só (como o !).$c$, $c$mundo-3$c$, 301, false, $c$arquivo$c$),
   ($c$operadores-aritmeticos$c$, $c$Operadores aritméticos$c$, $c$Fazer contas com +, -, *, /, % e **$c$, $c$Os operadores aritméticos fazem as contas:
 - + soma, - subtração, * multiplicação;
 - / divisão: em JavaScript o resultado pode ser decimal (17 / 5 vale 3.4);
@@ -683,7 +683,7 @@ Passo a passo:
 - / dá resultado decimal; Math.floor dá a parte inteira da divisão.
 - % dá o resto: n % 2 === 0 indica um número par; n % 10 dá o último dígito.
 - ** é a potência. O símbolo ^ NÃO é potência em JavaScript.
-- Dividir por zero dá Infinity; 0 / 0 e o resto por zero dão NaN.$c$, $c$mundo-3$c$, 302, $c$arquivo$c$),
+- Dividir por zero dá Infinity; 0 / 0 e o resto por zero dão NaN.$c$, $c$mundo-3$c$, 302, false, $c$arquivo$c$),
   ($c$operadores-de-atribuicao$c$, $c$Operadores de atribuição$c$, $c$Guardar e atualizar valores com =, +=, -=, ++ e --$c$, $c$O operador de atribuição = guarda um valor em uma variável. Para atualizar uma variável usando o valor que ela já tem, existem formas abreviadas:
 - x += 5 é o mesmo que x = x + 5;
 - x -= 5, x *= 5, x /= 5, x %= 5 e x **= 2 funcionam do mesmo jeito;
@@ -715,7 +715,7 @@ Passo a passo:
 - x++ e x-- somam e subtraem 1.
 - Com textos, += junta.
 - const não pode ser atualizada.
-- Não confunda = (guardar) com === (comparar).$c$, $c$mundo-3$c$, 303, $c$arquivo$c$),
+- Não confunda = (guardar) com === (comparar).$c$, $c$mundo-3$c$, 303, false, $c$arquivo$c$),
   ($c$operadores-relacionais$c$, $c$Operadores relacionais$c$, $c$Comparar valores e obter true ou false$c$, $c$Os operadores relacionais comparam dois valores e respondem com true ou false:
 - > maior, < menor, >= maior ou igual, <= menor ou igual;
 - === igual (mesmo valor e mesmo tipo) e !== diferente.
@@ -741,7 +741,7 @@ Passo a passo:
 - = guarda um valor; === compara.
 - Prefira === e !== ao == e !=, que convertem tipos.
 - Textos são comparados pela ordem das letras; "10" < "9" é true.
-- Decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.$c$, $c$mundo-3$c$, 304, $c$arquivo$c$),
+- Decimais podem ter pequenas diferenças: 0.1 + 0.2 === 0.3 é false.$c$, $c$mundo-3$c$, 304, false, $c$arquivo$c$),
   ($c$operadores-logicos$c$, $c$Operadores lógicos$c$, $c$Combinar valores true e false com &&, || e !$c$, $c$Os operadores lógicos combinam valores booleanos:
 - && (E): true somente se os dois lados são true.
 - || (OU): true se pelo menos um dos lados é true.
@@ -769,7 +769,7 @@ Passo a passo:
 - Combine comparações: idade >= 18 && temIngresso.
 - "Entre 1 e 10" é x >= 1 && x <= 10 (não 1 <= x <= 10).
 - Ordem: ! primeiro, depois &&, por último ||; parênteses deixam claro.
-- Use a tabela-verdade para conferir o resultado.$c$, $c$mundo-3$c$, 305, $c$arquivo$c$),
+- Use a tabela-verdade para conferir o resultado.$c$, $c$mundo-3$c$, 305, false, $c$arquivo$c$),
   ($c$precedencia-dos-operadores$c$, $c$Precedência dos operadores$c$, $c$Saber em que ordem o computador resolve uma expressão$c$, $c$Quando uma expressão tem vários operadores, o computador segue uma ordem, chamada precedência (da mais alta para a mais baixa):
 1. parênteses ( );
 2. potência **;
@@ -800,7 +800,7 @@ Passo a passo:
 6. false && false é false, e true || false é true.$c$, $c$- Ordem: parênteses, **, !, * / %, + -, comparações, ===, &&, ||, atribuição.
 - Operadores do mesmo nível: da esquerda para a direita (a potência é da direita para a esquerda).
 - Parênteses mudam a ordem e deixam o código mais claro.
-- Aritméticos vêm antes das comparações, e as comparações antes de && e ||.$c$, $c$mundo-3$c$, 306, $c$arquivo$c$),
+- Aritméticos vêm antes das comparações, e as comparações antes de && e ||.$c$, $c$mundo-3$c$, 306, false, $c$arquivo$c$),
   ($c$desafio-do-mundo-3$c$, $c$Desafio final do Mundo 3$c$, $c$Juntar os operadores em uma calculadora simples$c$, $c$Chegou o desafio do Mundo 3: uma calculadora simples. Você vai usar operadores aritméticos, relacionais e lógicos, e vai cuidar dos casos especiais, como a divisão por zero.
 
 O desafio principal é o primeiro exercício: um programa que lê dois números e mostra o resultado das principais operações, avisando quando a divisão for por zero. No Mundo 4 você vai aprender a tomar decisões (if/else) e poderá impedir a conta; por enquanto, o programa avisa usando uma comparação.
@@ -814,7 +814,7 @@ Os outros dois exercícios treinam a precedência e o acompanhamento de valores.
 - Atribuição guarda e atualiza valores (=, +=, ++...).
 - A precedência define a ordem; parênteses deixam a intenção clara.
 - Divisão por zero dá Infinity e o resto por zero dá NaN: vale testar o divisor antes.
-- Em toda comparação, use === (e não =).$c$, $c$mundo-3$c$, 307, $c$arquivo$c$),
+- Em toda comparação, use === (e não =).$c$, $c$mundo-3$c$, 307, false, $c$arquivo$c$),
   ($c$condicionais$c$, $c$Condicionais$c$, $c$Tomar decisões no fluxo do algoritmo$c$, $c$Condicionais fazem o programa escolher um caminho. A estrutura básica é:
 
 if (idade >= 18) {
@@ -823,28 +823,301 @@ if (idade >= 18) {
   return "menor";
 }
 
-A condição entre parênteses vale verdadeiro ou falso. Operadores úteis: ===, !==, >, <, >=, <=, e && (e) e || (ou). Dica: teste os casos de borda, como o valor exatamente igual ao limite.$c$, $c$$c$, $c$$c$, $c$mundo-4$c$, 401, $c$arquivo$c$),
+A condição entre parênteses vale verdadeiro ou falso. Operadores úteis: ===, !==, >, <, >=, <=, e && (e) e || (ou). Dica: teste os casos de borda, como o valor exatamente igual ao limite.$c$, $c$$c$, $c$$c$, $c$mundo-4$c$, 490, false, $c$arquivo$c$),
+  ($c$introducao-as-condicionais$c$, $c$Introdução às estruturas condicionais$c$, $c$Entender como um programa toma decisões$c$, $c$Até agora, os programas executavam as instruções de cima para baixo, sempre do mesmo jeito. Na vida real, porém, decidimos o tempo todo: "se estiver chovendo, levo o guarda-chuva".
+
+Uma estrutura condicional faz o programa decidir. Ela testa uma condição, uma expressão que resulta em true ou false (como as comparações do Mundo 3), e executa um trecho do código somente se a condição for verdadeira.
+
+Com isso, o programa deixa de seguir um único caminho: o resultado depende dos dados. Neste mundo você vai conhecer as principais estruturas condicionais de JavaScript: if, if/else, else if, switch e o operador ternário.$c$, $c$const idade = 20;
+
+if (idade >= 18) {
+  console.log("Pode entrar");
+}
+console.log("Fim");
+
+Passo a passo:
+1. A condição idade >= 18 é testada. Com idade 20, o resultado é true.
+2. Como é verdadeira, o computador executa o bloco entre as chaves { } e mostra Pode entrar.
+3. Depois, o programa segue normalmente e mostra Fim.
+
+Se idade valesse 15, a condição seria false: o bloco seria ignorado e só Fim apareceria.$c$, $c$- Uma estrutura condicional executa um trecho do código só quando uma condição é verdadeira.
+- A condição é uma expressão que resulta em true ou false.
+- O bloco da condição fica entre chaves { }.
+- O resultado do programa passa a depender dos dados.
+- As principais estruturas: if, if/else, else if, switch e ternário.$c$, $c$mundo-4$c$, 401, false, $c$arquivo$c$),
+  ($c$revisao-dos-relacionais$c$, $c$Revisão dos operadores relacionais$c$, $c$Revisar as comparações que formam as condições$c$, $c$As condições das estruturas condicionais quase sempre são comparações. Vamos revisar o que você viu no Mundo 3:
+- > maior, < menor, >= maior ou igual, <= menor ou igual;
+- === igual (mesmo valor e mesmo tipo) e !== diferente.
+
+Traduzindo do português: "a idade é pelo menos 18" vira idade >= 18; "a nota é diferente de 10" vira nota !== 10.
+
+Cuidados que valem ouro dentro de um if:
+- use === para comparar, e não =, que guarda um valor;
+- evite == e !=, que convertem os tipos;
+- textos diferenciam maiúsculas de minúsculas: "Ana" não é igual a "ana";
+- um número e um texto são valores de tipos diferentes: 10 === "10" é false.$c$, $c$const idade = 17;
+console.log(idade >= 18);               // false
+console.log(idade === 17);              // true
+console.log(idade !== 17);              // false
+
+const nome = "Ana";
+console.log(nome === "ana");            // false (as maiúsculas contam)
+console.log(typeof idade === "number"); // true
+
+Passo a passo:
+1. Cada comparação resulta em true ou false, e é isso que um if vai usar como condição.
+2. nome === "ana" é false: "A" maiúsculo e "a" minúsculo são caracteres diferentes.
+3. typeof idade devolve o texto "number", e comparamos com === para conferir o tipo.$c$, $c$- Condições são, em geral, comparações: > < >= <= === !==.
+- "Pelo menos" é >=; "no máximo" é <=; "diferente" é !==.
+- Use === para comparar e = só para guardar valores.
+- Textos diferenciam maiúsculas e minúsculas; número e texto têm tipos diferentes.$c$, $c$mundo-4$c$, 402, false, $c$arquivo$c$),
+  ($c$revisao-dos-logicos$c$, $c$Revisão dos operadores lógicos$c$, $c$Revisar &&, || e ! para montar condições com mais de uma regra$c$, $c$Muitas decisões dependem de mais de uma regra. Os operadores lógicos, que você viu no Mundo 3, combinam condições:
+- && (E): true somente se as duas condições são true;
+- || (OU): true se pelo menos uma é true;
+- ! (NÃO): inverte o resultado.
+
+Traduzindo: "idade entre 18 e 65" vira idade >= 18 && idade <= 65 (repita a variável nas duas comparações!); "criança ou idoso" vira idade < 12 || idade >= 60; "não é fim de semana" vira !ehFimDeSemana.
+
+Uma regra útil, a lei de De Morgan, mostra que !(a && b) equivale a !a || !b, e que !(a || b) equivale a !a && !b: ao inverter uma combinação, trocamos E por OU e invertemos cada parte.$c$, $c$const idade = 70;
+const ehCrianca = idade < 12;
+const ehIdoso = idade >= 60;
+console.log(ehCrianca || ehIdoso);            // true  (tem desconto)
+console.log(idade >= 18 && idade <= 65);      // false (fora da faixa)
+console.log(!(idade >= 18 && idade <= 65));   // true
+
+Passo a passo:
+1. ehCrianca é false e ehIdoso é true: o || resulta em true.
+2. 70 é maior que 18, mas não é menor ou igual a 65: o && resulta em false.
+3. O ! inverte esse false em true.$c$, $c$- && exige as duas condições; || aceita uma delas; ! inverte.
+- "Entre 18 e 65" é idade >= 18 && idade <= 65.
+- "Criança ou idoso" é idade < 12 || idade >= 60.
+- De Morgan: !(a && b) é !a || !b; !(a || b) é !a && !b.
+- Use parênteses quando misturar && e ||.$c$, $c$mundo-4$c$, 403, false, $c$arquivo$c$),
+  ($c$estrutura-if$c$, $c$Estrutura if$c$, $c$Escrever e entender a estrutura if$c$, $c$A estrutura if é a forma mais simples de decisão:
+
+if (condição) {
+  // comandos que só executam se a condição for verdadeira
+}
+
+Pontos importantes:
+- a condição fica entre parênteses;
+- o bloco de comandos fica entre chaves { }, com os comandos recuados (indentados) para facilitar a leitura;
+- se a condição for falsa, o bloco inteiro é ignorado e o programa segue adiante;
+- não se coloca ponto e vírgula logo depois do parêntese: if (x > 0); termina o if antes de começar e o bloco passa a executar sempre;
+- use === para comparar, e não =: if (x = 5) guarda 5 em x e a condição passa a valer sempre.
+
+Um programa pode ter vários if seguidos. Cada um tem a sua condição e é testado de forma independente.$c$, $c$const temperatura = 32;
+
+if (temperatura > 30) {
+  console.log("Está quente");
+}
+
+if (temperatura < 15) {
+  console.log("Está frio");
+}
+
+console.log("Fim");
+
+Passo a passo:
+1. 32 > 30 é true: o primeiro bloco executa e mostra Está quente.
+2. 32 < 15 é false: o segundo bloco é ignorado.
+3. O programa continua e mostra Fim.$c$, $c$- if (condição) { ... } executa o bloco só se a condição for verdadeira.
+- Condição entre parênteses, comandos entre chaves e recuados.
+- Condição falsa: o bloco é ignorado.
+- Nada de ; depois do parêntese do if, e use === (e não =) para comparar.
+- Vários if seguidos são avaliados independentemente.$c$, $c$mundo-4$c$, 404, false, $c$arquivo$c$),
+  ($c$estrutura-if-else$c$, $c$Estrutura if/else$c$, $c$Escolher entre dois caminhos$c$, $c$Muitas vezes precisamos de dois caminhos: um para quando a condição é verdadeira e outro para quando é falsa. A estrutura if/else faz isso:
+
+if (condição) {
+  // executa se for verdadeira
+} else {
+  // executa se for falsa
+}
+
+Exatamente um dos dois blocos é executado, nunca os dois e nunca nenhum. O else não tem condição: ele cobre "todo o resto".
+
+Cuidado: dois if seguidos não são um if/else. Em if (x > 5) {...} if (x <= 5) {...}, as duas condições são testadas separadamente; com else, o segundo teste não é necessário.
+
+Um uso clássico é separar par de ímpar: um número é par quando o resto da divisão por 2 é zero.$c$, $c$const numero = 7;
+
+if (numero % 2 === 0) {
+  console.log("Par");
+} else {
+  console.log("Ímpar");
+}
+
+Passo a passo:
+1. numero % 2 vale 1, e 1 === 0 é false.
+2. Como a condição é falsa, o bloco do if é ignorado e o bloco do else executa.
+3. O programa mostra Ímpar.
+
+Com numero = 8, 8 % 2 é 0, a condição seria verdadeira e o programa mostraria Par.$c$, $c$- if/else escolhe entre dois caminhos: exatamente um dos blocos executa.
+- O else não tem condição: vale quando a condição do if é falsa.
+- Dois if seguidos são testes independentes; if/else são caminhos excludentes.
+- Número par: n % 2 === 0.$c$, $c$mundo-4$c$, 405, false, $c$arquivo$c$),
+  ($c$estrutura-else-if$c$, $c$Estrutura else if$c$, $c$Decidir entre várias faixas ou opções$c$, $c$Quando há mais de dois caminhos, encadeamos condições com else if:
+
+if (condição1) {
+  ...
+} else if (condição2) {
+  ...
+} else if (condição3) {
+  ...
+} else {
+  ...
+}
+
+O computador testa as condições de cima para baixo. A primeira que for verdadeira executa o seu bloco, e todas as outras são ignoradas, mesmo que também fossem verdadeiras. O else final, que é opcional, cobre o que sobrou.
+
+Por isso a ordem importa: coloque as condições mais específicas antes das mais gerais. Em uma escala de notas, se você testar nota >= 5 antes de nota >= 7, quem tirou 9 cai na primeira faixa e nunca chega à segunda.
+
+E atenção: vários if seguidos não são a mesma coisa que else if: cada if é testado de forma independente.$c$, $c$const nota = 7.5;
+
+if (nota >= 9) {
+  console.log("Excelente");
+} else if (nota >= 7) {
+  console.log("Bom");
+} else if (nota >= 5) {
+  console.log("Regular");
+} else {
+  console.log("Insuficiente");
+}
+
+Passo a passo:
+1. 7.5 >= 9 é false: segue para a próxima condição.
+2. 7.5 >= 7 é true: executa o bloco e mostra Bom.
+3. As condições seguintes nem são testadas, mesmo que 7.5 >= 5 também seja verdadeiro.$c$, $c$- else if encadeia várias condições: só o primeiro bloco verdadeiro executa.
+- As condições são testadas de cima para baixo: a ordem importa.
+- Coloque as faixas mais específicas antes das mais gerais.
+- O else final cobre os demais casos.
+- else if não é o mesmo que vários if seguidos.$c$, $c$mundo-4$c$, 406, false, $c$arquivo$c$),
+  ($c$condicionais-aninhadas$c$, $c$Condicionais aninhadas$c$, $c$Colocar uma decisão dentro de outra$c$, $c$Condicionais aninhadas são condicionais dentro de outras: uma decisão que só faz sentido depois de outra. Por exemplo: só perguntamos se a pessoa tem ingresso depois de confirmar que ela é maior de idade.
+
+O bloco interno só é testado se a condição externa for verdadeira. Se a externa for falsa, a interna nem é avaliada.
+
+A indentação é essencial: a cada nível, recue o código mais um pouco para enxergar a quem cada else pertence. Um else sempre pertence ao if mais próximo, acima dele.
+
+Muitos níveis deixam o código difícil de ler. Quando as duas condições levam ao mesmo resultado, uma alternativa é juntá-las com &&: if (a) { if (b) {...} } equivale a if (a && b) {...}.$c$, $c$const idade = 20;
+const temIngresso = false;
+
+if (idade >= 18) {
+  if (temIngresso) {
+    console.log("Pode entrar");
+  } else {
+    console.log("Compre um ingresso");
+  }
+} else {
+  console.log("Menor de idade");
+}
+
+Passo a passo:
+1. idade >= 18 é true: entramos no bloco externo.
+2. Dentro dele, temIngresso é false: executa o else interno.
+3. O programa mostra Compre um ingresso. O else externo (Menor de idade) não executa, porque a condição externa foi verdadeira.$c$, $c$- Condicional aninhada é uma condicional dentro do bloco de outra.
+- A interna só é avaliada se a externa for verdadeira.
+- Cada else pertence ao if mais próximo acima dele; a indentação ajuda a enxergar isso.
+- if (a) { if (b) {...} } equivale a if (a && b) {...}.
+- Evite muitos níveis: o código fica difícil de ler.$c$, $c$mundo-4$c$, 407, false, $c$arquivo$c$),
+  ($c$estrutura-switch$c$, $c$Estrutura switch$c$, $c$Escolher entre várias opções exatas$c$, $c$Quando queremos comparar uma mesma variável com vários valores exatos (como o número do dia da semana ou a opção de um menu), o switch deixa o código mais organizado que uma longa cadeia de else if.
+
+switch (valor) {
+  case 1:
+    ...
+    break;
+  case 2:
+    ...
+    break;
+  default:
+    ...
+}
+
+O computador compara o valor com cada case usando ===. Ao encontrar o primeiro igual, executa as instruções a partir dali. O break encerra o switch; sem ele, a execução "cai" nos cases seguintes (efeito cascata), mesmo que eles não combinem.
+
+O default é opcional e funciona como o else: executa quando nenhum case combina. O switch só serve para igualdade exata: para faixas (nota >= 7), use if/else if.$c$, $c$const dia = 3;
+
+switch (dia) {
+  case 1:
+    console.log("Domingo");
+    break;
+  case 2:
+    console.log("Segunda");
+    break;
+  case 3:
+    console.log("Terça");
+    break;
+  default:
+    console.log("Outro dia");
+}
+
+Passo a passo:
+1. O valor de dia (3) é comparado com cada case, de cima para baixo.
+2. case 3 combina: executa console.log("Terça").
+3. O break encerra o switch. Se ele faltasse, "Outro dia" também seria mostrado.$c$, $c$- switch compara um valor com vários cases usando === (igualdade exata).
+- O break encerra o switch; sem ele, a execução cai nos cases seguintes.
+- default executa quando nenhum case combina (é opcional).
+- Para faixas de valores, use if/else if, não switch.$c$, $c$mundo-4$c$, 408, false, $c$arquivo$c$),
+  ($c$operador-ternario$c$, $c$Operador ternário$c$, $c$Escrever uma decisão simples em uma só linha$c$, $c$Este é um conteúdo complementar: ele não bloqueia a liberação do que vem a seguir. Vale estudar, mas você pode seguir em frente sem concluí-lo.
+
+O operador ternário é um atalho para um if/else simples que escolhe um valor:
+
+condição ? valorSeVerdadeira : valorSeFalsa
+
+Ele é uma expressão: produz um valor, que pode ser guardado em uma variável ou devolvido por uma função. Compare:
+
+let texto;
+if (idade >= 18) { texto = "maior"; } else { texto = "menor"; }
+
+const texto = idade >= 18 ? "maior" : "menor";
+
+Use o ternário para decisões curtas. Quando houver muitos caminhos ou blocos com várias instruções, prefira if/else, que fica mais legível.$c$, $c$const nota = 8;
+const situacao = nota >= 7 ? "Aprovado" : "Reprovado";
+console.log(situacao);
+
+Passo a passo:
+1. A condição nota >= 7 é testada: 8 >= 7 é true.
+2. Como é verdadeira, o ternário resulta no valor antes dos dois-pontos: "Aprovado".
+3. Esse valor é guardado em situacao e mostrado na tela.
+
+Se a nota fosse 5, o resultado seria o valor depois dos dois-pontos: "Reprovado".$c$, $c$- condição ? valorSeVerdadeira : valorSeFalsa: um if/else que produz um valor.
+- É uma expressão: pode ser guardada em variável ou usada em um return.
+- Bom para decisões curtas; para muitos caminhos, prefira if/else.
+- Esta lição é complementar e não bloqueia a liberação do que vem depois.$c$, $c$mundo-4$c$, 409, true, $c$arquivo$c$),
+  ($c$desafio-do-mundo-4$c$, $c$Desafio final do Mundo 4$c$, $c$Juntar as condicionais em um sistema de notas$c$, $c$Chegou o desafio do Mundo 4: um sistema de notas. O programa recebe as notas de um aluno, calcula a média e informa a situação: aprovado, recuperação ou reprovado.
+
+Aqui você vai usar tudo o que aprendeu: operadores aritméticos para a média, relacionais para comparar, lógicos para combinar condições e as estruturas condicionais para decidir.
+
+O desafio principal é o primeiro exercício. Os outros dois treinam a leitura e a correção de decisões encadeadas.$c$, $c$Como montar o sistema de notas:
+1. Leia as três notas com lerEntrada() e converta cada uma com Number().
+2. Calcule a média: (n1 + n2 + n3) / 3.
+3. Decida a situação com if / else if / else: média >= 7 é Aprovado, média >= 5 é Recuperação, o restante é Reprovado.
+4. Mostre a média e a situação com console.log.
+5. Teste os limites (média exatamente 7 e exatamente 5): é aí que mais aparecem erros.$c$, $c$- A média usa parênteses: (n1 + n2 + n3) / 3.
+- if / else if / else escolhe um único caminho, testando de cima para baixo.
+- Coloque as condições na ordem certa: da faixa mais alta para a mais baixa.
+- Teste os valores de fronteira (>= ou >).
+- Em toda comparação, use === (e não =).$c$, $c$mundo-4$c$, 410, false, $c$arquivo$c$),
   ($c$repeticao$c$, $c$Estruturas de repetição$c$, $c$Compreender o passo a passo de um laço$c$, $c$Um laço repete um bloco de código. O mais comum é o for:
 
 for (let i = 1; i <= 5; i++) {
   total = total + i;
 }
 
-Ele tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.$c$, $c$$c$, $c$$c$, $c$mundo-5$c$, 501, $c$arquivo$c$),
+Ele tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.$c$, $c$$c$, $c$$c$, $c$mundo-5$c$, 501, false, $c$arquivo$c$),
   ($c$vetores$c$, $c$Vetores$c$, $c$Manipular coleções de dados$c$, $c$Um vetor (array) guarda vários valores numa lista ordenada:
 
 const notas = [7, 9, 5];
 
-A primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são "percorra e acumule": somar, contar, achar o maior.$c$, $c$$c$, $c$$c$, $c$mundo-6$c$, 601, $c$arquivo$c$),
+A primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são "percorra e acumule": somar, contar, achar o maior.$c$, $c$$c$, $c$$c$, $c$mundo-6$c$, 601, false, $c$arquivo$c$),
   ($c$funcoes$c$, $c$Funções$c$, $c$Dividir um problema em partes reutilizáveis$c$, $c$Quando um trecho de código se repete, vale transformá-lo numa função e reutilizá-la. Uma função boa faz uma coisa só e tem um nome que diz o que ela faz.
 
 function ehPar(n) {
   return n % 2 === 0;
 }
 
-Uma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.$c$, $c$$c$, $c$$c$, $c$mundo-7$c$, 701, $c$arquivo$c$)
+Uma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.$c$, $c$$c$, $c$$c$, $c$mundo-7$c$, 701, false, $c$arquivo$c$)
 on conflict (id) do update set title = excluded.title, focus = excluded.focus, intro = excluded.intro,
-  example = excluded.example, review = excluded.review, world_id = excluded.world_id, position = excluded.position
+  example = excluded.example, review = excluded.review, world_id = excluded.world_id, position = excluded.position,
+  optional = excluded.optional
   where public.modules.origem = 'arquivo';
 
 insert into public.exercises
@@ -1252,6 +1525,189 @@ $c$, $c$[{"args":[5,1,10],"expected":true},{"args":[1,1,10],"expected":true},{"a
   // seu código aqui
 }
 $c$, $c$[{"args":[3,3,3],"expected":"equilatero"},{"args":[3,3,4],"expected":"isosceles"},{"args":[3,4,3],"expected":"isosceles"},{"args":[4,3,3],"expected":"isosceles"},{"args":[3,4,5],"expected":"escaleno"}]$c$::jsonb, $c${}$c$::jsonb, $c$Teste primeiro o caso mais específico (os três iguais).$c$, 104, false, $c$arquivo$c$),
+  ($c$cond-intro-para-que-serve$c$, $c$introducao-as-condicionais$c$, $c$choice$c$, $c$Para que serve uma condicional?$c$, $c$facil$c$, $c$Para que serve uma estrutura condicional?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para repetir um trecho do programa várias vezes","misconception":"confunde decisão com repetição"},{"text":"Para executar um trecho só quando uma condição for verdadeira"},{"text":"Para guardar valores em variáveis","misconception":"confunde decisão com declaração de variáveis"},{"text":"Para mostrar um texto na tela","misconception":"confunde decisão com saída de dados"}],"correct":1,"explanation":"A estrutura condicional faz o programa decidir: um trecho só é executado quando a condição é verdadeira."}$c$::jsonb, $c$Pense em "se... então...".$c$, 1, false, $c$arquivo$c$),
+  ($c$cond-intro-o-que-a-condicao-resulta$c$, $c$introducao-as-condicionais$c$, $c$choice$c$, $c$O resultado da condição$c$, $c$facil$c$, $c$A condição de uma estrutura condicional precisa resultar em quê?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Em um texto","misconception":"acha que a condição precisa ser um texto"},{"text":"Em um número inteiro positivo","misconception":"acha que a condição precisa ser um número"},{"text":"Em uma atribuição, como x = 5","misconception":"confunde condição com atribuição"},{"text":"Em true ou false"}],"correct":3,"explanation":"A condição é avaliada como verdadeira ou falsa (true ou false), como o resultado de uma comparação."}$c$::jsonb, $c$Lembre-se das comparações do Mundo 3.$c$, 2, false, $c$arquivo$c$),
+  ($c$cond-intro-condicao-verdadeira$c$, $c$introducao-as-condicionais$c$, $c$interpretation$c$, $c$Pode entrar?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Pode entrar\nFim"},{"text":"Fim","misconception":"acha que a mensagem do if não aparece"},{"text":"Pode entrar","misconception":"acha que o programa termina dentro do if"},{"text":"Fim\nPode entrar","misconception":"executa o bloco do if depois das linhas seguintes"}],"correct":0,"code":"const idade = 20;\nif (idade >= 18) {\n  console.log(\"Pode entrar\");\n}\nconsole.log(\"Fim\");","explanation":"20 >= 18 é true, então o bloco do if executa. Depois, o programa continua e mostra Fim."}$c$::jsonb, $c$Com 20, a condição é verdadeira.$c$, 3, false, $c$arquivo$c$),
+  ($c$cond-intro-complete-o-if$c$, $c$introducao-as-condicionais$c$, $c$blank$c$, $c$Complete o if$c$, $c$facil$c$, $c$Complete a palavra que inicia a estrutura condicional.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const temperatura = 35;\n{{1}} (temperatura > 30) {\n  console.log(\"Está quente\");\n}","blanks":[{"answers":["if"]}],"explanation":"if é a palavra que inicia a estrutura condicional: se a condição for verdadeira, o bloco executa."}$c$::jsonb, $c$A palavra vem do inglês e significa "se".$c$, 4, false, $c$arquivo$c$),
+  ($c$cond-intro-condicao-falsa$c$, $c$introducao-as-condicionais$c$, $c$interpretation$c$, $c$Menor de idade$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Pode entrar\nFim","misconception":"executa o bloco sem avaliar a condição"},{"text":"Nada","misconception":"acha que o programa não mostra nada quando a condição é falsa"},{"text":"Fim"},{"text":"Pode entrar","misconception":"acha que o bloco executa mesmo com a condição falsa e o programa termina"}],"correct":2,"code":"const idade = 15;\nif (idade >= 18) {\n  console.log(\"Pode entrar\");\n}\nconsole.log(\"Fim\");","explanation":"15 >= 18 é false, então o bloco é ignorado. O programa continua depois do if e mostra apenas Fim."}$c$::jsonb, $c$Com 15, a condição é falsa. O que acontece com o bloco?$c$, 5, false, $c$arquivo$c$),
+  ($c$cond-intro-condicao-invalida$c$, $c$introducao-as-condicionais$c$, $c$choice$c$, $c$Condição ou atribuição?$c$, $c$medio$c$, $c$Qual das alternativas NÃO é uma condição (isto é, não compara valores)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"idade >= 18","misconception":"acha que uma comparação não pode ser usada como condição"},{"text":"idade = 18"},{"text":"idade === 18","misconception":"acha que uma comparação de igualdade não pode ser usada como condição"},{"text":"idade !== 18","misconception":"acha que uma comparação de diferença não pode ser usada como condição"}],"correct":1,"explanation":"idade = 18 é uma atribuição: guarda 18 em idade. As outras comparam e resultam em true ou false."}$c$::jsonb, $c$Uma delas guarda um valor em vez de comparar.$c$, 6, false, $c$arquivo$c$),
+  ($c$cond-intro-ordene-o-if$c$, $c$introducao-as-condicionais$c$, $c$order$c$, $c$Ordene o programa$c$, $c$medio$c$, $c$Coloque as linhas na ordem certa para o programa mostrar Leve o guarda-chuva quando estiver chovendo.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["const chovendo = true;","if (chovendo) {","console.log(\"Leve o guarda-chuva\");","}"],"explanation":"Primeiro a variável, depois o if com a condição, o comando dentro do bloco e, por fim, a chave que fecha o bloco."}$c$::jsonb, $c$A variável precisa existir antes de ser testada, e o bloco fica entre a abertura e o fechamento das chaves.$c$, 7, false, $c$arquivo$c$),
+  ($c$cond-intro-dois-ifs-seguidos$c$, $c$introducao-as-condicionais$c$, $c$interpretation$c$, $c$Dois ifs seguidos$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Aprovado\nEstude mais\nFim","misconception":"acha que todos os if executam, sem avaliar as condições"},{"text":"Aprovado\nFim","misconception":"avalia a primeira condição como verdadeira"},{"text":"Fim","misconception":"acha que nenhum dos ifs executa"},{"text":"Estude mais\nFim"}],"correct":3,"code":"const nota = 6;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n}\nif (nota < 7) {\n  console.log(\"Estude mais\");\n}\nconsole.log(\"Fim\");","explanation":"6 >= 7 é false, então o primeiro bloco é ignorado. 6 < 7 é true, então o segundo bloco executa. Depois, Fim."}$c$::jsonb, $c$Cada if tem a sua própria condição, testada separadamente.$c$, 8, false, $c$arquivo$c$),
+  ($c$revrel-pelo-menos$c$, $c$revisao-dos-relacionais$c$, $c$choice$c$, $c$Pelo menos 18$c$, $c$facil$c$, $c$Como se escreve a condição "a idade é pelo menos 18"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"idade >= 18"},{"text":"idade > 18","misconception":"esquece que \"pelo menos\" inclui o próprio 18"},{"text":"idade <= 18","misconception":"inverte o sentido da comparação"},{"text":"idade = 18","misconception":"usa uma atribuição no lugar de uma comparação"}],"correct":0,"explanation":"\"Pelo menos 18\" é 18 ou mais: idade >= 18."}$c$::jsonb, $c$"Pelo menos" quer dizer "18 ou mais".$c$, 1, false, $c$arquivo$c$),
+  ($c$revrel-diferente$c$, $c$revisao-dos-relacionais$c$, $c$choice$c$, $c$Diferente de 10$c$, $c$facil$c$, $c$Como se escreve a condição "a nota é diferente de 10"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"nota === 10","misconception":"escreve a condição contrária"},{"text":"nota =! 10","misconception":"inverte os símbolos do operador de diferença"},{"text":"nota !== 10"},{"text":"nota <> 10","misconception":"usa o operador de outras linguagens"}],"correct":2,"explanation":"!== compara se dois valores são diferentes (em valor ou em tipo)."}$c$::jsonb, $c$O operador de diferença começa com o ponto de exclamação.$c$, 2, false, $c$arquivo$c$),
+  ($c$revrel-maiusculas-contam$c$, $c$revisao-dos-relacionais$c$, $c$interpretation$c$, $c$Ana ou ana?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true","misconception":"acha que maiúsculas e minúsculas não fazem diferença"},{"text":"false"},{"text":"Erro","misconception":"acha que comparar textos com === causa um erro"},{"text":"undefined","misconception":"acha que a comparação de textos não produz resultado"}],"correct":1,"code":"const nome = \"Ana\";\nconsole.log(nome === \"ana\");","explanation":"\"A\" e \"a\" são caracteres diferentes, então os textos não são iguais: false."}$c$::jsonb, $c$Compare os dois textos letra por letra.$c$, 3, false, $c$arquivo$c$),
+  ($c$revrel-nota-passou$c$, $c$revisao-dos-relacionais$c$, $c$code$c$, $c$A nota passou?$c$, $c$medio$c$, $c$Escreva a função `passou(nota)` que devolve true se a nota for 7 ou mais, e false caso contrário.$c$, null, $c$passou$c$, $c$function passou(nota) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[7],"expected":true},{"args":[6.9],"expected":false},{"args":[10],"expected":true},{"args":[0],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Uma comparação já resulta em true ou false.$c$, 4, false, $c$arquivo$c$),
+  ($c$revrel-corrija-o-igual$c$, $c$revisao-dos-relacionais$c$, $c$fix$c$, $c$Corrija a comparação$c$, $c$medio$c$, $c$A função `ehDez(n)` deveria devolver true apenas quando n for 10, mas devolve outros valores. Corrija o defeito.$c$, null, $c$ehDez$c$, $c$function ehDez(n) {
+  return n = 10;
+}
+$c$, $c$[{"args":[10],"expected":true},{"args":[5],"expected":false},{"args":[0],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Um dos sinais está guardando um valor em vez de comparar.$c$, 5, false, $c$arquivo$c$),
+  ($c$revrel-texto-ou-numero$c$, $c$revisao-dos-relacionais$c$, $c$interpretation$c$, $c$10 e "10"$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\ntrue\ntrue","misconception":"acha que o === ignora a diferença de tipo"},{"text":"false\nfalse\ntrue","misconception":"acha que o == também diferencia os tipos"},{"text":"false\ntrue\nfalse","misconception":"acha que Number() não converte o texto em número"},{"text":"false\ntrue\ntrue"}],"correct":3,"code":"const a = \"10\";\nconst b = 10;\nconsole.log(a === b);\nconsole.log(a == b);\nconsole.log(Number(a) === b);","explanation":"=== não aceita tipos diferentes (false). == converte e diz true. Convertendo a com Number(), os dois são números iguais: true."}$c$::jsonb, $c$a é um texto e b é um número.$c$, 6, false, $c$arquivo$c$),
+  ($c$revrel-casos-estranhos$c$, $c$revisao-dos-relacionais$c$, $c$interpretation$c$, $c$Cuidados na comparação$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\nfalse\ntrue"},{"text":"true\ntrue\nfalse","misconception":"acha que 0.1 + 0.2 é exatamente 0.3 e que as minúsculas vêm antes das maiúsculas"},{"text":"false\ntrue\ntrue","misconception":"acha que as letras minúsculas vêm antes das maiúsculas"},{"text":"false\nfalse\nfalse","misconception":"compara \"10\" e \"9\" como números"}],"correct":0,"code":"console.log(0.1 + 0.2 === 0.3);\nconsole.log(\"apple\" < \"Banana\");\nconsole.log(\"10\" < \"9\");","explanation":"0.1 + 0.2 vale 0.30000000000000004 (false). \"apple\" começa com a minúsculo, que vem depois do B maiúsculo (false). \"10\" < \"9\" compara textos: \"1\" vem antes de \"9\" (true)."}$c$::jsonb, $c$Decimais são aproximados; textos são comparados letra por letra, com as maiúsculas antes das minúsculas.$c$, 7, false, $c$arquivo$c$),
+  ($c$revlog-entre-dois-valores$c$, $c$revisao-dos-logicos$c$, $c$choice$c$, $c$Entre 18 e 65$c$, $c$facil$c$, $c$Como se escreve "a idade está entre 18 e 65 (inclusive)"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"idade >= 18 || idade <= 65","misconception":"usa OU, que fica verdadeiro para quase qualquer número"},{"text":"18 <= idade <= 65","misconception":"escreve como na matemática, mas o JavaScript avalia de outra forma"},{"text":"idade >= 18 && idade <= 65"},{"text":"idade >= 18 && <= 65","misconception":"esquece de repetir a variável na segunda comparação"}],"correct":2,"explanation":"O && exige as duas comparações verdadeiras: idade >= 18 e idade <= 65."}$c$::jsonb, $c$As duas condições precisam valer ao mesmo tempo, cada uma com a variável.$c$, 1, false, $c$arquivo$c$),
+  ($c$revlog-crianca-ou-idoso$c$, $c$revisao-dos-logicos$c$, $c$choice$c$, $c$Criança ou idoso$c$, $c$facil$c$, $c$Como se escreve "a idade é menor que 12 OU maior ou igual a 60"?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"idade < 12 && idade >= 60","misconception":"usa E, que nenhum número satisfaz"},{"text":"idade < 12 || idade >= 60"},{"text":"idade < 12 || 60","misconception":"esquece de comparar a variável com o 60"},{"text":"!(idade < 12) || idade >= 60","misconception":"inverte a primeira condição sem querer"}],"correct":1,"explanation":"O || aceita que qualquer um dos lados seja verdadeiro: idade < 12 || idade >= 60."}$c$::jsonb, $c$Basta uma das duas condições ser verdadeira.$c$, 2, false, $c$arquivo$c$),
+  ($c$revlog-tabela-verdade$c$, $c$revisao-dos-logicos$c$, $c$interpretation$c$, $c$Combinações básicas$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"true\ntrue\ntrue\ntrue","misconception":"acha que o && só precisa de um lado verdadeiro"},{"text":"true\nfalse\nfalse\nfalse","misconception":"acha que o || precisa dos dois lados verdadeiros"},{"text":"true\nfalse\ntrue\ntrue","misconception":"esquece que o ! inverte o valor"},{"text":"true\nfalse\ntrue\nfalse"}],"correct":3,"code":"console.log(true && true);\nconsole.log(true && false);\nconsole.log(false || true);\nconsole.log(!true);","explanation":"true && true é true; true && false é false; false || true é true; e !true é false."}$c$::jsonb, $c$Use a tabela-verdade do Mundo 3.$c$, 3, false, $c$arquivo$c$),
+  ($c$revlog-tem-desconto$c$, $c$revisao-dos-logicos$c$, $c$code$c$, $c$Tem desconto?$c$, $c$medio$c$, $c$Escreva a função `temDesconto(idade)` que devolve true para crianças (menores de 12 anos) e para idosos (60 anos ou mais), e false para os demais.$c$, null, $c$temDesconto$c$, $c$function temDesconto(idade) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[10],"expected":true},{"args":[12],"expected":false},{"args":[59],"expected":false},{"args":[60],"expected":true},{"args":[70],"expected":true}]$c$::jsonb, $c${}$c$::jsonb, $c$As duas regras valem de forma independente: basta uma delas.$c$, 4, false, $c$arquivo$c$),
+  ($c$revlog-corrija-o-fim-de-semana$c$, $c$revisao-dos-logicos$c$, $c$fix$c$, $c$Corrija o fim de semana$c$, $c$medio$c$, $c$A função `ehFimDeSemana(dia)` deveria devolver true para "sábado" e "domingo", mas devolve sempre false. Corrija o defeito.$c$, null, $c$ehFimDeSemana$c$, $c$function ehFimDeSemana(dia) {
+  return dia === "sábado" && dia === "domingo";
+}
+$c$, $c$[{"args":["sábado"],"expected":true},{"args":["domingo"],"expected":true},{"args":["segunda"],"expected":false},{"args":["sexta"],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Um dia não pode ser sábado e domingo ao mesmo tempo.$c$, 5, false, $c$arquivo$c$),
+  ($c$revlog-parenteses-mudam-o-resultado$c$, $c$revisao-dos-logicos$c$, $c$interpretation$c$, $c$Parênteses e lógica$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"false\ntrue\ntrue"},{"text":"true\ntrue\ntrue","misconception":"ignora o efeito dos parênteses na primeira linha"},{"text":"false\nfalse\ntrue","misconception":"resolve o || antes do && na segunda linha"},{"text":"false\ntrue\nfalse","misconception":"esquece que o ! inverte false em true"}],"correct":0,"code":"const temCartao = true;\nconst temDinheiro = false;\nconst estaAberto = false;\nconsole.log((temCartao || temDinheiro) && estaAberto);\nconsole.log(temCartao || temDinheiro && estaAberto);\nconsole.log(!estaAberto);","explanation":"Linha 1: (true || false) é true e true && false é false. Linha 2: false && false é false, e true || false é true. Linha 3: !false é true."}$c$::jsonb, $c$Na segunda linha, o && é resolvido antes do ||.$c$, 6, false, $c$arquivo$c$),
+  ($c$revlog-de-morgan$c$, $c$revisao-dos-logicos$c$, $c$choice$c$, $c$Invertendo uma combinação$c$, $c$dificil$c$, $c$Qual expressão é equivalente a !(a && b)?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"!a && !b","misconception":"inverte os operandos, mas mantém o &&"},{"text":"a || b","misconception":"troca o && por || sem inverter os operandos"},{"text":"!a || !b"},{"text":"!a || b","misconception":"inverte só um dos operandos"}],"correct":2,"explanation":"Pela lei de De Morgan, !(a && b) equivale a !a || !b: o resultado é true quando pelo menos uma das partes é false."}$c$::jsonb, $c$Ao inverter uma combinação, o E vira OU e cada parte é invertida.$c$, 7, false, $c$arquivo$c$),
+  ($c$if-forma-correta$c$, $c$estrutura-if$c$, $c$choice$c$, $c$Qual if está correto?$c$, $c$facil$c$, $c$Qual das formas abaixo é um if escrito corretamente?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"if nota >= 7 { console.log(\"Aprovado\"); }","misconception":"esquece os parênteses em volta da condição"},{"text":"if (nota >= 7) { console.log(\"Aprovado\"); }"},{"text":"if (nota >= 7) then console.log(\"Aprovado\");","misconception":"usa a sintaxe de outras linguagens, com then"},{"text":"if (nota >= 7); { console.log(\"Aprovado\"); }","misconception":"coloca ponto e vírgula logo depois da condição"}],"correct":1,"explanation":"A forma correta tem a condição entre parênteses e o bloco entre chaves, sem ponto e vírgula depois do parêntese."}$c$::jsonb, $c$Condição entre parênteses; comandos entre chaves.$c$, 1, false, $c$arquivo$c$),
+  ($c$if-nota-oito$c$, $c$estrutura-if$c$, $c$interpretation$c$, $c$Aprovado?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"nota","misconception":"mostra o nome da variável em vez da mensagem"},{"text":"Nada","misconception":"acha que o programa não mostra nada quando o if é verdadeiro"},{"text":"Reprovado","misconception":"acha que a nota 8 não atinge o mínimo"},{"text":"Aprovado"}],"correct":3,"code":"const nota = 8;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n}","explanation":"8 >= 7 é true, então o bloco executa e mostra Aprovado."}$c$::jsonb, $c$8 é maior ou igual a 7?$c$, 2, false, $c$arquivo$c$),
+  ($c$if-complete-a-condicao$c$, $c$estrutura-if$c$, $c$blank$c$, $c$Complete a condição$c$, $c$facil$c$, $c$Complete a condição com o nome da variável para mostrar Dez quando n for igual a 10.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const n = 10;\nif ({{1}} === 10) {\n  console.log(\"Dez\");\n}","blanks":[{"answers":["n"]}],"explanation":"n === 10 compara o valor guardado em n com 10. Como n vale 10, a condição é verdadeira."}$c$::jsonb, $c$A condição compara a própria variável com 10.$c$, 3, false, $c$arquivo$c$),
+  ($c$if-dois-blocos-independentes$c$, $c$estrutura-if$c$, $c$interpretation$c$, $c$Calor ou frio?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Está quente\nFim"},{"text":"Está quente\nEstá frio\nFim","misconception":"acha que todos os if executam"},{"text":"Está frio\nFim","misconception":"avalia a segunda condição como verdadeira"},{"text":"Fim","misconception":"acha que nenhum bloco executa"}],"correct":0,"code":"const temperatura = 32;\nif (temperatura > 30) {\n  console.log(\"Está quente\");\n}\nif (temperatura < 15) {\n  console.log(\"Está frio\");\n}\nconsole.log(\"Fim\");","explanation":"32 > 30 é true (Está quente); 32 < 15 é false (bloco ignorado); depois, Fim."}$c$::jsonb, $c$Cada if é testado separadamente.$c$, 4, false, $c$arquivo$c$),
+  ($c$if-bonus-de-vendas$c$, $c$estrutura-if$c$, $c$code$c$, $c$Bônus de vendas$c$, $c$medio$c$, $c$Escreva a função `bonus(vendas)` que devolve 100 se as vendas forem 1000 ou mais, e 0 caso contrário. Use um if.$c$, null, $c$bonus$c$, $c$function bonus(vendas) {
+  let valor = 0;
+  // use um if para mudar o valor quando as vendas forem 1000 ou mais
+  return valor;
+}
+$c$, $c$[{"args":[500],"expected":0},{"args":[1000],"expected":100},{"args":[2500],"expected":100},{"args":[999],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Comece com valor = 0 e só mude se a condição for verdadeira.$c$, 5, false, $c$arquivo$c$),
+  ($c$if-corrija-o-ponto-e-virgula$c$, $c$estrutura-if$c$, $c$fix$c$, $c$Corrija o ponto e vírgula$c$, $c$medio$c$, $c$A função `classificar(idade)` deveria devolver "maior" para 18 anos ou mais e "menor" para os outros, mas devolve "maior" para todo mundo. Corrija o defeito.$c$, null, $c$classificar$c$, $c$function classificar(idade) {
+  let texto = "menor";
+  if (idade >= 18);
+  {
+    texto = "maior";
+  }
+  return texto;
+}
+$c$, $c$[{"args":[20],"expected":"maior"},{"args":[10],"expected":"menor"},{"args":[18],"expected":"maior"},{"args":[17],"expected":"menor"}]$c$::jsonb, $c${}$c$::jsonb, $c$Repare no que vem logo depois do parêntese do if.$c$, 6, false, $c$arquivo$c$),
+  ($c$if-corrija-a-atribuicao$c$, $c$estrutura-if$c$, $c$fix$c$, $c$Corrija a condição$c$, $c$medio$c$, $c$A função `ehDezoito(idade)` deveria devolver true só para 18, mas devolve true para qualquer idade. Corrija o defeito.$c$, null, $c$ehDezoito$c$, $c$function ehDezoito(idade) {
+  if (idade = 18) {
+    return true;
+  }
+  return false;
+}
+$c$, $c$[{"args":[18],"expected":true},{"args":[20],"expected":false},{"args":[0],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Um dos sinais guarda um valor em vez de comparar.$c$, 7, false, $c$arquivo$c$),
+  ($c$if-somando-pontos$c$, $c$estrutura-if$c$, $c$interpretation$c$, $c$Acertos e pontos$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10","misconception":"acha que o programa para no primeiro if verdadeiro"},{"text":"80","misconception":"soma todos os blocos sem avaliar as condições"},{"text":"30"},{"text":"20","misconception":"acha que só o último if verdadeiro conta"}],"correct":2,"code":"let pontos = 0;\nconst acertos = 7;\nif (acertos >= 5) {\n  pontos += 10;\n}\nif (acertos >= 7) {\n  pontos += 20;\n}\nif (acertos >= 10) {\n  pontos += 50;\n}\nconsole.log(pontos);","explanation":"7 >= 5 soma 10 e 7 >= 7 soma 20; 7 >= 10 é falso. Total: 30."}$c$::jsonb, $c$Cada if é testado de forma independente, e os blocos verdadeiros se acumulam.$c$, 8, false, $c$arquivo$c$),
+  ($c$ifelse-o-que-faz-o-else$c$, $c$estrutura-if-else$c$, $c$choice$c$, $c$O que faz o else?$c$, $c$facil$c$, $c$O que o else faz em uma estrutura if/else?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Executa um bloco sempre, depois do if","misconception":"acha que o else executa em qualquer caso"},{"text":"Executa um bloco quando a condição do if for falsa"},{"text":"Testa uma segunda condição","misconception":"confunde else com else if"},{"text":"Repete o bloco do if","misconception":"confunde else com repetição"}],"correct":1,"explanation":"O bloco do else só executa quando a condição do if é falsa."}$c$::jsonb, $c$O else cobre o "senão".$c$, 1, false, $c$arquivo$c$),
+  ($c$ifelse-par-ou-impar$c$, $c$estrutura-if-else$c$, $c$interpretation$c$, $c$Par ou ímpar?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Par","misconception":"acha que 7 % 2 vale zero"},{"text":"Par\nÍmpar","misconception":"acha que os dois blocos executam"},{"text":"7","misconception":"mostra o valor da variável em vez da mensagem"},{"text":"Ímpar"}],"correct":3,"code":"const numero = 7;\nif (numero % 2 === 0) {\n  console.log(\"Par\");\n} else {\n  console.log(\"Ímpar\");\n}","explanation":"7 % 2 vale 1, então a condição é falsa e o else executa: Ímpar."}$c$::jsonb, $c$7 % 2 é o resto de 7 dividido por 2.$c$, 2, false, $c$arquivo$c$),
+  ($c$ifelse-complete-o-else$c$, $c$estrutura-if-else$c$, $c$blank$c$, $c$Complete o else$c$, $c$facil$c$, $c$Complete a palavra que inicia o caminho alternativo.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const idade = 15;\nif (idade >= 18) {\n  console.log(\"Maior\");\n} {{1}} {\n  console.log(\"Menor\");\n}","blanks":[{"answers":["else"]}],"explanation":"else abre o bloco que executa quando a condição do if é falsa."}$c$::jsonb, $c$A palavra vem do inglês e significa "senão".$c$, 3, false, $c$arquivo$c$),
+  ($c$ifelse-reprovado$c$, $c$estrutura-if-else$c$, $c$interpretation$c$, $c$Aprovado ou reprovado?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Reprovado\nFim"},{"text":"Aprovado\nFim","misconception":"avalia 6 >= 7 como verdadeiro"},{"text":"Aprovado\nReprovado\nFim","misconception":"acha que os dois blocos executam"},{"text":"Reprovado","misconception":"acha que o programa termina dentro do else"}],"correct":0,"code":"const nota = 6;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n} else {\n  console.log(\"Reprovado\");\n}\nconsole.log(\"Fim\");","explanation":"A condição é falsa, então executa o else (Reprovado). Depois do bloco, o programa mostra Fim."}$c$::jsonb, $c$6 >= 7 é falso. Depois do if/else, o programa continua.$c$, 4, false, $c$arquivo$c$),
+  ($c$ifelse-par-ou-impar-funcao$c$, $c$estrutura-if-else$c$, $c$code$c$, $c$Par ou ímpar$c$, $c$medio$c$, $c$Escreva a função `parOuImpar(n)` que devolve "par" se n for par e "impar" caso contrário. Use if/else.$c$, null, $c$parOuImpar$c$, $c$function parOuImpar(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[4],"expected":"par"},{"args":[7],"expected":"impar"},{"args":[0],"expected":"par"},{"args":[-3],"expected":"impar"}]$c$::jsonb, $c${}$c$::jsonb, $c$Um número é par quando o resto da divisão por 2 é zero.$c$, 5, false, $c$arquivo$c$),
+  ($c$ifelse-o-maior-de-dois$c$, $c$estrutura-if-else$c$, $c$code$c$, $c$O maior de dois$c$, $c$medio$c$, $c$Escreva a função `maior(a, b)` que devolve o maior entre dois números. Use if/else.$c$, null, $c$maior$c$, $c$function maior(a, b) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[3,5],"expected":5},{"args":[9,2],"expected":9},{"args":[4,4],"expected":4},{"args":[-1,-7],"expected":-1}]$c$::jsonb, $c${}$c$::jsonb, $c$Se a for maior, devolva a; senão, devolva b.$c$, 6, false, $c$arquivo$c$),
+  ($c$ifelse-corrija-o-else-que-faltou$c$, $c$estrutura-if-else$c$, $c$fix$c$, $c$Corrija o else que faltou$c$, $c$medio$c$, $c$A função `situacao(nota)` deveria devolver "aprovado" para 7 ou mais e "reprovado" para os outros, mas devolve "reprovado" sempre. Corrija o defeito.$c$, null, $c$situacao$c$, $c$function situacao(nota) {
+  let texto = "";
+  if (nota >= 7) {
+    texto = "aprovado";
+  }
+  texto = "reprovado";
+  return texto;
+}
+$c$, $c$[{"args":[8],"expected":"aprovado"},{"args":[5],"expected":"reprovado"},{"args":[7],"expected":"aprovado"},{"args":[6.9],"expected":"reprovado"}]$c$::jsonb, $c${}$c$::jsonb, $c$A linha que define "reprovado" está fora de qualquer else: ela executa sempre.$c$, 7, false, $c$arquivo$c$),
+  ($c$ifelse-dois-pares-de-blocos$c$, $c$estrutura-if-else$c$, $c$interpretation$c$, $c$Duas decisões$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A\nB\nC\nD","misconception":"acha que todos os blocos executam"},{"text":"A\nC","misconception":"avalia a segunda condição como verdadeira"},{"text":"A\nD"},{"text":"B\nD","misconception":"avalia a primeira condição como falsa"}],"correct":2,"code":"const x = 7;\nif (x > 5) {\n  console.log(\"A\");\n} else {\n  console.log(\"B\");\n}\nif (x > 8) {\n  console.log(\"C\");\n} else {\n  console.log(\"D\");\n}","explanation":"7 > 5 é true (A). Já 7 > 8 é false, então o segundo executa o else (D)."}$c$::jsonb, $c$São dois if/else independentes: cada um escolhe o seu caminho.$c$, 8, false, $c$arquivo$c$),
+  ($c$elseif-quantos-blocos-executam$c$, $c$estrutura-else-if$c$, $c$choice$c$, $c$Quantos blocos executam?$c$, $c$facil$c$, $c$Em uma cadeia if / else if / else, quantos blocos são executados?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Todos os blocos cujas condições forem verdadeiras","misconception":"acha que executa todos os blocos verdadeiros, como em vários if separados"},{"text":"No máximo um: o primeiro com condição verdadeira (ou o else)"},{"text":"Todos os blocos, sempre","misconception":"acha que o else if não impede a execução dos blocos seguintes"},{"text":"Sempre o último bloco","misconception":"acha que a cadeia sempre termina no último bloco"}],"correct":1,"explanation":"Em uma cadeia if / else if / else, só o primeiro bloco com condição verdadeira executa. Se nenhum for verdadeiro, o else executa."}$c$::jsonb, $c$Depois que uma condição é verdadeira, o computador ignora o resto da cadeia.$c$, 1, false, $c$arquivo$c$),
+  ($c$elseif-escala-de-notas$c$, $c$estrutura-else-if$c$, $c$interpretation$c$, $c$Qual faixa?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Excelente","misconception":"acha que 7.5 é maior ou igual a 9"},{"text":"Bom\nRegular","misconception":"acha que os blocos seguintes também executam"},{"text":"Regular","misconception":"pula a faixa correta"},{"text":"Bom"}],"correct":3,"code":"const nota = 7.5;\nif (nota >= 9) {\n  console.log(\"Excelente\");\n} else if (nota >= 7) {\n  console.log(\"Bom\");\n} else if (nota >= 5) {\n  console.log(\"Regular\");\n} else {\n  console.log(\"Insuficiente\");\n}","explanation":"7.5 >= 9 é falso; 7.5 >= 7 é verdadeiro, então mostra Bom e ignora o resto."}$c$::jsonb, $c$Teste as condições de cima para baixo e pare na primeira verdadeira.$c$, 2, false, $c$arquivo$c$),
+  ($c$elseif-complete-a-cadeia$c$, $c$estrutura-else-if$c$, $c$blank$c$, $c$Complete a cadeia$c$, $c$facil$c$, $c$Complete a palavra que liga a segunda condição à primeira.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const n = -4;\nif (n > 0) {\n  console.log(\"positivo\");\n} {{1}} if (n < 0) {\n  console.log(\"negativo\");\n} else {\n  console.log(\"zero\");\n}","blanks":[{"answers":["else"]}],"explanation":"else if testa uma nova condição quando a anterior foi falsa."}$c$::jsonb, $c$A segunda condição só é testada se a primeira for falsa.$c$, 3, false, $c$arquivo$c$),
+  ($c$elseif-ordem-errada$c$, $c$estrutura-else-if$c$, $c$interpretation$c$, $c$A ordem importa$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Regular"},{"text":"Excelente","misconception":"acha que o computador escolhe a melhor faixa, e não a primeira verdadeira"},{"text":"Regular\nBom\nExcelente","misconception":"acha que todas as condições verdadeiras executam"},{"text":"Nada","misconception":"acha que a nota não se encaixa em nenhuma faixa"}],"correct":0,"code":"const nota = 9.5;\nif (nota >= 5) {\n  console.log(\"Regular\");\n} else if (nota >= 7) {\n  console.log(\"Bom\");\n} else if (nota >= 9) {\n  console.log(\"Excelente\");\n}","explanation":"9.5 >= 5 é verdadeiro, então mostra Regular e as demais faixas nem são testadas. As faixas deveriam estar da maior para a menor."}$c$::jsonb, $c$A primeira condição já é verdadeira para 9.5.$c$, 4, false, $c$arquivo$c$),
+  ($c$elseif-classificar-nota$c$, $c$estrutura-else-if$c$, $c$code$c$, $c$Classificar a nota$c$, $c$medio$c$, $c$Escreva a função `classificarNota(nota)` que devolve "A" para 9 ou mais, "B" para 7 ou mais, "C" para 5 ou mais e "D" para o resto.$c$, null, $c$classificarNota$c$, $c$function classificarNota(nota) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[9.5],"expected":"A"},{"args":[9],"expected":"A"},{"args":[8],"expected":"B"},{"args":[7],"expected":"B"},{"args":[6],"expected":"C"},{"args":[5],"expected":"C"},{"args":[4.9],"expected":"D"}]$c$::jsonb, $c${}$c$::jsonb, $c$Comece pela faixa mais alta e vá descendo.$c$, 5, false, $c$arquivo$c$),
+  ($c$elseif-sinal-do-numero$c$, $c$estrutura-else-if$c$, $c$code$c$, $c$Sinal do número$c$, $c$medio$c$, $c$Escreva a função `sinal(n)` que devolve "positivo" se n for maior que zero, "negativo" se for menor que zero e "zero" se for zero.$c$, null, $c$sinal$c$, $c$function sinal(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[5],"expected":"positivo"},{"args":[-2],"expected":"negativo"},{"args":[0],"expected":"zero"},{"args":[0.1],"expected":"positivo"}]$c$::jsonb, $c${}$c$::jsonb, $c$Três caminhos: positivo, negativo e o que sobrar.$c$, 6, false, $c$arquivo$c$),
+  ($c$elseif-corrija-a-ordem$c$, $c$estrutura-else-if$c$, $c$fix$c$, $c$Corrija a ordem das faixas$c$, $c$medio$c$, $c$A função `faixa(nota)` deveria devolver "Bom" para notas de 7 a 8.9, mas devolve "Regular" para quem tira 8. Corrija o defeito.$c$, null, $c$faixa$c$, $c$function faixa(nota) {
+  if (nota >= 5) {
+    return "Regular";
+  } else if (nota >= 7) {
+    return "Bom";
+  } else {
+    return "Insuficiente";
+  }
+}
+$c$, $c$[{"args":[8],"expected":"Bom"},{"args":[6],"expected":"Regular"},{"args":[3],"expected":"Insuficiente"},{"args":[7],"expected":"Bom"},{"args":[5],"expected":"Regular"}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual condição pega todo mundo que tem 7 ou mais antes da hora?$c$, 7, false, $c$arquivo$c$),
+  ($c$elseif-versus-ifs-separados$c$, $c$estrutura-else-if$c$, $c$interpretation$c$, $c$else if e if separado$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Fizz\nBuzz\nFizz2\nBuzz2","misconception":"acha que o else if também executa quando o if anterior foi verdadeiro"},{"text":"Fizz\nFizz2","misconception":"acha que só um bloco executa em todo o programa"},{"text":"Fizz\nFizz2\nBuzz2"},{"text":"Buzz\nFizz2\nBuzz2","misconception":"acha que o else if é testado antes do if"}],"correct":2,"code":"const n = 15;\nif (n % 3 === 0) {\n  console.log(\"Fizz\");\n} else if (n % 5 === 0) {\n  console.log(\"Buzz\");\n}\nif (n % 3 === 0) {\n  console.log(\"Fizz2\");\n}\nif (n % 5 === 0) {\n  console.log(\"Buzz2\");\n}","explanation":"15 é divisível por 3 e por 5. Na primeira cadeia, só o primeiro bloco verdadeiro executa (Fizz). Os dois if seguintes são testados separadamente, e os dois são verdadeiros (Fizz2 e Buzz2)."}$c$::jsonb, $c$A primeira cadeia executa um bloco só; os dois if finais são independentes.$c$, 8, false, $c$arquivo$c$),
+  ($c$aninhada-o-que-e$c$, $c$condicionais-aninhadas$c$, $c$choice$c$, $c$O que é aninhar?$c$, $c$facil$c$, $c$O que é uma condicional aninhada?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Duas condicionais seguidas, uma depois da outra","misconception":"confunde aninhar com colocar condicionais em sequência"},{"text":"Uma condicional escrita dentro do bloco de outra condicional"},{"text":"Uma condicional com mais de uma condição","misconception":"confunde aninhar com combinar condições com && ou ||"},{"text":"Um if sem else","misconception":"confunde aninhar com a ausência de else"}],"correct":1,"explanation":"Aninhar é colocar uma estrutura condicional dentro do bloco de outra."}$c$::jsonb, $c$Pense em caixas dentro de caixas.$c$, 1, false, $c$arquivo$c$),
+  ($c$aninhada-sem-ingresso$c$, $c$condicionais-aninhadas$c$, $c$interpretation$c$, $c$Tem ingresso?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Pode entrar","misconception":"acha que a pessoa entra só por ser maior de idade"},{"text":"Menor de idade","misconception":"ignora a condição externa, que é verdadeira"},{"text":"Compre um ingresso\nMenor de idade","misconception":"acha que os dois else executam"},{"text":"Compre um ingresso"}],"correct":3,"code":"const idade = 20;\nconst temIngresso = false;\nif (idade >= 18) {\n  if (temIngresso) {\n    console.log(\"Pode entrar\");\n  } else {\n    console.log(\"Compre um ingresso\");\n  }\n} else {\n  console.log(\"Menor de idade\");\n}","explanation":"A idade é suficiente (bloco externo). Dentro dele, a pessoa não tem ingresso, então executa o else interno."}$c$::jsonb, $c$Entre primeiro no bloco externo; depois avalie o interno.$c$, 2, false, $c$arquivo$c$),
+  ($c$aninhada-complete-o-if-interno$c$, $c$condicionais-aninhadas$c$, $c$blank$c$, $c$Complete o if interno$c$, $c$facil$c$, $c$Complete a palavra que inicia a condicional interna.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const a = 3;\nconst b = 5;\nif (a > 0) {\n  {{1}} (b > 0) {\n    console.log(\"Os dois são positivos\");\n  }\n}","blanks":[{"answers":["if"]}],"explanation":"O if interno só é testado quando a condição externa (a > 0) é verdadeira."}$c$::jsonb, $c$A decisão interna usa a mesma palavra da externa.$c$, 3, false, $c$arquivo$c$),
+  ($c$aninhada-menor-de-idade$c$, $c$condicionais-aninhadas$c$, $c$interpretation$c$, $c$Menor de idade$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Menor de idade"},{"text":"Pode entrar","misconception":"avalia só a condição interna, ignorando a externa"},{"text":"Compre um ingresso","misconception":"acha que a condição interna é testada mesmo com a externa falsa"},{"text":"Nada","misconception":"acha que o programa não mostra nada para menores"}],"correct":0,"code":"const idade = 16;\nconst temIngresso = true;\nif (idade >= 18) {\n  if (temIngresso) {\n    console.log(\"Pode entrar\");\n  } else {\n    console.log(\"Compre um ingresso\");\n  }\n} else {\n  console.log(\"Menor de idade\");\n}","explanation":"16 >= 18 é falso, então o bloco externo é ignorado e o else externo executa. A condição interna nem é avaliada."}$c$::jsonb, $c$A condição externa é falsa. A interna é avaliada?$c$, 4, false, $c$arquivo$c$),
+  ($c$aninhada-desconto-do-ingresso$c$, $c$condicionais-aninhadas$c$, $c$code$c$, $c$Desconto do ingresso$c$, $c$medio$c$, $c$Escreva a função `descontoDoIngresso(idade, estudante)`: menores de 18 anos têm 100 de desconto; maiores de idade estudantes têm 50; os demais, 0. Use condicionais aninhadas.$c$, null, $c$descontoDoIngresso$c$, $c$function descontoDoIngresso(idade, estudante) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[10,false],"expected":100},{"args":[20,true],"expected":50},{"args":[20,false],"expected":0},{"args":[18,true],"expected":50},{"args":[17,true],"expected":100}]$c$::jsonb, $c${}$c$::jsonb, $c$Primeiro decida pela idade; só para os maiores de idade pergunte se é estudante.$c$, 5, false, $c$arquivo$c$),
+  ($c$aninhada-corrija-o-else-interno$c$, $c$condicionais-aninhadas$c$, $c$fix$c$, $c$Corrija o caminho que faltou$c$, $c$medio$c$, $c$A função `acesso(idade, temIngresso)` devolve undefined para um adulto sem ingresso, mas deveria devolver "sem ingresso". Corrija o defeito.$c$, null, $c$acesso$c$, $c$function acesso(idade, temIngresso) {
+  if (idade >= 18) {
+    if (temIngresso) {
+      return "entrou";
+    }
+  } else {
+    return "menor";
+  }
+}
+$c$, $c$[{"args":[20,true],"expected":"entrou"},{"args":[20,false],"expected":"sem ingresso"},{"args":[15,true],"expected":"menor"},{"args":[15,false],"expected":"menor"}]$c$::jsonb, $c${}$c$::jsonb, $c$Que caminho cobre o adulto que não tem ingresso?$c$, 6, false, $c$arquivo$c$),
+  ($c$aninhada-equivalente-com-e$c$, $c$condicionais-aninhadas$c$, $c$choice$c$, $c$Juntando as condições$c$, $c$medio$c$, $c$Qual condição única equivale a if (a) { if (b) { ... } }?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"if (a || b) { ... }","misconception":"troca o E por OU"},{"text":"if (!a && b) { ... }","misconception":"inverte a primeira condição"},{"text":"if (a && b) { ... }"},{"text":"if (a) if (b) { ... } else { ... }","misconception":"mantém o aninhamento e ainda acrescenta um else que não existia"}],"correct":2,"explanation":"O bloco só executa quando a e b são verdadeiros ao mesmo tempo: a && b."}$c$::jsonb, $c$O bloco interno só executa quando as duas condições são verdadeiras.$c$, 7, false, $c$arquivo$c$),
+  ($c$aninhada-tres-niveis$c$, $c$condicionais-aninhadas$c$, $c$interpretation$c$, $c$Três níveis$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A","misconception":"avalia y > 20 como verdadeiro"},{"text":"B"},{"text":"C","misconception":"avalia x < y como falso"},{"text":"D","misconception":"avalia x > 0 como falso"}],"correct":1,"code":"const x = 5;\nconst y = 10;\nif (x > 0) {\n  if (y > 20) {\n    console.log(\"A\");\n  } else {\n    if (x < y) {\n      console.log(\"B\");\n    } else {\n      console.log(\"C\");\n    }\n  }\n} else {\n  console.log(\"D\");\n}","explanation":"x > 0 é verdadeiro; y > 20 é falso, então vai para o else; dentro dele, x < y (5 < 10) é verdadeiro: B."}$c$::jsonb, $c$Siga os blocos de fora para dentro, anotando a resposta de cada condição.$c$, 8, false, $c$arquivo$c$),
+  ($c$switch-quando-usar$c$, $c$estrutura-switch$c$, $c$choice$c$, $c$Quando usar o switch?$c$, $c$facil$c$, $c$Em que situação o switch é mais indicado?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para testar faixas de valores, como nota >= 7","misconception":"acha que o switch aceita comparações de faixa"},{"text":"Para repetir um bloco várias vezes","misconception":"confunde switch com repetição"},{"text":"Para combinar várias condições com E e OU","misconception":"confunde switch com operadores lógicos"},{"text":"Para comparar uma variável com vários valores exatos"}],"correct":3,"explanation":"O switch é ideal para comparar uma variável com valores exatos, como a opção escolhida em um menu."}$c$::jsonb, $c$O switch compara com ===, valor por valor.$c$, 1, false, $c$arquivo$c$),
+  ($c$switch-dia-da-semana$c$, $c$estrutura-switch$c$, $c$interpretation$c$, $c$Qual dia?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Segunda"},{"text":"Domingo","misconception":"acha que o switch executa sempre o primeiro case"},{"text":"Segunda\nOutro dia","misconception":"acha que o default executa depois de um case que combinou"},{"text":"Outro dia","misconception":"acha que o default executa mesmo quando um case combina"}],"correct":0,"code":"const dia = 2;\nswitch (dia) {\n  case 1:\n    console.log(\"Domingo\");\n    break;\n  case 2:\n    console.log(\"Segunda\");\n    break;\n  default:\n    console.log(\"Outro dia\");\n}","explanation":"case 2 combina, mostra Segunda, e o break encerra o switch."}$c$::jsonb, $c$Procure o case que combina com 2.$c$, 2, false, $c$arquivo$c$),
+  ($c$switch-complete-o-break$c$, $c$estrutura-switch$c$, $c$blank$c$, $c$Complete o break$c$, $c$facil$c$, $c$Complete a palavra que encerra o switch depois de um case.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const opcao = 1;\nswitch (opcao) {\n  case 1:\n    console.log(\"Novo jogo\");\n    {{1}};\n  case 2:\n    console.log(\"Sair\");\n    break;\n}","blanks":[{"answers":["break"]}],"explanation":"break encerra o switch e impede que os cases seguintes também executem."}$c$::jsonb, $c$Sem essa palavra, o código cai no case seguinte.$c$, 3, false, $c$arquivo$c$),
+  ($c$switch-sem-break$c$, $c$estrutura-switch$c$, $c$interpretation$c$, $c$Sem break$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um","misconception":"acha que o switch encerra sozinho depois do case que combinou"},{"text":"Um\nDois\nTrês","misconception":"acha que o break não interrompe a execução"},{"text":"Um\nDois"},{"text":"Dois","misconception":"acha que a execução começa no case seguinte"}],"correct":2,"code":"const n = 1;\nswitch (n) {\n  case 1:\n    console.log(\"Um\");\n  case 2:\n    console.log(\"Dois\");\n    break;\n  case 3:\n    console.log(\"Três\");\n}","explanation":"case 1 combina e mostra Um. Sem break, a execução cai no case 2 (Dois), onde o break finalmente encerra o switch."}$c$::jsonb, $c$O primeiro case não tem break.$c$, 4, false, $c$arquivo$c$),
+  ($c$switch-nome-do-dia$c$, $c$estrutura-switch$c$, $c$code$c$, $c$Nome do dia$c$, $c$medio$c$, $c$Escreva a função `nomeDoDia(numero)` que devolve o nome do dia da semana (1 = "domingo", 2 = "segunda", 3 = "terca", 4 = "quarta", 5 = "quinta", 6 = "sexta", 7 = "sabado") e "invalido" para qualquer outro número. Use switch.$c$, null, $c$nomeDoDia$c$, $c$function nomeDoDia(numero) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[1],"expected":"domingo"},{"args":[4],"expected":"quarta"},{"args":[7],"expected":"sabado"},{"args":[0],"expected":"invalido"},{"args":[9],"expected":"invalido"}]$c$::jsonb, $c${}$c$::jsonb, $c$Um case para cada dia e um default para o resto.$c$, 5, false, $c$arquivo$c$),
+  ($c$switch-calculadora-de-operacao$c$, $c$estrutura-switch$c$, $c$code$c$, $c$Operação escolhida$c$, $c$medio$c$, $c$Escreva a função `calcular(operacao, a, b)`: para "+" devolve a + b, para "-" devolve a - b, para "*" devolve a * b, para "/" devolve a / b. Para qualquer outra operação, devolve "operacao invalida". Use switch.$c$, null, $c$calcular$c$, $c$function calcular(operacao, a, b) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["+",6,3],"expected":9},{"args":["-",6,3],"expected":3},{"args":["*",6,3],"expected":18},{"args":["/",6,3],"expected":2},{"args":["%",6,3],"expected":"operacao invalida"}]$c$::jsonb, $c${}$c$::jsonb, $c$Compare a operação (um texto) com cada case.$c$, 6, false, $c$arquivo$c$),
+  ($c$switch-corrija-o-break$c$, $c$estrutura-switch$c$, $c$fix$c$, $c$Corrija o break que faltou$c$, $c$medio$c$, $c$A função `tipo(codigo)` deveria devolver "fruta" para 1, "legume" para 2 e "outro" nos demais casos, mas devolve sempre "outro" para 1 e 2. Corrija o defeito.$c$, null, $c$tipo$c$, $c$function tipo(codigo) {
+  let t = "";
+  switch (codigo) {
+    case 1:
+      t = "fruta";
+    case 2:
+      t = "legume";
+    default:
+      t = "outro";
+  }
+  return t;
+}
+$c$, $c$[{"args":[1],"expected":"fruta"},{"args":[2],"expected":"legume"},{"args":[3],"expected":"outro"},{"args":[0],"expected":"outro"}]$c$::jsonb, $c${}$c$::jsonb, $c$O que acontece depois que um case termina sem break?$c$, 7, false, $c$arquivo$c$),
+  ($c$switch-igualdade-estrita$c$, $c$estrutura-switch$c$, $c$interpretation$c$, $c$Igualdade estrita no switch$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um","misconception":"acha que o switch converte o texto e escolhe o primeiro case"},{"text":"Nenhuma"},{"text":"Dois","misconception":"acha que o switch compara sem considerar o tipo (como ==)"},{"text":"Um\nDois","misconception":"acha que os dois cases combinam"}],"correct":1,"code":"const opcao = \"2\";\nswitch (opcao) {\n  case 1:\n    console.log(\"Um\");\n    break;\n  case 2:\n    console.log(\"Dois\");\n    break;\n  default:\n    console.log(\"Nenhuma\");\n}","explanation":"O switch usa igualdade estrita (===). O texto \"2\" não é estritamente igual ao número 2, então nenhum case combina e o default executa."}$c$::jsonb, $c$O switch compara usando ===: o texto "2" é igual ao número 2?$c$, 8, false, $c$arquivo$c$),
+  ($c$ternario-o-que-e$c$, $c$operador-ternario$c$, $c$choice$c$, $c$O que é o ternário?$c$, $c$facil$c$, $c$O que é o operador ternário?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Um operador que compara três valores ao mesmo tempo","misconception":"acha que \"ternário\" significa comparar três valores"},{"text":"Um laço que repete uma instrução três vezes","misconception":"confunde ternário com repetição"},{"text":"Uma forma de declarar uma variável com três valores","misconception":"confunde ternário com declaração"},{"text":"Um atalho para um if/else simples que produz um valor"}],"correct":3,"explanation":"O ternário é um if/else escrito em uma expressão só: condição ? valorSeVerdadeira : valorSeFalsa."}$c$::jsonb, $c$Ele tem três partes: condição, valor se verdadeira e valor se falsa.$c$, 1, false, $c$arquivo$c$),
+  ($c$ternario-situacao$c$, $c$operador-ternario$c$, $c$interpretation$c$, $c$Aprovado ou reprovado?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Reprovado"},{"text":"Aprovado","misconception":"acha que o ternário devolve sempre o primeiro valor"},{"text":"true","misconception":"acha que o ternário devolve o resultado da condição"},{"text":"Aprovado Reprovado","misconception":"acha que o ternário devolve os dois valores"}],"correct":0,"code":"const nota = 5;\nconst situacao = nota >= 7 ? \"Aprovado\" : \"Reprovado\";\nconsole.log(situacao);","explanation":"A condição é falsa, então o ternário resulta no valor depois dos dois-pontos: Reprovado."}$c$::jsonb, $c$5 >= 7 é verdadeiro ou falso?$c$, 2, false, $c$arquivo$c$),
+  ($c$ternario-complete-os-simbolos$c$, $c$operador-ternario$c$, $c$blank$c$, $c$Complete o ternário$c$, $c$facil$c$, $c$Complete o símbolo que separa a condição do primeiro valor.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const idade = 20;\nconst texto = idade >= 18 {{1}} \"maior\" : \"menor\";","blanks":[{"answers":["?"]}],"explanation":"O ponto de interrogação vem depois da condição e os dois-pontos separam os dois valores."}$c$::jsonb, $c$Ele aparece logo depois da condição.$c$, 3, false, $c$arquivo$c$),
+  ($c$ternario-par-ou-impar$c$, $c$operador-ternario$c$, $c$code$c$, $c$Par ou ímpar em uma linha$c$, $c$medio$c$, $c$Escreva a função `parOuImpar(n)` que devolve "par" ou "impar" usando o operador ternário, em um único return.$c$, null, $c$parOuImpar$c$, $c$function parOuImpar(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[2],"expected":"par"},{"args":[9],"expected":"impar"},{"args":[0],"expected":"par"}]$c$::jsonb, $c${}$c$::jsonb, $c$return condição ? "par" : "impar";$c$, 4, false, $c$arquivo$c$),
+  ($c$ternario-valor-absoluto$c$, $c$operador-ternario$c$, $c$code$c$, $c$Valor absoluto$c$, $c$medio$c$, $c$Escreva a função `absoluto(n)` que devolve o número sem sinal (por exemplo, -5 vira 5). Use o operador ternário e não use Math.abs.$c$, null, $c$absoluto$c$, $c$function absoluto(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[5],"expected":5},{"args":[-5],"expected":5},{"args":[0],"expected":0},{"args":[-2.5],"expected":2.5}]$c$::jsonb, $c${}$c$::jsonb, $c$Se n for negativo, devolva -n; senão, devolva n.$c$, 5, false, $c$arquivo$c$),
+  ($c$ternario-corrija-a-ordem$c$, $c$operador-ternario$c$, $c$fix$c$, $c$Corrija o ternário$c$, $c$medio$c$, $c$A função `situacao(nota)` deveria devolver "aprovado" para 7 ou mais, mas devolve o contrário. Corrija o defeito.$c$, null, $c$situacao$c$, $c$function situacao(nota) {
+  return nota >= 7 ? "reprovado" : "aprovado";
+}
+$c$, $c$[{"args":[8],"expected":"aprovado"},{"args":[7],"expected":"aprovado"},{"args":[3],"expected":"reprovado"}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual valor fica depois do ponto de interrogação?$c$, 6, false, $c$arquivo$c$),
+  ($c$ternario-aninhado$c$, $c$operador-ternario$c$, $c$interpretation$c$, $c$Ternário em cadeia$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"positivo","misconception":"avalia n > 0 como verdadeiro"},{"text":"negativo","misconception":"avalia n < 0 como verdadeiro"},{"text":"zero"},{"text":"true","misconception":"acha que o ternário devolve o resultado da condição"}],"correct":2,"code":"const n = 0;\nconst texto = n > 0 ? \"positivo\" : n < 0 ? \"negativo\" : \"zero\";\nconsole.log(texto);","explanation":"0 > 0 é falso; 0 < 0 também é falso; resta o último valor: zero."}$c$::jsonb, $c$Leia como uma cadeia if / else if / else.$c$, 7, false, $c$arquivo$c$),
+  ($c$desafio4-sistema-de-notas$c$, $c$desafio-do-mundo-4$c$, $c$challenge$c$, $c$Desafio: sistema de notas$c$, $c$dificil$c$, $c$Escreva a função `sistemaDeNotas()`: leia três notas com `lerEntrada()` (chegam como texto), calcule a média e mostre duas linhas com `console.log`: `Média: <valor>` e `Situação: <texto>`. A situação é Aprovado (média 7 ou mais), Recuperação (5 ou mais, mas menos de 7) ou Reprovado (menos de 5).$c$, null, $c$sistemaDeNotas$c$, $c$function sistemaDeNotas() {
+  // leia as notas, calcule a média e mostre as duas linhas
+}
+$c$, $c$[{"args":[],"inputs":["9","8","10"],"output":["Média: 9","Situação: Aprovado"]},{"args":[],"inputs":["6","7","5"],"output":["Média: 6","Situação: Recuperação"]},{"args":[],"inputs":["2","3","4"],"output":["Média: 3","Situação: Reprovado"]},{"args":[],"inputs":["7","7","7"],"output":["Média: 7","Situação: Aprovado"]},{"args":[],"inputs":["5","5","5"],"output":["Média: 5","Situação: Recuperação"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Calcule a média com parênteses e depois use if / else if / else, começando pela faixa mais alta.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio4-corrija-o-desconto$c$, $c$desafio-do-mundo-4$c$, $c$fix$c$, $c$Desafio: corrija o desconto$c$, $c$dificil$c$, $c$A função `desconto(valor, cliente)` deveria dar 20% de desconto a clientes "vip" e 10% aos demais clientes quando o valor for 100 ou mais; abaixo de 100, não há desconto. Ela devolve o valor final, mas hoje calcula errado em alguns casos. Corrija o defeito.$c$, null, $c$desconto$c$, $c$function desconto(valor, cliente) {
+  if (valor >= 100) {
+    return valor * 0.9;
+  } else if (cliente === "vip") {
+    return valor * 0.8;
+  } else {
+    return valor;
+  }
+}
+$c$, $c$[{"args":[200,"vip"],"expected":160},{"args":[200,"comum"],"expected":180},{"args":[50,"vip"],"expected":50},{"args":[50,"comum"],"expected":50},{"args":[100,"vip"],"expected":80}]$c$::jsonb, $c${}$c$::jsonb, $c$O desconto vip só vale quando o valor também atinge 100. Que decisão vem primeiro?$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio4-acompanhe-as-decisoes$c$, $c$desafio-do-mundo-4$c$, $c$interpretation$c$, $c$Desafio: acompanhe as decisões$c$, $c$dificil$c$, $c$Acompanhe cada condição. O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"adulto","misconception":"avalia 17 >= 18 como verdadeiro e ignora a segunda linha"},{"text":"Entrada liberada\nmenor autorizado"},{"text":"Entrada liberada\nadulto","misconception":"avalia 17 >= 18 como verdadeiro"},{"text":"barrado","misconception":"acha que a idade 17 cai direto no else"}],"correct":1,"code":"const idade = 17;\nconst autorizado = true;\nlet resultado = \"\";\nif (idade >= 18) {\n  resultado = \"adulto\";\n} else if (idade >= 16 && autorizado) {\n  resultado = \"menor autorizado\";\n} else {\n  resultado = \"barrado\";\n}\nif (resultado !== \"barrado\") {\n  console.log(\"Entrada liberada\");\n}\nconsole.log(resultado);","explanation":"17 >= 18 é falso; 17 >= 16 && true é verdadeiro, então resultado vira \"menor autorizado\". Como é diferente de \"barrado\", mostra Entrada liberada e depois o resultado."}$c$::jsonb, $c$Siga a primeira cadeia até encontrar a condição verdadeira; depois avalie o segundo if.$c$, 3, false, $c$arquivo$c$),
   ($c$somatorio$c$, $c$repeticao$c$, $c$code$c$, $c$Somatório de 1 até n$c$, $c$facil$c$, $c$Escreva `somatorio(n)` que retorna 1 + 2 + ... + n usando um laço. Para n = 0, retorna 0.$c$, null, $c$somatorio$c$, $c$function somatorio(n) {
   // seu código aqui
 }
@@ -1562,6 +2018,196 @@ from (values
   if (a === b || a === c || b === c) return "isosceles";
   return "escaleno";
 }$c$, $c$$c$),
+  ($c$revrel-nota-passou$c$, $c$function passou(nota) {
+  return nota >= 7;
+}$c$, $c$nota >= 7 compara e devolve o booleano que a função deve retornar.$c$),
+  ($c$revrel-corrija-o-igual$c$, $c$function ehDez(n) {
+  return n === 10;
+}$c$, $c$n = 10 guarda 10 em n e devolve 10. Para comparar, usamos ===: n === 10.$c$),
+  ($c$revlog-tem-desconto$c$, $c$function temDesconto(idade) {
+  return idade < 12 || idade >= 60;
+}$c$, $c$idade < 12 || idade >= 60 é true quando a pessoa é criança ou idosa.$c$),
+  ($c$revlog-corrija-o-fim-de-semana$c$, $c$function ehFimDeSemana(dia) {
+  return dia === "sábado" || dia === "domingo";
+}$c$, $c$Com &&, o dia teria que ser igual aos dois valores ao mesmo tempo, o que nunca acontece. Com ||, basta ser um dos dois.$c$),
+  ($c$if-bonus-de-vendas$c$, $c$function bonus(vendas) {
+  let valor = 0;
+  if (vendas >= 1000) {
+    valor = 100;
+  }
+  return valor;
+}$c$, $c$O valor começa em 0 e o if o troca por 100 apenas quando vendas >= 1000.$c$),
+  ($c$if-corrija-o-ponto-e-virgula$c$, $c$function classificar(idade) {
+  let texto = "menor";
+  if (idade >= 18) {
+    texto = "maior";
+  }
+  return texto;
+}$c$, $c$O ; depois da condição encerra o if (vazio), e o bloco seguinte passa a executar sempre. Sem o ;, o bloco pertence ao if.$c$),
+  ($c$if-corrija-a-atribuicao$c$, $c$function ehDezoito(idade) {
+  if (idade === 18) {
+    return true;
+  }
+  return false;
+}$c$, $c$idade = 18 guarda 18 na variável e a condição passa a valer 18 (verdadeira) sempre. Para comparar, use ===$c$),
+  ($c$ifelse-par-ou-impar-funcao$c$, $c$function parOuImpar(n) {
+  if (n % 2 === 0) {
+    return "par";
+  } else {
+    return "impar";
+  }
+}$c$, $c$n % 2 === 0 identifica os pares. O else cobre todos os outros números (inclusive negativos ímpares).$c$),
+  ($c$ifelse-o-maior-de-dois$c$, $c$function maior(a, b) {
+  if (a > b) {
+    return a;
+  } else {
+    return b;
+  }
+}$c$, $c$Se a > b, o maior é a; no caso contrário (inclusive empate), b serve.$c$),
+  ($c$ifelse-corrija-o-else-que-faltou$c$, $c$function situacao(nota) {
+  let texto = "";
+  if (nota >= 7) {
+    texto = "aprovado";
+  } else {
+    texto = "reprovado";
+  }
+  return texto;
+}$c$, $c$A atribuição de "reprovado" ficava depois do if e sobrescrevia o resultado. Colocando-a dentro de um else, ela só executa quando a nota é menor que 7.$c$),
+  ($c$elseif-classificar-nota$c$, $c$function classificarNota(nota) {
+  if (nota >= 9) {
+    return "A";
+  } else if (nota >= 7) {
+    return "B";
+  } else if (nota >= 5) {
+    return "C";
+  } else {
+    return "D";
+  }
+}$c$, $c$As condições vão da maior faixa para a menor, e o else cobre as notas abaixo de 5.$c$),
+  ($c$elseif-sinal-do-numero$c$, $c$function sinal(n) {
+  if (n > 0) {
+    return "positivo";
+  } else if (n < 0) {
+    return "negativo";
+  } else {
+    return "zero";
+  }
+}$c$, $c$if (n > 0) cobre os positivos, else if (n < 0) os negativos, e o else, o zero.$c$),
+  ($c$elseif-corrija-a-ordem$c$, $c$function faixa(nota) {
+  if (nota >= 7) {
+    return "Bom";
+  } else if (nota >= 5) {
+    return "Regular";
+  } else {
+    return "Insuficiente";
+  }
+}$c$, $c$nota >= 5 é verdadeira também para 8, então a faixa Bom nunca era alcançada. Testando >= 7 antes de >= 5, cada nota cai na faixa certa.$c$),
+  ($c$aninhada-desconto-do-ingresso$c$, $c$function descontoDoIngresso(idade, estudante) {
+  if (idade < 18) {
+    return 100;
+  } else {
+    if (estudante) {
+      return 50;
+    } else {
+      return 0;
+    }
+  }
+}$c$, $c$Se a pessoa tem menos de 18 anos, o desconto é 100. Caso contrário, dentro do else, o desconto depende de ser estudante.$c$),
+  ($c$aninhada-corrija-o-else-interno$c$, $c$function acesso(idade, temIngresso) {
+  if (idade >= 18) {
+    if (temIngresso) {
+      return "entrou";
+    } else {
+      return "sem ingresso";
+    }
+  } else {
+    return "menor";
+  }
+}$c$, $c$Faltava um else para o if interno: sem ele, o adulto sem ingresso não passava por nenhum return.$c$),
+  ($c$switch-nome-do-dia$c$, $c$function nomeDoDia(numero) {
+  switch (numero) {
+    case 1:
+      return "domingo";
+    case 2:
+      return "segunda";
+    case 3:
+      return "terca";
+    case 4:
+      return "quarta";
+    case 5:
+      return "quinta";
+    case 6:
+      return "sexta";
+    case 7:
+      return "sabado";
+    default:
+      return "invalido";
+  }
+}$c$, $c$Cada case devolve o nome; como return já encerra a função, o break não é necessário. O default trata os números fora da lista.$c$),
+  ($c$switch-calculadora-de-operacao$c$, $c$function calcular(operacao, a, b) {
+  switch (operacao) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return a / b;
+    default:
+      return "operacao invalida";
+  }
+}$c$, $c$O switch compara o texto da operação com cada case. O default devolve a mensagem para operações desconhecidas.$c$),
+  ($c$switch-corrija-o-break$c$, $c$function tipo(codigo) {
+  let t = "";
+  switch (codigo) {
+    case 1:
+      t = "fruta";
+      break;
+    case 2:
+      t = "legume";
+      break;
+    default:
+      t = "outro";
+  }
+  return t;
+}$c$, $c$Sem break, a execução cai para os cases seguintes e o último valor (outro) sobrescreve os anteriores. Um break depois de cada atribuição resolve.$c$),
+  ($c$ternario-par-ou-impar$c$, $c$function parOuImpar(n) {
+  return n % 2 === 0 ? "par" : "impar";
+}$c$, $c$O ternário escolhe o valor a devolver conforme n % 2 === 0.$c$),
+  ($c$ternario-valor-absoluto$c$, $c$function absoluto(n) {
+  return n < 0 ? -n : n;
+}$c$, $c$Quando n < 0, o oposto -n é positivo; caso contrário, o próprio n já serve.$c$),
+  ($c$ternario-corrija-a-ordem$c$, $c$function situacao(nota) {
+  return nota >= 7 ? "aprovado" : "reprovado";
+}$c$, $c$O valor depois do ? é usado quando a condição é verdadeira. Os dois textos estavam trocados.$c$),
+  ($c$desafio4-sistema-de-notas$c$, $c$function sistemaDeNotas() {
+  const n1 = Number(lerEntrada());
+  const n2 = Number(lerEntrada());
+  const n3 = Number(lerEntrada());
+  const media = (n1 + n2 + n3) / 3;
+  let situacao;
+  if (media >= 7) {
+    situacao = "Aprovado";
+  } else if (media >= 5) {
+    situacao = "Recuperação";
+  } else {
+    situacao = "Reprovado";
+  }
+  console.log("Média:", media);
+  console.log("Situação:", situacao);
+}$c$, $c$Depois de converter as entradas e calcular a média, a cadeia if / else if / else escolhe a situação. Os testes de fronteira (7 e 5) conferem se o >= foi usado corretamente.$c$),
+  ($c$desafio4-corrija-o-desconto$c$, $c$function desconto(valor, cliente) {
+  if (valor >= 100) {
+    if (cliente === "vip") {
+      return valor * 0.8;
+    } else {
+      return valor * 0.9;
+    }
+  } else {
+    return valor;
+  }
+}$c$, $c$O desconto só existe a partir de 100; dentro dessa faixa, o cliente vip tem 20% e os demais 10%. A estrutura original decidia pelo valor e só olhava o cliente quando o valor era menor.$c$),
   ($c$somatorio$c$, $c$function somatorio(n) {
   let s = 0;
   for (let i = 1; i <= n; i++) s += i;
@@ -1673,7 +2319,7 @@ on conflict (exercise_id) do update set solution = excluded.solution, commentary
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -2035,6 +2681,126 @@ from (values
   ($c$dentro-do-intervalo$c$, $c$m3-logicos$c$, 1),
   ($c$tipo-de-triangulo$c$, $c$m4-else-if$c$, 2),
   ($c$tipo-de-triangulo$c$, $c$m3-relacionais$c$, 1),
+  ($c$cond-intro-para-que-serve$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-o-que-a-condicao-resulta$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-o-que-a-condicao-resulta$c$, $c$m3-relacionais$c$, 1),
+  ($c$cond-intro-condicao-verdadeira$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-complete-o-if$c$, $c$m4-introducao$c$, 2),
+  ($c$cond-intro-complete-o-if$c$, $c$m4-if$c$, 1),
+  ($c$cond-intro-condicao-falsa$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-condicao-invalida$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-condicao-invalida$c$, $c$m3-atribuicao$c$, 1),
+  ($c$cond-intro-ordene-o-if$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-ordene-o-if$c$, $c$m1-sequencia$c$, 1),
+  ($c$cond-intro-dois-ifs-seguidos$c$, $c$m4-introducao$c$, 3),
+  ($c$cond-intro-dois-ifs-seguidos$c$, $c$m3-relacionais$c$, 1),
+  ($c$revrel-pelo-menos$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-pelo-menos$c$, $c$m3-relacionais$c$, 1),
+  ($c$revrel-diferente$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-maiusculas-contam$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-maiusculas-contam$c$, $c$m2-string$c$, 1),
+  ($c$revrel-nota-passou$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-nota-passou$c$, $c$m3-relacionais$c$, 2),
+  ($c$revrel-corrija-o-igual$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-corrija-o-igual$c$, $c$m3-atribuicao$c$, 1),
+  ($c$revrel-texto-ou-numero$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-texto-ou-numero$c$, $c$m3-relacionais$c$, 2),
+  ($c$revrel-casos-estranhos$c$, $c$m4-revisao-relacionais$c$, 3),
+  ($c$revrel-casos-estranhos$c$, $c$m3-relacionais$c$, 2),
+  ($c$revlog-entre-dois-valores$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-entre-dois-valores$c$, $c$m3-logicos$c$, 1),
+  ($c$revlog-crianca-ou-idoso$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-crianca-ou-idoso$c$, $c$m3-logicos$c$, 1),
+  ($c$revlog-tabela-verdade$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-tabela-verdade$c$, $c$m3-logicos$c$, 2),
+  ($c$revlog-tem-desconto$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-tem-desconto$c$, $c$m3-logicos$c$, 2),
+  ($c$revlog-tem-desconto$c$, $c$m3-relacionais$c$, 1),
+  ($c$revlog-corrija-o-fim-de-semana$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-corrija-o-fim-de-semana$c$, $c$m3-logicos$c$, 2),
+  ($c$revlog-parenteses-mudam-o-resultado$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-parenteses-mudam-o-resultado$c$, $c$m3-precedencia$c$, 1),
+  ($c$revlog-de-morgan$c$, $c$m4-revisao-logicos$c$, 3),
+  ($c$revlog-de-morgan$c$, $c$m3-logicos$c$, 2),
+  ($c$if-forma-correta$c$, $c$m4-if$c$, 3),
+  ($c$if-nota-oito$c$, $c$m4-if$c$, 3),
+  ($c$if-complete-a-condicao$c$, $c$m4-if$c$, 2),
+  ($c$if-complete-a-condicao$c$, $c$m3-relacionais$c$, 1),
+  ($c$if-dois-blocos-independentes$c$, $c$m4-if$c$, 3),
+  ($c$if-bonus-de-vendas$c$, $c$m4-if$c$, 3),
+  ($c$if-bonus-de-vendas$c$, $c$m3-relacionais$c$, 1),
+  ($c$if-corrija-o-ponto-e-virgula$c$, $c$m4-if$c$, 3),
+  ($c$if-corrija-a-atribuicao$c$, $c$m4-if$c$, 3),
+  ($c$if-corrija-a-atribuicao$c$, $c$m3-atribuicao$c$, 1),
+  ($c$if-somando-pontos$c$, $c$m4-if$c$, 3),
+  ($c$if-somando-pontos$c$, $c$m3-atribuicao$c$, 1),
+  ($c$ifelse-o-que-faz-o-else$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-par-ou-impar$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-par-ou-impar$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$ifelse-complete-o-else$c$, $c$m4-if-else$c$, 2),
+  ($c$ifelse-reprovado$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-par-ou-impar-funcao$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-par-ou-impar-funcao$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$ifelse-o-maior-de-dois$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-o-maior-de-dois$c$, $c$m3-relacionais$c$, 1),
+  ($c$ifelse-corrija-o-else-que-faltou$c$, $c$m4-if-else$c$, 3),
+  ($c$ifelse-dois-pares-de-blocos$c$, $c$m4-if-else$c$, 3),
+  ($c$elseif-quantos-blocos-executam$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-escala-de-notas$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-complete-a-cadeia$c$, $c$m4-else-if$c$, 2),
+  ($c$elseif-ordem-errada$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-classificar-nota$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-classificar-nota$c$, $c$m3-relacionais$c$, 1),
+  ($c$elseif-sinal-do-numero$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-corrija-a-ordem$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-versus-ifs-separados$c$, $c$m4-else-if$c$, 3),
+  ($c$elseif-versus-ifs-separados$c$, $c$m4-if$c$, 1),
+  ($c$aninhada-o-que-e$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-sem-ingresso$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-sem-ingresso$c$, $c$m4-if-else$c$, 1),
+  ($c$aninhada-complete-o-if-interno$c$, $c$m4-aninhadas$c$, 2),
+  ($c$aninhada-complete-o-if-interno$c$, $c$m4-if$c$, 1),
+  ($c$aninhada-menor-de-idade$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-desconto-do-ingresso$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-desconto-do-ingresso$c$, $c$m4-if-else$c$, 1),
+  ($c$aninhada-corrija-o-else-interno$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-corrija-o-else-interno$c$, $c$m4-if-else$c$, 1),
+  ($c$aninhada-equivalente-com-e$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-equivalente-com-e$c$, $c$m3-logicos$c$, 1),
+  ($c$aninhada-tres-niveis$c$, $c$m4-aninhadas$c$, 3),
+  ($c$aninhada-tres-niveis$c$, $c$m4-if-else$c$, 1),
+  ($c$switch-quando-usar$c$, $c$m4-switch$c$, 3),
+  ($c$switch-dia-da-semana$c$, $c$m4-switch$c$, 3),
+  ($c$switch-complete-o-break$c$, $c$m4-switch$c$, 3),
+  ($c$switch-sem-break$c$, $c$m4-switch$c$, 3),
+  ($c$switch-nome-do-dia$c$, $c$m4-switch$c$, 3),
+  ($c$switch-calculadora-de-operacao$c$, $c$m4-switch$c$, 3),
+  ($c$switch-calculadora-de-operacao$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$switch-corrija-o-break$c$, $c$m4-switch$c$, 3),
+  ($c$switch-igualdade-estrita$c$, $c$m4-switch$c$, 3),
+  ($c$switch-igualdade-estrita$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$ternario-o-que-e$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-situacao$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-complete-os-simbolos$c$, $c$m4-ternario$c$, 2),
+  ($c$ternario-par-ou-impar$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-par-ou-impar$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$ternario-valor-absoluto$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-valor-absoluto$c$, $c$m3-relacionais$c$, 1),
+  ($c$ternario-corrija-a-ordem$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-aninhado$c$, $c$m4-ternario$c$, 3),
+  ($c$ternario-aninhado$c$, $c$m4-else-if$c$, 1),
+  ($c$desafio4-sistema-de-notas$c$, $c$m4-else-if$c$, 2),
+  ($c$desafio4-sistema-de-notas$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$desafio4-sistema-de-notas$c$, $c$m3-relacionais$c$, 2),
+  ($c$desafio4-sistema-de-notas$c$, $c$m2-entrada-saida$c$, 1),
+  ($c$desafio4-sistema-de-notas$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$desafio4-corrija-o-desconto$c$, $c$m4-else-if$c$, 3),
+  ($c$desafio4-corrija-o-desconto$c$, $c$m4-aninhadas$c$, 2),
+  ($c$desafio4-corrija-o-desconto$c$, $c$m3-logicos$c$, 1),
+  ($c$desafio4-acompanhe-as-decisoes$c$, $c$m4-else-if$c$, 2),
+  ($c$desafio4-acompanhe-as-decisoes$c$, $c$m4-aninhadas$c$, 2),
+  ($c$desafio4-acompanhe-as-decisoes$c$, $c$m4-if$c$, 2),
+  ($c$desafio4-acompanhe-as-decisoes$c$, $c$m3-logicos$c$, 2),
   ($c$somatorio$c$, $c$m5-acumuladores$c$, 2),
   ($c$somatorio$c$, $c$m5-for$c$, 1),
   ($c$fatorial$c$, $c$m5-acumuladores$c$, 2),
@@ -2088,7 +2854,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

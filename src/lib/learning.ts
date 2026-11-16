@@ -20,7 +20,8 @@ export interface ModuleState {
 /**
  * Estado de cada módulo no modo aprendizado, como na trilha de conceitos do Exercism:
  * o primeiro módulo já vem liberado e os outros liberam quando o módulo anterior chega a 70%.
- * Módulos sem exercícios publicados são ignorados (não travam ninguém).
+ * Módulos sem exercícios publicados são ignorados (não travam ninguém), e lições complementares
+ * (`optional`) são liberadas como as demais, mas não bloqueiam as seguintes.
  */
 export function moduleStates(
   catalog: Catalog,
@@ -50,7 +51,10 @@ export function moduleStates(
           ? null
           : { id: previous.id, title: previous.title },
     };
-    previous = { id: m.id, title: m.title, complete: unlocked && complete };
+    // Lições complementares podem ser estudadas, mas não seguram a próxima lição.
+    if (!m.optional) {
+      previous = { id: m.id, title: m.title, complete: unlocked && complete };
+    }
   }
   return out;
 }

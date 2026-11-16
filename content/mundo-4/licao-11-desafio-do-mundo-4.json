@@ -1,0 +1,102 @@
+{
+  "id": "desafio-do-mundo-4",
+  "mundo": "mundo-4",
+  "titulo": "Desafio final do Mundo 4",
+  "foco": "Juntar as condicionais em um sistema de notas",
+  "posicao": 410,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou o desafio do Mundo 4: um sistema de notas. O programa recebe as notas de um aluno, calcula a média e informa a situação: aprovado, recuperação ou reprovado.\n\nAqui você vai usar tudo o que aprendeu: operadores aritméticos para a média, relacionais para comparar, lógicos para combinar condições e as estruturas condicionais para decidir.\n\nO desafio principal é o primeiro exercício. Os outros dois treinam a leitura e a correção de decisões encadeadas.",
+  "exemplo": "Como montar o sistema de notas:\n1. Leia as três notas com lerEntrada() e converta cada uma com Number().\n2. Calcule a média: (n1 + n2 + n3) / 3.\n3. Decida a situação com if / else if / else: média >= 7 é Aprovado, média >= 5 é Recuperação, o restante é Reprovado.\n4. Mostre a média e a situação com console.log.\n5. Teste os limites (média exatamente 7 e exatamente 5): é aí que mais aparecem erros.",
+  "revisao": "- A média usa parênteses: (n1 + n2 + n3) / 3.\n- if / else if / else escolhe um único caminho, testando de cima para baixo.\n- Coloque as condições na ordem certa: da faixa mais alta para a mais baixa.\n- Teste os valores de fronteira (>= ou >).\n- Em toda comparação, use === (e não =).",
+  "exercicios": [
+    {
+      "id": "desafio4-sistema-de-notas",
+      "tipo": "desafio",
+      "titulo": "Desafio: sistema de notas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 1 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `sistemaDeNotas()`: leia três notas com `lerEntrada()` (chegam como texto), calcule a média e mostre duas linhas com `console.log`: `Média: <valor>` e `Situação: <texto>`. A situação é Aprovado (média 7 ou mais), Recuperação (5 ou mais, mas menos de 7) ou Reprovado (menos de 5).",
+      "funcao": "sistemaDeNotas",
+      "codigoInicial": "function sistemaDeNotas() {\n  // leia as notas, calcule a média e mostre as duas linhas\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["9", "8", "10"], "saida": ["Média: 9", "Situação: Aprovado"] },
+        {
+          "entrada": [],
+          "entradas": ["6", "7", "5"],
+          "saida": ["Média: 6", "Situação: Recuperação"]
+        },
+        { "entrada": [], "entradas": ["2", "3", "4"], "saida": ["Média: 3", "Situação: Reprovado"] },
+        { "entrada": [], "entradas": ["7", "7", "7"], "saida": ["Média: 7", "Situação: Aprovado"] },
+        {
+          "entrada": [],
+          "entradas": ["5", "5", "5"],
+          "saida": ["Média: 5", "Situação: Recuperação"]
+        }
+      ],
+      "dica": "Calcule a média com parênteses e depois use if / else if / else, começando pela faixa mais alta.",
+      "comentario": "Depois de converter as entradas e calcular a média, a cadeia if / else if / else escolhe a situação. Os testes de fronteira (7 e 5) conferem se o >= foi usado corretamente."
+    },
+    {
+      "id": "desafio4-corrija-o-desconto",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija o desconto",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 3 },
+        { "id": "m4-aninhadas", "peso": 2 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "A função `desconto(valor, cliente)` deveria dar 20% de desconto a clientes \"vip\" e 10% aos demais clientes quando o valor for 100 ou mais; abaixo de 100, não há desconto. Ela devolve o valor final, mas hoje calcula errado em alguns casos. Corrija o defeito.",
+      "funcao": "desconto",
+      "codigoInicial": "function desconto(valor, cliente) {\n  if (valor >= 100) {\n    return valor * 0.9;\n  } else if (cliente === \"vip\") {\n    return valor * 0.8;\n  } else {\n    return valor;\n  }\n}\n",
+      "testes": [
+        { "entrada": [200, "vip"], "esperado": 160 },
+        { "entrada": [200, "comum"], "esperado": 180 },
+        { "entrada": [50, "vip"], "esperado": 50 },
+        { "entrada": [50, "comum"], "esperado": 50 },
+        { "entrada": [100, "vip"], "esperado": 80 }
+      ],
+      "dica": "O desconto vip só vale quando o valor também atinge 100. Que decisão vem primeiro?",
+      "comentario": "O desconto só existe a partir de 100; dentro dessa faixa, o cliente vip tem 20% e os demais 10%. A estrutura original decidia pelo valor e só olhava o cliente quando o valor era menor."
+    },
+    {
+      "id": "desafio4-acompanhe-as-decisoes",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe as decisões",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-else-if", "peso": 2 },
+        { "id": "m4-aninhadas", "peso": 2 },
+        { "id": "m4-if", "peso": 2 },
+        { "id": "m3-logicos", "peso": 2 }
+      ],
+      "enunciado": "Acompanhe cada condição. O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const idade = 17;\nconst autorizado = true;\nlet resultado = \"\";\nif (idade >= 18) {\n  resultado = \"adulto\";\n} else if (idade >= 16 && autorizado) {\n  resultado = \"menor autorizado\";\n} else {\n  resultado = \"barrado\";\n}\nif (resultado !== \"barrado\") {\n  console.log(\"Entrada liberada\");\n}\nconsole.log(resultado);",
+      "opcoes": [
+        {
+          "texto": "adulto",
+          "confusao": "avalia 17 >= 18 como verdadeiro e ignora a segunda linha"
+        },
+        "Entrada liberada\nmenor autorizado",
+        { "texto": "Entrada liberada\nadulto", "confusao": "avalia 17 >= 18 como verdadeiro" },
+        { "texto": "barrado", "confusao": "acha que a idade 17 cai direto no else" }
+      ],
+      "correta": 1,
+      "dica": "Siga a primeira cadeia até encontrar a condição verdadeira; depois avalie o segundo if.",
+      "explicacao": "17 >= 18 é falso; 17 >= 16 && true é verdadeiro, então resultado vira \"menor autorizado\". Como é diferente de \"barrado\", mostra Entrada liberada e depois o resultado."
+    }
+  ]
+}

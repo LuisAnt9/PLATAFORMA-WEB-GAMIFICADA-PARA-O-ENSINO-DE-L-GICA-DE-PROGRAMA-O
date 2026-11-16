@@ -1,0 +1,180 @@
+{
+  "id": "revisao-dos-relacionais",
+  "mundo": "mundo-4",
+  "titulo": "Revisão dos operadores relacionais",
+  "foco": "Revisar as comparações que formam as condições",
+  "posicao": 402,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "As condições das estruturas condicionais quase sempre são comparações. Vamos revisar o que você viu no Mundo 3:\n- > maior, < menor, >= maior ou igual, <= menor ou igual;\n- === igual (mesmo valor e mesmo tipo) e !== diferente.\n\nTraduzindo do português: \"a idade é pelo menos 18\" vira idade >= 18; \"a nota é diferente de 10\" vira nota !== 10.\n\nCuidados que valem ouro dentro de um if:\n- use === para comparar, e não =, que guarda um valor;\n- evite == e !=, que convertem os tipos;\n- textos diferenciam maiúsculas de minúsculas: \"Ana\" não é igual a \"ana\";\n- um número e um texto são valores de tipos diferentes: 10 === \"10\" é false.",
+  "exemplo": "const idade = 17;\nconsole.log(idade >= 18);               // false\nconsole.log(idade === 17);              // true\nconsole.log(idade !== 17);              // false\n\nconst nome = \"Ana\";\nconsole.log(nome === \"ana\");            // false (as maiúsculas contam)\nconsole.log(typeof idade === \"number\"); // true\n\nPasso a passo:\n1. Cada comparação resulta em true ou false, e é isso que um if vai usar como condição.\n2. nome === \"ana\" é false: \"A\" maiúsculo e \"a\" minúsculo são caracteres diferentes.\n3. typeof idade devolve o texto \"number\", e comparamos com === para conferir o tipo.",
+  "revisao": "- Condições são, em geral, comparações: > < >= <= === !==.\n- \"Pelo menos\" é >=; \"no máximo\" é <=; \"diferente\" é !==.\n- Use === para comparar e = só para guardar valores.\n- Textos diferenciam maiúsculas e minúsculas; número e texto têm tipos diferentes.",
+  "exercicios": [
+    {
+      "id": "revrel-pelo-menos",
+      "tipo": "escolha",
+      "titulo": "Pelo menos 18",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Como se escreve a condição \"a idade é pelo menos 18\"?",
+      "opcoes": [
+        "idade >= 18",
+        { "texto": "idade > 18", "confusao": "esquece que \"pelo menos\" inclui o próprio 18" },
+        { "texto": "idade <= 18", "confusao": "inverte o sentido da comparação" },
+        { "texto": "idade = 18", "confusao": "usa uma atribuição no lugar de uma comparação" }
+      ],
+      "correta": 0,
+      "dica": "\"Pelo menos\" quer dizer \"18 ou mais\".",
+      "explicacao": "\"Pelo menos 18\" é 18 ou mais: idade >= 18."
+    },
+    {
+      "id": "revrel-diferente",
+      "tipo": "escolha",
+      "titulo": "Diferente de 10",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 }
+      ],
+      "enunciado": "Como se escreve a condição \"a nota é diferente de 10\"?",
+      "opcoes": [
+        { "texto": "nota === 10", "confusao": "escreve a condição contrária" },
+        { "texto": "nota =! 10", "confusao": "inverte os símbolos do operador de diferença" },
+        "nota !== 10",
+        { "texto": "nota <> 10", "confusao": "usa o operador de outras linguagens" }
+      ],
+      "correta": 2,
+      "dica": "O operador de diferença começa com o ponto de exclamação.",
+      "explicacao": "!== compara se dois valores são diferentes (em valor ou em tipo)."
+    },
+    {
+      "id": "revrel-maiusculas-contam",
+      "tipo": "interpretacao",
+      "titulo": "Ana ou ana?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m2-string", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nome = \"Ana\";\nconsole.log(nome === \"ana\");",
+      "opcoes": [
+        { "texto": "true", "confusao": "acha que maiúsculas e minúsculas não fazem diferença" },
+        "false",
+        { "texto": "Erro", "confusao": "acha que comparar textos com === causa um erro" },
+        { "texto": "undefined", "confusao": "acha que a comparação de textos não produz resultado" }
+      ],
+      "correta": 1,
+      "dica": "Compare os dois textos letra por letra.",
+      "explicacao": "\"A\" e \"a\" são caracteres diferentes, então os textos não são iguais: false."
+    },
+    {
+      "id": "revrel-nota-passou",
+      "tipo": "codigo",
+      "titulo": "A nota passou?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `passou(nota)` que devolve true se a nota for 7 ou mais, e false caso contrário.",
+      "funcao": "passou",
+      "codigoInicial": "function passou(nota) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [7], "esperado": true },
+        { "entrada": [6.9], "esperado": false },
+        { "entrada": [10], "esperado": true },
+        { "entrada": [0], "esperado": false }
+      ],
+      "dica": "Uma comparação já resulta em true ou false.",
+      "comentario": "nota >= 7 compara e devolve o booleano que a função deve retornar."
+    },
+    {
+      "id": "revrel-corrija-o-igual",
+      "tipo": "corrigir",
+      "titulo": "Corrija a comparação",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "A função `ehDez(n)` deveria devolver true apenas quando n for 10, mas devolve outros valores. Corrija o defeito.",
+      "funcao": "ehDez",
+      "codigoInicial": "function ehDez(n) {\n  return n = 10;\n}\n",
+      "testes": [
+        { "entrada": [10], "esperado": true },
+        { "entrada": [5], "esperado": false },
+        { "entrada": [0], "esperado": false }
+      ],
+      "dica": "Um dos sinais está guardando um valor em vez de comparar.",
+      "comentario": "n = 10 guarda 10 em n e devolve 10. Para comparar, usamos ===: n === 10."
+    },
+    {
+      "id": "revrel-texto-ou-numero",
+      "tipo": "interpretacao",
+      "titulo": "10 e \"10\"",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const a = \"10\";\nconst b = 10;\nconsole.log(a === b);\nconsole.log(a == b);\nconsole.log(Number(a) === b);",
+      "opcoes": [
+        { "texto": "true\ntrue\ntrue", "confusao": "acha que o === ignora a diferença de tipo" },
+        { "texto": "false\nfalse\ntrue", "confusao": "acha que o == também diferencia os tipos" },
+        {
+          "texto": "false\ntrue\nfalse",
+          "confusao": "acha que Number() não converte o texto em número"
+        },
+        "false\ntrue\ntrue"
+      ],
+      "correta": 3,
+      "dica": "a é um texto e b é um número.",
+      "explicacao": "=== não aceita tipos diferentes (false). == converte e diz true. Convertendo a com Number(), os dois são números iguais: true."
+    },
+    {
+      "id": "revrel-casos-estranhos",
+      "tipo": "interpretacao",
+      "titulo": "Cuidados na comparação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-revisao-relacionais", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(0.1 + 0.2 === 0.3);\nconsole.log(\"apple\" < \"Banana\");\nconsole.log(\"10\" < \"9\");",
+      "opcoes": [
+        "false\nfalse\ntrue",
+        {
+          "texto": "true\ntrue\nfalse",
+          "confusao": "acha que 0.1 + 0.2 é exatamente 0.3 e que as minúsculas vêm antes das maiúsculas"
+        },
+        {
+          "texto": "false\ntrue\ntrue",
+          "confusao": "acha que as letras minúsculas vêm antes das maiúsculas"
+        },
+        { "texto": "false\nfalse\nfalse", "confusao": "compara \"10\" e \"9\" como números" }
+      ],
+      "correta": 0,
+      "dica": "Decimais são aproximados; textos são comparados letra por letra, com as maiúsculas antes das minúsculas.",
+      "explicacao": "0.1 + 0.2 vale 0.30000000000000004 (false). \"apple\" começa com a minúsculo, que vem depois do B maiúsculo (false). \"10\" < \"9\" compara textos: \"1\" vem antes de \"9\" (true)."
+    }
+  ]
+}

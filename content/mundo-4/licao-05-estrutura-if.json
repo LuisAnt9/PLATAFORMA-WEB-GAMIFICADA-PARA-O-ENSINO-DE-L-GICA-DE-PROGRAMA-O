@@ -1,0 +1,200 @@
+{
+  "id": "estrutura-if",
+  "mundo": "mundo-4",
+  "titulo": "Estrutura if",
+  "foco": "Escrever e entender a estrutura if",
+  "posicao": 404,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "A estrutura if é a forma mais simples de decisão:\n\nif (condição) {\n  // comandos que só executam se a condição for verdadeira\n}\n\nPontos importantes:\n- a condição fica entre parênteses;\n- o bloco de comandos fica entre chaves { }, com os comandos recuados (indentados) para facilitar a leitura;\n- se a condição for falsa, o bloco inteiro é ignorado e o programa segue adiante;\n- não se coloca ponto e vírgula logo depois do parêntese: if (x > 0); termina o if antes de começar e o bloco passa a executar sempre;\n- use === para comparar, e não =: if (x = 5) guarda 5 em x e a condição passa a valer sempre.\n\nUm programa pode ter vários if seguidos. Cada um tem a sua condição e é testado de forma independente.",
+  "exemplo": "const temperatura = 32;\n\nif (temperatura > 30) {\n  console.log(\"Está quente\");\n}\n\nif (temperatura < 15) {\n  console.log(\"Está frio\");\n}\n\nconsole.log(\"Fim\");\n\nPasso a passo:\n1. 32 > 30 é true: o primeiro bloco executa e mostra Está quente.\n2. 32 < 15 é false: o segundo bloco é ignorado.\n3. O programa continua e mostra Fim.",
+  "revisao": "- if (condição) { ... } executa o bloco só se a condição for verdadeira.\n- Condição entre parênteses, comandos entre chaves e recuados.\n- Condição falsa: o bloco é ignorado.\n- Nada de ; depois do parêntese do if, e use === (e não =) para comparar.\n- Vários if seguidos são avaliados independentemente.",
+  "exercicios": [
+    {
+      "id": "if-forma-correta",
+      "tipo": "escolha",
+      "titulo": "Qual if está correto?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 }
+      ],
+      "enunciado": "Qual das formas abaixo é um if escrito corretamente?",
+      "opcoes": [
+        {
+          "texto": "if nota >= 7 { console.log(\"Aprovado\"); }",
+          "confusao": "esquece os parênteses em volta da condição"
+        },
+        "if (nota >= 7) { console.log(\"Aprovado\"); }",
+        {
+          "texto": "if (nota >= 7) then console.log(\"Aprovado\");",
+          "confusao": "usa a sintaxe de outras linguagens, com then"
+        },
+        {
+          "texto": "if (nota >= 7); { console.log(\"Aprovado\"); }",
+          "confusao": "coloca ponto e vírgula logo depois da condição"
+        }
+      ],
+      "correta": 1,
+      "dica": "Condição entre parênteses; comandos entre chaves.",
+      "explicacao": "A forma correta tem a condição entre parênteses e o bloco entre chaves, sem ponto e vírgula depois do parêntese."
+    },
+    {
+      "id": "if-nota-oito",
+      "tipo": "interpretacao",
+      "titulo": "Aprovado?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const nota = 8;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n}",
+      "opcoes": [
+        { "texto": "nota", "confusao": "mostra o nome da variável em vez da mensagem" },
+        {
+          "texto": "Nada",
+          "confusao": "acha que o programa não mostra nada quando o if é verdadeiro"
+        },
+        { "texto": "Reprovado", "confusao": "acha que a nota 8 não atinge o mínimo" },
+        "Aprovado"
+      ],
+      "correta": 3,
+      "dica": "8 é maior ou igual a 7?",
+      "explicacao": "8 >= 7 é true, então o bloco executa e mostra Aprovado."
+    },
+    {
+      "id": "if-complete-a-condicao",
+      "tipo": "lacuna",
+      "titulo": "Complete a condição",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-if", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Complete a condição com o nome da variável para mostrar Dez quando n for igual a 10.",
+      "modelo": "const n = 10;\nif ({{1}} === 10) {\n  console.log(\"Dez\");\n}",
+      "lacunas": [
+        { "respostas": ["n"] }
+      ],
+      "dica": "A condição compara a própria variável com 10.",
+      "explicacao": "n === 10 compara o valor guardado em n com 10. Como n vale 10, a condição é verdadeira."
+    },
+    {
+      "id": "if-dois-blocos-independentes",
+      "tipo": "interpretacao",
+      "titulo": "Calor ou frio?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const temperatura = 32;\nif (temperatura > 30) {\n  console.log(\"Está quente\");\n}\nif (temperatura < 15) {\n  console.log(\"Está frio\");\n}\nconsole.log(\"Fim\");",
+      "opcoes": [
+        "Está quente\nFim",
+        { "texto": "Está quente\nEstá frio\nFim", "confusao": "acha que todos os if executam" },
+        { "texto": "Está frio\nFim", "confusao": "avalia a segunda condição como verdadeira" },
+        { "texto": "Fim", "confusao": "acha que nenhum bloco executa" }
+      ],
+      "correta": 0,
+      "dica": "Cada if é testado separadamente.",
+      "explicacao": "32 > 30 é true (Está quente); 32 < 15 é false (bloco ignorado); depois, Fim."
+    },
+    {
+      "id": "if-bonus-de-vendas",
+      "tipo": "codigo",
+      "titulo": "Bônus de vendas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `bonus(vendas)` que devolve 100 se as vendas forem 1000 ou mais, e 0 caso contrário. Use um if.",
+      "funcao": "bonus",
+      "codigoInicial": "function bonus(vendas) {\n  let valor = 0;\n  // use um if para mudar o valor quando as vendas forem 1000 ou mais\n  return valor;\n}\n",
+      "testes": [
+        { "entrada": [500], "esperado": 0 },
+        { "entrada": [1000], "esperado": 100 },
+        { "entrada": [2500], "esperado": 100 },
+        { "entrada": [999], "esperado": 0 }
+      ],
+      "dica": "Comece com valor = 0 e só mude se a condição for verdadeira.",
+      "comentario": "O valor começa em 0 e o if o troca por 100 apenas quando vendas >= 1000."
+    },
+    {
+      "id": "if-corrija-o-ponto-e-virgula",
+      "tipo": "corrigir",
+      "titulo": "Corrija o ponto e vírgula",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 }
+      ],
+      "enunciado": "A função `classificar(idade)` deveria devolver \"maior\" para 18 anos ou mais e \"menor\" para os outros, mas devolve \"maior\" para todo mundo. Corrija o defeito.",
+      "funcao": "classificar",
+      "codigoInicial": "function classificar(idade) {\n  let texto = \"menor\";\n  if (idade >= 18);\n  {\n    texto = \"maior\";\n  }\n  return texto;\n}\n",
+      "testes": [
+        { "entrada": [20], "esperado": "maior" },
+        { "entrada": [10], "esperado": "menor" },
+        { "entrada": [18], "esperado": "maior" },
+        { "entrada": [17], "esperado": "menor" }
+      ],
+      "dica": "Repare no que vem logo depois do parêntese do if.",
+      "comentario": "O ; depois da condição encerra o if (vazio), e o bloco seguinte passa a executar sempre. Sem o ;, o bloco pertence ao if."
+    },
+    {
+      "id": "if-corrija-a-atribuicao",
+      "tipo": "corrigir",
+      "titulo": "Corrija a condição",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "A função `ehDezoito(idade)` deveria devolver true só para 18, mas devolve true para qualquer idade. Corrija o defeito.",
+      "funcao": "ehDezoito",
+      "codigoInicial": "function ehDezoito(idade) {\n  if (idade = 18) {\n    return true;\n  }\n  return false;\n}\n",
+      "testes": [
+        { "entrada": [18], "esperado": true },
+        { "entrada": [20], "esperado": false },
+        { "entrada": [0], "esperado": false }
+      ],
+      "dica": "Um dos sinais guarda um valor em vez de comparar.",
+      "comentario": "idade = 18 guarda 18 na variável e a condição passa a valer 18 (verdadeira) sempre. Para comparar, use ==="
+    },
+    {
+      "id": "if-somando-pontos",
+      "tipo": "interpretacao",
+      "titulo": "Acertos e pontos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-if", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let pontos = 0;\nconst acertos = 7;\nif (acertos >= 5) {\n  pontos += 10;\n}\nif (acertos >= 7) {\n  pontos += 20;\n}\nif (acertos >= 10) {\n  pontos += 50;\n}\nconsole.log(pontos);",
+      "opcoes": [
+        { "texto": "10", "confusao": "acha que o programa para no primeiro if verdadeiro" },
+        { "texto": "80", "confusao": "soma todos os blocos sem avaliar as condições" },
+        "30",
+        { "texto": "20", "confusao": "acha que só o último if verdadeiro conta" }
+      ],
+      "correta": 2,
+      "dica": "Cada if é testado de forma independente, e os blocos verdadeiros se acumulam.",
+      "explicacao": "7 >= 5 soma 10 e 7 >= 7 soma 20; 7 >= 10 é falso. Total: 30."
+    }
+  ]
+}

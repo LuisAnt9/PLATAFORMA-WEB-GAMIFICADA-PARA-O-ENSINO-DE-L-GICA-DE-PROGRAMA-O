@@ -1,0 +1,214 @@
+{
+  "id": "introducao-as-condicionais",
+  "mundo": "mundo-4",
+  "titulo": "Introdução às estruturas condicionais",
+  "foco": "Entender como um programa toma decisões",
+  "posicao": 401,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Até agora, os programas executavam as instruções de cima para baixo, sempre do mesmo jeito. Na vida real, porém, decidimos o tempo todo: \"se estiver chovendo, levo o guarda-chuva\".\n\nUma estrutura condicional faz o programa decidir. Ela testa uma condição, uma expressão que resulta em true ou false (como as comparações do Mundo 3), e executa um trecho do código somente se a condição for verdadeira.\n\nCom isso, o programa deixa de seguir um único caminho: o resultado depende dos dados. Neste mundo você vai conhecer as principais estruturas condicionais de JavaScript: if, if/else, else if, switch e o operador ternário.",
+  "exemplo": "const idade = 20;\n\nif (idade >= 18) {\n  console.log(\"Pode entrar\");\n}\nconsole.log(\"Fim\");\n\nPasso a passo:\n1. A condição idade >= 18 é testada. Com idade 20, o resultado é true.\n2. Como é verdadeira, o computador executa o bloco entre as chaves { } e mostra Pode entrar.\n3. Depois, o programa segue normalmente e mostra Fim.\n\nSe idade valesse 15, a condição seria false: o bloco seria ignorado e só Fim apareceria.",
+  "revisao": "- Uma estrutura condicional executa um trecho do código só quando uma condição é verdadeira.\n- A condição é uma expressão que resulta em true ou false.\n- O bloco da condição fica entre chaves { }.\n- O resultado do programa passa a depender dos dados.\n- As principais estruturas: if, if/else, else if, switch e ternário.",
+  "exercicios": [
+    {
+      "id": "cond-intro-para-que-serve",
+      "tipo": "escolha",
+      "titulo": "Para que serve uma condicional?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 }
+      ],
+      "enunciado": "Para que serve uma estrutura condicional?",
+      "opcoes": [
+        {
+          "texto": "Para repetir um trecho do programa várias vezes",
+          "confusao": "confunde decisão com repetição"
+        },
+        "Para executar um trecho só quando uma condição for verdadeira",
+        {
+          "texto": "Para guardar valores em variáveis",
+          "confusao": "confunde decisão com declaração de variáveis"
+        },
+        {
+          "texto": "Para mostrar um texto na tela",
+          "confusao": "confunde decisão com saída de dados"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense em \"se... então...\".",
+      "explicacao": "A estrutura condicional faz o programa decidir: um trecho só é executado quando a condição é verdadeira."
+    },
+    {
+      "id": "cond-intro-o-que-a-condicao-resulta",
+      "tipo": "escolha",
+      "titulo": "O resultado da condição",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "A condição de uma estrutura condicional precisa resultar em quê?",
+      "opcoes": [
+        { "texto": "Em um texto", "confusao": "acha que a condição precisa ser um texto" },
+        {
+          "texto": "Em um número inteiro positivo",
+          "confusao": "acha que a condição precisa ser um número"
+        },
+        { "texto": "Em uma atribuição, como x = 5", "confusao": "confunde condição com atribuição" },
+        "Em true ou false"
+      ],
+      "correta": 3,
+      "dica": "Lembre-se das comparações do Mundo 3.",
+      "explicacao": "A condição é avaliada como verdadeira ou falsa (true ou false), como o resultado de uma comparação."
+    },
+    {
+      "id": "cond-intro-condicao-verdadeira",
+      "tipo": "interpretacao",
+      "titulo": "Pode entrar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const idade = 20;\nif (idade >= 18) {\n  console.log(\"Pode entrar\");\n}\nconsole.log(\"Fim\");",
+      "opcoes": [
+        "Pode entrar\nFim",
+        { "texto": "Fim", "confusao": "acha que a mensagem do if não aparece" },
+        { "texto": "Pode entrar", "confusao": "acha que o programa termina dentro do if" },
+        {
+          "texto": "Fim\nPode entrar",
+          "confusao": "executa o bloco do if depois das linhas seguintes"
+        }
+      ],
+      "correta": 0,
+      "dica": "Com 20, a condição é verdadeira.",
+      "explicacao": "20 >= 18 é true, então o bloco do if executa. Depois, o programa continua e mostra Fim."
+    },
+    {
+      "id": "cond-intro-complete-o-if",
+      "tipo": "lacuna",
+      "titulo": "Complete o if",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Complete a palavra que inicia a estrutura condicional.",
+      "modelo": "const temperatura = 35;\n{{1}} (temperatura > 30) {\n  console.log(\"Está quente\");\n}",
+      "lacunas": [
+        { "respostas": ["if"] }
+      ],
+      "dica": "A palavra vem do inglês e significa \"se\".",
+      "explicacao": "if é a palavra que inicia a estrutura condicional: se a condição for verdadeira, o bloco executa."
+    },
+    {
+      "id": "cond-intro-condicao-falsa",
+      "tipo": "interpretacao",
+      "titulo": "Menor de idade",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const idade = 15;\nif (idade >= 18) {\n  console.log(\"Pode entrar\");\n}\nconsole.log(\"Fim\");",
+      "opcoes": [
+        { "texto": "Pode entrar\nFim", "confusao": "executa o bloco sem avaliar a condição" },
+        {
+          "texto": "Nada",
+          "confusao": "acha que o programa não mostra nada quando a condição é falsa"
+        },
+        "Fim",
+        {
+          "texto": "Pode entrar",
+          "confusao": "acha que o bloco executa mesmo com a condição falsa e o programa termina"
+        }
+      ],
+      "correta": 2,
+      "dica": "Com 15, a condição é falsa. O que acontece com o bloco?",
+      "explicacao": "15 >= 18 é false, então o bloco é ignorado. O programa continua depois do if e mostra apenas Fim."
+    },
+    {
+      "id": "cond-intro-condicao-invalida",
+      "tipo": "escolha",
+      "titulo": "Condição ou atribuição?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "Qual das alternativas NÃO é uma condição (isto é, não compara valores)?",
+      "opcoes": [
+        {
+          "texto": "idade >= 18",
+          "confusao": "acha que uma comparação não pode ser usada como condição"
+        },
+        "idade = 18",
+        {
+          "texto": "idade === 18",
+          "confusao": "acha que uma comparação de igualdade não pode ser usada como condição"
+        },
+        {
+          "texto": "idade !== 18",
+          "confusao": "acha que uma comparação de diferença não pode ser usada como condição"
+        }
+      ],
+      "correta": 1,
+      "dica": "Uma delas guarda um valor em vez de comparar.",
+      "explicacao": "idade = 18 é uma atribuição: guarda 18 em idade. As outras comparam e resultam em true ou false."
+    },
+    {
+      "id": "cond-intro-ordene-o-if",
+      "tipo": "ordenacao",
+      "titulo": "Ordene o programa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 },
+        { "id": "m1-sequencia", "peso": 1 }
+      ],
+      "enunciado": "Coloque as linhas na ordem certa para o programa mostrar Leve o guarda-chuva quando estiver chovendo.",
+      "itens": ["const chovendo = true;", "if (chovendo) {", "console.log(\"Leve o guarda-chuva\");", "}"],
+      "dica": "A variável precisa existir antes de ser testada, e o bloco fica entre a abertura e o fechamento das chaves.",
+      "explicacao": "Primeiro a variável, depois o if com a condição, o comando dentro do bloco e, por fim, a chave que fecha o bloco."
+    },
+    {
+      "id": "cond-intro-dois-ifs-seguidos",
+      "tipo": "interpretacao",
+      "titulo": "Dois ifs seguidos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-introducao", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const nota = 6;\nif (nota >= 7) {\n  console.log(\"Aprovado\");\n}\nif (nota < 7) {\n  console.log(\"Estude mais\");\n}\nconsole.log(\"Fim\");",
+      "opcoes": [
+        {
+          "texto": "Aprovado\nEstude mais\nFim",
+          "confusao": "acha que todos os if executam, sem avaliar as condições"
+        },
+        { "texto": "Aprovado\nFim", "confusao": "avalia a primeira condição como verdadeira" },
+        { "texto": "Fim", "confusao": "acha que nenhum dos ifs executa" },
+        "Estude mais\nFim"
+      ],
+      "correta": 3,
+      "dica": "Cada if tem a sua própria condição, testada separadamente.",
+      "explicacao": "6 >= 7 é false, então o primeiro bloco é ignorado. 6 < 7 é true, então o segundo bloco executa. Depois, Fim."
+    }
+  ]
+}

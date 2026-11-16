@@ -72,6 +72,33 @@ const main=p=>p.locator("main").innerText();
   ok("professor vê tudo liberado e sem seletor de modo", (await p.locator("[role=radiogroup]").count())===0 && !(await main(p)).includes("Resolva pelo menos 70%"));
   ok("sem erros de página (professor)", errs.length===0);
 }
+// ---- lição complementar não trava a seguinte
+{
+  const mods2=[
+    {id:"m1",title:"Módulo Alfa",focus:"F1",intro:"",position:1},
+    {id:"m2",title:"Módulo Extra",focus:"F2",intro:"",position:2,optional:true},
+    {id:"m3",title:"Módulo Gama",focus:"F3",intro:"",position:3},
+  ];
+  const exs2=[choice("a1","m1","Alfa um",1),choice("b1","m2","Extra um",1),choice("g1","m3","Gama um",1)];
+  const ctx=await b.newContext({viewport:{width:1000,height:1000}});
+  await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
+  await ctx.route("**/*.supabase.co/**", async route=>{
+    const req=route.request(), u=req.url(), m=req.method();
+    const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
+    if(m==="OPTIONS") return route.fulfill({status:204,headers:{"access-control-allow-origin":"*","access-control-allow-headers":"*","access-control-allow-methods":"*"}});
+    if(u.includes("/rest/v1/modules")) return json(mods2);
+    if(u.includes("/rest/v1/exercises")) return json(exs2);
+    if(u.includes("/rest/v1/profiles")) return json({id:uid,name:"Luis A",role:"aluno"});
+    if(u.includes("/rest/v1/exercise_progress")) return json([{exercise_id:"a1",attempts:1,solved:true,first_try:true,xp:15}]);
+    return json([]);
+  });
+  const p=await ctx.newPage();
+  await p.goto(BASE+"/"); await p.waitForSelector("text=Gama um",{timeout:12000});
+  const t=await main(p);
+  ok("módulo marcado como complementar mostra o selo", t.includes("Complementar"));
+  ok("a lição seguinte à complementar libera sem concluí-la", t.includes("Gama um") && t.includes("Extra um") && !t.includes("Resolva pelo menos 70%"));
+}
+
 await b.close();
 console.log(failed?`${failed} FALHA(S)`:"TODOS OS FLUXOS OK");
 process.exit(failed?1:0);

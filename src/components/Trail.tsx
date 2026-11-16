@@ -226,6 +226,11 @@ function TrailContent() {
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                   <h2 id={`mod-${m.id}`} className="text-lg font-semibold">
                     {m.title}
+                    {m.optional && (
+                      <span className="ml-2 rounded-full bg-zinc-200 px-2 py-0.5 align-middle text-xs font-normal text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+                        Complementar
+                      </span>
+                    )}
                   </h2>
                   <span className="text-sm text-zinc-600 dark:text-zinc-400">
                     {locked && (

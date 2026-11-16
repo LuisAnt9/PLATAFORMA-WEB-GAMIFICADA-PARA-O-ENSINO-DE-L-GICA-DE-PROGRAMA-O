@@ -1,0 +1,206 @@
+{
+  "id": "condicionais-aninhadas",
+  "mundo": "mundo-4",
+  "titulo": "Condicionais aninhadas",
+  "foco": "Colocar uma decisão dentro de outra",
+  "posicao": 407,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Condicionais aninhadas são condicionais dentro de outras: uma decisão que só faz sentido depois de outra. Por exemplo: só perguntamos se a pessoa tem ingresso depois de confirmar que ela é maior de idade.\n\nO bloco interno só é testado se a condição externa for verdadeira. Se a externa for falsa, a interna nem é avaliada.\n\nA indentação é essencial: a cada nível, recue o código mais um pouco para enxergar a quem cada else pertence. Um else sempre pertence ao if mais próximo, acima dele.\n\nMuitos níveis deixam o código difícil de ler. Quando as duas condições levam ao mesmo resultado, uma alternativa é juntá-las com &&: if (a) { if (b) {...} } equivale a if (a && b) {...}.",
+  "exemplo": "const idade = 20;\nconst temIngresso = false;\n\nif (idade >= 18) {\n  if (temIngresso) {\n    console.log(\"Pode entrar\");\n  } else {\n    console.log(\"Compre um ingresso\");\n  }\n} else {\n  console.log(\"Menor de idade\");\n}\n\nPasso a passo:\n1. idade >= 18 é true: entramos no bloco externo.\n2. Dentro dele, temIngresso é false: executa o else interno.\n3. O programa mostra Compre um ingresso. O else externo (Menor de idade) não executa, porque a condição externa foi verdadeira.",
+  "revisao": "- Condicional aninhada é uma condicional dentro do bloco de outra.\n- A interna só é avaliada se a externa for verdadeira.\n- Cada else pertence ao if mais próximo acima dele; a indentação ajuda a enxergar isso.\n- if (a) { if (b) {...} } equivale a if (a && b) {...}.\n- Evite muitos níveis: o código fica difícil de ler.",
+  "exercicios": [
+    {
+      "id": "aninhada-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é aninhar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 }
+      ],
+      "enunciado": "O que é uma condicional aninhada?",
+      "opcoes": [
+        {
+          "texto": "Duas condicionais seguidas, uma depois da outra",
+          "confusao": "confunde aninhar com colocar condicionais em sequência"
+        },
+        "Uma condicional escrita dentro do bloco de outra condicional",
+        {
+          "texto": "Uma condicional com mais de uma condição",
+          "confusao": "confunde aninhar com combinar condições com && ou ||"
+        },
+        { "texto": "Um if sem else", "confusao": "confunde aninhar com a ausência de else" }
+      ],
+      "correta": 1,
+      "dica": "Pense em caixas dentro de caixas.",
+      "explicacao": "Aninhar é colocar uma estrutura condicional dentro do bloco de outra."
+    },
+    {
+      "id": "aninhada-sem-ingresso",
+      "tipo": "interpretacao",
+      "titulo": "Tem ingresso?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const idade = 20;\nconst temIngresso = false;\nif (idade >= 18) {\n  if (temIngresso) {\n    console.log(\"Pode entrar\");\n  } else {\n    console.log(\"Compre um ingresso\");\n  }\n} else {\n  console.log(\"Menor de idade\");\n}",
+      "opcoes": [
+        { "texto": "Pode entrar", "confusao": "acha que a pessoa entra só por ser maior de idade" },
+        { "texto": "Menor de idade", "confusao": "ignora a condição externa, que é verdadeira" },
+        {
+          "texto": "Compre um ingresso\nMenor de idade",
+          "confusao": "acha que os dois else executam"
+        },
+        "Compre um ingresso"
+      ],
+      "correta": 3,
+      "dica": "Entre primeiro no bloco externo; depois avalie o interno.",
+      "explicacao": "A idade é suficiente (bloco externo). Dentro dele, a pessoa não tem ingresso, então executa o else interno."
+    },
+    {
+      "id": "aninhada-complete-o-if-interno",
+      "tipo": "lacuna",
+      "titulo": "Complete o if interno",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Complete a palavra que inicia a condicional interna.",
+      "modelo": "const a = 3;\nconst b = 5;\nif (a > 0) {\n  {{1}} (b > 0) {\n    console.log(\"Os dois são positivos\");\n  }\n}",
+      "lacunas": [
+        { "respostas": ["if"] }
+      ],
+      "dica": "A decisão interna usa a mesma palavra da externa.",
+      "explicacao": "O if interno só é testado quando a condição externa (a > 0) é verdadeira."
+    },
+    {
+      "id": "aninhada-menor-de-idade",
+      "tipo": "interpretacao",
+      "titulo": "Menor de idade",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const idade = 16;\nconst temIngresso = true;\nif (idade >= 18) {\n  if (temIngresso) {\n    console.log(\"Pode entrar\");\n  } else {\n    console.log(\"Compre um ingresso\");\n  }\n} else {\n  console.log(\"Menor de idade\");\n}",
+      "opcoes": [
+        "Menor de idade",
+        { "texto": "Pode entrar", "confusao": "avalia só a condição interna, ignorando a externa" },
+        {
+          "texto": "Compre um ingresso",
+          "confusao": "acha que a condição interna é testada mesmo com a externa falsa"
+        },
+        { "texto": "Nada", "confusao": "acha que o programa não mostra nada para menores" }
+      ],
+      "correta": 0,
+      "dica": "A condição externa é falsa. A interna é avaliada?",
+      "explicacao": "16 >= 18 é falso, então o bloco externo é ignorado e o else externo executa. A condição interna nem é avaliada."
+    },
+    {
+      "id": "aninhada-desconto-do-ingresso",
+      "tipo": "codigo",
+      "titulo": "Desconto do ingresso",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `descontoDoIngresso(idade, estudante)`: menores de 18 anos têm 100 de desconto; maiores de idade estudantes têm 50; os demais, 0. Use condicionais aninhadas.",
+      "funcao": "descontoDoIngresso",
+      "codigoInicial": "function descontoDoIngresso(idade, estudante) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [10, false], "esperado": 100 },
+        { "entrada": [20, true], "esperado": 50 },
+        { "entrada": [20, false], "esperado": 0 },
+        { "entrada": [18, true], "esperado": 50 },
+        { "entrada": [17, true], "esperado": 100 }
+      ],
+      "dica": "Primeiro decida pela idade; só para os maiores de idade pergunte se é estudante.",
+      "comentario": "Se a pessoa tem menos de 18 anos, o desconto é 100. Caso contrário, dentro do else, o desconto depende de ser estudante."
+    },
+    {
+      "id": "aninhada-corrija-o-else-interno",
+      "tipo": "corrigir",
+      "titulo": "Corrija o caminho que faltou",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "A função `acesso(idade, temIngresso)` devolve undefined para um adulto sem ingresso, mas deveria devolver \"sem ingresso\". Corrija o defeito.",
+      "funcao": "acesso",
+      "codigoInicial": "function acesso(idade, temIngresso) {\n  if (idade >= 18) {\n    if (temIngresso) {\n      return \"entrou\";\n    }\n  } else {\n    return \"menor\";\n  }\n}\n",
+      "testes": [
+        { "entrada": [20, true], "esperado": "entrou" },
+        { "entrada": [20, false], "esperado": "sem ingresso" },
+        { "entrada": [15, true], "esperado": "menor" },
+        { "entrada": [15, false], "esperado": "menor" }
+      ],
+      "dica": "Que caminho cobre o adulto que não tem ingresso?",
+      "comentario": "Faltava um else para o if interno: sem ele, o adulto sem ingresso não passava por nenhum return."
+    },
+    {
+      "id": "aninhada-equivalente-com-e",
+      "tipo": "escolha",
+      "titulo": "Juntando as condições",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "Qual condição única equivale a if (a) { if (b) { ... } }?",
+      "opcoes": [
+        { "texto": "if (a || b) { ... }", "confusao": "troca o E por OU" },
+        { "texto": "if (!a && b) { ... }", "confusao": "inverte a primeira condição" },
+        "if (a && b) { ... }",
+        {
+          "texto": "if (a) if (b) { ... } else { ... }",
+          "confusao": "mantém o aninhamento e ainda acrescenta um else que não existia"
+        }
+      ],
+      "correta": 2,
+      "dica": "O bloco interno só executa quando as duas condições são verdadeiras.",
+      "explicacao": "O bloco só executa quando a e b são verdadeiros ao mesmo tempo: a && b."
+    },
+    {
+      "id": "aninhada-tres-niveis",
+      "tipo": "interpretacao",
+      "titulo": "Três níveis",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m4-aninhadas", "peso": 3 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const x = 5;\nconst y = 10;\nif (x > 0) {\n  if (y > 20) {\n    console.log(\"A\");\n  } else {\n    if (x < y) {\n      console.log(\"B\");\n    } else {\n      console.log(\"C\");\n    }\n  }\n} else {\n  console.log(\"D\");\n}",
+      "opcoes": [
+        { "texto": "A", "confusao": "avalia y > 20 como verdadeiro" },
+        "B",
+        { "texto": "C", "confusao": "avalia x < y como falso" },
+        { "texto": "D", "confusao": "avalia x > 0 como falso" }
+      ],
+      "correta": 1,
+      "dica": "Siga os blocos de fora para dentro, anotando a resposta de cada condição.",
+      "explicacao": "x > 0 é verdadeiro; y > 20 é falso, então vai para o else; dentro dele, x < y (5 < 10) é verdadeiro: B."
+    }
+  ]
+}

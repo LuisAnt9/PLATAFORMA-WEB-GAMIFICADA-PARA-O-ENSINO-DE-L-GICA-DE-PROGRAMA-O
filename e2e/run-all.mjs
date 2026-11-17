@@ -14,6 +14,7 @@ const suites = [
   ["tipos-novos", "Interpretação, ordenação pelo teclado, corrigir, entrada e saída, dicas em níveis, segurança e editor"],
   ["registro-de-tentativas", "Registro de cada tentativa e categoria de erro do código"],
   ["modo-aprendizado", "Modo aprendizado: módulos em ordem, conceito e modo prática"],
+  ["area-do-aluno", "Área do aluno: início, mundos, lição em passos, progresso, conquistas e tema"],
   ["acessibilidade", "Acessibilidade (axe) e layout em celular/computador, claro/escuro"],
 ];
 

@@ -1,5 +1,5 @@
-import Trail from "@/components/Trail";
+import Dashboard from "@/components/Dashboard";
 
 export default function Home() {
-  return <Trail />;
+  return <Dashboard />;
 }

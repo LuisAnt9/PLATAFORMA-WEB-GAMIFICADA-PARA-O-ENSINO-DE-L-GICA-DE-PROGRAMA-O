@@ -51,9 +51,9 @@ async function newCtx(role){
 {
   const {p,st,errs}=await newCtx("aluno");
   p.on("dialog",d=>d.accept());
-  await p.goto(BASE+"/");
+  await p.goto(BASE+"/licao/m1?passo=pratica");
   await p.waitForSelector("text=Somar dois números",{timeout:10000});
-  ok("trilha vem do banco (módulos e exercícios)", (await p.locator("main").innerText()).includes("Fundamentos") && !(await p.locator("main").innerText()).includes("Rascunho X"));
+  ok("a lição vem do banco (módulos e exercícios)", (await p.locator("main").innerText()).includes("Fundamentos") && !(await p.locator("main").innerText()).includes("Rascunho X"));
   ok("aluno não vê link Professor", !(await p.locator("nav").innerText()).includes("Professor"));
   await p.click("text=Somar dois números");
   await p.waitForSelector(".cm-content");
@@ -83,9 +83,9 @@ async function newCtx(role){
 {
   const {p,st,errs}=await newCtx("professor");
   p.on("dialog",d=>d.accept());
-  await p.goto(BASE+"/");
+  await p.goto(BASE+"/licao/m1?passo=pratica");
   await p.waitForSelector("text=Somar dois números",{timeout:10000});
-  ok("professor vê rascunho marcado na trilha", (await p.locator("main").innerText()).toLowerCase().includes("rascunho"));
+  ok("rascunho não aparece na lição nem para o professor", !(await p.locator("main").innerText()).includes("Rascunho X"));
   await p.click("nav >> text=Professor");
   await p.waitForSelector("text=ADS 2026.1");
   ok("lista turmas com código e nº de alunos", (await p.locator("main").innerText()).includes("ABC234") && (await p.locator("main").innerText()).includes("2 alunos"));

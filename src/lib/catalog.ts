@@ -123,6 +123,8 @@ export interface Catalog {
   /** Conceitos e ligações (migration 0010); vazios se o banco ainda não os tem. */
   concepts?: Concept[];
   links?: ExerciseConcept[];
+  /** Mundos (migration 0010); vazio se o banco ainda não os tem. */
+  worlds?: World[];
 }
 
 export const EMPTY_CATALOG: Catalog = {
@@ -130,6 +132,7 @@ export const EMPTY_CATALOG: Catalog = {
   exercises: [],
   concepts: [],
   links: [],
+  worlds: [],
 };
 
 /** Conceitos de um exercício, do mais para o menos importante. */

@@ -32,43 +32,44 @@ async function newCtx(role,solvedIds=[]){
 }
 const main=p=>p.locator("main").innerText();
 
-// ---- aluno novo: módulo 2 bloqueado
+// ---- aluno novo: lição 2 bloqueada
 {
   const {p,errs}=await newCtx("aluno");
-  await p.goto(BASE+"/"); await p.waitForSelector("text=Alfa um",{timeout:12000});
+  await p.goto(BASE+"/mundos/outras-licoes"); await p.waitForSelector("text=Módulo Alfa",{timeout:12000});
   ok("modo aprendizado é o padrão", (await p.locator("[role=radio][aria-checked=true]").innerText())==="Modo aprendizado");
-  let t=await main(p);
-  ok("módulo 2 bloqueado explica o que falta", t.includes('Resolva pelo menos 70% de "Módulo Alfa"') && !t.includes("Beta um"));
-  ok("módulo 1 mostra o conceito para ler", await p.locator("summary:has-text('Ler o conceito')").count()===1);
-  await p.click("summary:has-text('Ler o conceito')");
-  ok("conceito abre com o texto do professor", (await main(p)).includes("Conceito do módulo Alfa"));
+  ok("lição 2 aparece como bloqueada na lista", await p.locator("[role=img][aria-label='Bloqueada']").count()===1);
+  await p.goto(BASE+"/licao/m2"); await p.waitForSelector("text=ainda está bloqueada");
+  ok("lição bloqueada explica o que falta", (await main(p)).includes('Resolva pelo menos 70% de "Módulo Alfa"') && !(await main(p)).includes("Beta um"));
+  await p.goto(BASE+"/licao/m1?passo=explicacao"); await p.waitForSelector("text=Conceito do módulo Alfa");
+  ok("lição 1 mostra o conceito para ler", (await main(p)).includes("Conceito do módulo Alfa: leia antes."));
+  await p.goto(BASE+"/"); await p.waitForSelector("a:has-text('Começar')",{timeout:12000});
   ok("botão Começar leva ao primeiro exercício liberado", (await p.locator("a:has-text('Começar')").getAttribute("href"))==="/exercicio/a1");
 
-  await p.goto(BASE+"/exercicio/b1"); await p.waitForSelector("text=ainda está bloqueado");
+  await p.goto(BASE+"/exercicio/b1"); await p.waitForSelector("text=ainda está bloqueada");
   ok("endereço direto de exercício bloqueado mostra aviso", (await main(p)).includes('Resolva pelo menos 70% de "Módulo Alfa"'));
   await p.click("button:has-text('Ir para o modo prática')");
   await p.waitForSelector("text=Enunciado Beta um");
   ok("modo prática libera o exercício", true);
-  await p.goto(BASE+"/"); await p.waitForSelector("text=Beta um");
-  ok("modo prática lembrado: tudo liberado na trilha", (await main(p)).includes("Beta um") && (await p.locator("[role=radio][aria-checked=true]").innerText())==="Modo prática");
+  await p.goto(BASE+"/mundos/outras-licoes"); await p.waitForSelector("text=Módulo Beta");
+  ok("modo prática lembrado: tudo liberado", (await p.locator("[role=radio][aria-checked=true]").innerText())==="Modo prática" && await p.locator("[role=img][aria-label='Bloqueada']").count()===0);
   await p.click("[role=radio]:has-text('Modo aprendizado')");
-  await p.waitForSelector("text=Resolva pelo menos 70%");
-  ok("voltar ao modo aprendizado trava de novo", !(await main(p)).includes("Beta um"));
+  await p.waitForSelector("[role=img][aria-label='Bloqueada']");
+  ok("voltar ao modo aprendizado trava de novo", true);
   ok("sem erros de página (aluno novo)", errs.length===0);
 }
-// ---- aluno que concluiu o módulo 1: módulo 2 abre
+// ---- aluno que concluiu a lição 1: lição 2 abre
 {
   const {p,errs}=await newCtx("aluno",["a1","a2","a3"]);
-  await p.goto(BASE+"/"); await p.waitForSelector("text=Beta um",{timeout:12000});
-  ok("módulo 1 concluído libera o módulo 2", !(await main(p)).includes("Resolva pelo menos 70%"));
+  await p.goto(BASE+"/licao/m2?passo=interpretacao"); await p.waitForSelector("text=Beta um",{timeout:12000});
+  ok("lição 1 concluída libera a lição 2", !(await main(p)).includes("Resolva pelo menos 70%"));
   await p.click("a:has-text('Beta um')"); await p.waitForSelector("text=Enunciado Beta um");
-  ok("exercício do módulo liberado abre", true);
+  ok("exercício da lição liberada abre", true);
   ok("sem erros de página (aluno que concluiu)", errs.length===0);
 }
 // ---- professor: nada bloqueado, sem seletor de modo
 {
   const {p,errs}=await newCtx("professor");
-  await p.goto(BASE+"/"); await p.waitForSelector("text=Beta um",{timeout:12000});
+  await p.goto(BASE+"/licao/m2?passo=interpretacao"); await p.waitForSelector("text=Beta um",{timeout:12000});
   ok("professor vê tudo liberado e sem seletor de modo", (await p.locator("[role=radiogroup]").count())===0 && !(await main(p)).includes("Resolva pelo menos 70%"));
   ok("sem erros de página (professor)", errs.length===0);
 }
@@ -93,10 +94,11 @@ const main=p=>p.locator("main").innerText();
     return json([]);
   });
   const p=await ctx.newPage();
-  await p.goto(BASE+"/"); await p.waitForSelector("text=Gama um",{timeout:12000});
-  const t=await main(p);
-  ok("módulo marcado como complementar mostra o selo", t.includes("Complementar"));
-  ok("a lição seguinte à complementar libera sem concluí-la", t.includes("Gama um") && t.includes("Extra um") && !t.includes("Resolva pelo menos 70%"));
+  await p.goto(BASE+"/mundos/outras-licoes"); await p.waitForSelector("text=Módulo Gama",{timeout:12000});
+  ok("lição marcada como complementar mostra o selo", (await main(p)).includes("Complementar"));
+  ok("a lição seguinte à complementar libera sem concluí-la", await p.locator("[role=img][aria-label='Bloqueada']").count()===0);
+  await p.goto(BASE+"/licao/m3"); await p.waitForSelector("text=O que você vai aprender");
+  ok("lição depois da complementar abre", !(await main(p)).includes("ainda está bloqueada"));
 }
 
 await b.close();

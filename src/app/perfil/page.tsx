@@ -4,25 +4,17 @@ import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
-import { exercisesOf } from "@/lib/catalog";
 import MyClasses from "@/components/MyClasses";
 import { CatalogGate, useCatalog } from "@/components/CatalogProvider";
-import { useBadgeContext } from "@/components/useBadgeContext";
 import { useStreak } from "@/lib/activity-store";
 import { localDay, recentDays } from "@/lib/streak";
-import {
-  badgesFor,
-  earnedBadges,
-  levelInfo,
-  statsOf,
-} from "@/lib/gamification";
+import { levelInfo, statsOf } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
 function PerfilContent() {
   usePageTitle("Perfil");
   const { profile, updateName } = useAuth();
   const { catalog } = useCatalog();
-  const badgeCtx = useBadgeContext();
   const streak = useStreak();
   const [today] = useState(() => localDay());
   const progress = useProgress();
@@ -33,7 +25,6 @@ function PerfilContent() {
   if (!profile) return null;
   const stats = statsOf(progress, catalog);
   const { level, floor, next, progress: pct } = levelInfo(stats.xp);
-  const earned = new Set(earnedBadges(badgeCtx).map((b) => b.id));
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -133,103 +124,23 @@ function PerfilContent() {
         </section>
       )}
 
-      <section>
-        <h2 className="mb-3 text-lg font-semibold">Progresso por módulo</h2>
-        <ul className="space-y-3">
-          {[...catalog.modules]
-            .sort((a, b) => a.position - b.position)
-            .map((m) => {
-              const list = exercisesOf(catalog, m.id).filter(
-                (e) => e.published,
-              );
-              const done = list.filter((e) => progress[e.id]?.solved).length;
-              return (
-                <li key={m.id}>
-                  <div className="flex justify-between text-sm">
-                    <span>{m.title}</span>
-                    <span className="text-zinc-500 dark:text-zinc-400">
-                      {done}/{list.length}
-                    </span>
-                  </div>
-                  <div className="mt-1 h-2 rounded bg-zinc-200 dark:bg-zinc-800">
-                    <div
-                      className="h-2 rounded bg-emerald-500"
-                      style={{
-                        width: `${list.length ? (done / list.length) * 100 : 0}%`,
-                      }}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="mb-3 text-lg font-semibold">
-          Medalhas ({earned.size}/{badgesFor(catalog).length})
-        </h2>
-        <ul className="grid gap-2 sm:grid-cols-2">
-          {badgesFor(catalog).map((b) => (
-            <li
-              key={b.id}
-              className={`rounded-2xl border p-4 text-sm ${
-                earned.has(b.id)
-                  ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-950"
-                  : "border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900"
-              }`}
-            >
-              <div className="font-medium">
-                {earned.has(b.id) ? "🏅" : "🔒"} {b.name}
-              </div>
-              <div className="text-zinc-500 dark:text-zinc-400">
-                {b.description}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section>
-        <h2 className="mb-3 text-lg font-semibold">Histórico</h2>
-        {Object.keys(progress).length === 0 ? (
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Você ainda não tentou nenhum exercício.{" "}
-            <Link
-              href="/"
-              className="text-emerald-700 hover:underline dark:text-emerald-400"
-            >
-              Ir para a trilha
-            </Link>
-          </p>
-        ) : (
-          <ul className="divide-y divide-zinc-200 text-sm dark:divide-zinc-800">
-            {catalog.exercises
-              .filter((e) => progress[e.id])
-              .map((e) => {
-                const p = progress[e.id];
-                return (
-                  <li
-                    key={e.id}
-                    className="flex items-center justify-between py-2"
-                  >
-                    <Link
-                      href={`/exercicio/${e.id}`}
-                      className="hover:underline"
-                    >
-                      {e.title}
-                    </Link>
-                    <span className="text-zinc-500 dark:text-zinc-400">
-                      {p.solved ? `✅ ${p.xp} XP` : "em andamento"} ·{" "}
-                      {p.attempts}{" "}
-                      {p.attempts === 1 ? "tentativa" : "tentativas"}
-                    </span>
-                  </li>
-                );
-              })}
-          </ul>
-        )}
-      </section>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        Medalhas e nível estão em{" "}
+        <Link
+          href="/conquistas"
+          className="text-emerald-700 hover:underline dark:text-emerald-400"
+        >
+          Conquistas
+        </Link>
+        ; o histórico e o desempenho por conceito, em{" "}
+        <Link
+          href="/progresso"
+          className="text-emerald-700 hover:underline dark:text-emerald-400"
+        >
+          Meu progresso
+        </Link>
+        .
+      </p>
 
       {profile.role === "aluno" && <MyClasses />}
 

@@ -19,7 +19,8 @@ Chromium/Chrome) e `E2E_OUT` (onde guardar capturas e relatórios; padrão `e2e/
 
 | Arquivo | O que cobre |
 |---|---|
-| `turmas-e-alunos.mjs` | trilha, resolver exercício, entrar/sair de turma por código, área do professor restrita |
+| `area-do-aluno.mjs` | início, mundos, lição em 7 passos (avançar, voltar, URL), lição bloqueada, progresso por conceito, conquistas e tema claro/escuro |
+| `turmas-e-alunos.mjs` | lição, resolver exercício, entrar/sair de turma por código, área do professor restrita |
 | `editor-de-codigo.mjs` | criar/editar exercício de código, validação com solução de referência, rascunho, reordenar, módulos |
 | `analise-da-turma.mjs` | painel da turma: alertas, gráfico, grade de progresso, exercícios mais difíceis |
 | `tipos-e-sequencia.mjs` | múltipla escolha, lacunas, sequência diária, medalha de constância e editor dos novos tipos |

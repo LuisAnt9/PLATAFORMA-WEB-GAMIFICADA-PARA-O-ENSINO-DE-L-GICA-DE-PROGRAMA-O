@@ -42,10 +42,12 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
 {
   const {p,st,errs}=await newCtx("aluno");
   await p.goto(BASE+"/");
+  await p.waitForSelector("header [aria-label^='Sequência']",{timeout:12000});
+  await p.goto(BASE+"/licao/m1?passo=interpretacao");
   await p.waitForSelector("text=Qual é o valor?",{timeout:12000});
   ok("cabeçalho mostra a sequência atual de 2 dias", (await headerStreak(p))==="Sequência: 2 dias");
   const trail=await p.locator("main").innerText();
-  ok("trilha mostra o tipo de cada exercício", trail.includes("Múltipla escolha") && trail.includes("Completar a lacuna") && trail.includes("Código"));
+  ok("trilha mostra o tipo de cada exercício", trail.includes("Múltipla escolha") && trail.includes("Completar a lacuna"));
 
   await p.click("text=Qual é o valor?");
   await p.waitForSelector("text=Antes de começar");

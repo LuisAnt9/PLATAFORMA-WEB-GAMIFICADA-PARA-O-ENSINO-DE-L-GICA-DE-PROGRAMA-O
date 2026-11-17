@@ -3,17 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
+import ThemeToggle from "./ThemeToggle";
 import { useStreak } from "@/lib/activity-store";
 import { useBadgeContext } from "./useBadgeContext";
 import { earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
 import { useProgress } from "@/lib/progress-store";
 
 const NAV = [
-  { href: "/", label: "Trilha" },
+  { href: "/", label: "Início" },
+  { href: "/mundos", label: "Mundos" },
+  { href: "/conquistas", label: "Conquistas" },
+  { href: "/progresso", label: "Meu progresso" },
   { href: "/ranking", label: "Ranking" },
   { href: "/perfil", label: "Perfil" },
   { href: "/professor", label: "Professor", onlyProfessor: true },
 ];
+
+/** Telas que pertencem a cada item do menu (o exercício e a lição fazem parte de "Mundos"). */
+function isActive(href: string, pathname: string) {
+  if (href === "/") return pathname === "/";
+  if (href === "/mundos")
+    return (
+      pathname.startsWith("/mundos") ||
+      pathname.startsWith("/licao") ||
+      pathname.startsWith("/exercicio")
+    );
+  return pathname.startsWith(href);
+}
 
 export default function Header() {
   const progress = useProgress();
@@ -45,10 +61,7 @@ export default function Header() {
               {NAV.filter(
                 (n) => !n.onlyProfessor || profile.role === "professor",
               ).map((n) => {
-                const active =
-                  n.href === "/"
-                    ? pathname === "/" || pathname.startsWith("/exercicio")
-                    : pathname.startsWith(n.href);
+                const active = isActive(n.href, pathname);
                 return (
                   <Link
                     key={n.href}
@@ -67,8 +80,10 @@ export default function Header() {
             </nav>
           )}
         </div>
+        {!profile && <ThemeToggle />}
         {profile && (
           <div className="flex items-center gap-3 text-sm">
+            <ThemeToggle />
             {streak.available && (
               <span
                 title={

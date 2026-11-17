@@ -1,5 +1,6 @@
 "use client";
 
+import { stepOfExercise } from "@/lib/student";
 import type { HintContext } from "@/lib/ai-hint";
 import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
@@ -220,10 +221,10 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   return (
     <div className="space-y-4">
       <Link
-        href="/"
+        href={`/licao/${exercise.moduleId}?passo=${stepOfExercise(exercise)}`}
         className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
       >
-        <span aria-hidden>←</span> Voltar à trilha
+        <span aria-hidden>←</span> Voltar à lição
       </Link>
 
       <div>

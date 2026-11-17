@@ -31,7 +31,10 @@ async function ctxFor(role,{width,height,dark},loggedOut=false){
     const req=route.request(), u=req.url(), m=req.method(), acc=req.headers()["accept"]||"";
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
     if(m==="OPTIONS") return route.fulfill({status:204,headers:{"access-control-allow-origin":"*","access-control-allow-headers":"*","access-control-allow-methods":"*"}});
-    if(u.includes("/rest/v1/modules")) return json([{id:"m1",title:"Primeiros passos",focus:"Entender algoritmos",position:1},{id:"m2",title:"Fundamentos",focus:"Operações",position:2}]);
+    if(u.includes("/rest/v1/worlds")) return json([{id:"w1",title:"Mundo de teste",objective:"Aprender os primeiros conceitos.",position:1},{id:"w2",title:"Mundo futuro",objective:"Ainda sem lições.",position:2}]);
+    if(u.includes("/rest/v1/exercise_concepts")) return json([{exercise_id:"ch1",concept_id:"k1",weight:1},{exercise_id:"bl1",concept_id:"k1",weight:1},{exercise_id:"cd1",concept_id:"k2",weight:1}]);
+    if(u.includes("/rest/v1/concepts")) return json([{id:"k1",title:"Variáveis",description:"",world_id:"w1"},{id:"k2",title:"Funções",description:"",world_id:"w1"}]);
+    if(u.includes("/rest/v1/modules")) return json([{id:"m1",title:"Primeiros passos",focus:"Entender algoritmos",intro:"Um algoritmo é uma sequência de passos.",example:"const x = 1;\nconsole.log(x);\n\nPasso a passo: mostra 1.",review:"Resumo da lição.",world_id:"w1",position:1},{id:"m2",title:"Fundamentos",focus:"Operações",intro:"",example:"",review:"",world_id:"w1",position:2}]);
     if(u.includes("/rest/v1/exercises")) return json(role==="professor"?exs:exs.filter(e=>e.published));
     if(u.includes("/rest/v1/profiles")) return u.includes("id=in.")?json(names):json({id:uid,name:role==="professor"?"Prof Lima":"Luis Antônio Santos Moura",role});
     if(u.includes("/rest/v1/exercise_progress")) return u.includes("user_id=in.")?json(classProgress):json([{exercise_id:"ch1",attempts:2,solved:true,first_try:false,xp:10},{exercise_id:"cd1",attempts:2,solved:false,first_try:false,xp:0}]);
@@ -46,7 +49,15 @@ async function ctxFor(role,{width,height,dark},loggedOut=false){
 
 const pages=[
   {name:"entrar",role:"aluno",path:"/entrar",out:true},
-  {name:"trilha",role:"aluno",path:"/",wait:"text=Primeiros passos"},
+  {name:"inicio",role:"aluno",path:"/",wait:"text=Seus mundos"},
+  {name:"mundos",role:"aluno",path:"/mundos",wait:"text=Mundo futuro"},
+  {name:"mundo",role:"aluno",path:"/mundos/w1",wait:"text=Primeiros passos"},
+  {name:"licao-intro",role:"aluno",path:"/licao/m1",wait:"text=O que você vai aprender"},
+  {name:"licao-exemplo",role:"aluno",path:"/licao/m1?passo=exemplo",wait:"pre"},
+  {name:"licao-pratica",role:"aluno",path:"/licao/m1?passo=interpretacao",wait:"text=Qual é o valor?"},
+  {name:"licao-bloqueada",role:"aluno",path:"/licao/m2",wait:"text=ainda está bloqueada"},
+  {name:"progresso",role:"aluno",path:"/progresso",wait:"text=Histórico de atividades"},
+  {name:"conquistas",role:"aluno",path:"/conquistas",wait:"text=Medalhas"},
   {name:"ex-escolha",role:"aluno",path:"/exercicio/ch1",wait:"text=Antes de começar"},
   {name:"ex-lacuna",role:"aluno",path:"/exercicio/bl1",wait:"input[aria-label='Lacuna 1']"},
   {name:"ex-codigo",role:"aluno",path:"/exercicio/cd1",wait:".cm-content"},

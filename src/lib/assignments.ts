@@ -189,7 +189,11 @@ async function rpc<T>(fn: string, args?: Record<string, unknown>): Promise<T> {
   return data as T;
 }
 
-export const listMyAssignments = () => rpc<MyAssignment[]>("my_assignments");
+/** Listas devolvidas pelo banco: qualquer outra coisa vira lista vazia (ex.: migration 0015 ainda não aplicada). */
+const asList = <T>(x: unknown): T[] => (Array.isArray(x) ? (x as T[]) : []);
+
+export const listMyAssignments = async () =>
+  asList<MyAssignment>(await rpc<unknown>("my_assignments"));
 export const getAssessment = (id: number) =>
   rpc<Assessment>("get_assessment", { p_assignment: id });
 export const getAssessmentResult = (id: number) =>
@@ -201,8 +205,8 @@ export const submitAssessment = (id: number, answers: Record<string, unknown>) =
   });
 export const assignmentReport = (id: number) =>
   rpc<AssignmentReport>("assignment_report", { p_assignment: id });
-export const teacherSummaries = () =>
-  rpc<AssignmentSummary[]>("teacher_assignment_summaries");
+export const teacherSummaries = async () =>
+  asList<AssignmentSummary>(await rpc<unknown>("teacher_assignment_summaries"));
 
 export const createAssignment = (a: NewAssignment) =>
   rpc<number>("create_assignment", {

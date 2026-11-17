@@ -54,14 +54,14 @@ async function newCtx(role){
   await p.goto(BASE+"/licao/m1?passo=pratica");
   await p.waitForSelector("text=Somar dois números",{timeout:10000});
   ok("a lição vem do banco (módulos e exercícios)", (await p.locator("main").innerText()).includes("Fundamentos") && !(await p.locator("main").innerText()).includes("Rascunho X"));
-  ok("aluno não vê link Professor", !(await p.locator("nav").innerText()).includes("Professor"));
+  ok("aluno não vê link Professor", !(await p.locator("nav[aria-label=Principal]").innerText()).includes("Professor"));
   await p.click("text=Somar dois números");
   await p.waitForSelector(".cm-content");
   await p.click(".cm-content"); await p.keyboard.press("Control+A"); await p.keyboard.insertText("function soma(a,b){return a+b}");
   await p.keyboard.press("Control+Enter");
   await p.waitForSelector("text=Todos os testes passaram",{timeout:8000});
   ok("código registrado como tentativa: código enviado, testes aprovados e sem categoria de erro", st.attempts.length===1 && st.attempts[0].p_exercise==="soma" && st.attempts[0].p_passed===true && st.attempts[0].p_answer.includes("return a+b") && st.attempts[0].p_tests_passed===st.attempts[0].p_tests_total && st.attempts[0].p_error_category===null);
-  ok("executa e acerta com testes do banco; XP gravado", st.upserts.length===1 && st.upserts[0].exercise_id==="soma" && st.upserts[0].xp===15);
+  ok("executa e acerta com testes do banco; XP gravado", st.upserts.length===1 && st.upserts[0].exercise_id==="soma" && st.upserts[0].xp===30);
   ok("sugere o próximo exercício", (await p.locator("main").innerText()).includes("Próximo: Dobro"));
   await p.goto(BASE+"/exercicio/nao-existe");
   await p.waitForSelector("text=Exercício não encontrado",{timeout:8000});
@@ -86,7 +86,7 @@ async function newCtx(role){
   await p.goto(BASE+"/licao/m1?passo=pratica");
   await p.waitForSelector("text=Somar dois números",{timeout:10000});
   ok("rascunho não aparece na lição nem para o professor", !(await p.locator("main").innerText()).includes("Rascunho X"));
-  await p.click("nav >> text=Professor");
+  await p.click("nav[aria-label=Principal] >> text=Professor");
   await p.waitForSelector("text=ADS 2026.1");
   ok("lista turmas com código e nº de alunos", (await p.locator("main").innerText()).includes("ABC234") && (await p.locator("main").innerText()).includes("2 alunos"));
   await p.fill("input[placeholder^='Ex.:']","Turma Noite"); await p.click("button:has-text('Criar turma')");

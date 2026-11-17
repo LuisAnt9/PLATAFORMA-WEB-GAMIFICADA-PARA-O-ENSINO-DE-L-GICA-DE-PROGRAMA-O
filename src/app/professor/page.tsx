@@ -75,7 +75,7 @@ function Classes() {
             <ul className="mt-4 space-y-1 text-sm">
               {summaries.filter((a) => new Date(a.due_at).getTime() >= now).slice(0, 3).map((a) => (
                 <li key={a.id}>
-                  <Link href={`/professor/atividades/${a.id}`} className="text-emerald-700 hover:underline dark:text-emerald-400">
+                  <Link href={`/professor/atividades/${a.id}`} className="text-emerald-700 underline dark:text-emerald-400">
                     {a.title}
                   </Link>{" "}
                   <span className="text-zinc-600 dark:text-zinc-400">

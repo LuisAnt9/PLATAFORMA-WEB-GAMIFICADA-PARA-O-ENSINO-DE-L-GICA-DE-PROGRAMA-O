@@ -121,7 +121,7 @@ export default function AssignmentReportView({ id }: { id: number }) {
 
       <section aria-labelledby="porexercicio">
         <h2 id="porexercicio" className="mb-3 text-lg font-semibold">Desempenho por exercício</h2>
-        <ScrollRegion label="Desempenho por exercício" className={box}>
+        <ScrollRegion label="Tabela de desempenho por exercício" className={box}>
           <table className="w-full text-sm">
             <caption className="sr-only">Quantos alunos tentaram e acertaram cada exercício</caption>
             <thead className="bg-zinc-50 text-left text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400">

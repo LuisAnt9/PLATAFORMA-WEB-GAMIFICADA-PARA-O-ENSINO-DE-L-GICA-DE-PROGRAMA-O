@@ -56,7 +56,7 @@ export default function Header() {
             Lógica Gamificada
           </Link>
           {profile && (
-            <nav aria-label="Principal" className="flex gap-1 text-sm">
+            <nav aria-label="Principal" className="flex flex-wrap gap-1 text-sm">
               {NAV.filter(
                 (n) =>
                   (!n.onlyProfessor || profile.role === "professor") &&
@@ -83,7 +83,7 @@ export default function Header() {
         </div>
         {!profile && <ThemeToggle />}
         {profile && (
-          <div className="flex items-center gap-3 text-sm">
+          <div className="flex flex-wrap items-center gap-3 text-sm">
             <ThemeToggle />
             {streak.available && (
               <span

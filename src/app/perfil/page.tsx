@@ -131,14 +131,14 @@ function PerfilContent() {
         Medalhas e nível estão em{" "}
         <Link
           href="/conquistas"
-          className="text-emerald-700 hover:underline dark:text-emerald-400"
+          className="text-emerald-700 underline dark:text-emerald-400"
         >
           Conquistas
         </Link>
         ; o histórico e o desempenho por conceito, em{" "}
         <Link
           href="/progresso"
-          className="text-emerald-700 hover:underline dark:text-emerald-400"
+          className="text-emerald-700 underline dark:text-emerald-400"
         >
           Meu progresso
         </Link>

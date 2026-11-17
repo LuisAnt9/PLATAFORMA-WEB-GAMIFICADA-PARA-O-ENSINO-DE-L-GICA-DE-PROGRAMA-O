@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import { clearActivity, loadActivity } from "@/lib/activity-store";
+import { clearGamification, syncGamification } from "@/lib/gamification-store";
 import { clearProgress, loadProgress } from "@/lib/progress-store";
 import { getSupabase } from "@/lib/supabase";
 
@@ -18,6 +19,8 @@ export interface Profile {
   id: string;
   name: string;
   role: "aluno" | "professor";
+  /** Escolha de aparecer no ranking da turma (migration 0014; ausente antes dela). */
+  show_in_ranking?: boolean;
 }
 
 interface AuthState {
@@ -32,6 +35,7 @@ interface AuthState {
   ) => Promise<{ error: string | null; needsConfirmation: boolean }>;
   signOut: () => Promise<void>;
   updateName: (name: string) => Promise<string | null>;
+  setRankingOptIn: (value: boolean) => Promise<string | null>;
 }
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -80,17 +84,19 @@ export default function AuthProvider({
       setProfile(null);
       clearProgress();
       clearActivity();
+      clearGamification();
       setLoading(false);
       return;
     }
     try {
       const { data, error } = await getSupabase()
         .from("profiles")
-        .select("id, name, role")
+        .select("*")
         .eq("id", s.user.id)
         .single();
       if (error) throw new Error(error.message);
       await loadProgress(s.user.id);
+      await syncGamification(); // nunca lança: sem a migration 0014 só some o bônus
       await loadActivity(s.user.id); // nunca lança: sem a migration 0004 só esconde a sequência
       setProfile(data as Profile);
       setLoadError(null);
@@ -155,6 +161,16 @@ export default function AuthProvider({
           .eq("id", profile.id);
         if (error) return authMessage(error.message);
         setProfile({ ...profile, name });
+        return null;
+      },
+      setRankingOptIn: async (value) => {
+        if (!profile) return "Sessão expirada.";
+        const { error } = await getSupabase()
+          .from("profiles")
+          .update({ show_in_ranking: value })
+          .eq("id", profile.id);
+        if (error) return authMessage(error.message);
+        setProfile({ ...profile, show_in_ranking: value });
         return null;
       },
     }),

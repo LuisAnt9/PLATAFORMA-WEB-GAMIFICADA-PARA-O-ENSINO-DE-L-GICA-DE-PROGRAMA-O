@@ -10,13 +10,15 @@ import { saveAttempt, type Submission } from "@/lib/attempts";
 import {
   DIFFICULTY_LABEL,
   KIND_LABEL,
-  XP_BY_DIFFICULTY,
+  XP_WORLD_BONUS,
+  baseXp,
   isChoiceKind,
   isCodeKind,
   nextExercise as findNext,
   type Exercise,
 } from "@/lib/catalog";
 import { earnedBadges, recordAttempt, totalXp } from "@/lib/gamification";
+import { getGamification, syncGamification } from "@/lib/gamification-store";
 import {
   blankView,
   choiceView,
@@ -54,7 +56,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   const [openedAt] = useState(() => Date.now());
   const lastAttemptAt = useRef<number | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [gain, setGain] = useState<{ xp: number; badges: string[] } | null>(
+  const [gain, setGain] = useState<{ xp: number; badges: string[]; extras: string[] } | null>(
     null,
   );
   // maior nível de dica aberto (0 a 3), gravado junto das tentativas
@@ -121,21 +123,42 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     const bestBefore = getStreak().best;
     void logActivity(passed); // atualiza a sequência na hora; falha de rede não atrapalha
     const bestAfter = getStreak().best;
+    const saved = getProgress(); // com o XP que o banco calculou
+    const g0 = getGamification();
+    // missões e bônus de mundo são conferidos e concedidos pelo banco
+    const sync = passed ? await syncGamification() : { newWorlds: [] };
+    const g1 = getGamification();
 
     const had = new Set(
-      earnedBadges({ progress: before, catalog, bestStreak: bestBefore }).map(
-        (b) => b.id,
-      ),
+      earnedBadges({
+        progress: before,
+        catalog,
+        bestStreak: bestBefore,
+        worldsDone: g0.worldsDone,
+      }).map((b) => b.id),
     );
     const newBadges = earnedBadges({
-      progress: after,
+      progress: saved,
       catalog,
       bestStreak: bestAfter,
+      worldsDone: g1.worldsDone,
     })
       .filter((b) => !had.has(b.id))
       .map((b) => b.name);
-    const xp = totalXp(after) - totalXp(before);
-    if (xp > 0 || newBadges.length > 0) setGain({ xp, badges: newBadges });
+    const extras = [
+      ...g1.missions
+        .filter(
+          (m) => m.claimed && !g0.missions.find((x) => x.id === m.id)?.claimed,
+        )
+        .map((m) => `Missão cumprida: ${m.title} (+${m.xp} XP)`),
+      ...sync.newWorlds.map(
+        (w) =>
+          `Mundo concluído: ${catalog.worlds?.find((x) => x.id === w)?.title ?? w} (+${XP_WORLD_BONUS} XP)`,
+      ),
+    ];
+    const xp = totalXp(saved) - totalXp(before);
+    if (xp > 0 || newBadges.length > 0 || extras.length > 0)
+      setGain({ xp, badges: newBadges, extras });
   }
 
   async function submitCode() {
@@ -245,7 +268,7 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
             {DIFFICULTY_LABEL[exercise.difficulty]}
           </span>
           <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-200">
-            até {Math.round(XP_BY_DIFFICULTY[exercise.difficulty] * 1.5)} XP
+            até {Math.round(baseXp(exercise) * 1.5)} XP
           </span>
         </div>
       </div>
@@ -406,12 +429,22 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
           </p>
         )}
         {gain && (
-          <p className="rounded-lg bg-emerald-100 p-3 text-sm dark:bg-emerald-900">
-            {gain.xp > 0 && `+${gain.xp} XP`}
-            {gain.xp > 0 && gain.badges.length > 0 && " · "}
-            {gain.badges.length > 0 &&
-              `🏅 Nova medalha: ${gain.badges.join(", ")}`}
-          </p>
+          <div
+            role="status"
+            className="space-y-1 rounded-lg bg-emerald-100 p-3 text-sm dark:bg-emerald-900"
+          >
+            {(gain.xp > 0 || gain.badges.length > 0) && (
+              <p>
+                {gain.xp > 0 && `+${gain.xp} XP`}
+                {gain.xp > 0 && gain.badges.length > 0 && " · "}
+                {gain.badges.length > 0 &&
+                  `🏅 Nova medalha: ${gain.badges.join(", ")}`}
+              </p>
+            )}
+            {gain.extras.map((t) => (
+              <p key={t}>{t}</p>
+            ))}
+          </div>
         )}
         {passedNow && nextExercise && (
           <Link

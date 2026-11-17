@@ -145,11 +145,23 @@ export function conceptsOf(c: Catalog, exerciseId: string): Concept[] {
     .filter((x): x is Concept => x !== undefined);
 }
 
+/** XP base por dificuldade (decisão D4); acertar de primeira soma 50%. O banco calcula o mesmo valor. */
 export const XP_BY_DIFFICULTY: Record<Difficulty, number> = {
-  facil: 10,
-  medio: 20,
-  dificil: 35,
+  facil: 20,
+  medio: 35,
+  dificil: 50,
 };
+
+/** Exercício do tipo "desafio" (o desafio final de cada mundo) vale mais. */
+export const XP_CHALLENGE = 75;
+/** Bônus único ao concluir um mundo e por missão diária cumprida. */
+export const XP_WORLD_BONUS = 150;
+export const XP_MISSION = 30;
+
+/** XP base de um exercício, antes do bônus de primeira tentativa. */
+export function baseXp(e: { difficulty: Difficulty; kind?: ExerciseKind }): number {
+  return e.kind === "challenge" ? XP_CHALLENGE : XP_BY_DIFFICULTY[e.difficulty];
+}
 
 export const DIFFICULTY_LABEL: Record<Difficulty, string> = {
   facil: "Fácil",

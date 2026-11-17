@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 import { useStreak } from "@/lib/activity-store";
-import { useBadgeContext } from "./useBadgeContext";
-import { earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
-import { useProgress } from "@/lib/progress-store";
+import { useBadgeContext, useTotalXp } from "./useBadgeContext";
+import { earnedBadges, levelInfo } from "@/lib/gamification";
 
 const NAV = [
   { href: "/", label: "Início" },
@@ -32,12 +31,11 @@ function isActive(href: string, pathname: string) {
 }
 
 export default function Header() {
-  const progress = useProgress();
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
   const badgeCtx = useBadgeContext();
   const streak = useStreak();
-  const xp = totalXp(progress);
+  const xp = useTotalXp();
   const { level, next, progress: pct } = levelInfo(xp);
 
   return (

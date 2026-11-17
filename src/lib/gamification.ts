@@ -1,8 +1,9 @@
+import { conceptPerformance } from "./student";
 import {
-  XP_BY_DIFFICULTY,
-  exercisesOf,
+  baseXp,
   type Catalog,
   type Difficulty,
+  type ExerciseKind,
 } from "./catalog";
 
 export interface ExerciseProgress {
@@ -21,6 +22,8 @@ export interface BadgeContext {
   catalog: Catalog;
   /** Maior sequência de dias seguidos já alcançada. */
   bestStreak: number;
+  /** Mundos concluídos (os que já renderam o bônus no banco). */
+  worldsDone?: string[];
 }
 
 export interface Badge {
@@ -78,31 +81,74 @@ const FIXED_BADGES: Badge[] = [
   },
 ];
 
-/** Medalhas fixas + uma por módulo + a da trilha completa (dependem do catálogo atual). */
+/** Nome da medalha de cada mundo (equivalentes para introdução, operadores, vetores e funções). */
+const WORLD_BADGES: Record<string, { name: string; topic: string }> = {
+  "mundo-1": { name: "Pensador lógico", topic: "a introdução à lógica" },
+  "mundo-2": { name: "Mestre das variáveis", topic: "variáveis e tipos de dados" },
+  "mundo-3": { name: "Calculista dos operadores", topic: "os operadores" },
+  "mundo-4": { name: "Decisões inteligentes", topic: "as estruturas condicionais" },
+  "mundo-5": { name: "Mestre dos ciclos", topic: "as estruturas de repetição" },
+  "mundo-6": { name: "Organizador de dados", topic: "vetores e matrizes" },
+  "mundo-7": { name: "Arquiteto de funções", topic: "funções e modularização" },
+};
+
+/**
+ * Conceitos "superados": o aluno precisou de 3 ou mais tentativas em algum exercício do conceito
+ * e hoje está em bom caminho nele (regra D8: mínimos de tentativas já cumpridos).
+ */
+function overcameConcept({ progress: p, catalog: c }: BadgeContext): boolean {
+  const struggled = new Set(
+    (c.links ?? [])
+      .filter((l) => {
+        const e = p[l.exerciseId];
+        return e?.solved && e.attempts >= 3;
+      })
+      .map((l) => l.conceptId),
+  );
+  if (struggled.size === 0) return false;
+  return conceptPerformance(c, p).some(
+    (x) => x.level === "em-bom-caminho" && struggled.has(x.conceptId),
+  );
+}
+
+/** Medalhas fixas + uma por mundo + a de todos os mundos (dependem do catálogo atual). */
 export function badgesFor(c: Catalog): Badge[] {
   const published = c.exercises.filter((e) => e.published);
   return [
     ...FIXED_BADGES,
-    ...[...c.modules]
+    {
+      id: "superacao",
+      name: "Superação",
+      description:
+        "Domine um conceito em que você teve dificuldade (3 ou mais tentativas em um exercício).",
+      purpose:
+        "Valorizar a evolução depois do erro, que é onde a aprendizagem acontece.",
+      earned: overcameConcept,
+    },
+    {
+      id: "primeiro-mundo",
+      name: "Primeiro mundo concluído",
+      description: "Conclua o seu primeiro mundo.",
+      purpose: "Marcar o fechamento de um ciclo de estudo completo.",
+      earned: ({ worldsDone }) => (worldsDone ?? []).length >= 1,
+    },
+    ...[...(c.worlds ?? [])]
       .sort((a, b) => a.position - b.position)
-      .map<Badge>((m) => ({
-        id: `modulo-${m.id}`,
-        name: `Módulo: ${m.title}`,
-        description: `Conclua todos os exercícios de ${m.title}.`,
-        purpose: m.focus,
-        earned: ({ progress: p, catalog: cat }) =>
-          solvedIn(
-            p,
-            exercisesOf(cat, m.id)
-              .filter((e) => e.published)
-              .map((e) => e.id),
-          ),
-      })),
+      .map<Badge>((w) => {
+        const info = WORLD_BADGES[w.id];
+        return {
+          id: `mundo-${w.id}`,
+          name: info?.name ?? `Mundo concluído: ${w.title}`,
+          description: `Conclua o mundo "${w.title}"${info ? ` e domine ${info.topic}` : ""}.`,
+          purpose: w.objective || w.title,
+          earned: ({ worldsDone }) => (worldsDone ?? []).includes(w.id),
+        };
+      }),
     {
       id: "trilha-completa",
-      name: "Trilha completa",
-      description: "Resolva todos os exercícios.",
-      purpose: "Marcar a conclusão da trilha.",
+      name: "Todos os exercícios",
+      description: "Resolva todos os exercícios publicados.",
+      purpose: "Marcar a conclusão de todo o conteúdo disponível.",
       earned: ({ progress: p }) =>
         solvedIn(
           p,
@@ -112,9 +158,16 @@ export function badgesFor(c: Catalog): Badge[] {
   ];
 }
 
-/** XP ganho ao resolver: bônus de 50% para acerto na primeira tentativa. */
-export function xpFor(difficulty: Difficulty, attempts: number): number {
-  const base = XP_BY_DIFFICULTY[difficulty];
+/**
+ * XP ganho ao resolver: bônus de 50% para acerto na primeira tentativa. É a mesma conta do banco
+ * (o valor que vale é o gravado pelo servidor); aqui serve para mostrar o ganho na hora.
+ */
+export function xpFor(
+  difficulty: Difficulty,
+  attempts: number,
+  kind?: ExerciseKind,
+): number {
+  const base = baseXp({ difficulty, kind });
   return attempts <= 1 ? Math.round(base * 1.5) : base;
 }
 
@@ -138,7 +191,7 @@ export function earnedBadges(ctx: BadgeContext): Badge[] {
 /** Registra o resultado de uma tentativa, devolvendo o novo progresso. */
 export function recordAttempt(
   p: Progress,
-  exercise: { id: string; difficulty: Difficulty },
+  exercise: { id: string; difficulty: Difficulty; kind?: ExerciseKind },
   passed: boolean,
 ): Progress {
   const prev = p[exercise.id] ?? {
@@ -156,7 +209,7 @@ export function recordAttempt(
           attempts,
           solved: true,
           firstTry: attempts === 1,
-          xp: xpFor(exercise.difficulty, attempts),
+          xp: xpFor(exercise.difficulty, attempts, exercise.kind),
         }
       : { ...prev, attempts },
   };

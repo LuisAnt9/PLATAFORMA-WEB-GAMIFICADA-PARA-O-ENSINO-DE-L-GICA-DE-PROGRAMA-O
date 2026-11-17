@@ -91,7 +91,7 @@ describe("0001: perfis e progresso", () => {
       ).rows,
     ).toHaveLength(0);
   });
-  it("progresso: só em nome próprio, XP limitado, resolvido fica travado", async () => {
+  it("progresso: só em nome próprio, XP definido pelo servidor, resolvido fica travado", async () => {
     expect(
       (
         await as(
@@ -108,24 +108,32 @@ describe("0001: perfis e progresso", () => {
         )
       ).ok,
     ).toBe(false);
+    // XP inventado é ignorado (E9): sem resolver, o XP fica em zero
     expect(
       (
         await as(
           ana,
-          `insert into public.exercise_progress(user_id,exercise_id,xp) values ('${ana}','media',9999)`,
+          `insert into public.exercise_progress(user_id,exercise_id,xp) values ('${ana}','media',150)`,
         )
       ).ok,
-    ).toBe(false);
+    ).toBe(true);
+    expect(
+      (
+        await db.query<{ xp: number }>(
+          `select xp from public.exercise_progress where user_id='${ana}' and exercise_id='media'`,
+        )
+      ).rows[0].xp,
+    ).toBe(0);
     await as(
       ana,
       `update public.exercise_progress set solved=false, xp=0 where user_id='${ana}' and exercise_id='soma'`,
     );
     const r = (
       await db.query<{ solved: boolean; xp: number }>(
-        `select solved, xp from public.exercise_progress where user_id='${ana}'`,
+        `select solved, xp from public.exercise_progress where user_id='${ana}' and exercise_id='soma'`,
       )
     ).rows[0];
-    expect(r).toEqual({ solved: true, xp: 15 });
+    expect(r).toEqual({ solved: true, xp: 30 }); // exercício fácil, de primeira: 20 + 50%
   });
   it("aluno não vê progresso alheio; professor sem turma também não; anônimo não lê", async () => {
     expect(
@@ -135,61 +143,6 @@ describe("0001: perfis e progresso", () => {
       (await as(prof, "select * from public.exercise_progress")).rows,
     ).toHaveLength(0);
     expect((await as(null, "select * from public.profiles")).ok).toBe(false);
-  });
-});
-
-describe("0002: ranking", () => {
-  beforeAll(async () => {
-    await as(
-      caio,
-      `insert into public.exercise_progress(user_id,exercise_id,attempts,solved,first_try,xp) values ('${caio}','soma',2,true,false,10),('${caio}','media',1,true,true,15),('${caio}','fatorial',1,false,false,0)`,
-    );
-  });
-
-  it("ordena por XP e abrevia o sobrenome", async () => {
-    const rows = (await as(bia, "select * from public.leaderboard(20)")).rows;
-    const nomes = rows.map((r) => r.display_name);
-    expect(nomes[0]).toBe("Caio"); // 25 XP
-    expect(nomes[1]).toBe("Ana L."); // 15 XP
-    expect(Number(rows[0].total_xp)).toBe(25);
-    expect(Number(rows[0].solved)).toBe(2);
-  });
-  it("nunca expõe e-mail nem identificadores", async () => {
-    const rows = (await as(bia, "select * from public.leaderboard(20)")).rows;
-    expect(Object.keys(rows[0]).sort()).toEqual([
-      "display_name",
-      "is_me",
-      "pos",
-      "solved",
-      "total_xp",
-    ]);
-  });
-  it("aluno sem acertos aparece só para si mesmo, com is_me", async () => {
-    const mine = (
-      await as(bia, "select * from public.leaderboard(20)")
-    ).rows.filter((r) => r.is_me);
-    expect(mine).toHaveLength(1);
-    expect(mine[0].display_name).toBe("bia");
-    const outros = (
-      await as(caio, "select * from public.leaderboard(20)")
-    ).rows.map((r) => r.display_name);
-    expect(outros).not.toContain("bia");
-  });
-  it("professor fica fora do ranking", async () => {
-    const nomes = (
-      await as(ana, "select * from public.leaderboard(20)")
-    ).rows.map((r) => r.display_name);
-    expect(nomes).not.toContain("Prof L.");
-  });
-  it("mostra a própria posição mesmo fora do top N", async () => {
-    const rows = (await as(ana, "select * from public.leaderboard(1)")).rows;
-    expect(rows.map((r) => r.display_name)).toEqual(["Caio", "Ana L."]);
-    expect(Number(rows.find((r) => r.is_me)?.pos)).toBe(2);
-  });
-  it("anônimo não executa a função", async () => {
-    expect((await as(null, "select * from public.leaderboard(20)")).ok).toBe(
-      false,
-    );
   });
 });
 
@@ -705,5 +658,60 @@ describe("0009: conceito dos módulos", () => {
         )
       ).ok,
     ).toBe(false);
+  });
+});
+
+describe("0002/0014: ranking", () => {
+  beforeAll(async () => {
+    await as(
+      caio,
+      `insert into public.exercise_progress(user_id,exercise_id,attempts,solved,first_try,xp) values ('${caio}','soma',2,true,false,10),('${caio}','media',1,true,true,15),('${caio}','fatorial',1,false,false,0)`,
+    );
+    // turma do professor com os três alunos; só Ana e Caio escolhem aparecer
+    const c = await as(prof, "select * from public.create_class('Turma R')");
+    const code = String(c.rows[0].code ?? Object.values(c.rows[0])[1]);
+    for (const u of [ana, bia, caio])
+      await as(u, `select * from public.join_class('${code}')`);
+    await as(ana, `update public.profiles set show_in_ranking = true where id='${ana}'`);
+    await as(caio, `update public.profiles set show_in_ranking = true where id='${caio}'`);
+  });
+
+  it("ordena por XP e abrevia o sobrenome", async () => {
+    const rows = (await as(bia, "select * from public.leaderboard(20)")).rows;
+    const nomes = rows.map((r) => r.display_name);
+    expect(nomes).toEqual(["Caio", "Ana L."]);
+    expect(Number(rows[0].total_xp)).toBeGreaterThan(Number(rows[1].total_xp));
+    expect(Number(rows[0].solved)).toBe(2);
+  });
+  it("nunca expõe e-mail nem identificadores", async () => {
+    const rows = (await as(bia, "select * from public.leaderboard(20)")).rows;
+    expect(Object.keys(rows[0]).sort()).toEqual([
+      "display_name",
+      "is_me",
+      "pos",
+      "solved",
+      "total_xp",
+    ]);
+  });
+  it("quem não escolheu aparecer não é listado, mas vê a turma", async () => {
+    const rows = (await as(bia, "select * from public.leaderboard(20)")).rows;
+    expect(rows.some((r) => r.is_me)).toBe(false);
+    expect(rows.map((r) => r.display_name)).not.toContain("bia");
+  });
+  it("professor fica fora do ranking", async () => {
+    const nomes = (
+      await as(ana, "select * from public.leaderboard(20)")
+    ).rows.map((r) => r.display_name);
+    expect(nomes).not.toContain("Prof L.");
+  });
+  it("mostra a própria posição mesmo fora do top N", async () => {
+    const rows = (await as(ana, "select * from public.leaderboard(1)")).rows;
+    expect(rows.map((r) => r.display_name)).toEqual(["Caio", "Ana L."]);
+    expect(Number(rows.find((r) => r.is_me)?.pos)).toBe(2);
+  });
+  it("anônimo não executa a função", async () => {
+    expect((await as(null, "select * from public.leaderboard(20)")).ok).toBe(
+      false,
+    );
   });
 });

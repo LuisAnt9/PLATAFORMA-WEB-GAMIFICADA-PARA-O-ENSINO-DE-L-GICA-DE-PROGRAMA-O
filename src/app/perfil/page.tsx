@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import MyClasses from "@/components/MyClasses";
 import { CatalogGate, useCatalog } from "@/components/CatalogProvider";
+import RankingOptIn from "@/components/RankingOptIn";
+import { useTotalXp } from "@/components/useBadgeContext";
 import { useStreak } from "@/lib/activity-store";
 import { localDay, recentDays } from "@/lib/streak";
 import { levelInfo, statsOf } from "@/lib/gamification";
@@ -18,13 +20,14 @@ function PerfilContent() {
   const streak = useStreak();
   const [today] = useState(() => localDay());
   const progress = useProgress();
+  const totalXp = useTotalXp();
   const [name, setName] = useState(profile?.name ?? "");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
   if (!profile) return null;
   const stats = statsOf(progress, catalog);
-  const { level, floor, next, progress: pct } = levelInfo(stats.xp);
+  const { level, floor, next, progress: pct } = levelInfo(totalXp);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
@@ -60,11 +63,11 @@ function PerfilContent() {
             />
           </div>
           <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-            {stats.xp - floor}/{next - floor} XP para o próximo
+            {totalXp - floor}/{next - floor} XP para o próximo
           </div>
         </div>
         <div className={card}>
-          <div className="text-2xl font-semibold">{stats.xp}</div>
+          <div className="text-2xl font-semibold">{totalXp}</div>
           <div className="text-xs text-zinc-500 dark:text-zinc-400">
             XP total
           </div>
@@ -143,6 +146,15 @@ function PerfilContent() {
       </p>
 
       {profile.role === "aluno" && <MyClasses />}
+
+      {profile.role === "aluno" && (
+        <section aria-labelledby="privacidade">
+          <h2 id="privacidade" className="mb-3 text-lg font-semibold">
+            Privacidade
+          </h2>
+          <RankingOptIn />
+        </section>
+      )}
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">Conta</h2>

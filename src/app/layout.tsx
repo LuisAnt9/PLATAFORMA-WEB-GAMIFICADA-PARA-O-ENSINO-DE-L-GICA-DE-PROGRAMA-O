@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import AuthProvider from "@/components/AuthProvider";
 import CatalogProvider from "@/components/CatalogProvider";
+import GamificationSync from "@/components/GamificationSync";
 import Header from "@/components/Header";
 import { THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <AuthProvider>
             <CatalogProvider>
               <Header />
+              <GamificationSync />
               <main
                 id="conteudo"
                 tabIndex={-1}

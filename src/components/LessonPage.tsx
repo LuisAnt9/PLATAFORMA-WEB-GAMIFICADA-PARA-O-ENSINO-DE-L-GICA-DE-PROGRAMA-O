@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { DIFFICULTY_LABEL, KIND_LABEL, XP_BY_DIFFICULTY } from "@/lib/catalog";
+import { DIFFICULTY_LABEL, KIND_LABEL, baseXp } from "@/lib/catalog";
 import { lessonSteps, stepIndex, type LessonStep } from "@/lib/student";
 import { usePageTitle } from "@/lib/use-page-title";
 import { CatalogGate } from "./CatalogProvider";
@@ -112,7 +112,7 @@ function Content({ id }: { id: string }) {
   const done = st?.done ?? 0;
   const xp = s.published
     .filter((e) => e.moduleId === m.id)
-    .reduce((n, e) => n + XP_BY_DIFFICULTY[e.difficulty], 0);
+    .reduce((n, e) => n + baseXp(e), 0);
 
   return (
     <div className="space-y-6">
@@ -247,7 +247,7 @@ function Content({ id }: { id: string }) {
                       </span>
                     </span>
                     <span className="shrink-0 text-sm text-zinc-600 dark:text-zinc-400">
-                      {p?.solved ? p.xp : XP_BY_DIFFICULTY[e.difficulty]} XP
+                      {p?.solved ? p.xp : baseXp(e)} XP
                     </span>
                   </Link>
                 </li>

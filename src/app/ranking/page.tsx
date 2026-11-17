@@ -4,6 +4,8 @@ import { usePageTitle } from "@/lib/use-page-title";
 import ScrollRegion from "@/components/ScrollRegion";
 import { useEffect, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
+import { useAuth } from "@/components/AuthProvider";
+import RankingOptIn from "@/components/RankingOptIn";
 
 interface Row {
   pos: number;
@@ -17,6 +19,8 @@ const MEDAL = ["🥇", "🥈", "🥉"];
 
 export default function RankingPage() {
   usePageTitle("Ranking");
+  const { profile } = useAuth();
+  const [version, setVersion] = useState(0);
   const [rows, setRows] = useState<Row[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,15 +44,19 @@ export default function RankingPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [version]);
 
   return (
     <>
       <h1 className="mb-1 text-2xl font-semibold tracking-tight">Ranking</h1>
-      <p className="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
-        Os 20 primeiros por XP. Os nomes aparecem abreviados para preservar a
-        privacidade.
+      <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-400">
+        Só aparecem colegas da sua turma que escolheram participar, com o nome
+        abreviado. O ranking é um extra: o que libera as lições é o domínio do
+        conteúdo, nunca o XP.
       </p>
+      <div className="mb-6 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+        <RankingOptIn onChange={() => setVersion((v) => v + 1)} />
+      </div>
 
       {error && (
         <p
@@ -65,7 +73,9 @@ export default function RankingPage() {
       )}
       {rows && rows.length === 0 && (
         <p className="text-zinc-500 dark:text-zinc-400">
-          Ninguém pontuou ainda. Seja o primeiro!
+          {profile?.role === "aluno"
+            ? "Ninguém da sua turma está no ranking ainda. Se você estiver em uma turma, marque a opção acima para participar."
+            : "Nenhum aluno das suas turmas escolheu aparecer no ranking."}
         </p>
       )}
 

@@ -31,6 +31,7 @@ async function ctxFor(role,{width,height,dark},loggedOut=false){
     const req=route.request(), u=req.url(), m=req.method(), acc=req.headers()["accept"]||"";
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
     if(m==="OPTIONS") return route.fulfill({status:204,headers:{"access-control-allow-origin":"*","access-control-allow-headers":"*","access-control-allow-methods":"*"}});
+    if(u.includes("/rpc/sync_gamification")) return json({bonus_xp:30,missions:[{id:"resolver-2",title:"Resolva 2 exercícios",description:"Resolva 2 exercícios hoje.",target:2,xp:30,progress:1,claimed:false},{id:"conceito",title:"Volte a um conceito difícil",description:"Resolva hoje um exercício de um conceito em que você já errou antes.",target:1,xp:30,progress:1,claimed:true}],new_worlds:[],worlds_done:[]});
     if(u.includes("/rest/v1/worlds")) return json([{id:"w1",title:"Mundo de teste",objective:"Aprender os primeiros conceitos.",position:1},{id:"w2",title:"Mundo futuro",objective:"Ainda sem lições.",position:2}]);
     if(u.includes("/rest/v1/exercise_concepts")) return json([{exercise_id:"ch1",concept_id:"k1",weight:1},{exercise_id:"bl1",concept_id:"k1",weight:1},{exercise_id:"cd1",concept_id:"k2",weight:1}]);
     if(u.includes("/rest/v1/concepts")) return json([{id:"k1",title:"Variáveis",description:"",world_id:"w1"},{id:"k2",title:"Funções",description:"",world_id:"w1"}]);
@@ -49,7 +50,7 @@ async function ctxFor(role,{width,height,dark},loggedOut=false){
 
 const pages=[
   {name:"entrar",role:"aluno",path:"/entrar",out:true},
-  {name:"inicio",role:"aluno",path:"/",wait:"text=Seus mundos"},
+  {name:"inicio",role:"aluno",path:"/",wait:"text=Missões de hoje"},
   {name:"mundos",role:"aluno",path:"/mundos",wait:"text=Mundo futuro"},
   {name:"mundo",role:"aluno",path:"/mundos/w1",wait:"text=Primeiros passos"},
   {name:"licao-intro",role:"aluno",path:"/licao/m1",wait:"text=O que você vai aprender"},
@@ -57,7 +58,7 @@ const pages=[
   {name:"licao-pratica",role:"aluno",path:"/licao/m1?passo=interpretacao",wait:"text=Qual é o valor?"},
   {name:"licao-bloqueada",role:"aluno",path:"/licao/m2",wait:"text=ainda está bloqueada"},
   {name:"progresso",role:"aluno",path:"/progresso",wait:"text=Histórico de atividades"},
-  {name:"conquistas",role:"aluno",path:"/conquistas",wait:"text=Medalhas"},
+  {name:"conquistas",role:"aluno",path:"/conquistas",wait:"text=Missões de hoje"},
   {name:"ex-escolha",role:"aluno",path:"/exercicio/ch1",wait:"text=Antes de começar"},
   {name:"ex-lacuna",role:"aluno",path:"/exercicio/bl1",wait:"input[aria-label='Lacuna 1']"},
   {name:"ex-codigo",role:"aluno",path:"/exercicio/cd1",wait:".cm-content"},

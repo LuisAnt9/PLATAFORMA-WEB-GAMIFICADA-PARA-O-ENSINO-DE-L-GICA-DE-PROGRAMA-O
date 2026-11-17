@@ -136,3 +136,17 @@ describe("lições complementares (optional)", () => {
     expect(s.y.unlocked).toBe(true);
   });
 });
+
+describe("XP nunca libera conteúdo", () => {
+  it("a liberação depende só dos exercícios resolvidos, não do XP", () => {
+    const c: Catalog = {
+      modules: [mod("a", 1), mod("b", 2)],
+      exercises: [ex("a1", "a"), ex("a2", "a"), ex("b1", "b")],
+    };
+    const rico: Progress = {
+      a1: { attempts: 5, solved: false, firstTry: false, xp: 9999 },
+    };
+    expect(moduleStates(c, rico).b.unlocked).toBe(false);
+    expect(moduleStates(c, solved("a1", "a2")).b.unlocked).toBe(true);
+  });
+});

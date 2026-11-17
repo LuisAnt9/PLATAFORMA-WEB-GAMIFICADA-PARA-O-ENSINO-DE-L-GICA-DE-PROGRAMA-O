@@ -27,6 +27,7 @@ const exs=[
 const concepts=[{id:"k1",title:"Conceito Um",description:"",world_id:"w1"},{id:"k2",title:"Conceito Dois",description:"",world_id:"w1"}];
 const links=[["a1","k1"],["a2","k1"],["a3","k2"]].map(([e,c])=>({exercise_id:e,concept_id:c,weight:1}));
 
+const patches=[]; let rankingRows=[];
 async function newCtx({solved=[],extra=[],colorScheme="light",days=[]}={}){
   const ctx=await b.newContext({viewport:{width:1000,height:1000},colorScheme});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
@@ -34,6 +35,9 @@ async function newCtx({solved=[],extra=[],colorScheme="light",days=[]}={}){
     const req=route.request(), u=req.url(), m=req.method();
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
     if(m==="OPTIONS") return route.fulfill({status:204,headers:{"access-control-allow-origin":"*","access-control-allow-headers":"*","access-control-allow-methods":"*"}});
+    if(u.includes("/rpc/sync_gamification")) return json({bonus_xp:30,missions:[{id:"resolver-2",title:"Resolva 2 exercícios",description:"Resolva 2 exercícios hoje.",target:2,xp:30,progress:1,claimed:false},{id:"conceito",title:"Volte a um conceito difícil",description:"Resolva hoje um exercício de um conceito em que você já errou antes.",target:1,xp:30,progress:1,claimed:true}],new_worlds:[],worlds_done:[]});
+    if(u.includes("/rpc/leaderboard")) return json(rankingRows);
+    if(u.includes("/rest/v1/profiles") && m==="PATCH"){ patches.push(req.postData()); return route.fulfill({status:204,headers:{"access-control-allow-origin":"*"},body:""}); }
     if(u.includes("/rest/v1/worlds")) return json(worlds);
     if(u.includes("/rest/v1/exercise_concepts")) return json(links);
     if(u.includes("/rest/v1/concepts")) return json(concepts);
@@ -56,7 +60,7 @@ const main=p=>p.locator("main").innerText();
   const nav=await p.locator("nav[aria-label=Principal]").innerText();
   ok("menu tem Início, Mundos, Conquistas e Meu progresso", ["Início","Mundos","Conquistas","Meu progresso","Perfil"].every(x=>nav.includes(x)));
   ok("início sugere Começar com a primeira atividade", (await p.locator("a:has-text('Começar')").getAttribute("href"))==="/exercicio/a1");
-  ok("início mostra o nível e os mundos com conteúdo", (await main(p)).includes("Nível 1") && (await main(p)).includes("Mundo Um") && !(await main(p)).includes("Mundo Três"));
+  ok("início mostra o nível e os mundos com conteúdo", (await main(p)).includes("Nível 2") && (await main(p)).includes("Mundo Um") && !(await main(p)).includes("Mundo Três"));
   await p.click("nav >> text=Mundos"); await p.waitForSelector("h1:has-text('Mundos')"); await p.waitForSelector("text=Mundo Três");
   const t=await main(p);
   ok("mundos: primeiro não iniciado, segundo bloqueado, terceiro em breve", t.includes("Não iniciado") && t.includes("Bloqueado") && t.includes("Em breve"));
@@ -132,6 +136,28 @@ const main=p=>p.locator("main").innerText();
   await p.goto(BASE+"/perfil"); await p.waitForSelector("text=Conta");
   ok("perfil aponta para conquistas e progresso", await p.locator("main a:has-text('Meu progresso')").count()===1);
   ok("sem erros de página (progresso)", errs.length===0);
+}
+
+// ---- gamificação: missões, XP com bônus, ranking opcional
+{
+  const {p,errs}=await newCtx({solved:["a1"]});
+  await p.goto(BASE+"/"); await p.waitForSelector("text=Missões de hoje");
+  const t=await main(p);
+  ok("início mostra as missões do dia com progresso", t.includes("Resolva 2 exercícios") && t.includes("1/2") && t.includes("Cumprida"));
+  ok("missão cumprida mostra o XP recebido", t.includes("+30 XP recebidos"));
+  const header=await p.locator("header").innerText();
+  ok("o XP do cabeçalho inclui o bônus (10 do exercício + 30 da missão = nível 2)", header.includes("Nível 2") && header.includes("40/"));
+  await p.goto(BASE+"/conquistas"); await p.waitForSelector("text=Missões de hoje");
+  ok("conquistas também lista as missões", (await main(p)).includes("Volte a um conceito difícil"));
+  rankingRows=[{pos:1,display_name:"Caio M.",total_xp:120,solved:6,is_me:false}];
+  await p.goto(BASE+"/ranking"); await p.waitForSelector("text=Caio M.");
+  const box=p.getByRole("checkbox",{name:/Aparecer no ranking/});
+  ok("ranking começa sem participar (opt-in) e explica a privacidade", !(await box.isChecked()) && (await main(p)).includes("Só aparecem colegas da sua turma"));
+  patches.length=0;
+  await box.click(); await p.waitForTimeout(800);
+  ok("marcar a opção grava a escolha no perfil", patches.some(b=>b&&b.includes("show_in_ranking")&&b.includes("true")) && await box.isChecked());
+  ok("sem erros de página (gamificação)", errs.length===0);
+  rankingRows=[];
 }
 
 // ---- tema

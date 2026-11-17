@@ -1,18 +1,21 @@
 "use client";
 
 import { usePageTitle } from "@/lib/use-page-title";
-import { badgesFor, earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
+import { badgesFor, earnedBadges, levelInfo } from "@/lib/gamification";
 import { CatalogGate } from "./CatalogProvider";
-import { useBadgeContext } from "./useBadgeContext";
+import { useBadgeContext, useTotalXp } from "./useBadgeContext";
 import { useStudent } from "./useStudent";
+import Missions from "./Missions";
+import { useGamification } from "@/lib/gamification-store";
 import { ProgressBar, card } from "./ui";
 
 function Content() {
   usePageTitle("Conquistas");
   const s = useStudent();
   const badgeCtx = useBadgeContext();
+  const g = useGamification();
   const earned = new Set(earnedBadges(badgeCtx).map((b) => b.id));
-  const xp = totalXp(s.progress);
+  const xp = useTotalXp();
   const { level, floor, next, progress: pct } = levelInfo(xp);
   const all = badgesFor(s.catalog);
   return (
@@ -32,6 +35,7 @@ function Content() {
           {xp - floor}/{next - floor} XP para o próximo nível
         </p>
       </section>
+      <Missions />
       <section aria-labelledby="medalhas">
         <div className="mb-3 flex items-baseline justify-between">
           <h2 id="medalhas" className="text-lg font-semibold">
@@ -71,6 +75,12 @@ function Content() {
                   <div className="text-sm text-zinc-600 dark:text-zinc-400">
                     {b.description}
                   </div>
+                  {has && g.badgeDates[b.id] && (
+                    <div className="mt-1 text-xs text-zinc-600 dark:text-zinc-400">
+                      Conquistada em{" "}
+                      {new Date(g.badgeDates[b.id]).toLocaleDateString("pt-BR")}
+                    </div>
+                  )}
                 </div>
               </li>
             );

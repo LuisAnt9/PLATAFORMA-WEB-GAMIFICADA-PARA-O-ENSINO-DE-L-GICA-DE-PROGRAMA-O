@@ -52,7 +52,7 @@ export async function saveExercise(
 ): Promise<void> {
   const previous = cache;
   set({ ...cache, [exerciseId]: value });
-  const { error } = await getSupabase()
+  const { data, error } = await getSupabase()
     .from("exercise_progress")
     .upsert({
       user_id: userId,
@@ -62,11 +62,16 @@ export async function saveExercise(
       first_try: value.firstTry,
       xp: value.xp,
       solved_at: value.solved ? new Date().toISOString() : null,
-    });
+    })
+    .select("xp");
   if (error) {
     set(previous);
     throw new Error(error.message);
   }
+  // O XP que vale é o calculado pelo banco (migration 0014); sem ela, o valor local continua.
+  const serverXp = Array.isArray(data) ? (data[0] as { xp?: number })?.xp : undefined;
+  if (value.solved && typeof serverXp === "number" && serverXp !== value.xp)
+    set({ ...cache, [exerciseId]: { ...value, xp: serverXp } });
 }
 
 export function useProgress(): Progress {

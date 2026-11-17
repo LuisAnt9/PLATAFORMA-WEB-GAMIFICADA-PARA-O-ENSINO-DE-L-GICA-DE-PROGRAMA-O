@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePageTitle } from "@/lib/use-page-title";
-import { badgesFor, earnedBadges, levelInfo, totalXp } from "@/lib/gamification";
+import { badgesFor, earnedBadges, levelInfo } from "@/lib/gamification";
 import { useStreak } from "@/lib/activity-store";
 import { WORLD_STATUS_LABEL } from "@/lib/student";
 import { useAuth } from "./AuthProvider";
 import { CatalogGate } from "./CatalogProvider";
-import { useBadgeContext } from "./useBadgeContext";
+import { useBadgeContext, useTotalXp } from "./useBadgeContext";
 import { useStudent } from "./useStudent";
+import Missions from "./Missions";
 import { Pill, ProgressBar, card, primaryButton } from "./ui";
 
 function DashboardContent() {
@@ -17,7 +18,7 @@ function DashboardContent() {
   const s = useStudent();
   const badgeCtx = useBadgeContext();
   const streak = useStreak();
-  const xp = totalXp(s.progress);
+  const xp = useTotalXp();
   const { level, next, floor, progress: levelPct } = levelInfo(xp);
   const firstName = profile?.name.split(" ")[0];
   const earned = earnedBadges(badgeCtx);
@@ -112,6 +113,8 @@ function DashboardContent() {
           </div>
         </div>
       </section>
+
+      <Missions />
 
       <section aria-labelledby="meus-mundos">
         <div className="mb-3 flex items-baseline justify-between">

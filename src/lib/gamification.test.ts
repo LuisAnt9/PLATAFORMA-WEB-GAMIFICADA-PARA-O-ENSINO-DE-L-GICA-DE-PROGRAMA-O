@@ -71,9 +71,15 @@ const C = catalog.exercises[2];
 
 describe("xpFor", () => {
   it("dá bônus de 50% para acerto na primeira tentativa", () => {
-    expect(xpFor("facil", 1)).toBe(15);
-    expect(xpFor("facil", 2)).toBe(10);
-    expect(xpFor("dificil", 1)).toBe(53);
+    expect(xpFor("facil", 1)).toBe(30);
+    expect(xpFor("facil", 2)).toBe(20);
+    expect(xpFor("dificil", 1)).toBe(75);
+  });
+  it("tabela da D4: 20, 35, 50 e 75 para o desafio, sem bônus depois da 1ª tentativa", () => {
+    expect([xpFor("facil", 2), xpFor("medio", 2), xpFor("dificil", 2)]).toEqual([20, 35, 50]);
+    expect(xpFor("dificil", 2, "challenge")).toBe(75);
+    expect(xpFor("dificil", 1, "challenge")).toBe(113);
+    expect(xpFor("facil", 1, "choice")).toBe(30);
   });
 });
 
@@ -105,13 +111,13 @@ describe("recordAttempt", () => {
     expect(recordAttempt({}, A, true).a).toMatchObject({
       solved: true,
       firstTry: true,
-      xp: 15,
+      xp: 30,
     });
   });
   it("acerto após erros dá XP sem bônus, conforme a dificuldade", () => {
     let p: Progress = recordAttempt({}, B, false);
     p = recordAttempt(p, B, true);
-    expect(p.b).toMatchObject({ attempts: 2, firstTry: false, xp: 20 });
+    expect(p.b).toMatchObject({ attempts: 2, firstTry: false, xp: 35 });
   });
   it("não altera exercício já resolvido (sem XP duplicado)", () => {
     const solved = recordAttempt({}, A, true);
@@ -125,8 +131,20 @@ describe("medalhas", () => {
     expect(new Set(list.map((b) => b.id)).size).toBe(list.length);
     for (const b of list) expect(b.purpose.length).toBeGreaterThan(5);
   });
-  it("uma medalha por módulo, mais as fixas e a da trilha", () => {
-    expect(badgesFor(catalog)).toHaveLength(5 + 2 + 1); // fixas (inclui 2 de constância) + módulos + trilha
+  it("medalhas fixas, superação, primeiro mundo, uma por mundo e a de todos os exercícios", () => {
+    expect(badgesFor(catalog)).toHaveLength(5 + 1 + 1 + 0 + 1); // fixas + superação + primeiro mundo + trilha
+    const comMundos = badgesFor({
+      ...catalog,
+      worlds: [
+        { id: "mundo-2", title: "Variáveis", objective: "", position: 2 },
+        { id: "mundo-4", title: "Condicionais", objective: "", position: 4 },
+        { id: "outro", title: "Outro", objective: "", position: 9 },
+      ],
+    });
+    const nomes = comMundos.map((b) => b.name);
+    expect(nomes).toContain("Mestre das variáveis");
+    expect(nomes).toContain("Decisões inteligentes");
+    expect(nomes).toContain("Mundo concluído: Outro");
   });
   it("persistente exige acerto após 3+ erros", () => {
     let p: Progress = {};
@@ -139,21 +157,41 @@ describe("medalhas", () => {
       earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
     ).toContain("persistente");
   });
-  it("medalha do módulo e da trilha ignoram rascunhos", () => {
+  it("medalhas de mundo dependem do bônus de conclusão e a de todos os exercícios ignora rascunhos", () => {
+    const c: Catalog = {
+      ...catalog,
+      worlds: [{ id: "mundo-4", title: "Condicionais", objective: "", position: 4 }],
+    };
+    const ids = (p: Progress, worldsDone: string[] = []) =>
+      earnedBadges({ progress: p, catalog: c, bestStreak: 0, worldsDone }).map((b) => b.id);
     let p: Progress = {};
     for (const e of [A, B]) p = recordAttempt(p, e, true);
-    expect(
-      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
-    ).toContain("modulo-m1");
-    expect(
-      earnedBadges({ progress: p, catalog, bestStreak: 0 }).map((b) => b.id),
-    ).not.toContain("trilha-completa");
-    p = recordAttempt(p, C, true);
-    const ids = earnedBadges({ progress: p, catalog, bestStreak: 0 }).map(
-      (b) => b.id,
+    expect(ids(p)).not.toContain("primeiro-mundo");
+    expect(ids(p)).not.toContain("trilha-completa");
+    expect(ids(p, ["mundo-4"])).toEqual(
+      expect.arrayContaining(["primeiro-mundo", "mundo-mundo-4"]),
     );
-    expect(ids).toContain("modulo-m2"); // m2 só tem "c" publicado
-    expect(ids).toContain("trilha-completa");
+    p = recordAttempt(p, C, true);
+    expect(ids(p)).toContain("trilha-completa"); // o rascunho não conta
+  });
+  it("superação: dominar um conceito em que precisou de 3+ tentativas", () => {
+    const c: Catalog = {
+      ...catalog,
+      concepts: [{ id: "k", title: "K", description: "", worldId: null }],
+      links: ["a", "b"].map((id) => ({ exerciseId: id, conceptId: "k", weight: 1 })),
+    };
+    let p: Progress = {};
+    for (let i = 0; i < 2; i++) p = recordAttempt(p, A, false);
+    p = recordAttempt(p, A, true); // 3 tentativas em A
+    p = recordAttempt(p, B, true); // 1 tentativa em B: 4 tentativas, 2 exercícios, 100% resolvidos
+    const ids = earnedBadges({ progress: p, catalog: c, bestStreak: 0 }).map((b) => b.id);
+    expect(ids).toContain("superacao");
+    // sem dificuldade (todos de primeira) não há superação
+    let q: Progress = {};
+    for (const e of [A, B]) q = recordAttempt(q, e, true);
+    expect(
+      earnedBadges({ progress: q, catalog: c, bestStreak: 0 }).map((b) => b.id),
+    ).not.toContain("superacao");
   });
   it("catálogo vazio não concede medalhas de conclusão", () => {
     const ids = earnedBadges({
@@ -193,7 +231,7 @@ describe("statsOf", () => {
       solved: 2,
       attempts: 3,
       firstTryRate: 0.5,
-      xp: 35,
+      xp: 65,
     });
   });
 });

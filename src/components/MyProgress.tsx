@@ -16,6 +16,7 @@ import { addDays, localDay } from "@/lib/streak";
 import { usePageTitle } from "@/lib/use-page-title";
 import { CatalogGate } from "./CatalogProvider";
 import { useStudent } from "./useStudent";
+import { useTotalXp } from "./useBadgeContext";
 import { Pill, ProgressBar, card } from "./ui";
 
 const LEVEL_LABEL: Record<ConceptLevel, string> = {
@@ -30,6 +31,7 @@ function Content() {
   const streak = useStreak();
   const [today] = useState(() => localDay());
   const stats = statsOf(s.progress, s.catalog);
+  const xpTotal = useTotalXp();
   const concepts = conceptPerformance(s.catalog, s.progress);
   const weeks = weeklyActivity(streak.days, today, 8, addDays);
   const max = Math.max(1, ...weeks.map((w) => w.count));
@@ -42,7 +44,7 @@ function Content() {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">Meu progresso</h1>
         <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-          {stats.solved}/{stats.total} exercícios resolvidos ·{" "}
+          {stats.solved}/{stats.total} exercícios resolvidos · {xpTotal} XP ·{" "}
           {Math.round(stats.firstTryRate * 100)}% de primeira ·{" "}
           {stats.attempts} tentativas
         </p>

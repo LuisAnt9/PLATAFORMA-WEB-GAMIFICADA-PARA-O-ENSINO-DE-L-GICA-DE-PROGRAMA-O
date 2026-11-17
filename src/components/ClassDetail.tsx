@@ -21,6 +21,7 @@ import {
   removeMember,
   renameClass,
 } from "@/lib/classes";
+import { setClassArchived } from "@/lib/assignments";
 import { usePageTitle } from "@/lib/use-page-title";
 import { useWideScreen } from "@/lib/use-wide-screen";
 import { useLoader } from "@/lib/use-loader";
@@ -133,6 +134,19 @@ function Content({ id }: { id: string }) {
     }
   }
 
+  async function toggleArchive() {
+    try {
+      await setClassArchived(id, !cls.archived);
+      setMsg({
+        ok: true,
+        text: cls.archived ? "Turma reativada." : "Turma arquivada.",
+      });
+      await refresh();
+    } catch (err) {
+      setMsg({ ok: false, text: (err as Error).message });
+    }
+  }
+
   async function removeClass() {
     if (
       !window.confirm(
@@ -168,7 +182,14 @@ function Content({ id }: { id: string }) {
       </Link>
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">{cls.name}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            {cls.name}
+            {cls.archived && (
+              <span className="ml-2 align-middle rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-normal text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+                Arquivada
+              </span>
+            )}
+          </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             {summaries.length} {summaries.length === 1 ? "aluno" : "alunos"} ·{" "}
             {published.length} exercícios publicados
@@ -361,7 +382,14 @@ function Content({ id }: { id: string }) {
                             key={s.id}
                             className="border-t border-zinc-200 dark:border-zinc-800"
                           >
-                            <td className="px-4 py-2">{s.name}</td>
+                            <td className="px-4 py-2">
+                              <Link
+                                href={`/professor/turmas/${id}/alunos/${s.id}`}
+                                className="text-emerald-700 hover:underline dark:text-emerald-400"
+                              >
+                                {s.name}
+                              </Link>
+                            </td>
                             <td className="px-4 py-2 text-right">
                               {s.solved}/{published.length}
                             </td>
@@ -561,6 +589,18 @@ function Content({ id }: { id: string }) {
               {msg.text}
             </p>
           )}
+          <div className="mt-6 space-y-2">
+            <button
+              onClick={() => void toggleArchive()}
+              className="rounded-xl border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700"
+            >
+              {cls.archived ? "Reativar turma" : "Arquivar turma"}
+            </button>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              Turmas arquivadas saem da lista principal e não recebem novas
+              atividades, mas os alunos e o histórico são mantidos.
+            </p>
+          </div>
           <button
             onClick={() => void removeClass()}
             className="mt-6 text-sm text-red-700 hover:underline dark:text-red-300"

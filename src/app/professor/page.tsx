@@ -6,6 +6,8 @@ import { useCallback, useState } from "react";
 import { useLoader } from "@/lib/use-loader";
 import { useAuth } from "@/components/AuthProvider";
 import { createClass, listTeacherClasses } from "@/lib/classes";
+import { completionRate, formatDue } from "@/lib/assignments";
+import { useSummaries } from "@/components/TeacherAssignments";
 
 function Classes() {
   usePageTitle("Turmas");
@@ -17,6 +19,8 @@ function Classes() {
     error: loadError,
     refresh,
   } = useLoader(`teacher-classes:${userId}`, load);
+  const { data: summaries } = useSummaries();
+  const [now] = useState(() => Date.now());
   const [name, setName] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -45,6 +49,44 @@ function Classes() {
         Crie uma turma e passe o código aos alunos. Eles entram pela página{" "}
         <strong>Perfil</strong>.
       </p>
+
+      {summaries && (
+        <section aria-label="Resumo das atividades" className="mb-8">
+          <div className="grid gap-3 sm:grid-cols-4">
+            {(() => {
+              const open = summaries.filter((a) => !a.archived && new Date(a.due_at).getTime() >= now);
+              const rate = summaries.length
+                ? summaries.reduce((n, a) => n + completionRate(a), 0) / summaries.length
+                : null;
+              return [
+                [String((classes ?? []).filter((c) => !c.archived).length), "turmas ativas"],
+                [String(summaries.length), "atividades atribuídas"],
+                [String(open.length), "com prazo em aberto"],
+                [rate === null ? "—" : `${Math.round(rate * 100)}%`, "conclusão média"],
+              ].map(([v, l]) => (
+                <div key={l} className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+                  <div className="text-2xl font-semibold">{v}</div>
+                  <div className="text-xs text-zinc-600 dark:text-zinc-400">{l}</div>
+                </div>
+              ));
+            })()}
+          </div>
+          {summaries.filter((a) => new Date(a.due_at).getTime() >= now).slice(0, 3).length > 0 && (
+            <ul className="mt-4 space-y-1 text-sm">
+              {summaries.filter((a) => new Date(a.due_at).getTime() >= now).slice(0, 3).map((a) => (
+                <li key={a.id}>
+                  <Link href={`/professor/atividades/${a.id}`} className="text-emerald-700 hover:underline dark:text-emerald-400">
+                    {a.title}
+                  </Link>{" "}
+                  <span className="text-zinc-600 dark:text-zinc-400">
+                    · {a.class_name} · prazo {formatDue(a.due_at)} · {a.completed}/{a.students} concluíram
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
 
       <form
         onSubmit={create}
@@ -89,7 +131,7 @@ function Classes() {
       )}
       {classes && classes.length > 0 && (
         <ul className="grid gap-3 sm:grid-cols-2">
-          {classes.map((c) => (
+          {classes.filter((c) => !c.archived).map((c) => (
             <li key={c.id}>
               <Link
                 href={`/professor/turmas/${c.id}`}
@@ -109,6 +151,28 @@ function Classes() {
             </li>
           ))}
         </ul>
+      )}
+      {classes && classes.some((c) => c.archived) && (
+        <details className="mt-8">
+          <summary className="cursor-pointer text-sm font-medium">
+            Turmas arquivadas ({classes.filter((c) => c.archived).length})
+          </summary>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+            {classes.filter((c) => c.archived).map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={`/professor/turmas/${c.id}`}
+                  className="block rounded-lg border border-dashed border-zinc-300 p-4 hover:border-emerald-500 dark:border-zinc-700"
+                >
+                  <div className="font-medium">{c.name}</div>
+                  <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                    {c.members} {c.members === 1 ? "aluno" : "alunos"}
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
       )}
     </>
   );

@@ -31,6 +31,12 @@ async function ctxFor(role,{width,height,dark},loggedOut=false){
     const req=route.request(), u=req.url(), m=req.method(), acc=req.headers()["accept"]||"";
     const json=(body,code=200)=>route.fulfill({status:code,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(body)});
     if(m==="OPTIONS") return route.fulfill({status:204,headers:{"access-control-allow-origin":"*","access-control-allow-headers":"*","access-control-allow-methods":"*"}});
+    if(u.includes("/rpc/my_assignments")) return json([{id:1,kind:"atividade",title:"Lista 1",instructions:"Resolva os exercícios.",class_name:"Turma",available_from:ago(2),due_at:new Date(Date.now()+3*864e5).toISOString(),required:true,result_rule:"so_nota",items_total:2,items_done:1,submitted_at:null,score:null,max_score:null,status:"em_andamento"},{id:2,kind:"avaliacao",title:"Prova 1",instructions:"",class_name:"Turma",available_from:ago(1),due_at:new Date(Date.now()+864e5).toISOString(),required:true,result_rule:"so_nota",items_total:3,items_done:0,submitted_at:null,score:null,max_score:null,status:"nao_iniciada"}]);
+    if(u.includes("/rpc/get_assessment")) return json({id:2,title:"Prova 1",instructions:"",due_at:new Date(Date.now()+864e5).toISOString(),result_rule:"so_nota",questions:[{id:1,kind:"choice",title:"Questão 1",statement:"Qual é o valor?",payload:{options:["3","7"]},points:1},{id:2,kind:"blank",title:"Questão 2",statement:"Complete.",payload:{template:"{{1}} (x) {}",blanks:1},points:2},{id:3,kind:"order",title:"Questão 3",statement:"Ordene.",payload:{items:["B","A","C"]},points:2}]});
+    if(u.includes("/rpc/assessment_result")) return json(null);
+    if(u.includes("/rpc/teacher_assignment_summaries")) return json([{id:1,kind:"atividade",title:"Lista 1",class_id:"c1",class_name:"Lógica de Programação — ADS 2026.2",available_from:ago(2),due_at:new Date(Date.now()+3*864e5).toISOString(),required:true,archived:false,students:3,started:2,completed:1},{id:2,kind:"avaliacao",title:"Prova 1",class_id:"c1",class_name:"Lógica de Programação — ADS 2026.2",available_from:ago(1),due_at:ago(0),required:true,archived:false,students:3,started:3,completed:3}]);
+    if(u.includes("/rpc/assignment_report")) return json({assignment:{id:1,kind:"atividade",title:"Lista 1",instructions:"Resolva.",class_id:"c1",class_name:"Lógica de Programação — ADS 2026.2",available_from:ago(2),due_at:new Date(Date.now()+3*864e5).toISOString(),required:true,result_rule:"so_nota"},students:[{id:"s1",name:"Ana Souza",items_total:2,items_done:2,attempts:3,last_attempt:ago(0),duration_ms:240000,score:null,max_score:null,submitted_at:null,status:"concluida"},{id:"s2",name:"Beto Lima",items_total:2,items_done:0,attempts:0,last_attempt:null,duration_ms:0,score:null,max_score:null,submitted_at:null,status:"nao_iniciada"}],exercises:[{exercise_id:"ch1",title:"Qual é o valor?",attempted:2,solved:1,attempts:4}],concepts:[{concept_id:"k1",title:"Variáveis",attempts:4,wrong:2},{concept_id:"k2",title:"Funções",attempts:1,wrong:1}]});
+    if(u.includes("/rest/v1/assignment_items")) return json([{exercise_id:"ch1",position:1},{exercise_id:"bl1",position:2}]);
     if(u.includes("/rpc/sync_gamification")) return json({bonus_xp:30,missions:[{id:"resolver-2",title:"Resolva 2 exercícios",description:"Resolva 2 exercícios hoje.",target:2,xp:30,progress:1,claimed:false},{id:"conceito",title:"Volte a um conceito difícil",description:"Resolva hoje um exercício de um conceito em que você já errou antes.",target:1,xp:30,progress:1,claimed:true}],new_worlds:[],worlds_done:[]});
     if(u.includes("/rest/v1/worlds")) return json([{id:"w1",title:"Mundo de teste",objective:"Aprender os primeiros conceitos.",position:1},{id:"w2",title:"Mundo futuro",objective:"Ainda sem lições.",position:2}]);
     if(u.includes("/rest/v1/exercise_concepts")) return json([{exercise_id:"ch1",concept_id:"k1",weight:1},{exercise_id:"bl1",concept_id:"k1",weight:1},{exercise_id:"cd1",concept_id:"k2",weight:1}]);
@@ -66,6 +72,13 @@ const pages=[
   {name:"ex-ordenacao",role:"aluno",path:"/exercicio/ord1",wait:"text=Verificar ordem"},
   {name:"ex-corrigir",role:"aluno",path:"/exercicio/fix1",wait:".cm-content"},
   {name:"ex-dicas",role:"aluno",path:"/exercicio/int1",wait:"[aria-label=\x27Trecho de código\x27]",hints:true},
+  {name:"atividades",role:"aluno",path:"/atividades",wait:"text=Prova 1"},
+  {name:"atividade-detalhe",role:"aluno",path:"/atividades/1",wait:"text=Qual é o valor?"},
+  {name:"avaliacao",role:"aluno",path:"/atividades/2",wait:"text=Questão 3"},
+  {name:"prof-atividades",role:"professor",path:"/professor/atividades",wait:"text=Prova 1"},
+  {name:"prof-atividade-nova",role:"professor",path:"/professor/atividades/nova",wait:"text=Buscar exercício"},
+  {name:"prof-atividade-relatorio",role:"professor",path:"/professor/atividades/1",wait:"text=Desempenho por conceito"},
+  {name:"prof-aluno",role:"professor",path:"/professor/turmas/c1/alunos/s1",wait:"text=Visão do professor"},
   {name:"ranking",role:"aluno",path:"/ranking",wait:"table"},
   {name:"perfil",role:"aluno",path:"/perfil",wait:"text=Sequência diária"},
   {name:"prof-turmas",role:"professor",path:"/professor",wait:"text=ABC234"},

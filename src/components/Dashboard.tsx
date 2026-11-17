@@ -10,12 +10,16 @@ import { CatalogGate } from "./CatalogProvider";
 import { useBadgeContext, useTotalXp } from "./useBadgeContext";
 import { useStudent } from "./useStudent";
 import Missions from "./Missions";
+import { AssignmentRow, useMyAssignments } from "./MyAssignments";
+import { isPending } from "@/lib/assignments";
 import { Pill, ProgressBar, card, primaryButton } from "./ui";
 
 function DashboardContent() {
   usePageTitle("Início");
   const { profile } = useAuth();
   const s = useStudent();
+  const mine = useMyAssignments();
+  const pendingList = (mine.data ?? []).filter((a) => isPending(a.status)).slice(0, 3);
   const badgeCtx = useBadgeContext();
   const streak = useStreak();
   const xp = useTotalXp();
@@ -113,6 +117,27 @@ function DashboardContent() {
           </div>
         </div>
       </section>
+
+      {profile?.role === "aluno" && pendingList.length > 0 && (
+        <section aria-labelledby="pendentes">
+          <div className="mb-3 flex items-baseline justify-between">
+            <h2 id="pendentes" className="text-lg font-semibold">
+              Atividades pendentes
+            </h2>
+            <Link
+              href="/atividades"
+              className="text-sm text-emerald-700 hover:underline dark:text-emerald-400"
+            >
+              Ver todas
+            </Link>
+          </div>
+          <ul className="space-y-3">
+            {pendingList.map((a) => (
+              <AssignmentRow key={a.id} a={a} />
+            ))}
+          </ul>
+        </section>
+      )}
 
       <Missions />
 

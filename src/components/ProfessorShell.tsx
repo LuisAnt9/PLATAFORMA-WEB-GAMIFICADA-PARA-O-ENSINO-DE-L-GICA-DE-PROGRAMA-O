@@ -6,6 +6,7 @@ import ProfessorOnly from "./ProfessorOnly";
 
 const TABS = [
   { href: "/professor", label: "Turmas" },
+  { href: "/professor/atividades", label: "Atividades" },
   { href: "/professor/exercicios", label: "Exercícios" },
 ];
 

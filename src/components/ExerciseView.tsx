@@ -4,6 +4,7 @@ import { stepOfExercise } from "@/lib/student";
 import type { HintContext } from "@/lib/ai-hint";
 import { usePageTitle } from "@/lib/use-page-title";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { getStreak, logActivity } from "@/lib/activity-store";
 import { saveAttempt, type Submission } from "@/lib/attempts";
@@ -49,6 +50,10 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   usePageTitle(exercise.title);
   const progress = useProgress();
   const { profile } = useAuth();
+  // vindo de "Minhas atividades": as tentativas valem para a atividade (modalidade atividade)
+  const rawAtividade = Number(useSearchParams().get("atividade"));
+  const assignmentId =
+    Number.isInteger(rawAtividade) && rawAtividade > 0 ? rawAtividade : null;
   const { catalog } = useCatalog();
 
   const [busy, setBusy] = useState(false);
@@ -101,7 +106,16 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
     const now = Date.now();
     const durationMs = now - (lastAttemptAt.current ?? openedAt);
     lastAttemptAt.current = now;
-    void saveAttempt({ exercise, submission, passed, durationMs, hintLevel });
+    void saveAttempt({
+      exercise,
+      submission,
+      passed,
+      durationMs,
+      hintLevel,
+      ...(assignmentId
+        ? { mode: "atividade" as const, assignmentId }
+        : {}),
+    });
   }
 
   /** Fluxo comum a todos os tipos: registra a tentativa, o XP, a sequência e as medalhas novas. */
@@ -244,10 +258,15 @@ export default function ExerciseView({ exercise }: { exercise: Exercise }) {
   return (
     <div className="space-y-4">
       <Link
-        href={`/licao/${exercise.moduleId}?passo=${stepOfExercise(exercise)}`}
+        href={
+          assignmentId
+            ? `/atividades/${assignmentId}`
+            : `/licao/${exercise.moduleId}?passo=${stepOfExercise(exercise)}`
+        }
         className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
       >
-        <span aria-hidden>←</span> Voltar à lição
+        <span aria-hidden>←</span>{" "}
+        {assignmentId ? "Voltar à atividade" : "Voltar à lição"}
       </Link>
 
       <div>

@@ -11,6 +11,7 @@ import { earnedBadges, levelInfo } from "@/lib/gamification";
 const NAV = [
   { href: "/", label: "Início" },
   { href: "/mundos", label: "Mundos" },
+  { href: "/atividades", label: "Minhas atividades", onlyStudent: true },
   { href: "/conquistas", label: "Conquistas" },
   { href: "/progresso", label: "Meu progresso" },
   { href: "/ranking", label: "Ranking" },
@@ -57,7 +58,9 @@ export default function Header() {
           {profile && (
             <nav aria-label="Principal" className="flex gap-1 text-sm">
               {NAV.filter(
-                (n) => !n.onlyProfessor || profile.role === "professor",
+                (n) =>
+                  (!n.onlyProfessor || profile.role === "professor") &&
+                  (!n.onlyStudent || profile.role === "aluno"),
               ).map((n) => {
                 const active = isActive(n.href, pathname);
                 return (

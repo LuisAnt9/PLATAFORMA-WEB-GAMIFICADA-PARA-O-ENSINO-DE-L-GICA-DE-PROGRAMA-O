@@ -10,6 +10,8 @@ export interface TeacherClass extends MyClass {
   code: string;
   createdAt: string;
   members: number;
+  /** Turma arquivada (migration 0015): sai da lista principal e não recebe novas atividades. */
+  archived: boolean;
 }
 
 /** Mensagens "raise exception" do banco já vêm em português; o resto vira texto genérico. */
@@ -61,7 +63,7 @@ export async function listTeacherClasses(
   const [c, m] = await Promise.all([
     supabase
       .from("classes")
-      .select("id, name, code, created_at")
+      .select("*")
       .eq("teacher_id", userId)
       .order("created_at", { ascending: false }),
     supabase.from("class_members").select("class_id"),
@@ -72,8 +74,15 @@ export async function listTeacherClasses(
   for (const r of m.data as { class_id: string }[])
     counts.set(r.class_id, (counts.get(r.class_id) ?? 0) + 1);
   return (
-    c.data as { id: string; name: string; code: string; created_at: string }[]
+    c.data as {
+      id: string;
+      name: string;
+      code: string;
+      created_at: string;
+      archived?: boolean;
+    }[]
   ).map((r) => ({
+    archived: r.archived === true,
     id: r.id,
     name: r.name,
     code: r.code,
@@ -84,14 +93,21 @@ export async function listTeacherClasses(
 
 export async function getTeacherClass(
   classId: string,
-): Promise<{ id: string; name: string; code: string } | null> {
+): Promise<{
+  id: string;
+  name: string;
+  code: string;
+  archived: boolean;
+} | null> {
   const { data, error } = await getSupabase()
     .from("classes")
-    .select("id, name, code")
+    .select("*")
     .eq("id", classId)
     .maybeSingle();
   if (error) fail(error);
-  return data;
+  if (!data) return null;
+  const r = data as { id: string; name: string; code: string; archived?: boolean };
+  return { id: r.id, name: r.name, code: r.code, archived: r.archived === true };
 }
 
 export async function createClass(name: string): Promise<void> {

@@ -67,9 +67,9 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
   await p.locator("label:has-text('7')").first().click();
   await p.click("button:has-text('Verificar resposta')");
   await p.waitForSelector("text=Correto!");
-  ok("acerto mostra a explicação e o XP (2ª tentativa = 10 XP)", (await p.locator("main").innerText()).includes("4 + 3 = 7") && (await p.locator("main").innerText()).includes("+10 XP"));
+  ok("acerto mostra a explicação e o XP (2ª tentativa = 20 XP)", (await p.locator("main").innerText()).includes("4 + 3 = 7") && (await p.locator("main").innerText()).includes("+20 XP"));
   ok("acerto também registrado como tentativa", st.attempts.length===2 && st.attempts[1].p_selected===2 && st.attempts[1].p_passed===true);
-  ok("acerto gravado como resolvido com XP", st.upserts[1].solved===true && st.upserts[1].xp===10 && st.upserts[1].attempts===2);
+  ok("acerto gravado como resolvido com XP", st.upserts[1].solved===true && st.upserts[1].xp===20 && st.upserts[1].attempts===2);
   ok("segunda atividade do mesmo dia soma sem duplicar a sequência", st.activity.length===2 && st.activity[1].p_solved===true && (await headerStreak(p))==="Sequência: 3 dias");
   ok("sugere o próximo exercício", (await p.locator("main").innerText()).includes("Próximo: Complete a condicional"));
 
@@ -84,7 +84,7 @@ const headerStreak=async p=>(await p.locator("header [aria-label^='Sequência']"
   await p.click("button:has-text('Verificar respostas')");
   await p.waitForSelector("text=Tudo certo!");
   ok("lacunas registradas: respostas e quantas estavam certas", st.attempts.length===4 && JSON.parse(st.attempts[2].p_answer).join(",")==="iff,else" && st.attempts[2].p_tests_passed===1 && st.attempts[2].p_tests_total===2 && st.attempts[3].p_passed===true);
-  ok("resposta certa com espaços extras é aceita; XP de 2ª tentativa", st.upserts.at(-1).solved===true && st.upserts.at(-1).xp===10);
+  ok("resposta certa com espaços extras é aceita; XP de 2ª tentativa", st.upserts.at(-1).solved===true && st.upserts.at(-1).xp===20);
 
   await p.click("nav >> text=Perfil");
   await p.waitForSelector("text=Sequência diária");

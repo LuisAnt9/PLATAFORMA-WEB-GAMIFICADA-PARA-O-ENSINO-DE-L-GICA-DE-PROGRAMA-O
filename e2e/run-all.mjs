@@ -16,6 +16,7 @@ const suites = [
   ["modo-aprendizado", "Modo aprendizado: módulos em ordem, conceito e modo prática"],
   ["area-do-aluno", "Área do aluno: início, mundos, lição em passos, progresso, conquistas e tema"],
   ["atividades", "Atividades e avaliações: professor cria, aluno resolve, professor acompanha"],
+  ["inteligencia", "Painel de dificuldades por conceito, recomendações, filtros e análise individual (dados de simulação)"],
   ["acessibilidade", "Acessibilidade (axe) e layout em celular/computador, claro/escuro"],
 ];
 

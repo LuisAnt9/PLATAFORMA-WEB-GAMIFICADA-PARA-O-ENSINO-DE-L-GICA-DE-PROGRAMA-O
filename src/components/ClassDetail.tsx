@@ -27,12 +27,14 @@ import { useWideScreen } from "@/lib/use-wide-screen";
 import { useLoader } from "@/lib/use-loader";
 import ActivityChart from "./ActivityChart";
 import { CatalogGate, useCatalog } from "./CatalogProvider";
+import ConceptPanel from "./ConceptPanel";
 import ProgressMatrix from "./ProgressMatrix";
 
 const TABS = [
   { id: "geral", label: "Visão geral" },
   { id: "alunos", label: "Alunos" },
   { id: "exercicios", label: "Exercícios" },
+  { id: "conceitos", label: "Conceitos" },
   { id: "config", label: "Configurações" },
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
@@ -554,6 +556,8 @@ function Content({ id }: { id: string }) {
           )}
         </div>
       )}
+
+      {tab === "conceitos" && <ConceptPanel classId={id} />}
 
       {tab === "config" && (
         <div role="tabpanel" id="painel-config" aria-labelledby="tab-config">

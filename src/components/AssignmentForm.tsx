@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import {
   RESULT_RULE_LABEL,
@@ -40,15 +40,29 @@ function Content() {
   const loadClasses = useCallback(() => listTeacherClasses(uid), [uid]);
   const { data: classes } = useLoader(`teacher-classes:${uid}`, loadClasses);
 
-  const [classId, setClassId] = useState("");
+  // vindo de uma recomendação do painel de conceitos: turma e exercícios do conceito já escolhidos
+  const params = useSearchParams();
+  const conceptId = params.get("conceito");
+  const concept = catalog.concepts?.find((c) => c.id === conceptId);
+  const [classId, setClassId] = useState(params.get("turma") ?? "");
   const [kind, setKind] = useState<AssignmentKind>("atividade");
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(concept ? `Reforço: ${concept.title}` : "");
   const [instructions, setInstructions] = useState("");
   const [from, setFrom] = useState(() => isoToLocalInput(new Date().toISOString()));
   const [due, setDue] = useState(defaultDue);
   const [required, setRequired] = useState(true);
   const [rule, setRule] = useState<ResultRule>("so_nota");
-  const [picked, setPicked] = useState<{ id: string; points: number }[]>([]);
+  const [picked, setPicked] = useState<{ id: string; points: number }[]>(() => {
+    if (!concept) return [];
+    const order = { facil: 0, medio: 1, dificil: 2 } as const;
+    return (catalog.links ?? [])
+      .filter((l) => l.conceptId === concept.id)
+      .map((l) => catalog.exercises.find((e) => e.id === l.exerciseId))
+      .filter((e): e is Exercise => !!e && e.published)
+      .sort((a, b) => order[a.difficulty] - order[b.difficulty])
+      .slice(0, 6)
+      .map((e) => ({ id: e.id, points: 1 }));
+  });
   const [search, setSearch] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -123,6 +137,12 @@ function Content() {
     <form onSubmit={submit} className="space-y-6">
       <BackLink href="/professor/atividades">Atividades</BackLink>
       <h1 className="text-2xl font-semibold tracking-tight">Nova atividade</h1>
+      {concept && (
+        <p role="status" className="rounded-xl bg-emerald-50 p-3 text-sm dark:bg-emerald-950">
+          Atividade de reforço sobre <strong>{concept.title}</strong>: já escolhemos exercícios desse conceito
+          (dos mais simples aos mais difíceis). Ajuste como quiser antes de publicar.
+        </p>
+      )}
 
       <fieldset className="space-y-3">
         <legend className="font-medium">Tipo</legend>

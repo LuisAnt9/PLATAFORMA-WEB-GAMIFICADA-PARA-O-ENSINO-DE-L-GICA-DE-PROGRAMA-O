@@ -1,0 +1,327 @@
+{
+  "id": "arrays-bidimensionais",
+  "mundo": "mundo-6",
+  "titulo": "Arrays bidimensionais",
+  "foco": "Acessar e alterar elementos de uma matriz",
+  "posicao": 611,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um array bidimensional é o nome técnico da matriz: tem duas dimensões, linha e coluna. Para acessar um elemento, usamos dois índices:\n\nmatriz[linha][coluna]\n\nO primeiro índice escolhe a linha; o segundo, a coluna dentro dela. Os dois começam em 0.\n\nconst m = [\n  [1, 2, 3],\n  [4, 5, 6],\n];\nm[0][2]   // linha 0, coluna 2: 3\nm[1][0]   // linha 1, coluna 0: 4\n\nComo ler: m[1] é a linha inteira (o array [4, 5, 6]) e m[1][0] é o primeiro elemento dessa linha.\n\nPara alterar, atribuímos: m[1][0] = 40.\n\nTruque para não confundir: pense \"linha primeiro, coluna depois\", como ao procurar uma casa em um mapa: primeiro a rua, depois o número.\n\nAs linhas não precisam ter o mesmo tamanho (matrizes irregulares), mas o mais comum é que tenham.",
+  "exemplo": "const m = [[1, 2, 3], [4, 5, 6]];\nm[1][0] = 40;\nconsole.log(m[1][0] + m[0][2]);\n\nPasso a passo:\n1. m[1][0] é a linha 1, coluna 0: valia 4 e passa a valer 40.\n2. m[0][2] é a linha 0, coluna 2: vale 3.\n3. A soma 40 + 3 é 43, que é mostrada.",
+  "revisao": "- Acesso: matriz[linha][coluna], os dois índices começam em 0.\n- matriz[i] é a linha inteira (um array).\n- Alterar: matriz[i][j] = valor.\n- Pense: linha primeiro, coluna depois.\n- As linhas podem ter tamanhos diferentes, mas em geral têm o mesmo.",
+  "exercicios": [
+    {
+      "id": "bid-linha-ou-coluna",
+      "tipo": "escolha",
+      "titulo": "Linha ou coluna?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 }
+      ],
+      "enunciado": "Em matriz[i][j], o que cada índice representa?",
+      "opcoes": [
+        { "texto": "i é a coluna e j é a linha", "confusao": "troca linha e coluna" },
+        {
+          "texto": "Os dois índices representam a linha",
+          "confusao": "acha que os dois índices escolhem a linha"
+        },
+        "i é a linha e j é a coluna",
+        { "texto": "i é o valor e j é a posição", "confusao": "acha que i é o valor guardado" }
+      ],
+      "correta": 2,
+      "dica": "Linha primeiro, coluna depois.",
+      "explicacao": "O primeiro índice escolhe a linha e o segundo escolhe a coluna dentro dela."
+    },
+    {
+      "id": "bid-elemento",
+      "tipo": "interpretacao",
+      "titulo": "Qual elemento?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2], [3, 4]];\nconsole.log(m[0][1]);",
+      "opcoes": [
+        { "texto": "3", "confusao": "troca linha e coluna: lê a linha 1, coluna 0" },
+        "2",
+        { "texto": "1", "confusao": "lê a primeira coluna em vez da segunda" },
+        { "texto": "4", "confusao": "lê a última linha e a última coluna" }
+      ],
+      "correta": 1,
+      "dica": "Linha 0, coluna 1.",
+      "explicacao": "m[0] é [1, 2] e o elemento de índice 1 dessa linha é 2."
+    },
+    {
+      "id": "bid-complete-a-linha",
+      "tipo": "lacuna",
+      "titulo": "Complete a linha",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 }
+      ],
+      "enunciado": "Complete o índice para mostrar o primeiro elemento da SEGUNDA linha.",
+      "modelo": "const m = [[1, 2], [3, 4]];\nconsole.log(m[{{1}}][0]);",
+      "lacunas": [
+        { "respostas": ["1"] }
+      ],
+      "dica": "A segunda linha tem índice 1.",
+      "explicacao": "A segunda linha é a de índice 1: m[1][0] vale 3."
+    },
+    {
+      "id": "bid-alterar-e-somar",
+      "tipo": "interpretacao",
+      "titulo": "Alterando um elemento",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2, 3], [4, 5, 6]];\nm[1][0] = 40;\nconsole.log(m[1][0] + m[0][2]);",
+      "opcoes": [
+        { "texto": "7", "confusao": "ignora a atribuição e usa o valor antigo (4 + 3)" },
+        { "texto": "46", "confusao": "lê m[1][2] em vez de m[0][2]" },
+        { "texto": "41", "confusao": "soma o valor novo com o primeiro elemento da primeira linha" },
+        "43"
+      ],
+      "correta": 3,
+      "dica": "m[1][0] passa a valer 40 antes da soma.",
+      "explicacao": "m[1][0] foi trocado por 40 e m[0][2] vale 3: 40 + 3 = 43."
+    },
+    {
+      "id": "bid-elemento-em",
+      "tipo": "codigo",
+      "titulo": "Elemento da matriz",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `elementoEm(m, i, j)` que devolve o elemento da linha i e coluna j da matriz.",
+      "funcao": "elementoEm",
+      "codigoInicial": "function elementoEm(m, i, j) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]],
+            0,
+            1
+          ],
+          "esperado": 2
+        },
+        {
+          "entrada": [
+            [[1, 2], [3, 4]],
+            1,
+            0
+          ],
+          "esperado": 3
+        },
+        {
+          "entrada": [
+            [[9]],
+            0,
+            0
+          ],
+          "esperado": 9
+        }
+      ],
+      "dica": "Primeiro a linha, depois a coluna.",
+      "comentario": "m[i][j] lê o elemento da linha i, coluna j."
+    },
+    {
+      "id": "bid-soma-da-linha",
+      "tipo": "codigo",
+      "titulo": "Soma de uma linha",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `somaDaLinha(m, i)` que devolve a soma dos elementos da linha i da matriz.",
+      "funcao": "somaDaLinha",
+      "codigoInicial": "function somaDaLinha(m, i) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]],
+            0
+          ],
+          "esperado": 6
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]],
+            1
+          ],
+          "esperado": 15
+        },
+        {
+          "entrada": [
+            [[7]],
+            0
+          ],
+          "esperado": 7
+        }
+      ],
+      "dica": "m[i] é um array: percorra-o com um for.",
+      "comentario": "A linha m[i] é um array comum; um acumulador soma cada um dos seus elementos."
+    },
+    {
+      "id": "bid-ultima-linha",
+      "tipo": "codigo",
+      "titulo": "Última linha",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `ultimaLinha(m)` que devolve a última linha da matriz (que tem pelo menos uma linha).",
+      "funcao": "ultimaLinha",
+      "codigoInicial": "function ultimaLinha(m) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]]
+          ],
+          "esperado": [3, 4]
+        },
+        {
+          "entrada": [
+            [[5]]
+          ],
+          "esperado": [5]
+        },
+        {
+          "entrada": [
+            [[1], [2, 3], [4, 5, 6]]
+          ],
+          "esperado": [4, 5, 6]
+        }
+      ],
+      "dica": "Quantas linhas existem? Qual é o índice da última?",
+      "comentario": "O número de linhas é m.length e o índice da última é m.length - 1."
+    },
+    {
+      "id": "bid-corrija-linha-e-coluna",
+      "tipo": "corrigir",
+      "titulo": "Corrija linha e coluna",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 }
+      ],
+      "enunciado": "A função `valorEm(m, i, j)` deveria devolver o elemento da linha i e coluna j, mas devolve o elemento de outra posição quando i e j são diferentes. Corrija o defeito.",
+      "funcao": "valorEm",
+      "codigoInicial": "function valorEm(m, i, j) {\n  return m[j][i];\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]],
+            0,
+            2
+          ],
+          "esperado": 3
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]],
+            1,
+            0
+          ],
+          "esperado": 4
+        },
+        {
+          "entrada": [
+            [[7]],
+            0,
+            0
+          ],
+          "esperado": 7
+        }
+      ],
+      "dica": "O primeiro índice escolhe a linha ou a coluna?",
+      "comentario": "Os índices estavam trocados. A linha vem primeiro: m[i][j]."
+    },
+    {
+      "id": "bid-linhas-irregulares",
+      "tipo": "interpretacao",
+      "titulo": "Linhas de tamanhos diferentes",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1], [2, 3], [4, 5, 6]];\nconsole.log(m[2].length + m[1][1]);",
+      "opcoes": [
+        "6",
+        { "texto": "5", "confusao": "usa m[1].length no lugar de m[2].length" },
+        { "texto": "9", "confusao": "soma os elementos da última linha em vez de usar o length" },
+        { "texto": "4", "confusao": "usa o número de linhas (3) mais 1" }
+      ],
+      "correta": 0,
+      "dica": "m[2] é a terceira linha. Quantos elementos ela tem?",
+      "explicacao": "m[2] é [4, 5, 6]: length 3. m[1][1] é 3. Soma: 6."
+    },
+    {
+      "id": "bid-coluna",
+      "tipo": "codigo",
+      "titulo": "Extrair uma coluna",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m6-bidimensionais", "peso": 3 },
+        { "id": "m6-push", "peso": 2 },
+        { "id": "m6-percorrer-for", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `coluna(m, j)` que devolve um array com os elementos da coluna j, na ordem das linhas. Por exemplo, coluna([[1, 2], [3, 4]], 1) devolve [2, 4].",
+      "funcao": "coluna",
+      "codigoInicial": "function coluna(m, j) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]],
+            1
+          ],
+          "esperado": [2, 4]
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]],
+            0
+          ],
+          "esperado": [1, 4]
+        },
+        {
+          "entrada": [
+            [[7, 8, 9]],
+            2
+          ],
+          "esperado": [9]
+        }
+      ],
+      "dica": "Percorra as linhas e pegue o elemento j de cada uma.",
+      "comentario": "Um laço visita cada linha i e adiciona m[i][j] ao resultado com push."
+    }
+  ]
+}

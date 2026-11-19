@@ -1,0 +1,225 @@
+{
+  "id": "introducao-as-matrizes",
+  "mundo": "mundo-6",
+  "titulo": "Introdução às matrizes",
+  "foco": "Organizar dados em linhas e colunas",
+  "posicao": 610,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Algumas informações naturalmente formam uma tabela: as notas de vários alunos em várias provas, um tabuleiro de jogo, os assentos de um cinema. Para guardá-las, usamos uma matriz: uma tabela organizada em linhas e colunas.\n\nEm JavaScript, uma matriz é um array de arrays: cada elemento do array de fora é uma linha, e cada linha é um array com os valores das colunas.\n\nconst notas = [\n  [7, 8, 9],     // linha 0: aluno 1\n  [5, 6, 10],    // linha 1: aluno 2\n];\n\nEssa matriz tem 2 linhas e 3 colunas, e portanto 2 × 3 = 6 elementos.\n\nComo ler os tamanhos:\n- notas.length é o número de linhas (quantos arrays existem dentro);\n- notas[0].length é o número de colunas (quantos valores tem a primeira linha).\n\nCuidado para não confundir linha com coluna: linhas são horizontais, colunas são verticais.",
+  "exemplo": "const m = [\n  [1, 2, 3],\n  [4, 5, 6],\n];\nconsole.log(m.length);\nconsole.log(m[0].length);\n\nPasso a passo:\n1. m é um array com duas linhas: [1, 2, 3] e [4, 5, 6].\n2. m.length conta as linhas: mostra 2.\n3. m[0] é a primeira linha, [1, 2, 3]; m[0].length conta as colunas: mostra 3.",
+  "revisao": "- Matriz: tabela com linhas e colunas.\n- Em JavaScript, é um array de arrays: cada elemento é uma linha.\n- matriz.length é o número de linhas; matriz[0].length é o número de colunas.\n- Uma matriz com L linhas e C colunas tem L × C elementos.\n- Não confunda linha (horizontal) com coluna (vertical).",
+  "exercicios": [
+    {
+      "id": "mat-intro-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é uma matriz?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 }
+      ],
+      "enunciado": "O que é uma matriz em programação?",
+      "opcoes": [
+        "Uma tabela de valores organizada em linhas e colunas",
+        {
+          "texto": "Um array com um único valor",
+          "confusao": "acha que a matriz tem apenas um elemento"
+        },
+        {
+          "texto": "Uma variável que guarda um número muito grande",
+          "confusao": "confunde matriz com número grande"
+        },
+        {
+          "texto": "Um laço que repete linhas de código",
+          "confusao": "confunde matriz com estrutura de repetição"
+        }
+      ],
+      "correta": 0,
+      "dica": "Pense em uma planilha ou em um tabuleiro.",
+      "explicacao": "Uma matriz organiza valores em linhas e colunas; em JavaScript, é um array cujos elementos são outros arrays."
+    },
+    {
+      "id": "mat-intro-numero-de-linhas",
+      "tipo": "interpretacao",
+      "titulo": "Quantas linhas?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2], [3, 4]];\nconsole.log(m.length);",
+      "opcoes": [
+        { "texto": "4", "confusao": "acha que length conta todos os elementos da matriz" },
+        {
+          "texto": "1",
+          "confusao": "acha que length mostra o número de colunas da primeira linha menos 1"
+        },
+        "2",
+        { "texto": "3", "confusao": "confunde length com o último valor" }
+      ],
+      "correta": 2,
+      "dica": "O array de fora tem quantos elementos?",
+      "explicacao": "m.length é o número de linhas: a matriz tem duas linhas, [1, 2] e [3, 4]."
+    },
+    {
+      "id": "mat-intro-complete-a-segunda-linha",
+      "tipo": "lacuna",
+      "titulo": "Complete a matriz",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 2 },
+        { "id": "m6-arrays", "peso": 1 }
+      ],
+      "enunciado": "Complete a segunda linha da matriz.",
+      "modelo": "const tabela = [[1, 2], {{1}}];",
+      "lacunas": [
+        { "respostas": ["[3, 4]", "[3,4]"] }
+      ],
+      "dica": "Cada linha é um array entre colchetes.",
+      "explicacao": "Cada linha de uma matriz é um array: aqui, a segunda linha é [3, 4]."
+    },
+    {
+      "id": "mat-intro-numero-de-colunas",
+      "tipo": "interpretacao",
+      "titulo": "Quantas colunas?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2, 3], [4, 5, 6]];\nconsole.log(m[0].length);",
+      "opcoes": [
+        { "texto": "2", "confusao": "confunde o número de colunas com o número de linhas" },
+        "3",
+        { "texto": "6", "confusao": "acha que length conta todos os elementos" },
+        { "texto": "1", "confusao": "acha que m[0].length devolve o primeiro valor da linha" }
+      ],
+      "correta": 1,
+      "dica": "m[0] é a primeira linha; quantos valores ela tem?",
+      "explicacao": "m[0] é [1, 2, 3]. Seu length é 3: a matriz tem 3 colunas."
+    },
+    {
+      "id": "mat-intro-total-de-elementos",
+      "tipo": "escolha",
+      "titulo": "Total de elementos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Uma matriz tem 3 linhas e 4 colunas. Quantos elementos ela tem no total?",
+      "opcoes": [
+        { "texto": "7", "confusao": "soma linhas e colunas em vez de multiplicar" },
+        { "texto": "3", "confusao": "conta só as linhas" },
+        { "texto": "4", "confusao": "conta só as colunas" },
+        "12"
+      ],
+      "correta": 3,
+      "dica": "Cada linha tem 4 valores, e há 3 linhas.",
+      "explicacao": "O total é linhas × colunas: 3 × 4 = 12."
+    },
+    {
+      "id": "mat-intro-criar-2x2",
+      "tipo": "codigo",
+      "titulo": "Criar uma matriz 2×2",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 },
+        { "id": "m6-arrays", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `criar2x2(a, b, c, d)` que devolve a matriz com duas linhas: [a, b] na primeira e [c, d] na segunda.",
+      "funcao": "criar2x2",
+      "codigoInicial": "function criar2x2(a, b, c, d) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [1, 2, 3, 4],
+          "esperado": [[1, 2], [3, 4]]
+        },
+        {
+          "entrada": [0, 0, 0, 0],
+          "esperado": [[0, 0], [0, 0]]
+        },
+        {
+          "entrada": ["a", "b", "c", "d"],
+          "esperado": [["a", "b"], ["c", "d"]]
+        }
+      ],
+      "dica": "Cada linha é um array; a matriz é um array de arrays.",
+      "comentario": "A matriz é um array cujos dois elementos são as linhas [a, b] e [c, d]."
+    },
+    {
+      "id": "mat-intro-corrija-contar-linhas",
+      "tipo": "corrigir",
+      "titulo": "Corrija a contagem de linhas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "A função `contarLinhas(m)` deveria devolver o número de linhas da matriz, mas devolve o número de colunas. Corrija o defeito.",
+      "funcao": "contarLinhas",
+      "codigoInicial": "function contarLinhas(m) {\n  return m[0].length;\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]]
+          ],
+          "esperado": 2
+        },
+        {
+          "entrada": [
+            [[1]]
+          ],
+          "esperado": 1
+        },
+        {
+          "entrada": [
+            [[1, 2], [3, 4], [5, 6]]
+          ],
+          "esperado": 3
+        }
+      ],
+      "dica": "Quem representa as linhas: m ou m[0]?",
+      "comentario": "As linhas são os elementos de m, então m.length é o número de linhas. m[0].length conta as colunas."
+    },
+    {
+      "id": "mat-intro-dois-indices",
+      "tipo": "interpretacao",
+      "titulo": "Dois índices",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-introducao-matrizes", "peso": 2 },
+        { "id": "m6-bidimensionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];\nconsole.log(m[1][2] + m[2][0]);",
+      "opcoes": [
+        "13",
+        { "texto": "11", "confusao": "troca linha e coluna: lê m[2][1] e m[0][2]" },
+        { "texto": "9", "confusao": "soma os elementos de índices 1 e 2 da primeira linha" },
+        { "texto": "15", "confusao": "soma o elemento do canto com o do centro" }
+      ],
+      "correta": 0,
+      "dica": "m[linha][coluna]. Comece pela linha.",
+      "explicacao": "m[1][2] é o elemento da linha 1, coluna 2: 6. m[2][0] é o da linha 2, coluna 0: 7. Soma: 13."
+    }
+  ]
+}

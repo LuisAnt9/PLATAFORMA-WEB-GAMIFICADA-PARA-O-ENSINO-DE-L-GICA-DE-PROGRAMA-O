@@ -1,0 +1,279 @@
+{
+  "id": "percorrer-arrays-com-while",
+  "mundo": "mundo-6",
+  "titulo": "Percorrer arrays com while",
+  "foco": "Percorrer um array enquanto uma condição valer",
+  "posicao": 609,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O while também percorre arrays. Ele é a melhor escolha quando não sabemos até onde vamos: por exemplo, procurar um valor e parar assim que o encontrarmos.\n\nlet i = 0;\nwhile (i < v.length) {\n  // usa v[i]\n  i++;\n}\n\nDiferente do for, aqui o índice é declarado antes do laço e atualizado dentro do corpo. Esquecer o i++ cria um laço infinito.\n\nPodemos juntar duas condições com && para parar cedo:\n\nlet i = 0;\nwhile (i < v.length && v[i] !== 8) {\n  i++;\n}\n// ao sair, i é a posição do primeiro 8 (ou v.length, se não houver)\n\nRepare na ordem: primeiro conferimos i < v.length (para não passar do fim) e só depois olhamos v[i].\n\nPara percorrer de trás para frente, comece em v.length - 1 e use i--.",
+  "exemplo": "const v = [3, 8, 5, 8];\nlet i = 0;\nwhile (i < v.length && v[i] !== 8) {\n  i++;\n}\nconsole.log(i);\n\nPasso a passo:\n1. i = 0: v[0] é 3 (diferente de 8): i passa a 1.\n2. i = 1: v[1] é 8: a condição v[i] !== 8 é false e o laço termina.\n3. Mostra 1, a posição do primeiro 8.",
+  "revisao": "- while percorre arrays quando a parada depende de uma condição.\n- O índice é declarado antes do laço e atualizado dentro dele (i++).\n- Sem a atualização, o laço é infinito.\n- Confira i < v.length antes de acessar v[i].\n- Use && para parar quando achar o que procura.",
+  "exercicios": [
+    {
+      "id": "while-vet-o-que-nao-pode-faltar",
+      "tipo": "escolha",
+      "titulo": "O que não pode faltar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m5-while", "peso": 1 }
+      ],
+      "enunciado": "Em um while que percorre um array com o índice i, o que não pode faltar dentro do laço?",
+      "opcoes": [
+        "A atualização do índice (por exemplo, i++)",
+        {
+          "texto": "Um comando break em toda volta",
+          "confusao": "acha que o while precisa de break para terminar"
+        },
+        {
+          "texto": "A declaração do array",
+          "confusao": "acha que o array precisa ser declarado a cada volta"
+        },
+        {
+          "texto": "Um segundo laço",
+          "confusao": "acha que percorrer um array exige laços aninhados"
+        }
+      ],
+      "correta": 0,
+      "dica": "Sem mudar i, a condição nunca fica falsa.",
+      "explicacao": "Se o índice não for atualizado, a condição não muda e o laço fica infinito."
+    },
+    {
+      "id": "while-vet-mostra-tudo",
+      "tipo": "interpretacao",
+      "titulo": "Mostrando com while",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const v = [2, 4, 6];\nlet i = 0;\nwhile (i < v.length) {\n  console.log(v[i]);\n  i++;\n}",
+      "opcoes": [
+        { "texto": "0\n1\n2", "confusao": "mostra os índices em vez dos elementos" },
+        { "texto": "4\n6", "confusao": "começa pelo segundo elemento" },
+        "2\n4\n6",
+        { "texto": "2\n4\n6\nundefined", "confusao": "acha que o laço visita v[v.length]" }
+      ],
+      "correta": 2,
+      "dica": "v[i] é o elemento da vez.",
+      "explicacao": "i vai de 0 a 2 e o laço mostra 2, 4 e 6."
+    },
+    {
+      "id": "while-vet-complete-a-atualizacao",
+      "tipo": "lacuna",
+      "titulo": "Complete a atualização",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m5-while", "peso": 2 }
+      ],
+      "enunciado": "Complete a atualização do índice dentro do laço.",
+      "modelo": "let i = 0;\nwhile (i < v.length) {\n  console.log(v[i]);\n  {{1}};\n}",
+      "lacunas": [
+        { "respostas": ["i++", "i += 1", "i = i + 1", "++i"] }
+      ],
+      "dica": "Sem essa linha, o laço seria infinito.",
+      "explicacao": "i++ avança para a próxima posição do array."
+    },
+    {
+      "id": "while-vet-parar-no-oito",
+      "tipo": "interpretacao",
+      "titulo": "Parando no oito",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [3, 8, 5, 8];\nlet i = 0;\nwhile (i < v.length && v[i] !== 8) {\n  i++;\n}\nconsole.log(i);",
+      "opcoes": [
+        { "texto": "3", "confusao": "acha que o laço encontra a última ocorrência do 8" },
+        "1",
+        {
+          "texto": "2",
+          "confusao": "conta a quantidade de elementos antes do 8 e erra uma posição"
+        },
+        { "texto": "0", "confusao": "acha que o laço para logo na primeira volta" }
+      ],
+      "correta": 1,
+      "dica": "O laço para na primeira vez que v[i] é igual a 8.",
+      "explicacao": "i avança de 0 para 1; em v[1] o valor é 8 e o laço termina. A primeira ocorrência está na posição 1."
+    },
+    {
+      "id": "while-vet-primeiro-negativo",
+      "tipo": "codigo",
+      "titulo": "Primeiro negativo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m3-logicos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `primeiroNegativo(v)` que devolve o índice do primeiro elemento negativo do array, ou -1 se não houver nenhum. Use while.",
+      "funcao": "primeiroNegativo",
+      "codigoInicial": "function primeiroNegativo(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, -1, 5, -2]],
+          "esperado": 1
+        },
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": -1
+        },
+        {
+          "entrada": [[-4]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[]],
+          "esperado": -1
+        }
+      ],
+      "dica": "Avance o índice enquanto não passar do fim e o elemento não for negativo.",
+      "comentario": "O laço avança i enquanto i < v.length e v[i] >= 0. Ao sair, se i < v.length achamos o negativo; senão, devolvemos -1."
+    },
+    {
+      "id": "while-vet-somar-ate-zero",
+      "tipo": "codigo",
+      "titulo": "Somar até o zero",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somarAteZero(v)` que soma os elementos do array até encontrar um 0 (o 0 e o que vem depois não entram na soma). Sem zero, soma todos.",
+      "funcao": "somarAteZero",
+      "codigoInicial": "function somarAteZero(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 0, 5]],
+          "esperado": 3
+        },
+        {
+          "entrada": [[0, 4]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[4, 4]],
+          "esperado": 8
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        }
+      ],
+      "dica": "O laço deve continuar enquanto houver elemento e ele não for 0.",
+      "comentario": "O while soma v[i] e avança i enquanto i < v.length e v[i] !== 0."
+    },
+    {
+      "id": "while-vet-corrija-a-busca",
+      "tipo": "corrigir",
+      "titulo": "Corrija a busca",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m5-while", "peso": 2 }
+      ],
+      "enunciado": "A função `posicaoDe(v, x)` deveria devolver o índice da primeira ocorrência de x (ou -1), mas o laço nunca termina quando x não está na primeira posição (o computador desiste por tempo esgotado). Corrija o defeito.",
+      "funcao": "posicaoDe",
+      "codigoInicial": "function posicaoDe(v, x) {\n  let i = 0;\n  while (i < v.length && v[i] !== x) {\n  }\n  return i < v.length ? i : -1;\n}\n",
+      "testes": [
+        {
+          "entrada": [[4, 8, 15], 15],
+          "esperado": 2
+        },
+        {
+          "entrada": [[1], 1],
+          "esperado": 0
+        },
+        {
+          "entrada": [[1, 2], 5],
+          "esperado": -1
+        }
+      ],
+      "dica": "O que muda a cada volta do laço?",
+      "comentario": "Faltava avançar o índice dentro do laço: com i++ a condição eventualmente fica falsa."
+    },
+    {
+      "id": "while-vet-pulando-de-dois-em-dois",
+      "tipo": "interpretacao",
+      "titulo": "De dois em dois",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3, 4, 5];\nlet i = v.length - 1;\nlet s = 0;\nwhile (i >= 0) {\n  s += v[i];\n  i -= 2;\n}\nconsole.log(s);",
+      "opcoes": [
+        { "texto": "15", "confusao": "acha que o laço soma todos os elementos" },
+        {
+          "texto": "6",
+          "confusao": "soma só os elementos de índice par começando de 0 e errando um"
+        },
+        { "texto": "12", "confusao": "soma os elementos das posições 3 e 1 e mais o último" },
+        "9"
+      ],
+      "correta": 3,
+      "dica": "i vale 4, 2 e 0.",
+      "explicacao": "O laço soma v[4] = 5, v[2] = 3 e v[0] = 1: 9."
+    },
+    {
+      "id": "while-vet-todos-crescentes",
+      "tipo": "codigo",
+      "titulo": "Em ordem crescente?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m6-percorrer-while", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `crescente(v)` que devolve true se cada elemento do array é maior que o anterior (estritamente crescente) e false caso contrário. Arrays vazios ou com um elemento são considerados crescentes.",
+      "funcao": "crescente",
+      "codigoInicial": "function crescente(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": true
+        },
+        {
+          "entrada": [[1, 3, 2]],
+          "esperado": false
+        },
+        {
+          "entrada": [[5]],
+          "esperado": true
+        },
+        {
+          "entrada": [[]],
+          "esperado": true
+        },
+        {
+          "entrada": [[1, 1]],
+          "esperado": false
+        }
+      ],
+      "dica": "Compare v[i] com v[i - 1] e pare assim que achar um par fora de ordem.",
+      "comentario": "O laço avança enquanto cada par estiver em ordem; se algum par violar a regra, a resposta é false."
+    }
+  ]
+}

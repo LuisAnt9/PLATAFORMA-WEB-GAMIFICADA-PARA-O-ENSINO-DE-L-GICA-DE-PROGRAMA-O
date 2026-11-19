@@ -1,0 +1,227 @@
+{
+  "id": "introducao-aos-vetores",
+  "mundo": "mundo-6",
+  "titulo": "Introdução aos vetores",
+  "foco": "Guardar vários valores em uma única variável",
+  "posicao": 601,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Imagine guardar as notas de 30 alunos. Criar 30 variáveis (nota1, nota2, nota3...) seria trabalhoso e impossível de percorrer com um laço. Para isso existe o vetor: uma única variável que guarda vários valores, organizados em fila.\n\nconst notas = [7, 8.5, 6, 9];\n\nCada valor do vetor é um elemento e ocupa uma posição numerada. Em JavaScript, os vetores são chamados de arrays. A grande vantagem é tratar o conjunto como um todo: guardar, percorrer, somar, procurar.\n\nUse um vetor quando tiver muitos valores do mesmo tipo de informação (as notas de uma turma, os preços de uma lista de compras, os nomes de vários alunos) e quiser processá-los do mesmo jeito.\n\nCuidado: um vetor é uma estrutura que guarda dados. Quando você atribui um vetor a outra variável, as duas passam a apontar para o mesmo conjunto (veremos isso adiante).",
+  "exemplo": "const notas = [7, 8, 9];\nconsole.log(notas[0] + notas[2]);\n\nPasso a passo:\n1. O vetor notas guarda três valores: 7, 8 e 9.\n2. notas[0] é o valor da primeira posição: 7.\n3. notas[2] é o valor da terceira posição: 9.\n4. A soma 7 + 9 resulta em 16, que é mostrado.\n\nAs posições começam em 0: a primeira é 0, a segunda é 1, a terceira é 2.",
+  "revisao": "- Um vetor (array) guarda vários valores em uma única variável.\n- Cada valor é um elemento e fica em uma posição numerada.\n- As posições começam em 0.\n- Use vetores para muitos valores do mesmo tipo de informação que serão processados do mesmo jeito.\n- Atribuir um vetor a outra variável não cria uma cópia dos dados.",
+  "exercicios": [
+    {
+      "id": "vet-intro-para-que-serve",
+      "tipo": "escolha",
+      "titulo": "Para que serve um vetor?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 3 }
+      ],
+      "enunciado": "Para que serve um vetor?",
+      "opcoes": [
+        {
+          "texto": "Para guardar apenas um valor muito grande",
+          "confusao": "acha que o vetor guarda um único valor"
+        },
+        "Para guardar vários valores em uma única variável",
+        {
+          "texto": "Para repetir um trecho de código várias vezes",
+          "confusao": "confunde vetor com laço de repetição"
+        },
+        {
+          "texto": "Para decidir entre dois caminhos",
+          "confusao": "confunde vetor com estrutura condicional"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense nas notas de uma turma inteira.",
+      "explicacao": "O vetor reúne vários valores sob um só nome, o que permite percorrê-los e processá-los em conjunto."
+    },
+    {
+      "id": "vet-intro-soma-das-pontas",
+      "tipo": "interpretacao",
+      "titulo": "Primeiro e último",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = [10, 20, 30];\nconsole.log(a[0] + a[2]);",
+      "opcoes": [
+        { "texto": "30", "confusao": "acha que a primeira posição é a 1 e soma 10 + 20" },
+        { "texto": "60", "confusao": "soma todos os elementos do vetor" },
+        { "texto": "50", "confusao": "soma o segundo e o terceiro elementos" },
+        "40"
+      ],
+      "correta": 3,
+      "dica": "As posições começam em 0.",
+      "explicacao": "a[0] vale 10 e a[2] vale 30: 10 + 30 = 40."
+    },
+    {
+      "id": "vet-intro-complete-o-vetor",
+      "tipo": "lacuna",
+      "titulo": "Complete a declaração",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 2 },
+        { "id": "m6-arrays", "peso": 1 }
+      ],
+      "enunciado": "Complete o símbolo que abre a lista de valores do vetor.",
+      "modelo": "const dias = {{1}}\"seg\", \"ter\", \"qua\"];",
+      "lacunas": [
+        { "respostas": ["["] }
+      ],
+      "dica": "Os vetores usam colchetes.",
+      "explicacao": "Os valores do vetor ficam entre colchetes: [\"seg\", \"ter\", \"qua\"]."
+    },
+    {
+      "id": "vet-intro-quando-usar",
+      "tipo": "escolha",
+      "titulo": "Quando usar um vetor?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 3 }
+      ],
+      "enunciado": "Em qual situação um vetor é a melhor escolha?",
+      "opcoes": [
+        "Para guardar as notas de 30 alunos e calcular a média da turma",
+        {
+          "texto": "Para guardar o nome de um único aluno",
+          "confusao": "acha que o vetor serve para um só valor"
+        },
+        {
+          "texto": "Para guardar um valor que nunca muda",
+          "confusao": "confunde vetor com constante"
+        },
+        {
+          "texto": "Para executar um código quando uma condição é verdadeira",
+          "confusao": "confunde vetor com if"
+        }
+      ],
+      "correta": 0,
+      "dica": "Vários valores do mesmo tipo de informação, tratados do mesmo jeito.",
+      "explicacao": "Quando há muitos valores parecidos que serão processados da mesma forma, um vetor evita criar dezenas de variáveis."
+    },
+    {
+      "id": "vet-intro-tipos-misturados",
+      "tipo": "interpretacao",
+      "titulo": "Tipos misturados",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 2 },
+        { "id": "m6-arrays", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const mix = [1, \"dois\", true];\nconsole.log(typeof mix[1]);",
+      "opcoes": [
+        { "texto": "number", "confusao": "acha que todos os elementos do vetor viram números" },
+        { "texto": "boolean", "confusao": "confunde a posição 1 com o último elemento" },
+        "string",
+        { "texto": "array", "confusao": "confunde o tipo do elemento com o tipo do vetor" }
+      ],
+      "correta": 2,
+      "dica": "mix[1] é o segundo elemento.",
+      "explicacao": "Um vetor pode misturar tipos. O elemento da posição 1 é \"dois\", que é uma string."
+    },
+    {
+      "id": "vet-intro-soma-de-tres",
+      "tipo": "codigo",
+      "titulo": "Soma de três",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 2 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somaDeTres(v)` que recebe um vetor com exatamente 3 números e devolve a soma deles.",
+      "funcao": "somaDeTres",
+      "codigoInicial": "function somaDeTres(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 6
+        },
+        {
+          "entrada": [[10, 20, 30]],
+          "esperado": 60
+        },
+        {
+          "entrada": [[-1, 0, 1]],
+          "esperado": 0
+        }
+      ],
+      "dica": "v[0], v[1] e v[2] são os três elementos.",
+      "comentario": "Os elementos ficam nas posições 0, 1 e 2; basta somá-los."
+    },
+    {
+      "id": "vet-intro-corrija-a-posicao",
+      "tipo": "corrigir",
+      "titulo": "Corrija as posições",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 2 },
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "A função `somaDosDois(v)` deveria devolver a soma dos dois elementos de um vetor de tamanho 2 (por exemplo, 3 para [1, 2]), mas devolve NaN. Corrija o defeito.",
+      "funcao": "somaDosDois",
+      "codigoInicial": "function somaDosDois(v) {\n  return v[1] + v[2];\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2]],
+          "esperado": 3
+        },
+        {
+          "entrada": [[10, 5]],
+          "esperado": 15
+        },
+        {
+          "entrada": [[0, 0]],
+          "esperado": 0
+        }
+      ],
+      "dica": "Qual é a posição do primeiro elemento?",
+      "comentario": "A contagem começa em 0: os elementos estão nas posições 0 e 1. Usar v[2] acessa uma posição que não existe (undefined)."
+    },
+    {
+      "id": "vet-intro-mesmo-vetor",
+      "tipo": "interpretacao",
+      "titulo": "Dois nomes, um vetor",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-introducao-vetores", "peso": 2 },
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = [5, 10, 15];\nconst b = a;\nb[0] = 99;\nconsole.log(a[0]);",
+      "opcoes": [
+        {
+          "texto": "5",
+          "confusao": "acha que atribuir o vetor a outra variável cria uma cópia dos dados"
+        },
+        "99",
+        { "texto": "15", "confusao": "confunde a posição 0 com o último elemento" },
+        { "texto": "undefined", "confusao": "acha que a variável a é apagada depois da atribuição" }
+      ],
+      "correta": 1,
+      "dica": "b = a copia o vetor ou aponta para o mesmo conjunto?",
+      "explicacao": "b e a apontam para o mesmo vetor. Alterar b[0] altera o que a enxerga: a[0] vale 99."
+    }
+  ]
+}

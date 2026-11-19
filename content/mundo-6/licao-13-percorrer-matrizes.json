@@ -1,0 +1,369 @@
+{
+  "id": "percorrer-matrizes",
+  "mundo": "mundo-6",
+  "titulo": "Percorrer matrizes com laços aninhados",
+  "foco": "Visitar todas as linhas e colunas com dois laços",
+  "posicao": 612,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Para visitar todos os elementos de uma matriz, usamos dois laços aninhados: o de fora percorre as linhas e o de dentro percorre as colunas de cada linha.\n\nfor (let i = 0; i < m.length; i++) {          // linhas\n  for (let j = 0; j < m[i].length; j++) {     // colunas da linha i\n    // m[i][j] é o elemento da vez\n  }\n}\n\nOs limites:\n- o laço das linhas vai até m.length;\n- o laço das colunas vai até m[i].length (o tamanho da linha atual).\n\nCom esse padrão você faz o que fazia com arrays simples, mas em duas dimensões: somar todos os elementos, achar o maior, contar valores, mostrar a tabela linha a linha.\n\nAtenção a dois cuidados:\n- inicialize acumuladores e contadores antes dos dois laços;\n- ao procurar o maior valor, não comece com 0: a matriz pode ter só números negativos. Comece com o primeiro elemento (m[0][0]).",
+  "exemplo": "const m = [[1, 2], [3, 4]];\nlet soma = 0;\nfor (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].length; j++) {\n    soma += m[i][j];\n  }\n}\nconsole.log(soma);\n\nPasso a passo:\n1. i = 0 (primeira linha): j = 0 soma 1; j = 1 soma 2. soma vale 3.\n2. i = 1 (segunda linha): j = 0 soma 3; j = 1 soma 4. soma vale 10.\n3. Os laços terminam e o programa mostra 10.",
+  "revisao": "- Dois laços aninhados: o externo percorre as linhas, o interno percorre as colunas.\n- Limites: i < m.length e j < m[i].length.\n- m[i][j] é o elemento da vez.\n- Declare acumuladores e contadores antes dos laços.\n- Para achar o maior valor, comece pelo primeiro elemento, não por 0.",
+  "exercicios": [
+    {
+      "id": "pm-limites",
+      "tipo": "escolha",
+      "titulo": "Os limites dos laços",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 }
+      ],
+      "enunciado": "Quais são os limites corretos para percorrer toda uma matriz m?",
+      "opcoes": [
+        {
+          "texto": "i < m.length e j < m.length",
+          "confusao": "supõe que a matriz é sempre quadrada"
+        },
+        {
+          "texto": "i < m[0].length e j < m.length",
+          "confusao": "troca o limite de linhas pelo de colunas"
+        },
+        "i < m.length e j < m[i].length",
+        {
+          "texto": "i <= m.length e j <= m[i].length",
+          "confusao": "ultrapassa o limite das duas dimensões (usa <=)"
+        }
+      ],
+      "correta": 2,
+      "dica": "O laço de fora conta linhas; o de dentro, colunas da linha atual.",
+      "explicacao": "As linhas vão até m.length e, em cada linha i, as colunas vão até m[i].length."
+    },
+    {
+      "id": "pm-soma-total",
+      "tipo": "interpretacao",
+      "titulo": "Soma da matriz",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2], [3, 4]];\nlet s = 0;\nfor (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].length; j++) {\n    s += m[i][j];\n  }\n}\nconsole.log(s);",
+      "opcoes": [
+        { "texto": "3", "confusao": "soma só a primeira linha" },
+        "10",
+        { "texto": "6", "confusao": "soma só a diagonal ou uma linha e esquece elementos" },
+        { "texto": "4", "confusao": "acha que o laço soma só o último elemento" }
+      ],
+      "correta": 1,
+      "dica": "Os dois laços visitam 1, 2, 3 e 4.",
+      "explicacao": "Todos os elementos são visitados: 1 + 2 + 3 + 4 = 10."
+    },
+    {
+      "id": "pm-complete-o-limite",
+      "tipo": "lacuna",
+      "titulo": "Complete o limite",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "Complete o limite do laço das colunas.",
+      "modelo": "for (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].{{1}}; j++) {\n    console.log(m[i][j]);\n  }\n}",
+      "lacunas": [
+        { "respostas": ["length"] }
+      ],
+      "dica": "Quantos elementos tem a linha m[i]?",
+      "explicacao": "m[i].length é a quantidade de colunas da linha atual."
+    },
+    {
+      "id": "pm-conta-as-voltas",
+      "tipo": "interpretacao",
+      "titulo": "Contando as visitas",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m5-contadores", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2, 3], [4, 5, 6]];\nlet c = 0;\nfor (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].length; j++) {\n    c++;\n  }\n}\nconsole.log(c);",
+      "opcoes": [
+        { "texto": "5", "confusao": "soma linhas e colunas em vez de multiplicar" },
+        { "texto": "2", "confusao": "conta só as linhas" },
+        { "texto": "3", "confusao": "conta só as colunas" },
+        "6"
+      ],
+      "correta": 3,
+      "dica": "2 linhas com 3 colunas cada.",
+      "explicacao": "O corpo interno executa uma vez para cada elemento: 2 × 3 = 6."
+    },
+    {
+      "id": "pm-soma-matriz",
+      "tipo": "codigo",
+      "titulo": "Soma da matriz",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somaMatriz(m)` que devolve a soma de todos os elementos da matriz.",
+      "funcao": "somaMatriz",
+      "codigoInicial": "function somaMatriz(m) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]]
+          ],
+          "esperado": 10
+        },
+        {
+          "entrada": [
+            [[5]]
+          ],
+          "esperado": 5
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]]
+          ],
+          "esperado": 21
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        }
+      ],
+      "dica": "Um acumulador antes dos laços; some m[i][j] dentro do laço interno.",
+      "comentario": "Dois laços visitam todas as posições e o acumulador soma cada elemento."
+    },
+    {
+      "id": "pm-contar-valor",
+      "tipo": "codigo",
+      "titulo": "Contar um valor",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m5-contadores", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `contarValor(m, x)` que devolve quantas vezes o valor x aparece na matriz.",
+      "funcao": "contarValor",
+      "codigoInicial": "function contarValor(m, x) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [2, 3]],
+            2
+          ],
+          "esperado": 2
+        },
+        {
+          "entrada": [
+            [[1, 1], [1, 1]],
+            1
+          ],
+          "esperado": 4
+        },
+        {
+          "entrada": [
+            [[5]],
+            9
+          ],
+          "esperado": 0
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        }
+      ],
+      "dica": "Um contador sobe 1 quando m[i][j] é igual a x.",
+      "comentario": "O contador começa em 0 e sobe 1 sempre que o elemento visitado é igual a x."
+    },
+    {
+      "id": "pm-mostrar-matriz",
+      "tipo": "codigo",
+      "titulo": "Mostrar a matriz",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m2-console-log", "peso": 1 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `mostrarMatriz(m)` que mostra a matriz com `console.log`: uma linha de texto por linha da matriz, com os elementos separados por um espaço (por exemplo, \"1 2\" e depois \"3 4\").",
+      "funcao": "mostrarMatriz",
+      "codigoInicial": "function mostrarMatriz(m) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]]
+          ],
+          "saida": ["1 2", "3 4"]
+        },
+        {
+          "entrada": [
+            [[7]]
+          ],
+          "saida": ["7"]
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]]
+          ],
+          "saida": ["1 2 3", "4 5 6"]
+        }
+      ],
+      "dica": "Monte um texto por linha, juntando os elementos, e mostre-o ao fim do laço das colunas.",
+      "comentario": "Para cada linha, o laço interno monta o texto com os elementos; depois de visitar a linha toda, o texto é mostrado."
+    },
+    {
+      "id": "pm-corrija-o-maior",
+      "tipo": "corrigir",
+      "titulo": "Corrija o maior da matriz",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "A função `maiorDaMatriz(m)` deveria devolver o maior elemento da matriz, mas erra quando todos os números são negativos. Corrija o defeito.",
+      "funcao": "maiorDaMatriz",
+      "codigoInicial": "function maiorDaMatriz(m) {\n  let maior = 0;\n  for (let i = 0; i < m.length; i++) {\n    for (let j = 0; j < m[i].length; j++) {\n      if (m[i][j] > maior) {\n        maior = m[i][j];\n      }\n    }\n  }\n  return maior;\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 5], [3, 2]]
+          ],
+          "esperado": 5
+        },
+        {
+          "entrada": [
+            [[-5, -2], [-9, -3]]
+          ],
+          "esperado": -2
+        },
+        {
+          "entrada": [
+            [[-7]]
+          ],
+          "esperado": -7
+        }
+      ],
+      "dica": "Com todos os valores negativos, nenhum é maior que 0.",
+      "comentario": "Começando em 0, o resultado nunca fica negativo. O maior deve começar com o primeiro elemento da matriz (m[0][0])."
+    },
+    {
+      "id": "pm-diagonais",
+      "tipo": "interpretacao",
+      "titulo": "As duas diagonais",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m6-bidimensionais", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];\nlet s = 0;\nfor (let i = 0; i < 3; i++) {\n  s += m[i][i] + m[i][2 - i];\n}\nconsole.log(s);",
+      "opcoes": [
+        "30",
+        { "texto": "25", "confusao": "conta o elemento central uma vez só" },
+        { "texto": "15", "confusao": "soma só uma das diagonais" },
+        { "texto": "45", "confusao": "soma todos os elementos da matriz" }
+      ],
+      "correta": 0,
+      "dica": "m[i][i] é a diagonal principal e m[i][2 - i] é a outra. O 5 aparece nas duas.",
+      "explicacao": "A diagonal principal soma 1 + 5 + 9 = 15 e a outra soma 3 + 5 + 7 = 15. O 5 é contado duas vezes: 30."
+    },
+    {
+      "id": "pm-diagonal-principal",
+      "tipo": "codigo",
+      "titulo": "Diagonal principal",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m6-bidimensionais", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `somaDiagonal(m)` que devolve a soma da diagonal principal (elementos m[0][0], m[1][1], ...) de uma matriz quadrada (mesmo número de linhas e colunas).",
+      "funcao": "somaDiagonal",
+      "codigoInicial": "function somaDiagonal(m) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2], [3, 4]]
+          ],
+          "esperado": 5
+        },
+        {
+          "entrada": [
+            [[5]]
+          ],
+          "esperado": 5
+        },
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+          ],
+          "esperado": 15
+        }
+      ],
+      "dica": "Na diagonal, a linha e a coluna são iguais.",
+      "comentario": "Um único laço com m[i][i] soma os elementos em que linha e coluna coincidem."
+    },
+    {
+      "id": "pm-transposta",
+      "tipo": "codigo",
+      "titulo": "Matriz transposta",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 11,
+      "conceitos": [
+        { "id": "m6-percorrer-matrizes", "peso": 3 },
+        { "id": "m6-push", "peso": 2 },
+        { "id": "m6-bidimensionais", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `transposta(m)` que devolve uma matriz NOVA em que as linhas viram colunas: o elemento da linha i, coluna j de m fica na linha j, coluna i do resultado. Por exemplo, a transposta de [[1, 2, 3], [4, 5, 6]] é [[1, 4], [2, 5], [3, 6]].",
+      "funcao": "transposta",
+      "codigoInicial": "function transposta(m) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [
+            [[1, 2, 3], [4, 5, 6]]
+          ],
+          "esperado": [[1, 4], [2, 5], [3, 6]]
+        },
+        {
+          "entrada": [
+            [[1, 2], [3, 4]]
+          ],
+          "esperado": [[1, 3], [2, 4]]
+        },
+        {
+          "entrada": [
+            [[7, 8]]
+          ],
+          "esperado": [[7], [8]]
+        }
+      ],
+      "dica": "O resultado tem tantas linhas quanto m tem colunas. Monte cada nova linha coletando uma coluna de m.",
+      "comentario": "Para cada coluna j de m, monta-se uma nova linha com os elementos m[0][j], m[1][j], ... e ela é adicionada ao resultado."
+    }
+  ]
+}

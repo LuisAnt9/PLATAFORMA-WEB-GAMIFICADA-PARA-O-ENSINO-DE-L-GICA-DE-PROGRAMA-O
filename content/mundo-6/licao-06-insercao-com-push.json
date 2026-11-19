@@ -1,0 +1,243 @@
+{
+  "id": "insercao-com-push",
+  "mundo": "mundo-6",
+  "titulo": "Inserção de elementos com push()",
+  "foco": "Adicionar elementos no fim do array",
+  "posicao": 605,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O método push() adiciona um ou mais elementos no final do array.\n\nconst fila = [\"Ana\", \"Bia\"];\nfila.push(\"Caio\");     // fila passa a ter Ana, Bia e Caio\n\nDuas coisas importantes sobre o push:\n1. Ele altera o próprio array (não cria um novo).\n2. Ele devolve o novo tamanho do array, e não o array. Por isso, escrever lista = lista.push(5) é um erro: lista passaria a ser um número.\n\nO push é a forma mais comum de construir um array aos poucos: começamos com um array vazio e, dentro de um laço, vamos adicionando os valores que interessam.\n\nconst pares = [];\nfor (let i = 1; i <= 6; i++) {\n  if (i % 2 === 0) {\n    pares.push(i);\n  }\n}\n// pares: 2, 4 e 6",
+  "exemplo": "const v = [1, 2];\nconst tamanho = v.push(9);\nconsole.log(tamanho);\nconsole.log(v[2]);\n\nPasso a passo:\n1. v tem 2 elementos.\n2. v.push(9) adiciona 9 no fim, e o array passa a ter 3 elementos.\n3. push devolve o novo tamanho: tamanho vale 3 (mostra 3).\n4. O novo elemento está no índice 2: v[2] mostra 9.",
+  "revisao": "- push(valor) adiciona no final do array.\n- push altera o próprio array.\n- push devolve o novo tamanho, não o array.\n- Para construir um array aos poucos: comece com [] e use push dentro do laço.",
+  "exercicios": [
+    {
+      "id": "push-o-que-faz",
+      "tipo": "escolha",
+      "titulo": "O que o push faz?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 }
+      ],
+      "enunciado": "O que o método push() faz?",
+      "opcoes": [
+        "Adiciona um elemento no final do array",
+        { "texto": "Remove o último elemento do array", "confusao": "confunde push com pop" },
+        {
+          "texto": "Adiciona um elemento no início do array",
+          "confusao": "confunde push com unshift"
+        },
+        { "texto": "Ordena os elementos do array", "confusao": "acha que push organiza o array" }
+      ],
+      "correta": 0,
+      "dica": "Pense em empurrar algo para o fim da fila.",
+      "explicacao": "push acrescenta elementos no final do array e altera o próprio array."
+    },
+    {
+      "id": "push-novo-tamanho",
+      "tipo": "interpretacao",
+      "titulo": "Depois do push",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2];\nv.push(3);\nconsole.log(v.length);",
+      "opcoes": [
+        { "texto": "2", "confusao": "acha que o push não altera o array" },
+        { "texto": "4", "confusao": "conta uma posição a mais depois do push" },
+        "3",
+        { "texto": "3, 1", "confusao": "mistura o valor adicionado com o tamanho" }
+      ],
+      "correta": 2,
+      "dica": "O array tinha 2 elementos e ganhou mais um.",
+      "explicacao": "Depois do push, o array tem 3 elementos."
+    },
+    {
+      "id": "push-complete-o-metodo",
+      "tipo": "lacuna",
+      "titulo": "Complete o método",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 }
+      ],
+      "enunciado": "Complete o método que adiciona \"Ana\" no final da fila.",
+      "modelo": "const fila = [];\nfila.{{1}}(\"Ana\");",
+      "lacunas": [
+        { "respostas": ["push"] }
+      ],
+      "dica": "Em inglês, \"empurrar\".",
+      "explicacao": "push adiciona no final do array."
+    },
+    {
+      "id": "push-o-que-devolve",
+      "tipo": "interpretacao",
+      "titulo": "O que o push devolve?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2];\nconst r = v.push(9);\nconsole.log(r);",
+      "opcoes": [
+        { "texto": "9", "confusao": "acha que push devolve o valor adicionado" },
+        "3",
+        { "texto": "undefined", "confusao": "acha que push não devolve nada" },
+        { "texto": "2", "confusao": "acha que push devolve o tamanho antigo do array" }
+      ],
+      "correta": 1,
+      "dica": "push devolve uma informação sobre o tamanho do array.",
+      "explicacao": "push devolve o novo tamanho do array: depois de adicionar o 9, são 3 elementos."
+    },
+    {
+      "id": "push-lista-de-pares",
+      "tipo": "codigo",
+      "titulo": "Lista de pares",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `pares(n)` que devolve um array com os números pares de 1 até n, em ordem. Para n < 2, devolve um array vazio.",
+      "funcao": "pares",
+      "codigoInicial": "function pares(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [6], "esperado": [2, 4, 6] },
+        { "entrada": [1], "esperado": [] },
+        { "entrada": [7], "esperado": [2, 4, 6] },
+        { "entrada": [0], "esperado": [] }
+      ],
+      "dica": "Comece com um array vazio e use push dentro do laço.",
+      "comentario": "O array começa vazio; a cada número par encontrado, push o adiciona no final."
+    },
+    {
+      "id": "push-copiar-positivos",
+      "tipo": "codigo",
+      "titulo": "Copiar os positivos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `positivos(v)` que devolve um array NOVO só com os elementos maiores que zero de `v`, na mesma ordem.",
+      "funcao": "positivos",
+      "codigoInicial": "function positivos(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, -2, 3, 0]],
+          "esperado": [1, 3]
+        },
+        {
+          "entrada": [[-1, -2]],
+          "esperado": []
+        },
+        {
+          "entrada": [[5, 6]],
+          "esperado": [5, 6]
+        },
+        {
+          "entrada": [[]],
+          "esperado": []
+        }
+      ],
+      "dica": "Percorra v e adicione ao resultado só o que for maior que 0.",
+      "comentario": "O laço percorre v e push guarda no novo array apenas os elementos maiores que zero."
+    },
+    {
+      "id": "push-corrija-os-quadrados",
+      "tipo": "corrigir",
+      "titulo": "Corrija os quadrados",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "A função `quadrados(n)` deveria devolver um array com os quadrados de 1 até n (por exemplo, [1, 4, 9] para n = 3), mas devolve um número. Corrija o defeito.",
+      "funcao": "quadrados",
+      "codigoInicial": "function quadrados(n) {\n  let resultado = [];\n  for (let i = 1; i <= n; i++) {\n    resultado = resultado.push(i * i);\n  }\n  return resultado;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": [1, 4, 9] },
+        { "entrada": [1], "esperado": [1] },
+        { "entrada": [0], "esperado": [] }
+      ],
+      "dica": "O que push devolve? E o que acontece ao guardar esse valor em resultado?",
+      "comentario": "push devolve o novo tamanho e não o array; atribuí-lo a resultado destrói o array. Basta chamar resultado.push(i * i) sem atribuir."
+    },
+    {
+      "id": "push-montando-no-laco",
+      "tipo": "interpretacao",
+      "titulo": "Montando no laço",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m6-length", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = [];\nfor (let i = 0; i < 3; i++) {\n  a.push(i * 2);\n}\nconsole.log(a[a.length - 1] + a.length);",
+      "opcoes": [
+        { "texto": "4", "confusao": "esquece de somar a quantidade de elementos" },
+        { "texto": "6", "confusao": "soma o último valor com o último índice em vez de length" },
+        { "texto": "5", "confusao": "acha que o último valor é 2 em vez de 4" },
+        "7"
+      ],
+      "correta": 3,
+      "dica": "O array fica com 0, 2 e 4. Qual é o último valor? E o length?",
+      "explicacao": "O array termina com 0, 2 e 4. O último valor é 4 e length é 3: 4 + 3 = 7."
+    },
+    {
+      "id": "push-sem-repetidos",
+      "tipo": "codigo",
+      "titulo": "Sem repetidos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m6-push", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `semRepetidos(v)` que devolve um array NOVO com os elementos de `v` sem repetições, mantendo a ordem da primeira aparição. Por exemplo, [1, 2, 1, 3, 2] vira [1, 2, 3].",
+      "funcao": "semRepetidos",
+      "codigoInicial": "function semRepetidos(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 1, 3, 2]],
+          "esperado": [1, 2, 3]
+        },
+        {
+          "entrada": [[5, 5, 5]],
+          "esperado": [5]
+        },
+        {
+          "entrada": [[]],
+          "esperado": []
+        },
+        {
+          "entrada": [["a", "b", "a"]],
+          "esperado": ["a", "b"]
+        }
+      ],
+      "dica": "Antes de adicionar um valor, confira se ele já está no array novo.",
+      "comentario": "Para cada elemento, um laço (ou includes) verifica se ele já foi guardado; só se não foi, push o adiciona."
+    }
+  ]
+}

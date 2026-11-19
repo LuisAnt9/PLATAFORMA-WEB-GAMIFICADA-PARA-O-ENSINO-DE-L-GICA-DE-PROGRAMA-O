@@ -1390,7 +1390,370 @@ O desafio principal é o primeiro exercício. Os outros dois treinam a leitura d
 
 const notas = [7, 9, 5];
 
-A primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são "percorra e acumule": somar, contar, achar o maior.$c$, $c$$c$, $c$$c$, $c$mundo-6$c$, 601, false, $c$arquivo$c$),
+A primeira posição é a 0: notas[0] vale 7. notas.length diz quantos itens existem. Para percorrer o vetor use um laço de i = 0 até i < notas.length. Muitos problemas de vetores são "percorra e acumule": somar, contar, achar o maior.$c$, $c$$c$, $c$$c$, $c$mundo-6$c$, 690, false, $c$arquivo$c$),
+  ($c$introducao-aos-vetores$c$, $c$Introdução aos vetores$c$, $c$Guardar vários valores em uma única variável$c$, $c$Imagine guardar as notas de 30 alunos. Criar 30 variáveis (nota1, nota2, nota3...) seria trabalhoso e impossível de percorrer com um laço. Para isso existe o vetor: uma única variável que guarda vários valores, organizados em fila.
+
+const notas = [7, 8.5, 6, 9];
+
+Cada valor do vetor é um elemento e ocupa uma posição numerada. Em JavaScript, os vetores são chamados de arrays. A grande vantagem é tratar o conjunto como um todo: guardar, percorrer, somar, procurar.
+
+Use um vetor quando tiver muitos valores do mesmo tipo de informação (as notas de uma turma, os preços de uma lista de compras, os nomes de vários alunos) e quiser processá-los do mesmo jeito.
+
+Cuidado: um vetor é uma estrutura que guarda dados. Quando você atribui um vetor a outra variável, as duas passam a apontar para o mesmo conjunto (veremos isso adiante).$c$, $c$const notas = [7, 8, 9];
+console.log(notas[0] + notas[2]);
+
+Passo a passo:
+1. O vetor notas guarda três valores: 7, 8 e 9.
+2. notas[0] é o valor da primeira posição: 7.
+3. notas[2] é o valor da terceira posição: 9.
+4. A soma 7 + 9 resulta em 16, que é mostrado.
+
+As posições começam em 0: a primeira é 0, a segunda é 1, a terceira é 2.$c$, $c$- Um vetor (array) guarda vários valores em uma única variável.
+- Cada valor é um elemento e fica em uma posição numerada.
+- As posições começam em 0.
+- Use vetores para muitos valores do mesmo tipo de informação que serão processados do mesmo jeito.
+- Atribuir um vetor a outra variável não cria uma cópia dos dados.$c$, $c$mundo-6$c$, 601, false, $c$arquivo$c$),
+  ($c$arrays-em-javascript$c$, $c$Arrays em JavaScript$c$, $c$Criar, ler e alterar elementos de um array$c$, $c$Em JavaScript, criamos um array escrevendo os valores entre colchetes, separados por vírgula:
+
+const frutas = ["maçã", "uva", "pera"];
+const vazio = [];
+
+Para ler um elemento, escrevemos o nome do array e a posição entre colchetes: frutas[1] é "uva". Para alterar, atribuímos um novo valor àquela posição: frutas[1] = "kiwi".
+
+Um array pode guardar qualquer tipo de valor (números, textos, booleanos) e até misturá-los, mas o mais comum é guardar valores do mesmo tipo.
+
+Duas observações importantes:
+1. Declarar com const não impede de mudar os elementos: const garante que a variável sempre aponta para o mesmo array, mas o conteúdo pode ser alterado.
+2. Atribuir um array a outra variável (const b = a) não copia os dados: as duas variáveis apontam para o mesmo array. Para criar uma cópia, use [...a].$c$, $c$const notas = [6, 8, 10];
+notas[0] = 7;
+console.log(notas[0]);
+
+const copia = [...notas];
+copia[1] = 0;
+console.log(notas[1]);
+
+Passo a passo:
+1. notas começa com 6, 8 e 10.
+2. notas[0] = 7 troca o primeiro elemento: o array passa a ter 7, 8 e 10. Mostra 7.
+3. [...notas] cria um array novo com os mesmos valores.
+4. Alterar copia[1] não afeta notas: notas[1] continua 8.$c$, $c$- Array: valores entre colchetes, separados por vírgula; [] é o array vazio.
+- Ler: nome[posição]. Alterar: nome[posição] = valor.
+- const impede trocar o array por outro, mas não impede alterar os elementos.
+- Atribuir um array a outra variável não copia: as duas apontam para o mesmo array.
+- Para copiar, use [...array].$c$, $c$mundo-6$c$, 602, false, $c$arquivo$c$),
+  ($c$indices-e-posicoes$c$, $c$Índices e posições$c$, $c$Acessar elementos pela posição (índice)$c$, $c$O índice é o número da posição de um elemento no array. Em JavaScript (e na maioria das linguagens), a contagem começa em 0: o primeiro elemento tem índice 0, o segundo tem índice 1, e assim por diante.
+
+const cores = ["azul", "verde", "rosa"];
+//  índice:      0        1        2
+
+cores[0] é "azul" e cores[2] é "rosa".
+
+Se você pedir um índice que não existe (como cores[3]), o JavaScript não dá erro: devolve undefined, que significa "não há nada aí". Esse é um dos erros mais comuns: confiar que o valor existe e usar o undefined em uma conta (o resultado vira NaN).
+
+O índice pode ser qualquer expressão numérica: cores[1 + 1], cores[i], cores[i - 1]. Isso será essencial para percorrer arrays com laços.
+
+Atenção: o índice do último elemento é a quantidade de elementos menos 1 (veremos na próxima lição).$c$, $c$const v = [10, 20, 30, 40];
+const i = 2;
+console.log(v[i]);
+console.log(v[i - 1]);
+console.log(v[4]);
+
+Passo a passo:
+1. v[i] com i valendo 2 acessa a terceira posição: mostra 30.
+2. v[i - 1] é v[1], a segunda posição: mostra 20.
+3. v[4] não existe (o último índice é 3): mostra undefined.$c$, $c$- O índice é a posição do elemento; o primeiro é o 0.
+- cores[i] lê o elemento da posição i, e i pode ser uma variável ou uma conta.
+- Um índice que não existe devolve undefined (sem erro).
+- Usar undefined em uma conta resulta em NaN.
+- O último índice é a quantidade de elementos menos 1.$c$, $c$mundo-6$c$, 603, false, $c$arquivo$c$),
+  ($c$propriedade-length$c$, $c$Propriedade length$c$, $c$Descobrir quantos elementos o array tem$c$, $c$Todo array tem uma propriedade chamada length (comprimento), que guarda a quantidade de elementos.
+
+const notas = [7, 8, 9];
+console.log(notas.length);   // 3
+
+Repare que length não leva parênteses: não é uma função, é uma informação do array.
+
+Como os índices começam em 0, o último elemento tem índice length - 1. Em um array com 3 elementos, os índices são 0, 1 e 2, e o último é notas[notas.length - 1].
+
+Cuidado com um erro clássico: notas[notas.length] não é o último elemento, é uma posição que não existe, e devolve undefined.
+
+Um array vazio tem length 0. Por isso, antes de pegar o último elemento, vale conferir se o array não está vazio.
+
+O length também acompanha as mudanças: quando adicionamos ou removemos elementos, ele se atualiza sozinho.$c$, $c$const v = [5, 6, 7, 8];
+console.log(v.length);
+console.log(v[v.length - 1]);
+console.log(v[v.length]);
+
+Passo a passo:
+1. O array tem 4 elementos: v.length mostra 4.
+2. O último índice é 4 - 1 = 3: v[3] vale 8.
+3. v[4] não existe: mostra undefined.$c$, $c$- array.length é a quantidade de elementos (sem parênteses).
+- O último índice é length - 1.
+- array[array.length] não existe: devolve undefined.
+- Um array vazio tem length 0.
+- length se atualiza quando o array cresce ou diminui.$c$, $c$mundo-6$c$, 604, false, $c$arquivo$c$),
+  ($c$insercao-com-push$c$, $c$Inserção de elementos com push()$c$, $c$Adicionar elementos no fim do array$c$, $c$O método push() adiciona um ou mais elementos no final do array.
+
+const fila = ["Ana", "Bia"];
+fila.push("Caio");     // fila passa a ter Ana, Bia e Caio
+
+Duas coisas importantes sobre o push:
+1. Ele altera o próprio array (não cria um novo).
+2. Ele devolve o novo tamanho do array, e não o array. Por isso, escrever lista = lista.push(5) é um erro: lista passaria a ser um número.
+
+O push é a forma mais comum de construir um array aos poucos: começamos com um array vazio e, dentro de um laço, vamos adicionando os valores que interessam.
+
+const pares = [];
+for (let i = 1; i <= 6; i++) {
+  if (i % 2 === 0) {
+    pares.push(i);
+  }
+}
+// pares: 2, 4 e 6$c$, $c$const v = [1, 2];
+const tamanho = v.push(9);
+console.log(tamanho);
+console.log(v[2]);
+
+Passo a passo:
+1. v tem 2 elementos.
+2. v.push(9) adiciona 9 no fim, e o array passa a ter 3 elementos.
+3. push devolve o novo tamanho: tamanho vale 3 (mostra 3).
+4. O novo elemento está no índice 2: v[2] mostra 9.$c$, $c$- push(valor) adiciona no final do array.
+- push altera o próprio array.
+- push devolve o novo tamanho, não o array.
+- Para construir um array aos poucos: comece com [] e use push dentro do laço.$c$, $c$mundo-6$c$, 605, false, $c$arquivo$c$),
+  ($c$remocao-com-pop$c$, $c$Remoção de elementos com pop()$c$, $c$Retirar o último elemento do array$c$, $c$O método pop() remove o último elemento do array e devolve o elemento removido.
+
+const pilha = ["a", "b", "c"];
+const retirado = pilha.pop();   // retirado vale "c"; pilha fica com "a" e "b"
+
+Comparando com o push:
+- push(valor) acrescenta no final e devolve o novo tamanho;
+- pop() retira do final e devolve o elemento retirado.
+
+Como os dois mexem no final do array, eles formam uma pilha: o último a entrar é o primeiro a sair, como uma pilha de pratos.
+
+Se o array estiver vazio, pop() não dá erro: devolve undefined e o array continua vazio.
+
+Atenção: pop altera o próprio array. Se você precisar do array original, faça uma cópia antes ([...v]).$c$, $c$const v = [1, 2, 3];
+const x = v.pop();
+console.log(x);
+console.log(v.length);
+
+Passo a passo:
+1. v tem 1, 2 e 3.
+2. v.pop() remove o último (3) e o devolve: x vale 3 (mostra 3).
+3. O array ficou com 1 e 2: v.length mostra 2.$c$, $c$- pop() remove o último elemento e devolve o elemento removido.
+- pop altera o próprio array.
+- Em um array vazio, pop() devolve undefined.
+- push e pop trabalham no final: formam uma pilha (último a entrar, primeiro a sair).$c$, $c$mundo-6$c$, 606, false, $c$arquivo$c$),
+  ($c$shift-e-unshift$c$, $c$Utilização de shift() e unshift()$c$, $c$Trabalhar com o início do array$c$, $c$Enquanto push e pop mexem no final do array, shift e unshift mexem no início.
+
+- shift() remove o primeiro elemento e devolve o elemento removido.
+- unshift(valor) adiciona um elemento no início e devolve o novo tamanho.
+
+const fila = ["Ana", "Bia", "Caio"];
+const atendido = fila.shift();   // atendido vale "Ana"; fila: Bia, Caio
+fila.unshift("Zé");              // fila: Zé, Bia, Caio
+
+Um resumo para não confundir:
+
+| método       | onde mexe | o que faz   | o que devolve     |
+| push(x)      | final     | adiciona    | novo tamanho      |
+| pop()        | final     | remove      | o removido        |
+| unshift(x)   | início    | adiciona    | novo tamanho      |
+| shift()      | início    | remove      | o removido        |
+
+Uma fila (primeiro a chegar, primeiro a ser atendido) usa push para entrar e shift para sair.
+
+Todos esses métodos alteram o próprio array.$c$, $c$const v = [1, 2, 3];
+const x = v.shift();
+const n = v.unshift(9);
+console.log(x, n);
+console.log(v[0]);
+
+Passo a passo:
+1. v.shift() remove o primeiro elemento (1) e devolve 1: x vale 1. v fica com 2 e 3.
+2. v.unshift(9) adiciona 9 no início: v fica com 9, 2 e 3. Devolve o novo tamanho: n vale 3.
+3. Mostra 1 3, e depois v[0], que é 9.$c$, $c$- shift() remove o primeiro elemento e devolve o removido.
+- unshift(x) adiciona no início e devolve o novo tamanho.
+- push/pop trabalham no final; unshift/shift trabalham no início.
+- Os que adicionam (push, unshift) devolvem o novo tamanho; os que removem (pop, shift) devolvem o elemento removido.
+- Uma fila usa push para entrar e shift para sair.$c$, $c$mundo-6$c$, 607, false, $c$arquivo$c$),
+  ($c$percorrer-arrays-com-for$c$, $c$Percorrer arrays com for$c$, $c$Visitar cada elemento com um laço for$c$, $c$Percorrer um array é visitar cada um dos seus elementos, do primeiro ao último. O jeito mais comum é um for com um índice:
+
+for (let i = 0; i < v.length; i++) {
+  // v[i] é o elemento da vez
+}
+
+O índice i começa em 0 (primeira posição) e vai até v.length - 1 (última). Por isso a condição é i < v.length, e não i <= v.length: com <=, o laço tentaria acessar v[v.length], que não existe (undefined), e contas com ele dão NaN.
+
+Com esse laço, você consegue:
+- somar os elementos (acumulador);
+- contar quantos atendem a uma regra (contador);
+- achar o maior ou o menor (guardando o melhor até agora);
+- construir outro array com push.
+
+Para percorrer de trás para frente: for (let i = v.length - 1; i >= 0; i--).$c$, $c$const v = [4, 8, 15];
+let soma = 0;
+for (let i = 0; i < v.length; i++) {
+  soma += v[i];
+}
+console.log(soma);
+
+Passo a passo:
+1. soma começa em 0. O laço vai de i = 0 até i = 2 (v.length vale 3).
+2. i = 0: soma = 4. i = 1: soma = 12. i = 2: soma = 27.
+3. i = 3 não satisfaz i < 3: o laço termina e mostra 27.$c$, $c$- Para percorrer: for (let i = 0; i < v.length; i++) e use v[i].
+- A condição é i < v.length; com <= o laço passa do fim.
+- Ao passar do fim, v[i] é undefined e contas viram NaN.
+- Combine o laço com acumuladores, contadores e push.
+- De trás para frente: i começa em v.length - 1 e vai até 0.$c$, $c$mundo-6$c$, 608, false, $c$arquivo$c$),
+  ($c$percorrer-arrays-com-while$c$, $c$Percorrer arrays com while$c$, $c$Percorrer um array enquanto uma condição valer$c$, $c$O while também percorre arrays. Ele é a melhor escolha quando não sabemos até onde vamos: por exemplo, procurar um valor e parar assim que o encontrarmos.
+
+let i = 0;
+while (i < v.length) {
+  // usa v[i]
+  i++;
+}
+
+Diferente do for, aqui o índice é declarado antes do laço e atualizado dentro do corpo. Esquecer o i++ cria um laço infinito.
+
+Podemos juntar duas condições com && para parar cedo:
+
+let i = 0;
+while (i < v.length && v[i] !== 8) {
+  i++;
+}
+// ao sair, i é a posição do primeiro 8 (ou v.length, se não houver)
+
+Repare na ordem: primeiro conferimos i < v.length (para não passar do fim) e só depois olhamos v[i].
+
+Para percorrer de trás para frente, comece em v.length - 1 e use i--.$c$, $c$const v = [3, 8, 5, 8];
+let i = 0;
+while (i < v.length && v[i] !== 8) {
+  i++;
+}
+console.log(i);
+
+Passo a passo:
+1. i = 0: v[0] é 3 (diferente de 8): i passa a 1.
+2. i = 1: v[1] é 8: a condição v[i] !== 8 é false e o laço termina.
+3. Mostra 1, a posição do primeiro 8.$c$, $c$- while percorre arrays quando a parada depende de uma condição.
+- O índice é declarado antes do laço e atualizado dentro dele (i++).
+- Sem a atualização, o laço é infinito.
+- Confira i < v.length antes de acessar v[i].
+- Use && para parar quando achar o que procura.$c$, $c$mundo-6$c$, 609, false, $c$arquivo$c$),
+  ($c$introducao-as-matrizes$c$, $c$Introdução às matrizes$c$, $c$Organizar dados em linhas e colunas$c$, $c$Algumas informações naturalmente formam uma tabela: as notas de vários alunos em várias provas, um tabuleiro de jogo, os assentos de um cinema. Para guardá-las, usamos uma matriz: uma tabela organizada em linhas e colunas.
+
+Em JavaScript, uma matriz é um array de arrays: cada elemento do array de fora é uma linha, e cada linha é um array com os valores das colunas.
+
+const notas = [
+  [7, 8, 9],     // linha 0: aluno 1
+  [5, 6, 10],    // linha 1: aluno 2
+];
+
+Essa matriz tem 2 linhas e 3 colunas, e portanto 2 × 3 = 6 elementos.
+
+Como ler os tamanhos:
+- notas.length é o número de linhas (quantos arrays existem dentro);
+- notas[0].length é o número de colunas (quantos valores tem a primeira linha).
+
+Cuidado para não confundir linha com coluna: linhas são horizontais, colunas são verticais.$c$, $c$const m = [
+  [1, 2, 3],
+  [4, 5, 6],
+];
+console.log(m.length);
+console.log(m[0].length);
+
+Passo a passo:
+1. m é um array com duas linhas: [1, 2, 3] e [4, 5, 6].
+2. m.length conta as linhas: mostra 2.
+3. m[0] é a primeira linha, [1, 2, 3]; m[0].length conta as colunas: mostra 3.$c$, $c$- Matriz: tabela com linhas e colunas.
+- Em JavaScript, é um array de arrays: cada elemento é uma linha.
+- matriz.length é o número de linhas; matriz[0].length é o número de colunas.
+- Uma matriz com L linhas e C colunas tem L × C elementos.
+- Não confunda linha (horizontal) com coluna (vertical).$c$, $c$mundo-6$c$, 610, false, $c$arquivo$c$),
+  ($c$arrays-bidimensionais$c$, $c$Arrays bidimensionais$c$, $c$Acessar e alterar elementos de uma matriz$c$, $c$Um array bidimensional é o nome técnico da matriz: tem duas dimensões, linha e coluna. Para acessar um elemento, usamos dois índices:
+
+matriz[linha][coluna]
+
+O primeiro índice escolhe a linha; o segundo, a coluna dentro dela. Os dois começam em 0.
+
+const m = [
+  [1, 2, 3],
+  [4, 5, 6],
+];
+m[0][2]   // linha 0, coluna 2: 3
+m[1][0]   // linha 1, coluna 0: 4
+
+Como ler: m[1] é a linha inteira (o array [4, 5, 6]) e m[1][0] é o primeiro elemento dessa linha.
+
+Para alterar, atribuímos: m[1][0] = 40.
+
+Truque para não confundir: pense "linha primeiro, coluna depois", como ao procurar uma casa em um mapa: primeiro a rua, depois o número.
+
+As linhas não precisam ter o mesmo tamanho (matrizes irregulares), mas o mais comum é que tenham.$c$, $c$const m = [[1, 2, 3], [4, 5, 6]];
+m[1][0] = 40;
+console.log(m[1][0] + m[0][2]);
+
+Passo a passo:
+1. m[1][0] é a linha 1, coluna 0: valia 4 e passa a valer 40.
+2. m[0][2] é a linha 0, coluna 2: vale 3.
+3. A soma 40 + 3 é 43, que é mostrada.$c$, $c$- Acesso: matriz[linha][coluna], os dois índices começam em 0.
+- matriz[i] é a linha inteira (um array).
+- Alterar: matriz[i][j] = valor.
+- Pense: linha primeiro, coluna depois.
+- As linhas podem ter tamanhos diferentes, mas em geral têm o mesmo.$c$, $c$mundo-6$c$, 611, false, $c$arquivo$c$),
+  ($c$percorrer-matrizes$c$, $c$Percorrer matrizes com laços aninhados$c$, $c$Visitar todas as linhas e colunas com dois laços$c$, $c$Para visitar todos os elementos de uma matriz, usamos dois laços aninhados: o de fora percorre as linhas e o de dentro percorre as colunas de cada linha.
+
+for (let i = 0; i < m.length; i++) {          // linhas
+  for (let j = 0; j < m[i].length; j++) {     // colunas da linha i
+    // m[i][j] é o elemento da vez
+  }
+}
+
+Os limites:
+- o laço das linhas vai até m.length;
+- o laço das colunas vai até m[i].length (o tamanho da linha atual).
+
+Com esse padrão você faz o que fazia com arrays simples, mas em duas dimensões: somar todos os elementos, achar o maior, contar valores, mostrar a tabela linha a linha.
+
+Atenção a dois cuidados:
+- inicialize acumuladores e contadores antes dos dois laços;
+- ao procurar o maior valor, não comece com 0: a matriz pode ter só números negativos. Comece com o primeiro elemento (m[0][0]).$c$, $c$const m = [[1, 2], [3, 4]];
+let soma = 0;
+for (let i = 0; i < m.length; i++) {
+  for (let j = 0; j < m[i].length; j++) {
+    soma += m[i][j];
+  }
+}
+console.log(soma);
+
+Passo a passo:
+1. i = 0 (primeira linha): j = 0 soma 1; j = 1 soma 2. soma vale 3.
+2. i = 1 (segunda linha): j = 0 soma 3; j = 1 soma 4. soma vale 10.
+3. Os laços terminam e o programa mostra 10.$c$, $c$- Dois laços aninhados: o externo percorre as linhas, o interno percorre as colunas.
+- Limites: i < m.length e j < m[i].length.
+- m[i][j] é o elemento da vez.
+- Declare acumuladores e contadores antes dos laços.
+- Para achar o maior valor, comece pelo primeiro elemento, não por 0.$c$, $c$mundo-6$c$, 612, false, $c$arquivo$c$),
+  ($c$desafio-do-mundo-6$c$, $c$Desafio final do Mundo 6$c$, $c$Guardar as notas da turma em um vetor e analisá-las$c$, $c$Chegou o desafio do Mundo 6: um programa de notas da turma. Você vai ler as notas dos estudantes, guardá-las em um vetor e calcular a média da turma, a maior nota e quantos estudantes ficaram acima da média.
+
+Aqui você junta tudo: vetor para guardar os valores, push para ir montando o vetor, laços para percorrê-lo, acumulador para a soma e variável auxiliar para a maior nota.
+
+O desafio principal é o primeiro exercício. Os outros dois treinam a leitura de laços com vetores e a correção de um erro clássico no acumulador.$c$, $c$Como montar o programa:
+1. Leia a quantidade de notas com lerEntrada() e converta com Number().
+2. Crie um vetor vazio e, em um laço, leia cada nota, converta e guarde com push.
+3. Percorra o vetor para somar as notas e descobrir a maior.
+4. Calcule a média: soma ÷ quantidade.
+5. Percorra o vetor de novo, contando as notas maiores que a média.
+6. Mostre os três resultados com console.log.
+7. Teste um caso com notas repetidas e um caso em que ninguém passa da média.$c$, $c$- Vetor para guardar as notas; push para adicioná-las.
+- Dois percursos: um para somar e achar a maior; outro para contar as acima da média (a média só é conhecida depois do primeiro).
+- Acumulador começa em 0; a maior nota começa pela primeira nota.
+- Média = soma ÷ quantidade.
+- Teste os casos de fronteira.$c$, $c$mundo-6$c$, 613, false, $c$arquivo$c$),
   ($c$funcoes$c$, $c$Funções$c$, $c$Dividir um problema em partes reutilizáveis$c$, $c$Quando um trecho de código se repete, vale transformá-lo numa função e reutilizá-la. Uma função boa faz uma coisa só e tem um nome que diz o que ela faz.
 
 function ehPar(n) {
@@ -2308,6 +2671,268 @@ $c$, $c$[{"args":[[1,2,3]],"expected":2},{"args":[[10]],"expected":10},{"args":[
   // seu código aqui
 }
 $c$, $c$[{"args":[[3,1,2]],"expected":2},{"args":[[5,5,4]],"expected":4},{"args":[[1,2]],"expected":1},{"args":[[10,9,10,8]],"expected":9},{"args":[[-1,-5,-3]],"expected":-3}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde o maior e o segundo maior vistos até agora, atualizando os dois a cada elemento.$c$, 105, false, $c$arquivo$c$),
+  ($c$vet-intro-para-que-serve$c$, $c$introducao-aos-vetores$c$, $c$choice$c$, $c$Para que serve um vetor?$c$, $c$facil$c$, $c$Para que serve um vetor?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para guardar apenas um valor muito grande","misconception":"acha que o vetor guarda um único valor"},{"text":"Para guardar vários valores em uma única variável"},{"text":"Para repetir um trecho de código várias vezes","misconception":"confunde vetor com laço de repetição"},{"text":"Para decidir entre dois caminhos","misconception":"confunde vetor com estrutura condicional"}],"correct":1,"explanation":"O vetor reúne vários valores sob um só nome, o que permite percorrê-los e processá-los em conjunto."}$c$::jsonb, $c$Pense nas notas de uma turma inteira.$c$, 1, false, $c$arquivo$c$),
+  ($c$vet-intro-soma-das-pontas$c$, $c$introducao-aos-vetores$c$, $c$interpretation$c$, $c$Primeiro e último$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"30","misconception":"acha que a primeira posição é a 1 e soma 10 + 20"},{"text":"60","misconception":"soma todos os elementos do vetor"},{"text":"50","misconception":"soma o segundo e o terceiro elementos"},{"text":"40"}],"correct":3,"code":"const a = [10, 20, 30];\nconsole.log(a[0] + a[2]);","explanation":"a[0] vale 10 e a[2] vale 30: 10 + 30 = 40."}$c$::jsonb, $c$As posições começam em 0.$c$, 2, false, $c$arquivo$c$),
+  ($c$vet-intro-complete-o-vetor$c$, $c$introducao-aos-vetores$c$, $c$blank$c$, $c$Complete a declaração$c$, $c$facil$c$, $c$Complete o símbolo que abre a lista de valores do vetor.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const dias = {{1}}\"seg\", \"ter\", \"qua\"];","blanks":[{"answers":["["]}],"explanation":"Os valores do vetor ficam entre colchetes: [\"seg\", \"ter\", \"qua\"]."}$c$::jsonb, $c$Os vetores usam colchetes.$c$, 3, false, $c$arquivo$c$),
+  ($c$vet-intro-quando-usar$c$, $c$introducao-aos-vetores$c$, $c$choice$c$, $c$Quando usar um vetor?$c$, $c$medio$c$, $c$Em qual situação um vetor é a melhor escolha?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para guardar as notas de 30 alunos e calcular a média da turma"},{"text":"Para guardar o nome de um único aluno","misconception":"acha que o vetor serve para um só valor"},{"text":"Para guardar um valor que nunca muda","misconception":"confunde vetor com constante"},{"text":"Para executar um código quando uma condição é verdadeira","misconception":"confunde vetor com if"}],"correct":0,"explanation":"Quando há muitos valores parecidos que serão processados da mesma forma, um vetor evita criar dezenas de variáveis."}$c$::jsonb, $c$Vários valores do mesmo tipo de informação, tratados do mesmo jeito.$c$, 4, false, $c$arquivo$c$),
+  ($c$vet-intro-tipos-misturados$c$, $c$introducao-aos-vetores$c$, $c$interpretation$c$, $c$Tipos misturados$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"number","misconception":"acha que todos os elementos do vetor viram números"},{"text":"boolean","misconception":"confunde a posição 1 com o último elemento"},{"text":"string"},{"text":"array","misconception":"confunde o tipo do elemento com o tipo do vetor"}],"correct":2,"code":"const mix = [1, \"dois\", true];\nconsole.log(typeof mix[1]);","explanation":"Um vetor pode misturar tipos. O elemento da posição 1 é \"dois\", que é uma string."}$c$::jsonb, $c$mix[1] é o segundo elemento.$c$, 5, false, $c$arquivo$c$),
+  ($c$vet-intro-soma-de-tres$c$, $c$introducao-aos-vetores$c$, $c$code$c$, $c$Soma de três$c$, $c$facil$c$, $c$Escreva a função `somaDeTres(v)` que recebe um vetor com exatamente 3 números e devolve a soma deles.$c$, null, $c$somaDeTres$c$, $c$function somaDeTres(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":6},{"args":[[10,20,30]],"expected":60},{"args":[[-1,0,1]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$v[0], v[1] e v[2] são os três elementos.$c$, 6, false, $c$arquivo$c$),
+  ($c$vet-intro-corrija-a-posicao$c$, $c$introducao-aos-vetores$c$, $c$fix$c$, $c$Corrija as posições$c$, $c$medio$c$, $c$A função `somaDosDois(v)` deveria devolver a soma dos dois elementos de um vetor de tamanho 2 (por exemplo, 3 para [1, 2]), mas devolve NaN. Corrija o defeito.$c$, null, $c$somaDosDois$c$, $c$function somaDosDois(v) {
+  return v[1] + v[2];
+}
+$c$, $c$[{"args":[[1,2]],"expected":3},{"args":[[10,5]],"expected":15},{"args":[[0,0]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual é a posição do primeiro elemento?$c$, 7, false, $c$arquivo$c$),
+  ($c$vet-intro-mesmo-vetor$c$, $c$introducao-aos-vetores$c$, $c$interpretation$c$, $c$Dois nomes, um vetor$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"acha que atribuir o vetor a outra variável cria uma cópia dos dados"},{"text":"99"},{"text":"15","misconception":"confunde a posição 0 com o último elemento"},{"text":"undefined","misconception":"acha que a variável a é apagada depois da atribuição"}],"correct":1,"code":"const a = [5, 10, 15];\nconst b = a;\nb[0] = 99;\nconsole.log(a[0]);","explanation":"b e a apontam para o mesmo vetor. Alterar b[0] altera o que a enxerga: a[0] vale 99."}$c$::jsonb, $c$b = a copia o vetor ou aponta para o mesmo conjunto?$c$, 8, false, $c$arquivo$c$),
+  ($c$arr-como-declarar$c$, $c$arrays-em-javascript$c$, $c$choice$c$, $c$Como declarar?$c$, $c$facil$c$, $c$Qual é a forma correta de declarar um array com os números 1, 2 e 3?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"const n = (1, 2, 3);","misconception":"usa parênteses no lugar de colchetes"},{"text":"const n = {1, 2, 3};","misconception":"usa chaves, que não criam array"},{"text":"const n = <1, 2, 3>;","misconception":"usa sinais de menor e maior"},{"text":"const n = [1, 2, 3];"}],"correct":3,"explanation":"Os valores de um array ficam entre colchetes e separados por vírgula."}$c$::jsonb, $c$Os arrays usam colchetes.$c$, 1, false, $c$arquivo$c$),
+  ($c$arr-alterar-elemento$c$, $c$arrays-em-javascript$c$, $c$interpretation$c$, $c$Trocando um valor$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"50"},{"text":"5","misconception":"acha que a atribuição não altera o array"},{"text":"4","misconception":"acha que n[1] é o primeiro elemento"},{"text":"50, 5","misconception":"acha que o valor novo é somado ao antigo"}],"correct":0,"code":"const n = [4, 5, 6];\nn[1] = 50;\nconsole.log(n[1]);","explanation":"A atribuição troca o valor da posição 1 (de 5 para 50), e o programa mostra 50."}$c$::jsonb, $c$n[1] = 50 guarda um novo valor naquela posição.$c$, 2, false, $c$arquivo$c$),
+  ($c$arr-complete-o-vazio$c$, $c$arrays-em-javascript$c$, $c$blank$c$, $c$Array vazio$c$, $c$facil$c$, $c$Complete a declaração de um array vazio.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const lista = {{1}};","blanks":[{"answers":["[]","[ ]"]}],"explanation":"[] cria um array sem elementos, pronto para receber valores depois."}$c$::jsonb, $c$Colchetes sem nada dentro.$c$, 3, false, $c$arquivo$c$),
+  ($c$arr-const-permite-alterar$c$, $c$arrays-em-javascript$c$, $c$interpretation$c$, $c$const e o conteúdo$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1","misconception":"acha que const impede alterar os elementos"},{"text":"Erro: a é constante","misconception":"acha que const trava também o conteúdo do array"},{"text":"9"},{"text":"2","misconception":"acha que a[0] é o segundo elemento"}],"correct":2,"code":"const a = [1, 2];\na[0] = 9;\nconsole.log(a[0]);","explanation":"const só impede reatribuir a variável (a = outroArray). Os elementos podem ser alterados: a[0] passa a valer 9."}$c$::jsonb, $c$const impede trocar o array por outro. E alterar um elemento?$c$, 4, false, $c$arquivo$c$),
+  ($c$arr-inverter-tres$c$, $c$arrays-em-javascript$c$, $c$code$c$, $c$Inverter três$c$, $c$medio$c$, $c$Escreva a função `inverterTres(v)` que recebe um array com exatamente 3 elementos e devolve um array NOVO com os mesmos elementos na ordem inversa. Por exemplo, [1, 2, 3] vira [3, 2, 1].$c$, null, $c$inverterTres$c$, $c$function inverterTres(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":[3,2,1]},{"args":[["a","b","c"]],"expected":["c","b","a"]},{"args":[[7,7,8]],"expected":[8,7,7]}]$c$::jsonb, $c${}$c$::jsonb, $c$Monte um novo array com v[2], v[1] e v[0].$c$, 5, false, $c$arquivo$c$),
+  ($c$arr-corrija-a-atribuicao$c$, $c$arrays-em-javascript$c$, $c$fix$c$, $c$Corrija a atribuição$c$, $c$medio$c$, $c$A função `dobrarSegundo(v)` deveria dobrar o segundo elemento do array e devolver o array (por exemplo, [1, 2, 3] vira [1, 4, 3]), mas o array volta igual. Corrija o defeito.$c$, null, $c$dobrarSegundo$c$, $c$function dobrarSegundo(v) {
+  v[1] * 2;
+  return v;
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":[1,4,3]},{"args":[[0,5]],"expected":[0,10]},{"args":[[3,0,9]],"expected":[3,0,9]}]$c$::jsonb, $c${}$c$::jsonb, $c$Calcular o dobro não guarda o resultado em lugar nenhum.$c$, 6, false, $c$arquivo$c$),
+  ($c$arr-copia-ou-referencia$c$, $c$arrays-em-javascript$c$, $c$choice$c$, $c$Copia ou aponta?$c$, $c$medio$c$, $c$Depois de const b = a; (a é um array), o que acontece ao executar b[0] = 1?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Só o array b muda; a continua igual","misconception":"acha que atribuir um array a outra variável cria uma cópia"},{"text":"O array a também muda, porque a e b apontam para o mesmo array"},{"text":"Dá erro, porque b é constante","misconception":"acha que const proíbe alterar os elementos"},{"text":"O array a é apagado","misconception":"acha que a atribuição move o conteúdo de a para b"}],"correct":1,"explanation":"a e b são dois nomes para o mesmo array. Alterar por um nome é visível pelo outro. Para copiar, use [...a]."}$c$::jsonb, $c$Atribuir um array copia os dados ou só o "endereço"?$c$, 7, false, $c$arquivo$c$),
+  ($c$arr-copia-com-spread$c$, $c$arrays-em-javascript$c$, $c$interpretation$c$, $c$Fazendo uma cópia$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"9 9","misconception":"acha que [...a] não cria um array novo"},{"text":"1 1","misconception":"acha que a atribuição em b[0] não altera b"},{"text":"9 1","misconception":"troca os valores: o array alterado é b, não a"},{"text":"1 9"}],"correct":3,"code":"const a = [1, 2, 3];\nconst b = [...a];\nb[0] = 9;\nconsole.log(a[0], b[0]);","explanation":"b é uma cópia independente. Alterar b[0] não muda a: a[0] continua 1 e b[0] vale 9."}$c$::jsonb, $c$[...a] cria um array novo com os mesmos valores.$c$, 8, false, $c$arquivo$c$),
+  ($c$ind-primeiro-indice$c$, $c$indices-e-posicoes$c$, $c$choice$c$, $c$O primeiro índice$c$, $c$facil$c$, $c$Qual é o índice do primeiro elemento de um array?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0"},{"text":"1","misconception":"acha que a contagem de posições começa em 1"},{"text":"-1","misconception":"acha que a primeira posição usa índice negativo"},{"text":"O mesmo número da quantidade de elementos","misconception":"confunde o índice do primeiro com a quantidade"}],"correct":0,"explanation":"O primeiro elemento tem índice 0, o segundo 1, o terceiro 2, e assim por diante."}$c$::jsonb, $c$Em programação, começamos a contar do zero.$c$, 1, false, $c$arquivo$c$),
+  ($c$ind-uva$c$, $c$indices-e-posicoes$c$, $c$interpretation$c$, $c$Qual fruta?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"maçã","misconception":"acha que o índice 1 é o primeiro elemento"},{"text":"pera","misconception":"confunde o índice 1 com o último elemento"},{"text":"uva"},{"text":"1","misconception":"mostra o índice em vez do elemento"}],"correct":2,"code":"const f = [\"maçã\", \"uva\", \"pera\"];\nconsole.log(f[1]);","explanation":"O índice 1 é o segundo elemento: uva."}$c$::jsonb, $c$Índice 0 é o primeiro; qual é o 1?$c$, 2, false, $c$arquivo$c$),
+  ($c$ind-complete-a-primeira-cor$c$, $c$indices-e-posicoes$c$, $c$blank$c$, $c$Primeira cor$c$, $c$facil$c$, $c$Complete o índice para mostrar a primeira cor.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const cores = [\"azul\", \"verde\", \"rosa\"];\nconsole.log(cores[{{1}}]);","blanks":[{"answers":["0"]}],"explanation":"A primeira posição é a de índice 0."}$c$::jsonb, $c$Qual é o índice do primeiro elemento?$c$, 3, false, $c$arquivo$c$),
+  ($c$ind-fora-do-limite$c$, $c$indices-e-posicoes$c$, $c$interpretation$c$, $c$Fora do limite$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"acha que o índice 3 é o terceiro elemento"},{"text":"undefined"},{"text":"Erro e o programa para","misconception":"acha que acessar um índice inexistente causa erro"},{"text":"0","misconception":"acha que posições vazias valem zero"}],"correct":1,"code":"const v = [1, 2, 3];\nconsole.log(v[3]);","explanation":"O índice 3 não existe: o JavaScript devolve undefined, sem erro."}$c$::jsonb, $c$Os índices existentes são 0, 1 e 2.$c$, 4, false, $c$arquivo$c$),
+  ($c$ind-segundo$c$, $c$indices-e-posicoes$c$, $c$code$c$, $c$O segundo elemento$c$, $c$facil$c$, $c$Escreva a função `segundo(v)` que devolve o segundo elemento do array (o array tem pelo menos 2 elementos).$c$, null, $c$segundo$c$, $c$function segundo(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[4,8,15]],"expected":8},{"args":[["a","b"]],"expected":"b"},{"args":[[0,0,0,7]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$O segundo elemento tem índice 1.$c$, 5, false, $c$arquivo$c$),
+  ($c$ind-trocar-duas-posicoes$c$, $c$indices-e-posicoes$c$, $c$code$c$, $c$Trocar duas posições$c$, $c$medio$c$, $c$Escreva a função `trocar(v, i, j)` que troca de lugar os elementos das posições i e j do array e devolve o array. Por exemplo, trocar([1, 2, 3], 0, 2) devolve [3, 2, 1].$c$, null, $c$trocar$c$, $c$function trocar(v, i, j) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3],0,2],"expected":[3,2,1]},{"args":[["a","b","c","d"],1,3],"expected":["a","d","c","b"]},{"args":[[5,6],1,1],"expected":[5,6]}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde um dos valores em uma variável auxiliar antes de sobrescrevê-lo.$c$, 6, false, $c$arquivo$c$),
+  ($c$ind-corrija-o-ultimo$c$, $c$indices-e-posicoes$c$, $c$fix$c$, $c$Corrija o último$c$, $c$medio$c$, $c$A função `ultimo(v)` deveria devolver o último elemento do array, mas devolve undefined. Corrija o defeito.$c$, null, $c$ultimo$c$, $c$function ultimo(v) {
+  return v[v.length];
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":3},{"args":[["x"]],"expected":"x"},{"args":[[9,8,7,6]],"expected":6}]$c$::jsonb, $c${}$c$::jsonb, $c$Se o array tem 3 elementos, qual é o índice do último?$c$, 7, false, $c$arquivo$c$),
+  ($c$ind-indice-calculado$c$, $c$indices-e-posicoes$c$, $c$interpretation$c$, $c$Índice calculado$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"50","misconception":"soma o elemento do índice 1 com o do índice 2"},{"text":"70","misconception":"soma os elementos do índice 2 e do índice 3"},{"text":"80","misconception":"soma o primeiro e o último sem calcular os índices"},{"text":"60"}],"correct":3,"code":"const v = [10, 20, 30, 40];\nconst i = 2;\nconsole.log(v[i - 1] + v[i + 1]);","explanation":"v[1] vale 20 e v[3] vale 40: 20 + 40 = 60."}$c$::jsonb, $c$Calcule primeiro i - 1 e i + 1.$c$, 8, false, $c$arquivo$c$),
+  ($c$len-o-que-e$c$, $c$propriedade-length$c$, $c$choice$c$, $c$O que é length?$c$, $c$facil$c$, $c$O que a propriedade length de um array informa?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A quantidade de elementos do array"},{"text":"O índice do último elemento","misconception":"confunde a quantidade de elementos com o último índice"},{"text":"A soma dos elementos","misconception":"acha que length soma os valores"},{"text":"O primeiro elemento","misconception":"acha que length devolve um elemento"}],"correct":0,"explanation":"length é a quantidade de elementos. O último índice é length - 1."}$c$::jsonb, $c$Se o array tem 4 valores, length vale...?$c$, 1, false, $c$arquivo$c$),
+  ($c$len-tamanho$c$, $c$propriedade-length$c$, $c$interpretation$c$, $c$Quantos elementos?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"confunde length com o último índice"},{"text":"26","misconception":"acha que length soma os elementos"},{"text":"4"},{"text":"5","misconception":"conta uma posição a mais"}],"correct":2,"code":"const v = [5, 6, 7, 8];\nconsole.log(v.length);","explanation":"O array tem 4 elementos, então length vale 4."}$c$::jsonb, $c$Conte os elementos.$c$, 2, false, $c$arquivo$c$),
+  ($c$len-complete-o-ultimo$c$, $c$propriedade-length$c$, $c$blank$c$, $c$Complete o último índice$c$, $c$facil$c$, $c$Complete a conta para obter o último elemento do array.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const ultimo = v[v.length - {{1}}];","blanks":[{"answers":["1"]}],"explanation":"O último índice é length - 1."}$c$::jsonb, $c$O último índice é uma unidade a menos que a quantidade.$c$, 3, false, $c$arquivo$c$),
+  ($c$len-fora-do-fim$c$, $c$propriedade-length$c$, $c$interpretation$c$, $c$Passando do fim$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"acha que v[v.length] é o último elemento"},{"text":"undefined"},{"text":"Erro e o programa para","misconception":"acha que acessar um índice inexistente causa erro"},{"text":"1","misconception":"acha que o acesso volta ao início do array"}],"correct":1,"code":"const v = [1, 2, 3];\nconsole.log(v[v.length]);","explanation":"v.length vale 3 e o índice 3 não existe: o resultado é undefined. O último é v[v.length - 1]."}$c$::jsonb, $c$Com 3 elementos, os índices são 0, 1 e 2.$c$, 4, false, $c$arquivo$c$),
+  ($c$len-esta-vazio$c$, $c$propriedade-length$c$, $c$code$c$, $c$Está vazio?$c$, $c$facil$c$, $c$Escreva a função `estaVazio(v)` que devolve true se o array não tem elementos e false caso contrário.$c$, null, $c$estaVazio$c$, $c$function estaVazio(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[]],"expected":true},{"args":[[1]],"expected":false},{"args":[[1,2,3]],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Um array vazio tem length igual a quanto?$c$, 5, false, $c$arquivo$c$),
+  ($c$len-ultimo-elemento$c$, $c$propriedade-length$c$, $c$code$c$, $c$Último elemento$c$, $c$medio$c$, $c$Escreva a função `ultimoElemento(v)` que devolve o último elemento do array. Se o array estiver vazio, devolve o texto "vazio".$c$, null, $c$ultimoElemento$c$, $c$function ultimoElemento(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":3},{"args":[["a"]],"expected":"a"},{"args":[[]],"expected":"vazio"},{"args":[[9,8]],"expected":8}]$c$::jsonb, $c${}$c$::jsonb, $c$Confira o length antes de ler o último elemento.$c$, 6, false, $c$arquivo$c$),
+  ($c$len-corrija-o-ultimo-indice$c$, $c$propriedade-length$c$, $c$fix$c$, $c$Corrija o último índice$c$, $c$medio$c$, $c$A função `ultimoIndice(v)` deveria devolver o índice do último elemento (2 para um array de 3 elementos), mas devolve um valor a mais. Corrija o defeito.$c$, null, $c$ultimoIndice$c$, $c$function ultimoIndice(v) {
+  return v.length;
+}
+$c$, $c$[{"args":[[4,5,6]],"expected":2},{"args":[[9]],"expected":0},{"args":[[1,2,3,4,5]],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$length conta quantos elementos; os índices começam em 0.$c$, 7, false, $c$arquivo$c$),
+  ($c$len-posicao-distante$c$, $c$propriedade-length$c$, $c$interpretation$c$, $c$Posição distante$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"acha que o elemento novo é colocado logo depois do último"},{"text":"3","misconception":"acha que a atribuição fora do limite é ignorada"},{"text":"5","misconception":"acha que length é o maior índice usado"},{"text":"6"}],"correct":3,"code":"const v = [1, 2, 3];\nv[5] = 9;\nconsole.log(v.length);","explanation":"Atribuir ao índice 5 faz o array crescer até essa posição: o maior índice é 5 e length passa a ser 6 (as posições 3 e 4 ficam vazias)."}$c$::jsonb, $c$length é o maior índice mais 1.$c$, 8, false, $c$arquivo$c$),
+  ($c$push-o-que-faz$c$, $c$insercao-com-push$c$, $c$choice$c$, $c$O que o push faz?$c$, $c$facil$c$, $c$O que o método push() faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Adiciona um elemento no final do array"},{"text":"Remove o último elemento do array","misconception":"confunde push com pop"},{"text":"Adiciona um elemento no início do array","misconception":"confunde push com unshift"},{"text":"Ordena os elementos do array","misconception":"acha que push organiza o array"}],"correct":0,"explanation":"push acrescenta elementos no final do array e altera o próprio array."}$c$::jsonb, $c$Pense em empurrar algo para o fim da fila.$c$, 1, false, $c$arquivo$c$),
+  ($c$push-novo-tamanho$c$, $c$insercao-com-push$c$, $c$interpretation$c$, $c$Depois do push$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2","misconception":"acha que o push não altera o array"},{"text":"4","misconception":"conta uma posição a mais depois do push"},{"text":"3"},{"text":"3, 1","misconception":"mistura o valor adicionado com o tamanho"}],"correct":2,"code":"const v = [1, 2];\nv.push(3);\nconsole.log(v.length);","explanation":"Depois do push, o array tem 3 elementos."}$c$::jsonb, $c$O array tinha 2 elementos e ganhou mais um.$c$, 2, false, $c$arquivo$c$),
+  ($c$push-complete-o-metodo$c$, $c$insercao-com-push$c$, $c$blank$c$, $c$Complete o método$c$, $c$facil$c$, $c$Complete o método que adiciona "Ana" no final da fila.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const fila = [];\nfila.{{1}}(\"Ana\");","blanks":[{"answers":["push"]}],"explanation":"push adiciona no final do array."}$c$::jsonb, $c$Em inglês, "empurrar".$c$, 3, false, $c$arquivo$c$),
+  ($c$push-o-que-devolve$c$, $c$insercao-com-push$c$, $c$interpretation$c$, $c$O que o push devolve?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"9","misconception":"acha que push devolve o valor adicionado"},{"text":"3"},{"text":"undefined","misconception":"acha que push não devolve nada"},{"text":"2","misconception":"acha que push devolve o tamanho antigo do array"}],"correct":1,"code":"const v = [1, 2];\nconst r = v.push(9);\nconsole.log(r);","explanation":"push devolve o novo tamanho do array: depois de adicionar o 9, são 3 elementos."}$c$::jsonb, $c$push devolve uma informação sobre o tamanho do array.$c$, 4, false, $c$arquivo$c$),
+  ($c$push-lista-de-pares$c$, $c$insercao-com-push$c$, $c$code$c$, $c$Lista de pares$c$, $c$medio$c$, $c$Escreva a função `pares(n)` que devolve um array com os números pares de 1 até n, em ordem. Para n < 2, devolve um array vazio.$c$, null, $c$pares$c$, $c$function pares(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[6],"expected":[2,4,6]},{"args":[1],"expected":[]},{"args":[7],"expected":[2,4,6]},{"args":[0],"expected":[]}]$c$::jsonb, $c${}$c$::jsonb, $c$Comece com um array vazio e use push dentro do laço.$c$, 5, false, $c$arquivo$c$),
+  ($c$push-copiar-positivos$c$, $c$insercao-com-push$c$, $c$code$c$, $c$Copiar os positivos$c$, $c$medio$c$, $c$Escreva a função `positivos(v)` que devolve um array NOVO só com os elementos maiores que zero de `v`, na mesma ordem.$c$, null, $c$positivos$c$, $c$function positivos(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,-2,3,0]],"expected":[1,3]},{"args":[[-1,-2]],"expected":[]},{"args":[[5,6]],"expected":[5,6]},{"args":[[]],"expected":[]}]$c$::jsonb, $c${}$c$::jsonb, $c$Percorra v e adicione ao resultado só o que for maior que 0.$c$, 6, false, $c$arquivo$c$),
+  ($c$push-corrija-os-quadrados$c$, $c$insercao-com-push$c$, $c$fix$c$, $c$Corrija os quadrados$c$, $c$medio$c$, $c$A função `quadrados(n)` deveria devolver um array com os quadrados de 1 até n (por exemplo, [1, 4, 9] para n = 3), mas devolve um número. Corrija o defeito.$c$, null, $c$quadrados$c$, $c$function quadrados(n) {
+  let resultado = [];
+  for (let i = 1; i <= n; i++) {
+    resultado = resultado.push(i * i);
+  }
+  return resultado;
+}
+$c$, $c$[{"args":[3],"expected":[1,4,9]},{"args":[1],"expected":[1]},{"args":[0],"expected":[]}]$c$::jsonb, $c${}$c$::jsonb, $c$O que push devolve? E o que acontece ao guardar esse valor em resultado?$c$, 7, false, $c$arquivo$c$),
+  ($c$push-montando-no-laco$c$, $c$insercao-com-push$c$, $c$interpretation$c$, $c$Montando no laço$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"esquece de somar a quantidade de elementos"},{"text":"6","misconception":"soma o último valor com o último índice em vez de length"},{"text":"5","misconception":"acha que o último valor é 2 em vez de 4"},{"text":"7"}],"correct":3,"code":"const a = [];\nfor (let i = 0; i < 3; i++) {\n  a.push(i * 2);\n}\nconsole.log(a[a.length - 1] + a.length);","explanation":"O array termina com 0, 2 e 4. O último valor é 4 e length é 3: 4 + 3 = 7."}$c$::jsonb, $c$O array fica com 0, 2 e 4. Qual é o último valor? E o length?$c$, 8, false, $c$arquivo$c$),
+  ($c$push-sem-repetidos$c$, $c$insercao-com-push$c$, $c$code$c$, $c$Sem repetidos$c$, $c$dificil$c$, $c$Escreva a função `semRepetidos(v)` que devolve um array NOVO com os elementos de `v` sem repetições, mantendo a ordem da primeira aparição. Por exemplo, [1, 2, 1, 3, 2] vira [1, 2, 3].$c$, null, $c$semRepetidos$c$, $c$function semRepetidos(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,1,3,2]],"expected":[1,2,3]},{"args":[[5,5,5]],"expected":[5]},{"args":[[]],"expected":[]},{"args":[["a","b","a"]],"expected":["a","b"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Antes de adicionar um valor, confira se ele já está no array novo.$c$, 9, false, $c$arquivo$c$),
+  ($c$pop-o-que-faz$c$, $c$remocao-com-pop$c$, $c$choice$c$, $c$O que o pop faz?$c$, $c$facil$c$, $c$O que o método pop() faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Remove o último elemento e o devolve"},{"text":"Adiciona um elemento no final","misconception":"confunde pop com push"},{"text":"Remove o primeiro elemento","misconception":"confunde pop com shift"},{"text":"Esvazia o array inteiro","misconception":"acha que pop remove todos os elementos"}],"correct":0,"explanation":"pop retira o último elemento do array e devolve o elemento retirado."}$c$::jsonb, $c$Pense em retirar o prato que está no topo da pilha.$c$, 1, false, $c$arquivo$c$),
+  ($c$pop-tamanho-depois$c$, $c$remocao-com-pop$c$, $c$interpretation$c$, $c$Depois do pop$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"acha que o pop não altera o array"},{"text":"1","misconception":"acha que o pop remove todos os elementos menos um"},{"text":"2"},{"text":"0","misconception":"acha que o pop esvazia o array"}],"correct":2,"code":"const v = [1, 2, 3];\nv.pop();\nconsole.log(v.length);","explanation":"O array tinha 3 elementos e perdeu o último: sobram 2."}$c$::jsonb, $c$pop remove um elemento.$c$, 2, false, $c$arquivo$c$),
+  ($c$pop-complete-o-metodo$c$, $c$remocao-com-pop$c$, $c$blank$c$, $c$Complete o método$c$, $c$facil$c$, $c$Complete o método que retira o último elemento e o guarda em ultimo.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const ultimo = v.{{1}}();","blanks":[{"answers":["pop"]}],"explanation":"pop remove e devolve o último elemento."}$c$::jsonb, $c$É o inverso de push.$c$, 3, false, $c$arquivo$c$),
+  ($c$pop-o-que-devolve$c$, $c$remocao-com-pop$c$, $c$interpretation$c$, $c$O que o pop devolve?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2","misconception":"acha que pop devolve o novo último elemento"},{"text":"3"},{"text":"undefined","misconception":"acha que pop não devolve nada"},{"text":"1","misconception":"acha que pop devolve o primeiro elemento"}],"correct":1,"code":"const v = [1, 2, 3];\nconst x = v.pop();\nconsole.log(x);","explanation":"pop devolve o elemento removido: o 3."}$c$::jsonb, $c$pop devolve o que foi removido.$c$, 4, false, $c$arquivo$c$),
+  ($c$pop-remover-ultimos$c$, $c$remocao-com-pop$c$, $c$code$c$, $c$Remover os últimos$c$, $c$medio$c$, $c$Escreva a função `removerUltimos(v, n)` que remove os n últimos elementos do array e o devolve. Se n for maior que o tamanho, o array fica vazio.$c$, null, $c$removerUltimos$c$, $c$function removerUltimos(v, n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3,4],2],"expected":[1,2]},{"args":[[1],5],"expected":[]},{"args":[[7,8,9],0],"expected":[7,8,9]},{"args":[[],2],"expected":[]}]$c$::jsonb, $c${}$c$::jsonb, $c$Repita pop n vezes, parando se o array esvaziar.$c$, 5, false, $c$arquivo$c$),
+  ($c$pop-corrija-o-retorno$c$, $c$remocao-com-pop$c$, $c$fix$c$, $c$Corrija o retorno$c$, $c$medio$c$, $c$A função `retirarUltimo(v)` deveria devolver o elemento retirado do final do array (3 para [1, 2, 3]), mas devolve o array. Corrija o defeito.$c$, null, $c$retirarUltimo$c$, $c$function retirarUltimo(v) {
+  v.pop();
+  return v;
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":3},{"args":[["a","b"]],"expected":"b"},{"args":[[9]],"expected":9}]$c$::jsonb, $c${}$c$::jsonb, $c$O que pop devolve? Guarde ou devolva esse valor.$c$, 6, false, $c$arquivo$c$),
+  ($c$pop-pilha$c$, $c$remocao-com-pop$c$, $c$interpretation$c$, $c$Uma pilha$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"esquece que o pop retirou o 2 antes do push(3)"},{"text":"3","misconception":"considera só o último valor que entrou"},{"text":"6","misconception":"soma todos os valores que passaram pelo array"},{"text":"4"}],"correct":3,"code":"const p = [];\np.push(1);\np.push(2);\np.pop();\np.push(3);\nconsole.log(p.pop() + p.pop());","explanation":"No final o array é [1, 3]. O primeiro pop devolve 3 e o segundo devolve 1: 3 + 1 = 4."}$c$::jsonb, $c$Acompanhe o array a cada linha: [1], [1, 2], [1], [1, 3].$c$, 7, false, $c$arquivo$c$),
+  ($c$shift-qual-remove-do-inicio$c$, $c$shift-e-unshift$c$, $c$choice$c$, $c$Qual remove do início?$c$, $c$facil$c$, $c$Qual método remove o primeiro elemento de um array?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"shift()"},{"text":"pop()","misconception":"confunde pop (final) com shift (início)"},{"text":"unshift()","misconception":"acha que unshift remove, mas ele adiciona no início"},{"text":"push()","misconception":"acha que push remove elementos"}],"correct":0,"explanation":"shift remove o primeiro elemento; pop remove o último."}$c$::jsonb, $c$Um deles remove do início, outro do final.$c$, 1, false, $c$arquivo$c$),
+  ($c$shift-novo-primeiro$c$, $c$shift-e-unshift$c$, $c$interpretation$c$, $c$Novo primeiro$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1","misconception":"acha que o shift não altera o array"},{"text":"3","misconception":"acha que o shift remove o último elemento"},{"text":"2"},{"text":"undefined","misconception":"acha que a posição 0 fica vazia depois do shift"}],"correct":2,"code":"const v = [1, 2, 3];\nv.shift();\nconsole.log(v[0]);","explanation":"shift remove o 1; o array fica [2, 3] e v[0] vale 2."}$c$::jsonb, $c$Depois do shift, os elementos andam uma posição para a frente.$c$, 2, false, $c$arquivo$c$),
+  ($c$shift-complete-o-unshift$c$, $c$shift-e-unshift$c$, $c$blank$c$, $c$Adicionar no início$c$, $c$facil$c$, $c$Complete o método que adiciona 0 no início do array.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const v = [1, 2];\nv.{{1}}(0);","blanks":[{"answers":["unshift"]}],"explanation":"unshift adiciona elementos no início do array."}$c$::jsonb, $c$É o oposto de shift.$c$, 3, false, $c$arquivo$c$),
+  ($c$shift-unshift-ordem$c$, $c$shift-e-unshift$c$, $c$interpretation$c$, $c$Ordem depois do unshift$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2,3,1","misconception":"acha que unshift adiciona no final"},{"text":"1,2,3"},{"text":"1,3,undefined","misconception":"acha que unshift substitui o primeiro elemento"},{"text":"2,3,undefined","misconception":"acha que o unshift não altera o array"}],"correct":1,"code":"const v = [2, 3];\nv.unshift(1);\nconsole.log(v[0] + \",\" + v[1] + \",\" + v[2]);","explanation":"O 1 entra no início e os demais andam uma posição: [1, 2, 3]."}$c$::jsonb, $c$unshift coloca o novo valor na frente.$c$, 4, false, $c$arquivo$c$),
+  ($c$shift-unshift-retornos$c$, $c$shift-e-unshift$c$, $c$interpretation$c$, $c$Retornos$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1 2","misconception":"acha que unshift devolve o tamanho antes da inserção"},{"text":"3 3","misconception":"acha que shift devolve o último elemento"},{"text":"undefined 3","misconception":"acha que shift não devolve o elemento removido"},{"text":"1 3"}],"correct":3,"code":"const v = [1, 2, 3];\nconst x = v.shift();\nconst n = v.unshift(9);\nconsole.log(x, n);","explanation":"shift devolve 1. Depois v é [2, 3]; unshift(9) deixa [9, 2, 3] e devolve 3."}$c$::jsonb, $c$shift devolve o removido; unshift devolve o novo tamanho.$c$, 5, false, $c$arquivo$c$),
+  ($c$shift-rotacionar$c$, $c$shift-e-unshift$c$, $c$code$c$, $c$Rotacionar$c$, $c$medio$c$, $c$Escreva a função `rotacionar(v)` que move o primeiro elemento do array para o final e devolve o array. Por exemplo, [1, 2, 3] vira [2, 3, 1]. Se o array estiver vazio, devolve o array vazio.$c$, null, $c$rotacionar$c$, $c$function rotacionar(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":[2,3,1]},{"args":[[5]],"expected":[5]},{"args":[[]],"expected":[]},{"args":[["a","b"]],"expected":["b","a"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Retire o primeiro com shift e adicione no final com push (se houver elementos).$c$, 6, false, $c$arquivo$c$),
+  ($c$shift-corrija-o-inicio$c$, $c$shift-e-unshift$c$, $c$fix$c$, $c$Corrija o início$c$, $c$medio$c$, $c$A função `adicionarNoInicio(v, x)` deveria colocar x no início do array e devolver o array (por exemplo, [1, 2, 3] para v = [2, 3] e x = 1), mas coloca no final. Corrija o defeito.$c$, null, $c$adicionarNoInicio$c$, $c$function adicionarNoInicio(v, x) {
+  v.push(x);
+  return v;
+}
+$c$, $c$[{"args":[[2,3],1],"expected":[1,2,3]},{"args":[[],5],"expected":[5]},{"args":[["b"],"a"],"expected":["a","b"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Qual método trabalha no início do array?$c$, 7, false, $c$arquivo$c$),
+  ($c$shift-primeiros-n$c$, $c$shift-e-unshift$c$, $c$code$c$, $c$Retirar os primeiros$c$, $c$dificil$c$, $c$Escreva a função `retirarPrimeiros(v, n)` que remove os n primeiros elementos de v e devolve um array NOVO com os elementos removidos, na ordem original. Se houver menos de n elementos, devolve todos. Por exemplo, retirarPrimeiros([1, 2, 3, 4], 2) devolve [1, 2].$c$, null, $c$retirarPrimeiros$c$, $c$function retirarPrimeiros(v, n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3,4],2],"expected":[1,2]},{"args":[[1],3],"expected":[1]},{"args":[[5,6,7],0],"expected":[]},{"args":[[],2],"expected":[]}]$c$::jsonb, $c${}$c$::jsonb, $c$A cada volta, shift retira um elemento; guarde-o no array novo.$c$, 8, false, $c$arquivo$c$),
+  ($c$for-vet-condicao-correta$c$, $c$percorrer-arrays-com-for$c$, $c$choice$c$, $c$A condição do laço$c$, $c$facil$c$, $c$Qual condição percorre todos os elementos de v sem passar do fim?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"i < v.length"},{"text":"i <= v.length","misconception":"ultrapassa o limite: v[v.length] não existe"},{"text":"i < v.length - 1","misconception":"deixa o último elemento de fora"},{"text":"i <= v.length - 2","misconception":"deixa de fora os dois últimos elementos"}],"correct":0,"explanation":"i < v.length faz i valer de 0 até v.length - 1, exatamente os índices válidos."}$c$::jsonb, $c$O último índice válido é v.length - 1.$c$, 1, false, $c$arquivo$c$),
+  ($c$for-vet-mostra-tudo$c$, $c$percorrer-arrays-com-for$c$, $c$interpretation$c$, $c$Mostrando os elementos$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0\n1\n2","misconception":"mostra os índices em vez dos elementos"},{"text":"6\n9","misconception":"começa pelo índice 1, pulando o primeiro"},{"text":"3\n6\n9"},{"text":"3\n6\n9\nundefined","misconception":"acha que o laço também visita v[v.length]"}],"correct":2,"code":"const v = [3, 6, 9];\nfor (let i = 0; i < v.length; i++) {\n  console.log(v[i]);\n}","explanation":"O laço visita os índices 0, 1 e 2 e mostra os elementos 3, 6 e 9."}$c$::jsonb, $c$v[i] é o elemento; i é só o índice.$c$, 3, false, $c$arquivo$c$),
+  ($c$for-vet-complete-o-limite$c$, $c$percorrer-arrays-com-for$c$, $c$blank$c$, $c$Complete o limite$c$, $c$facil$c$, $c$Complete a condição para percorrer todo o array notas.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 0; i < notas.{{1}}; i++) {\n  console.log(notas[i]);\n}","blanks":[{"answers":["length"]}],"explanation":"notas.length é a quantidade de elementos; i < notas.length percorre todos."}$c$::jsonb, $c$Quantos elementos o array tem?$c$, 2, false, $c$arquivo$c$),
+  ($c$for-vet-passando-do-fim$c$, $c$percorrer-arrays-com-for$c$, $c$interpretation$c$, $c$Passando do fim$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6","misconception":"esquece que a volta extra soma undefined"},{"text":"NaN"},{"text":"Erro e o programa para","misconception":"acha que acessar v[3] causa erro"},{"text":"9","misconception":"acha que a volta extra soma o último valor de novo"}],"correct":1,"code":"const v = [1, 2, 3];\nlet s = 0;\nfor (let i = 0; i <= v.length; i++) {\n  s += v[i];\n}\nconsole.log(s);","explanation":"Com <=, a última volta soma undefined, e 6 + undefined resulta em NaN."}$c$::jsonb, $c$Na última volta, i vale 3. O que existe em v[3]?$c$, 4, false, $c$arquivo$c$),
+  ($c$for-vet-somar$c$, $c$percorrer-arrays-com-for$c$, $c$code$c$, $c$Somar os elementos$c$, $c$medio$c$, $c$Escreva a função `somar(v)` que devolve a soma de todos os elementos do array (0 para array vazio).$c$, null, $c$somar$c$, $c$function somar(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":6},{"args":[[]],"expected":0},{"args":[[-2,2,10]],"expected":10}]$c$::jsonb, $c${}$c$::jsonb, $c$Um acumulador começa em 0 e soma v[i] a cada volta.$c$, 5, false, $c$arquivo$c$),
+  ($c$for-vet-maior$c$, $c$percorrer-arrays-com-for$c$, $c$code$c$, $c$O maior elemento$c$, $c$medio$c$, $c$Escreva a função `maior(v)` que devolve o maior elemento do array (o array tem pelo menos 1 elemento).$c$, null, $c$maior$c$, $c$function maior(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[3,9,2]],"expected":9},{"args":[[-5,-2,-9]],"expected":-2},{"args":[[7]],"expected":7},{"args":[[1,1,1]],"expected":1}]$c$::jsonb, $c${}$c$::jsonb, $c$Comece supondo que o maior é o primeiro elemento.$c$, 6, false, $c$arquivo$c$),
+  ($c$for-vet-contar-maiores$c$, $c$percorrer-arrays-com-for$c$, $c$code$c$, $c$Contar os maiores$c$, $c$medio$c$, $c$Escreva a função `contarMaiores(v, limite)` que devolve quantos elementos do array são maiores que `limite`.$c$, null, $c$contarMaiores$c$, $c$function contarMaiores(v, limite) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,5,8,3],4],"expected":2},{"args":[[1,2],10],"expected":0},{"args":[[],0],"expected":0},{"args":[[4,4],4],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Some 1 ao contador quando v[i] > limite.$c$, 7, false, $c$arquivo$c$),
+  ($c$for-vet-corrija-a-media$c$, $c$percorrer-arrays-com-for$c$, $c$fix$c$, $c$Corrija a média$c$, $c$medio$c$, $c$A função `media(v)` deveria devolver a média dos elementos do array, mas devolve NaN. Corrija o defeito.$c$, null, $c$media$c$, $c$function media(v) {
+  let soma = 0;
+  for (let i = 0; i <= v.length; i++) {
+    soma += v[i];
+  }
+  return soma / v.length;
+}
+$c$, $c$[{"args":[[2,4,6]],"expected":4},{"args":[[10]],"expected":10},{"args":[[1,2]],"expected":1.5}]$c$::jsonb, $c${}$c$::jsonb, $c$Até qual índice o laço vai? Existe elemento nessa última volta?$c$, 8, false, $c$arquivo$c$),
+  ($c$for-vet-de-tras-para-frente$c$, $c$percorrer-arrays-com-for$c$, $c$interpretation$c$, $c$De trás para frente$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4 8 15","misconception":"acha que o laço percorre na ordem normal"},{"text":"15 8","misconception":"acha que o laço para antes do primeiro elemento"},{"text":"2 1 0","misconception":"mostra os índices em vez dos elementos"},{"text":"15 8 4"}],"correct":3,"code":"const v = [4, 8, 15];\nlet r = \"\";\nfor (let i = v.length - 1; i >= 0; i--) {\n  r += v[i] + \" \";\n}\nconsole.log(r.trim());","explanation":"O laço visita os índices 2, 1 e 0 e junta 15, 8 e 4 nessa ordem."}$c$::jsonb, $c$O índice começa no último e vai diminuindo até 0.$c$, 9, false, $c$arquivo$c$),
+  ($c$for-vet-segundo-maior$c$, $c$percorrer-arrays-com-for$c$, $c$code$c$, $c$Segundo maior$c$, $c$dificil$c$, $c$Escreva a função `segundoMaior(v)` que devolve o segundo maior elemento do array (o array tem pelo menos 2 elementos; elementos repetidos contam: no array [9, 9, 1] o segundo maior é 9).$c$, null, $c$segundoMaior$c$, $c$function segundoMaior(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[5,9,7]],"expected":7},{"args":[[9,9,1]],"expected":9},{"args":[[1,2]],"expected":1},{"args":[[3,3]],"expected":3},{"args":[[-1,-5,-3]],"expected":-3}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde dois valores durante o laço: o maior e o segundo maior.$c$, 10, false, $c$arquivo$c$),
+  ($c$while-vet-o-que-nao-pode-faltar$c$, $c$percorrer-arrays-com-while$c$, $c$choice$c$, $c$O que não pode faltar?$c$, $c$facil$c$, $c$Em um while que percorre um array com o índice i, o que não pode faltar dentro do laço?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A atualização do índice (por exemplo, i++)"},{"text":"Um comando break em toda volta","misconception":"acha que o while precisa de break para terminar"},{"text":"A declaração do array","misconception":"acha que o array precisa ser declarado a cada volta"},{"text":"Um segundo laço","misconception":"acha que percorrer um array exige laços aninhados"}],"correct":0,"explanation":"Se o índice não for atualizado, a condição não muda e o laço fica infinito."}$c$::jsonb, $c$Sem mudar i, a condição nunca fica falsa.$c$, 1, false, $c$arquivo$c$),
+  ($c$while-vet-mostra-tudo$c$, $c$percorrer-arrays-com-while$c$, $c$interpretation$c$, $c$Mostrando com while$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0\n1\n2","misconception":"mostra os índices em vez dos elementos"},{"text":"4\n6","misconception":"começa pelo segundo elemento"},{"text":"2\n4\n6"},{"text":"2\n4\n6\nundefined","misconception":"acha que o laço visita v[v.length]"}],"correct":2,"code":"const v = [2, 4, 6];\nlet i = 0;\nwhile (i < v.length) {\n  console.log(v[i]);\n  i++;\n}","explanation":"i vai de 0 a 2 e o laço mostra 2, 4 e 6."}$c$::jsonb, $c$v[i] é o elemento da vez.$c$, 2, false, $c$arquivo$c$),
+  ($c$while-vet-complete-a-atualizacao$c$, $c$percorrer-arrays-com-while$c$, $c$blank$c$, $c$Complete a atualização$c$, $c$facil$c$, $c$Complete a atualização do índice dentro do laço.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let i = 0;\nwhile (i < v.length) {\n  console.log(v[i]);\n  {{1}};\n}","blanks":[{"answers":["i++","i += 1","i = i + 1","++i"]}],"explanation":"i++ avança para a próxima posição do array."}$c$::jsonb, $c$Sem essa linha, o laço seria infinito.$c$, 3, false, $c$arquivo$c$),
+  ($c$while-vet-parar-no-oito$c$, $c$percorrer-arrays-com-while$c$, $c$interpretation$c$, $c$Parando no oito$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"acha que o laço encontra a última ocorrência do 8"},{"text":"1"},{"text":"2","misconception":"conta a quantidade de elementos antes do 8 e erra uma posição"},{"text":"0","misconception":"acha que o laço para logo na primeira volta"}],"correct":1,"code":"const v = [3, 8, 5, 8];\nlet i = 0;\nwhile (i < v.length && v[i] !== 8) {\n  i++;\n}\nconsole.log(i);","explanation":"i avança de 0 para 1; em v[1] o valor é 8 e o laço termina. A primeira ocorrência está na posição 1."}$c$::jsonb, $c$O laço para na primeira vez que v[i] é igual a 8.$c$, 4, false, $c$arquivo$c$),
+  ($c$while-vet-primeiro-negativo$c$, $c$percorrer-arrays-com-while$c$, $c$code$c$, $c$Primeiro negativo$c$, $c$medio$c$, $c$Escreva a função `primeiroNegativo(v)` que devolve o índice do primeiro elemento negativo do array, ou -1 se não houver nenhum. Use while.$c$, null, $c$primeiroNegativo$c$, $c$function primeiroNegativo(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[3,-1,5,-2]],"expected":1},{"args":[[1,2,3]],"expected":-1},{"args":[[-4]],"expected":0},{"args":[[]],"expected":-1}]$c$::jsonb, $c${}$c$::jsonb, $c$Avance o índice enquanto não passar do fim e o elemento não for negativo.$c$, 5, false, $c$arquivo$c$),
+  ($c$while-vet-somar-ate-zero$c$, $c$percorrer-arrays-com-while$c$, $c$code$c$, $c$Somar até o zero$c$, $c$medio$c$, $c$Escreva a função `somarAteZero(v)` que soma os elementos do array até encontrar um 0 (o 0 e o que vem depois não entram na soma). Sem zero, soma todos.$c$, null, $c$somarAteZero$c$, $c$function somarAteZero(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,0,5]],"expected":3},{"args":[[0,4]],"expected":0},{"args":[[4,4]],"expected":8},{"args":[[]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$O laço deve continuar enquanto houver elemento e ele não for 0.$c$, 6, false, $c$arquivo$c$),
+  ($c$while-vet-corrija-a-busca$c$, $c$percorrer-arrays-com-while$c$, $c$fix$c$, $c$Corrija a busca$c$, $c$medio$c$, $c$A função `posicaoDe(v, x)` deveria devolver o índice da primeira ocorrência de x (ou -1), mas o laço nunca termina quando x não está na primeira posição (o computador desiste por tempo esgotado). Corrija o defeito.$c$, null, $c$posicaoDe$c$, $c$function posicaoDe(v, x) {
+  let i = 0;
+  while (i < v.length && v[i] !== x) {
+  }
+  return i < v.length ? i : -1;
+}
+$c$, $c$[{"args":[[4,8,15],15],"expected":2},{"args":[[1],1],"expected":0},{"args":[[1,2],5],"expected":-1}]$c$::jsonb, $c${}$c$::jsonb, $c$O que muda a cada volta do laço?$c$, 7, false, $c$arquivo$c$),
+  ($c$while-vet-pulando-de-dois-em-dois$c$, $c$percorrer-arrays-com-while$c$, $c$interpretation$c$, $c$De dois em dois$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"15","misconception":"acha que o laço soma todos os elementos"},{"text":"6","misconception":"soma só os elementos de índice par começando de 0 e errando um"},{"text":"12","misconception":"soma os elementos das posições 3 e 1 e mais o último"},{"text":"9"}],"correct":3,"code":"const v = [1, 2, 3, 4, 5];\nlet i = v.length - 1;\nlet s = 0;\nwhile (i >= 0) {\n  s += v[i];\n  i -= 2;\n}\nconsole.log(s);","explanation":"O laço soma v[4] = 5, v[2] = 3 e v[0] = 1: 9."}$c$::jsonb, $c$i vale 4, 2 e 0.$c$, 8, false, $c$arquivo$c$),
+  ($c$while-vet-todos-crescentes$c$, $c$percorrer-arrays-com-while$c$, $c$code$c$, $c$Em ordem crescente?$c$, $c$dificil$c$, $c$Escreva a função `crescente(v)` que devolve true se cada elemento do array é maior que o anterior (estritamente crescente) e false caso contrário. Arrays vazios ou com um elemento são considerados crescentes.$c$, null, $c$crescente$c$, $c$function crescente(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3]],"expected":true},{"args":[[1,3,2]],"expected":false},{"args":[[5]],"expected":true},{"args":[[]],"expected":true},{"args":[[1,1]],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Compare v[i] com v[i - 1] e pare assim que achar um par fora de ordem.$c$, 9, false, $c$arquivo$c$),
+  ($c$mat-intro-o-que-e$c$, $c$introducao-as-matrizes$c$, $c$choice$c$, $c$O que é uma matriz?$c$, $c$facil$c$, $c$O que é uma matriz em programação?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Uma tabela de valores organizada em linhas e colunas"},{"text":"Um array com um único valor","misconception":"acha que a matriz tem apenas um elemento"},{"text":"Uma variável que guarda um número muito grande","misconception":"confunde matriz com número grande"},{"text":"Um laço que repete linhas de código","misconception":"confunde matriz com estrutura de repetição"}],"correct":0,"explanation":"Uma matriz organiza valores em linhas e colunas; em JavaScript, é um array cujos elementos são outros arrays."}$c$::jsonb, $c$Pense em uma planilha ou em um tabuleiro.$c$, 1, false, $c$arquivo$c$),
+  ($c$mat-intro-numero-de-linhas$c$, $c$introducao-as-matrizes$c$, $c$interpretation$c$, $c$Quantas linhas?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"acha que length conta todos os elementos da matriz"},{"text":"1","misconception":"acha que length mostra o número de colunas da primeira linha menos 1"},{"text":"2"},{"text":"3","misconception":"confunde length com o último valor"}],"correct":2,"code":"const m = [[1, 2], [3, 4]];\nconsole.log(m.length);","explanation":"m.length é o número de linhas: a matriz tem duas linhas, [1, 2] e [3, 4]."}$c$::jsonb, $c$O array de fora tem quantos elementos?$c$, 2, false, $c$arquivo$c$),
+  ($c$mat-intro-complete-a-segunda-linha$c$, $c$introducao-as-matrizes$c$, $c$blank$c$, $c$Complete a matriz$c$, $c$facil$c$, $c$Complete a segunda linha da matriz.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const tabela = [[1, 2], {{1}}];","blanks":[{"answers":["[3, 4]","[3,4]"]}],"explanation":"Cada linha de uma matriz é um array: aqui, a segunda linha é [3, 4]."}$c$::jsonb, $c$Cada linha é um array entre colchetes.$c$, 3, false, $c$arquivo$c$),
+  ($c$mat-intro-numero-de-colunas$c$, $c$introducao-as-matrizes$c$, $c$interpretation$c$, $c$Quantas colunas?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2","misconception":"confunde o número de colunas com o número de linhas"},{"text":"3"},{"text":"6","misconception":"acha que length conta todos os elementos"},{"text":"1","misconception":"acha que m[0].length devolve o primeiro valor da linha"}],"correct":1,"code":"const m = [[1, 2, 3], [4, 5, 6]];\nconsole.log(m[0].length);","explanation":"m[0] é [1, 2, 3]. Seu length é 3: a matriz tem 3 colunas."}$c$::jsonb, $c$m[0] é a primeira linha; quantos valores ela tem?$c$, 4, false, $c$arquivo$c$),
+  ($c$mat-intro-total-de-elementos$c$, $c$introducao-as-matrizes$c$, $c$choice$c$, $c$Total de elementos$c$, $c$medio$c$, $c$Uma matriz tem 3 linhas e 4 colunas. Quantos elementos ela tem no total?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"soma linhas e colunas em vez de multiplicar"},{"text":"3","misconception":"conta só as linhas"},{"text":"4","misconception":"conta só as colunas"},{"text":"12"}],"correct":3,"explanation":"O total é linhas × colunas: 3 × 4 = 12."}$c$::jsonb, $c$Cada linha tem 4 valores, e há 3 linhas.$c$, 5, false, $c$arquivo$c$),
+  ($c$mat-intro-criar-2x2$c$, $c$introducao-as-matrizes$c$, $c$code$c$, $c$Criar uma matriz 2×2$c$, $c$facil$c$, $c$Escreva a função `criar2x2(a, b, c, d)` que devolve a matriz com duas linhas: [a, b] na primeira e [c, d] na segunda.$c$, null, $c$criar2x2$c$, $c$function criar2x2(a, b, c, d) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[1,2,3,4],"expected":[[1,2],[3,4]]},{"args":[0,0,0,0],"expected":[[0,0],[0,0]]},{"args":["a","b","c","d"],"expected":[["a","b"],["c","d"]]}]$c$::jsonb, $c${}$c$::jsonb, $c$Cada linha é um array; a matriz é um array de arrays.$c$, 6, false, $c$arquivo$c$),
+  ($c$mat-intro-corrija-contar-linhas$c$, $c$introducao-as-matrizes$c$, $c$fix$c$, $c$Corrija a contagem de linhas$c$, $c$medio$c$, $c$A função `contarLinhas(m)` deveria devolver o número de linhas da matriz, mas devolve o número de colunas. Corrija o defeito.$c$, null, $c$contarLinhas$c$, $c$function contarLinhas(m) {
+  return m[0].length;
+}
+$c$, $c$[{"args":[[[1,2,3],[4,5,6]]],"expected":2},{"args":[[[1]]],"expected":1},{"args":[[[1,2],[3,4],[5,6]]],"expected":3}]$c$::jsonb, $c${}$c$::jsonb, $c$Quem representa as linhas: m ou m[0]?$c$, 7, false, $c$arquivo$c$),
+  ($c$mat-intro-dois-indices$c$, $c$introducao-as-matrizes$c$, $c$interpretation$c$, $c$Dois índices$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"13"},{"text":"11","misconception":"troca linha e coluna: lê m[2][1] e m[0][2]"},{"text":"9","misconception":"soma os elementos de índices 1 e 2 da primeira linha"},{"text":"15","misconception":"soma o elemento do canto com o do centro"}],"correct":0,"code":"const m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];\nconsole.log(m[1][2] + m[2][0]);","explanation":"m[1][2] é o elemento da linha 1, coluna 2: 6. m[2][0] é o da linha 2, coluna 0: 7. Soma: 13."}$c$::jsonb, $c$m[linha][coluna]. Comece pela linha.$c$, 8, false, $c$arquivo$c$),
+  ($c$bid-linha-ou-coluna$c$, $c$arrays-bidimensionais$c$, $c$choice$c$, $c$Linha ou coluna?$c$, $c$facil$c$, $c$Em matriz[i][j], o que cada índice representa?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"i é a coluna e j é a linha","misconception":"troca linha e coluna"},{"text":"Os dois índices representam a linha","misconception":"acha que os dois índices escolhem a linha"},{"text":"i é a linha e j é a coluna"},{"text":"i é o valor e j é a posição","misconception":"acha que i é o valor guardado"}],"correct":2,"explanation":"O primeiro índice escolhe a linha e o segundo escolhe a coluna dentro dela."}$c$::jsonb, $c$Linha primeiro, coluna depois.$c$, 1, false, $c$arquivo$c$),
+  ($c$bid-elemento$c$, $c$arrays-bidimensionais$c$, $c$interpretation$c$, $c$Qual elemento?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"troca linha e coluna: lê a linha 1, coluna 0"},{"text":"2"},{"text":"1","misconception":"lê a primeira coluna em vez da segunda"},{"text":"4","misconception":"lê a última linha e a última coluna"}],"correct":1,"code":"const m = [[1, 2], [3, 4]];\nconsole.log(m[0][1]);","explanation":"m[0] é [1, 2] e o elemento de índice 1 dessa linha é 2."}$c$::jsonb, $c$Linha 0, coluna 1.$c$, 2, false, $c$arquivo$c$),
+  ($c$bid-complete-a-linha$c$, $c$arrays-bidimensionais$c$, $c$blank$c$, $c$Complete a linha$c$, $c$facil$c$, $c$Complete o índice para mostrar o primeiro elemento da SEGUNDA linha.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const m = [[1, 2], [3, 4]];\nconsole.log(m[{{1}}][0]);","blanks":[{"answers":["1"]}],"explanation":"A segunda linha é a de índice 1: m[1][0] vale 3."}$c$::jsonb, $c$A segunda linha tem índice 1.$c$, 3, false, $c$arquivo$c$),
+  ($c$bid-alterar-e-somar$c$, $c$arrays-bidimensionais$c$, $c$interpretation$c$, $c$Alterando um elemento$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"ignora a atribuição e usa o valor antigo (4 + 3)"},{"text":"46","misconception":"lê m[1][2] em vez de m[0][2]"},{"text":"41","misconception":"soma o valor novo com o primeiro elemento da primeira linha"},{"text":"43"}],"correct":3,"code":"const m = [[1, 2, 3], [4, 5, 6]];\nm[1][0] = 40;\nconsole.log(m[1][0] + m[0][2]);","explanation":"m[1][0] foi trocado por 40 e m[0][2] vale 3: 40 + 3 = 43."}$c$::jsonb, $c$m[1][0] passa a valer 40 antes da soma.$c$, 4, false, $c$arquivo$c$),
+  ($c$bid-elemento-em$c$, $c$arrays-bidimensionais$c$, $c$code$c$, $c$Elemento da matriz$c$, $c$facil$c$, $c$Escreva a função `elementoEm(m, i, j)` que devolve o elemento da linha i e coluna j da matriz.$c$, null, $c$elementoEm$c$, $c$function elementoEm(m, i, j) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]],0,1],"expected":2},{"args":[[[1,2],[3,4]],1,0],"expected":3},{"args":[[[9]],0,0],"expected":9}]$c$::jsonb, $c${}$c$::jsonb, $c$Primeiro a linha, depois a coluna.$c$, 5, false, $c$arquivo$c$),
+  ($c$bid-soma-da-linha$c$, $c$arrays-bidimensionais$c$, $c$code$c$, $c$Soma de uma linha$c$, $c$medio$c$, $c$Escreva a função `somaDaLinha(m, i)` que devolve a soma dos elementos da linha i da matriz.$c$, null, $c$somaDaLinha$c$, $c$function somaDaLinha(m, i) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2,3],[4,5,6]],0],"expected":6},{"args":[[[1,2,3],[4,5,6]],1],"expected":15},{"args":[[[7]],0],"expected":7}]$c$::jsonb, $c${}$c$::jsonb, $c$m[i] é um array: percorra-o com um for.$c$, 6, false, $c$arquivo$c$),
+  ($c$bid-ultima-linha$c$, $c$arrays-bidimensionais$c$, $c$code$c$, $c$Última linha$c$, $c$medio$c$, $c$Escreva a função `ultimaLinha(m)` que devolve a última linha da matriz (que tem pelo menos uma linha).$c$, null, $c$ultimaLinha$c$, $c$function ultimaLinha(m) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]]],"expected":[3,4]},{"args":[[[5]]],"expected":[5]},{"args":[[[1],[2,3],[4,5,6]]],"expected":[4,5,6]}]$c$::jsonb, $c${}$c$::jsonb, $c$Quantas linhas existem? Qual é o índice da última?$c$, 7, false, $c$arquivo$c$),
+  ($c$bid-corrija-linha-e-coluna$c$, $c$arrays-bidimensionais$c$, $c$fix$c$, $c$Corrija linha e coluna$c$, $c$medio$c$, $c$A função `valorEm(m, i, j)` deveria devolver o elemento da linha i e coluna j, mas devolve o elemento de outra posição quando i e j são diferentes. Corrija o defeito.$c$, null, $c$valorEm$c$, $c$function valorEm(m, i, j) {
+  return m[j][i];
+}
+$c$, $c$[{"args":[[[1,2,3],[4,5,6]],0,2],"expected":3},{"args":[[[1,2,3],[4,5,6]],1,0],"expected":4},{"args":[[[7]],0,0],"expected":7}]$c$::jsonb, $c${}$c$::jsonb, $c$O primeiro índice escolhe a linha ou a coluna?$c$, 8, false, $c$arquivo$c$),
+  ($c$bid-linhas-irregulares$c$, $c$arrays-bidimensionais$c$, $c$interpretation$c$, $c$Linhas de tamanhos diferentes$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6"},{"text":"5","misconception":"usa m[1].length no lugar de m[2].length"},{"text":"9","misconception":"soma os elementos da última linha em vez de usar o length"},{"text":"4","misconception":"usa o número de linhas (3) mais 1"}],"correct":0,"code":"const m = [[1], [2, 3], [4, 5, 6]];\nconsole.log(m[2].length + m[1][1]);","explanation":"m[2] é [4, 5, 6]: length 3. m[1][1] é 3. Soma: 6."}$c$::jsonb, $c$m[2] é a terceira linha. Quantos elementos ela tem?$c$, 9, false, $c$arquivo$c$),
+  ($c$bid-coluna$c$, $c$arrays-bidimensionais$c$, $c$code$c$, $c$Extrair uma coluna$c$, $c$dificil$c$, $c$Escreva a função `coluna(m, j)` que devolve um array com os elementos da coluna j, na ordem das linhas. Por exemplo, coluna([[1, 2], [3, 4]], 1) devolve [2, 4].$c$, null, $c$coluna$c$, $c$function coluna(m, j) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]],1],"expected":[2,4]},{"args":[[[1,2,3],[4,5,6]],0],"expected":[1,4]},{"args":[[[7,8,9]],2],"expected":[9]}]$c$::jsonb, $c${}$c$::jsonb, $c$Percorra as linhas e pegue o elemento j de cada uma.$c$, 10, false, $c$arquivo$c$),
+  ($c$pm-limites$c$, $c$percorrer-matrizes$c$, $c$choice$c$, $c$Os limites dos laços$c$, $c$facil$c$, $c$Quais são os limites corretos para percorrer toda uma matriz m?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"i < m.length e j < m.length","misconception":"supõe que a matriz é sempre quadrada"},{"text":"i < m[0].length e j < m.length","misconception":"troca o limite de linhas pelo de colunas"},{"text":"i < m.length e j < m[i].length"},{"text":"i <= m.length e j <= m[i].length","misconception":"ultrapassa o limite das duas dimensões (usa <=)"}],"correct":2,"explanation":"As linhas vão até m.length e, em cada linha i, as colunas vão até m[i].length."}$c$::jsonb, $c$O laço de fora conta linhas; o de dentro, colunas da linha atual.$c$, 1, false, $c$arquivo$c$),
+  ($c$pm-soma-total$c$, $c$percorrer-matrizes$c$, $c$interpretation$c$, $c$Soma da matriz$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"soma só a primeira linha"},{"text":"10"},{"text":"6","misconception":"soma só a diagonal ou uma linha e esquece elementos"},{"text":"4","misconception":"acha que o laço soma só o último elemento"}],"correct":1,"code":"const m = [[1, 2], [3, 4]];\nlet s = 0;\nfor (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].length; j++) {\n    s += m[i][j];\n  }\n}\nconsole.log(s);","explanation":"Todos os elementos são visitados: 1 + 2 + 3 + 4 = 10."}$c$::jsonb, $c$Os dois laços visitam 1, 2, 3 e 4.$c$, 2, false, $c$arquivo$c$),
+  ($c$pm-complete-o-limite$c$, $c$percorrer-matrizes$c$, $c$blank$c$, $c$Complete o limite$c$, $c$facil$c$, $c$Complete o limite do laço das colunas.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].{{1}}; j++) {\n    console.log(m[i][j]);\n  }\n}","blanks":[{"answers":["length"]}],"explanation":"m[i].length é a quantidade de colunas da linha atual."}$c$::jsonb, $c$Quantos elementos tem a linha m[i]?$c$, 3, false, $c$arquivo$c$),
+  ($c$pm-conta-as-voltas$c$, $c$percorrer-matrizes$c$, $c$interpretation$c$, $c$Contando as visitas$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"soma linhas e colunas em vez de multiplicar"},{"text":"2","misconception":"conta só as linhas"},{"text":"3","misconception":"conta só as colunas"},{"text":"6"}],"correct":3,"code":"const m = [[1, 2, 3], [4, 5, 6]];\nlet c = 0;\nfor (let i = 0; i < m.length; i++) {\n  for (let j = 0; j < m[i].length; j++) {\n    c++;\n  }\n}\nconsole.log(c);","explanation":"O corpo interno executa uma vez para cada elemento: 2 × 3 = 6."}$c$::jsonb, $c$2 linhas com 3 colunas cada.$c$, 4, false, $c$arquivo$c$),
+  ($c$pm-soma-matriz$c$, $c$percorrer-matrizes$c$, $c$code$c$, $c$Soma da matriz$c$, $c$medio$c$, $c$Escreva a função `somaMatriz(m)` que devolve a soma de todos os elementos da matriz.$c$, null, $c$somaMatriz$c$, $c$function somaMatriz(m) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]]],"expected":10},{"args":[[[5]]],"expected":5},{"args":[[[1,2,3],[4,5,6]]],"expected":21},{"args":[[]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Um acumulador antes dos laços; some m[i][j] dentro do laço interno.$c$, 5, false, $c$arquivo$c$),
+  ($c$pm-contar-valor$c$, $c$percorrer-matrizes$c$, $c$code$c$, $c$Contar um valor$c$, $c$medio$c$, $c$Escreva a função `contarValor(m, x)` que devolve quantas vezes o valor x aparece na matriz.$c$, null, $c$contarValor$c$, $c$function contarValor(m, x) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[2,3]],2],"expected":2},{"args":[[[1,1],[1,1]],1],"expected":4},{"args":[[[5]],9],"expected":0},{"args":[[]],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Um contador sobe 1 quando m[i][j] é igual a x.$c$, 6, false, $c$arquivo$c$),
+  ($c$pm-mostrar-matriz$c$, $c$percorrer-matrizes$c$, $c$code$c$, $c$Mostrar a matriz$c$, $c$medio$c$, $c$Escreva a função `mostrarMatriz(m)` que mostra a matriz com `console.log`: uma linha de texto por linha da matriz, com os elementos separados por um espaço (por exemplo, "1 2" e depois "3 4").$c$, null, $c$mostrarMatriz$c$, $c$function mostrarMatriz(m) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]]],"output":["1 2","3 4"]},{"args":[[[7]]],"output":["7"]},{"args":[[[1,2,3],[4,5,6]]],"output":["1 2 3","4 5 6"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Monte um texto por linha, juntando os elementos, e mostre-o ao fim do laço das colunas.$c$, 7, false, $c$arquivo$c$),
+  ($c$pm-corrija-o-maior$c$, $c$percorrer-matrizes$c$, $c$fix$c$, $c$Corrija o maior da matriz$c$, $c$medio$c$, $c$A função `maiorDaMatriz(m)` deveria devolver o maior elemento da matriz, mas erra quando todos os números são negativos. Corrija o defeito.$c$, null, $c$maiorDaMatriz$c$, $c$function maiorDaMatriz(m) {
+  let maior = 0;
+  for (let i = 0; i < m.length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      if (m[i][j] > maior) {
+        maior = m[i][j];
+      }
+    }
+  }
+  return maior;
+}
+$c$, $c$[{"args":[[[1,5],[3,2]]],"expected":5},{"args":[[[-5,-2],[-9,-3]]],"expected":-2},{"args":[[[-7]]],"expected":-7}]$c$::jsonb, $c${}$c$::jsonb, $c$Com todos os valores negativos, nenhum é maior que 0.$c$, 8, false, $c$arquivo$c$),
+  ($c$pm-diagonais$c$, $c$percorrer-matrizes$c$, $c$interpretation$c$, $c$As duas diagonais$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"30"},{"text":"25","misconception":"conta o elemento central uma vez só"},{"text":"15","misconception":"soma só uma das diagonais"},{"text":"45","misconception":"soma todos os elementos da matriz"}],"correct":0,"code":"const m = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];\nlet s = 0;\nfor (let i = 0; i < 3; i++) {\n  s += m[i][i] + m[i][2 - i];\n}\nconsole.log(s);","explanation":"A diagonal principal soma 1 + 5 + 9 = 15 e a outra soma 3 + 5 + 7 = 15. O 5 é contado duas vezes: 30."}$c$::jsonb, $c$m[i][i] é a diagonal principal e m[i][2 - i] é a outra. O 5 aparece nas duas.$c$, 9, false, $c$arquivo$c$),
+  ($c$pm-diagonal-principal$c$, $c$percorrer-matrizes$c$, $c$code$c$, $c$Diagonal principal$c$, $c$dificil$c$, $c$Escreva a função `somaDiagonal(m)` que devolve a soma da diagonal principal (elementos m[0][0], m[1][1], ...) de uma matriz quadrada (mesmo número de linhas e colunas).$c$, null, $c$somaDiagonal$c$, $c$function somaDiagonal(m) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2],[3,4]]],"expected":5},{"args":[[[5]]],"expected":5},{"args":[[[1,2,3],[4,5,6],[7,8,9]]],"expected":15}]$c$::jsonb, $c${}$c$::jsonb, $c$Na diagonal, a linha e a coluna são iguais.$c$, 10, false, $c$arquivo$c$),
+  ($c$pm-transposta$c$, $c$percorrer-matrizes$c$, $c$code$c$, $c$Matriz transposta$c$, $c$dificil$c$, $c$Escreva a função `transposta(m)` que devolve uma matriz NOVA em que as linhas viram colunas: o elemento da linha i, coluna j de m fica na linha j, coluna i do resultado. Por exemplo, a transposta de [[1, 2, 3], [4, 5, 6]] é [[1, 4], [2, 5], [3, 6]].$c$, null, $c$transposta$c$, $c$function transposta(m) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[[1,2,3],[4,5,6]]],"expected":[[1,4],[2,5],[3,6]]},{"args":[[[1,2],[3,4]]],"expected":[[1,3],[2,4]]},{"args":[[[7,8]]],"expected":[[7],[8]]}]$c$::jsonb, $c${}$c$::jsonb, $c$O resultado tem tantas linhas quanto m tem colunas. Monte cada nova linha coletando uma coluna de m.$c$, 11, false, $c$arquivo$c$),
+  ($c$desafio6-notas-da-turma$c$, $c$desafio-do-mundo-6$c$, $c$challenge$c$, $c$Desafio: notas da turma$c$, $c$dificil$c$, $c$Escreva a função `analisarTurma()`: leia a quantidade de notas com `lerEntrada()` e depois cada nota (tudo chega como texto). Guarde as notas em um vetor e mostre três linhas com `console.log`: `Média: <valor>`, `Maior nota: <valor>` e `Acima da média: <quantidade>` (quantas notas são maiores que a média).$c$, null, $c$analisarTurma$c$, $c$function analisarTurma() {
+  // leia as notas, guarde em um vetor e mostre as três linhas
+}
+$c$, $c$[{"args":[],"inputs":["3","7","9","5"],"output":["Média: 7","Maior nota: 9","Acima da média: 1"]},{"args":[],"inputs":["2","6","8"],"output":["Média: 7","Maior nota: 8","Acima da média: 1"]},{"args":[],"inputs":["1","10"],"output":["Média: 10","Maior nota: 10","Acima da média: 0"]},{"args":[],"inputs":["4","5","5","5","5"],"output":["Média: 5","Maior nota: 5","Acima da média: 0"]},{"args":[],"inputs":["2","5","6"],"output":["Média: 5.5","Maior nota: 6","Acima da média: 1"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde as notas com push. A média só é conhecida depois de somar tudo: use um segundo percurso para contar as acima da média.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio6-corrija-a-media$c$, $c$desafio-do-mundo-6$c$, $c$fix$c$, $c$Desafio: corrija a média$c$, $c$dificil$c$, $c$A função `mediaDaTurma(notas)` deveria devolver a média das notas do vetor (7 para [7, 9, 5]), mas devolve um valor muito menor. Corrija o defeito.$c$, null, $c$mediaDaTurma$c$, $c$function mediaDaTurma(notas) {
+  let soma = 0;
+  for (let i = 0; i < notas.length; i++) {
+    soma = notas[i];
+  }
+  return soma / notas.length;
+}
+$c$, $c$[{"args":[[7,9,5]],"expected":7},{"args":[[10]],"expected":10},{"args":[[4,6]],"expected":5},{"args":[[0,0,9]],"expected":3}]$c$::jsonb, $c${}$c$::jsonb, $c$O acumulador está juntando as notas ou sendo substituído a cada volta?$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio6-acompanhe-as-notas$c$, $c$desafio-do-mundo-6$c$, $c$interpretation$c$, $c$Desafio: acompanhe as notas$c$, $c$dificil$c$, $c$Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"24 10","misconception":"soma também a nota da posição 0, que o laço não visita"},{"text":"18 8","misconception":"para de procurar o maior antes do último elemento"},{"text":"18 10"},{"text":"8 10","misconception":"mostra a segunda nota no lugar da soma"}],"correct":2,"code":"const notas = [6, 8, 10];\nlet soma = 0;\nlet maior = notas[0];\nfor (let i = 1; i < notas.length; i++) {\n  soma += notas[i];\n  if (notas[i] > maior) {\n    maior = notas[i];\n  }\n}\nconsole.log(soma, maior);","explanation":"O laço visita 8 e 10: soma = 8 + 10 = 18. O maior começa em 6 e vira 8 e depois 10."}$c$::jsonb, $c$O laço começa em i = 1: a nota da posição 0 só entra no maior, não na soma.$c$, 3, false, $c$arquivo$c$),
   ($c$parametro-e-retorno$c$, $c$funcoes$c$, $c$choice$c$, $c$Parâmetro e retorno$c$, $c$facil$c$, $c$Na função abaixo, o que é n?
 
 function dobro(n) {
@@ -3135,6 +3760,303 @@ from (values
   }
   return b;
 }$c$, $c$$c$),
+  ($c$vet-intro-soma-de-tres$c$, $c$function somaDeTres(v) {
+  return v[0] + v[1] + v[2];
+}$c$, $c$Os elementos ficam nas posições 0, 1 e 2; basta somá-los.$c$),
+  ($c$vet-intro-corrija-a-posicao$c$, $c$function somaDosDois(v) {
+  return v[0] + v[1];
+}$c$, $c$A contagem começa em 0: os elementos estão nas posições 0 e 1. Usar v[2] acessa uma posição que não existe (undefined).$c$),
+  ($c$arr-inverter-tres$c$, $c$function inverterTres(v) {
+  return [v[2], v[1], v[0]];
+}$c$, $c$Um novo array é criado com os elementos lidos das posições 2, 1 e 0.$c$),
+  ($c$arr-corrija-a-atribuicao$c$, $c$function dobrarSegundo(v) {
+  v[1] = v[1] * 2;
+  return v;
+}$c$, $c$v[1] * 2 só calcula o valor e o descarta. É preciso atribuir o resultado: v[1] = v[1] * 2.$c$),
+  ($c$ind-segundo$c$, $c$function segundo(v) {
+  return v[1];
+}$c$, $c$O segundo elemento está na posição de índice 1: v[1].$c$),
+  ($c$ind-trocar-duas-posicoes$c$, $c$function trocar(v, i, j) {
+  const auxiliar = v[i];
+  v[i] = v[j];
+  v[j] = auxiliar;
+  return v;
+}$c$, $c$Com uma variável auxiliar guardando v[i], os dois valores podem ser trocados sem perder nenhum.$c$),
+  ($c$ind-corrija-o-ultimo$c$, $c$function ultimo(v) {
+  return v[v.length - 1];
+}$c$, $c$Os índices vão de 0 a length - 1. v[v.length] está uma posição além do fim; o certo é v[v.length - 1].$c$),
+  ($c$len-esta-vazio$c$, $c$function estaVazio(v) {
+  return v.length === 0;
+}$c$, $c$Um array vazio tem length 0; basta comparar v.length === 0.$c$),
+  ($c$len-ultimo-elemento$c$, $c$function ultimoElemento(v) {
+  if (v.length === 0) {
+    return "vazio";
+  }
+  return v[v.length - 1];
+}$c$, $c$Se length é 0 devolvemos "vazio"; senão, o último elemento está em v[v.length - 1].$c$),
+  ($c$len-corrija-o-ultimo-indice$c$, $c$function ultimoIndice(v) {
+  return v.length - 1;
+}$c$, $c$length é a quantidade; o último índice é length - 1.$c$),
+  ($c$push-lista-de-pares$c$, $c$function pares(n) {
+  const resultado = [];
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 0) {
+      resultado.push(i);
+    }
+  }
+  return resultado;
+}$c$, $c$O array começa vazio; a cada número par encontrado, push o adiciona no final.$c$),
+  ($c$push-copiar-positivos$c$, $c$function positivos(v) {
+  const resultado = [];
+  for (let i = 0; i < v.length; i++) {
+    if (v[i] > 0) {
+      resultado.push(v[i]);
+    }
+  }
+  return resultado;
+}$c$, $c$O laço percorre v e push guarda no novo array apenas os elementos maiores que zero.$c$),
+  ($c$push-corrija-os-quadrados$c$, $c$function quadrados(n) {
+  const resultado = [];
+  for (let i = 1; i <= n; i++) {
+    resultado.push(i * i);
+  }
+  return resultado;
+}$c$, $c$push devolve o novo tamanho e não o array; atribuí-lo a resultado destrói o array. Basta chamar resultado.push(i * i) sem atribuir.$c$),
+  ($c$push-sem-repetidos$c$, $c$function semRepetidos(v) {
+  const resultado = [];
+  for (let i = 0; i < v.length; i++) {
+    let jaTem = false;
+    for (let j = 0; j < resultado.length; j++) {
+      if (resultado[j] === v[i]) {
+        jaTem = true;
+      }
+    }
+    if (!jaTem) {
+      resultado.push(v[i]);
+    }
+  }
+  return resultado;
+}$c$, $c$Para cada elemento, um laço (ou includes) verifica se ele já foi guardado; só se não foi, push o adiciona.$c$),
+  ($c$pop-remover-ultimos$c$, $c$function removerUltimos(v, n) {
+  for (let i = 0; i < n && v.length > 0; i++) {
+    v.pop();
+  }
+  return v;
+}$c$, $c$Um laço repete pop() n vezes (no máximo o tamanho do array); em array vazio pop não causa erro.$c$),
+  ($c$pop-corrija-o-retorno$c$, $c$function retirarUltimo(v) {
+  return v.pop();
+}$c$, $c$pop já devolve o elemento removido; basta retornar v.pop() (ou guardar o resultado e retorná-lo).$c$),
+  ($c$shift-rotacionar$c$, $c$function rotacionar(v) {
+  if (v.length > 0) {
+    v.push(v.shift());
+  }
+  return v;
+}$c$, $c$shift tira o primeiro elemento e push o coloca no final. Com array vazio, nada é movido.$c$),
+  ($c$shift-corrija-o-inicio$c$, $c$function adicionarNoInicio(v, x) {
+  v.unshift(x);
+  return v;
+}$c$, $c$push adiciona no final. Para adicionar no início, use unshift.$c$),
+  ($c$shift-primeiros-n$c$, $c$function retirarPrimeiros(v, n) {
+  const retirados = [];
+  for (let i = 0; i < n && v.length > 0; i++) {
+    retirados.push(v.shift());
+  }
+  return retirados;
+}$c$, $c$Um laço repete até n vezes (ou até esvaziar): shift retira o primeiro e push o guarda no resultado.$c$),
+  ($c$for-vet-somar$c$, $c$function somar(v) {
+  let soma = 0;
+  for (let i = 0; i < v.length; i++) {
+    soma += v[i];
+  }
+  return soma;
+}$c$, $c$O acumulador soma cada elemento durante o laço; com array vazio o laço não executa e o resultado é 0.$c$),
+  ($c$for-vet-maior$c$, $c$function maior(v) {
+  let maior = v[0];
+  for (let i = 1; i < v.length; i++) {
+    if (v[i] > maior) {
+      maior = v[i];
+    }
+  }
+  return maior;
+}$c$, $c$Guardamos o maior visto até agora (começando por v[0]) e o atualizamos sempre que um elemento maior aparece.$c$),
+  ($c$for-vet-contar-maiores$c$, $c$function contarMaiores(v, limite) {
+  let contador = 0;
+  for (let i = 0; i < v.length; i++) {
+    if (v[i] > limite) {
+      contador++;
+    }
+  }
+  return contador;
+}$c$, $c$Um contador sobe 1 para cada elemento maior que o limite.$c$),
+  ($c$for-vet-corrija-a-media$c$, $c$function media(v) {
+  let soma = 0;
+  for (let i = 0; i < v.length; i++) {
+    soma += v[i];
+  }
+  return soma / v.length;
+}$c$, $c$Com i <= v.length o laço soma undefined na última volta. A condição correta é i < v.length.$c$),
+  ($c$for-vet-segundo-maior$c$, $c$function segundoMaior(v) {
+  let primeiro = -Infinity;
+  let segundo = -Infinity;
+  for (let i = 0; i < v.length; i++) {
+    if (v[i] > primeiro) {
+      segundo = primeiro;
+      primeiro = v[i];
+    } else if (v[i] > segundo) {
+      segundo = v[i];
+    }
+  }
+  return segundo;
+}$c$, $c$O laço mantém o maior e o segundo maior vistos até agora, atualizando os dois conforme cada elemento.$c$),
+  ($c$while-vet-primeiro-negativo$c$, $c$function primeiroNegativo(v) {
+  let i = 0;
+  while (i < v.length && v[i] >= 0) {
+    i++;
+  }
+  return i < v.length ? i : -1;
+}$c$, $c$O laço avança i enquanto i < v.length e v[i] >= 0. Ao sair, se i < v.length achamos o negativo; senão, devolvemos -1.$c$),
+  ($c$while-vet-somar-ate-zero$c$, $c$function somarAteZero(v) {
+  let i = 0;
+  let soma = 0;
+  while (i < v.length && v[i] !== 0) {
+    soma += v[i];
+    i++;
+  }
+  return soma;
+}$c$, $c$O while soma v[i] e avança i enquanto i < v.length e v[i] !== 0.$c$),
+  ($c$while-vet-corrija-a-busca$c$, $c$function posicaoDe(v, x) {
+  let i = 0;
+  while (i < v.length && v[i] !== x) {
+    i++;
+  }
+  return i < v.length ? i : -1;
+}$c$, $c$Faltava avançar o índice dentro do laço: com i++ a condição eventualmente fica falsa.$c$),
+  ($c$while-vet-todos-crescentes$c$, $c$function crescente(v) {
+  let i = 1;
+  while (i < v.length && v[i] > v[i - 1]) {
+    i++;
+  }
+  return i >= v.length;
+}$c$, $c$O laço avança enquanto cada par estiver em ordem; se algum par violar a regra, a resposta é false.$c$),
+  ($c$mat-intro-criar-2x2$c$, $c$function criar2x2(a, b, c, d) {
+  return [[a, b], [c, d]];
+}$c$, $c$A matriz é um array cujos dois elementos são as linhas [a, b] e [c, d].$c$),
+  ($c$mat-intro-corrija-contar-linhas$c$, $c$function contarLinhas(m) {
+  return m.length;
+}$c$, $c$As linhas são os elementos de m, então m.length é o número de linhas. m[0].length conta as colunas.$c$),
+  ($c$bid-elemento-em$c$, $c$function elementoEm(m, i, j) {
+  return m[i][j];
+}$c$, $c$m[i][j] lê o elemento da linha i, coluna j.$c$),
+  ($c$bid-soma-da-linha$c$, $c$function somaDaLinha(m, i) {
+  let soma = 0;
+  for (let j = 0; j < m[i].length; j++) {
+    soma += m[i][j];
+  }
+  return soma;
+}$c$, $c$A linha m[i] é um array comum; um acumulador soma cada um dos seus elementos.$c$),
+  ($c$bid-ultima-linha$c$, $c$function ultimaLinha(m) {
+  return m[m.length - 1];
+}$c$, $c$O número de linhas é m.length e o índice da última é m.length - 1.$c$),
+  ($c$bid-corrija-linha-e-coluna$c$, $c$function valorEm(m, i, j) {
+  return m[i][j];
+}$c$, $c$Os índices estavam trocados. A linha vem primeiro: m[i][j].$c$),
+  ($c$bid-coluna$c$, $c$function coluna(m, j) {
+  const resultado = [];
+  for (let i = 0; i < m.length; i++) {
+    resultado.push(m[i][j]);
+  }
+  return resultado;
+}$c$, $c$Um laço visita cada linha i e adiciona m[i][j] ao resultado com push.$c$),
+  ($c$pm-soma-matriz$c$, $c$function somaMatriz(m) {
+  let soma = 0;
+  for (let i = 0; i < m.length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      soma += m[i][j];
+    }
+  }
+  return soma;
+}$c$, $c$Dois laços visitam todas as posições e o acumulador soma cada elemento.$c$),
+  ($c$pm-contar-valor$c$, $c$function contarValor(m, x) {
+  let contador = 0;
+  for (let i = 0; i < m.length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      if (m[i][j] === x) {
+        contador++;
+      }
+    }
+  }
+  return contador;
+}$c$, $c$O contador começa em 0 e sobe 1 sempre que o elemento visitado é igual a x.$c$),
+  ($c$pm-mostrar-matriz$c$, $c$function mostrarMatriz(m) {
+  for (let i = 0; i < m.length; i++) {
+    let linha = "";
+    for (let j = 0; j < m[i].length; j++) {
+      linha += (j === 0 ? "" : " ") + m[i][j];
+    }
+    console.log(linha);
+  }
+}$c$, $c$Para cada linha, o laço interno monta o texto com os elementos; depois de visitar a linha toda, o texto é mostrado.$c$),
+  ($c$pm-corrija-o-maior$c$, $c$function maiorDaMatriz(m) {
+  let maior = m[0][0];
+  for (let i = 0; i < m.length; i++) {
+    for (let j = 0; j < m[i].length; j++) {
+      if (m[i][j] > maior) {
+        maior = m[i][j];
+      }
+    }
+  }
+  return maior;
+}$c$, $c$Começando em 0, o resultado nunca fica negativo. O maior deve começar com o primeiro elemento da matriz (m[0][0]).$c$),
+  ($c$pm-diagonal-principal$c$, $c$function somaDiagonal(m) {
+  let soma = 0;
+  for (let i = 0; i < m.length; i++) {
+    soma += m[i][i];
+  }
+  return soma;
+}$c$, $c$Um único laço com m[i][i] soma os elementos em que linha e coluna coincidem.$c$),
+  ($c$pm-transposta$c$, $c$function transposta(m) {
+  const resultado = [];
+  for (let j = 0; j < m[0].length; j++) {
+    const linha = [];
+    for (let i = 0; i < m.length; i++) {
+      linha.push(m[i][j]);
+    }
+    resultado.push(linha);
+  }
+  return resultado;
+}$c$, $c$Para cada coluna j de m, monta-se uma nova linha com os elementos m[0][j], m[1][j], ... e ela é adicionada ao resultado.$c$),
+  ($c$desafio6-notas-da-turma$c$, $c$function analisarTurma() {
+  const quantidade = Number(lerEntrada());
+  const notas = [];
+  for (let i = 0; i < quantidade; i++) {
+    notas.push(Number(lerEntrada()));
+  }
+  let soma = 0;
+  let maior = notas[0];
+  for (let i = 0; i < notas.length; i++) {
+    soma += notas[i];
+    if (notas[i] > maior) {
+      maior = notas[i];
+    }
+  }
+  const media = soma / notas.length;
+  let acima = 0;
+  for (let i = 0; i < notas.length; i++) {
+    if (notas[i] > media) {
+      acima++;
+    }
+  }
+  console.log("Média:", media);
+  console.log("Maior nota:", maior);
+  console.log("Acima da média:", acima);
+}$c$, $c$As notas vão para um vetor com push. Um primeiro laço soma e encontra a maior; com a média pronta, um segundo laço conta as notas maiores que ela.$c$),
+  ($c$desafio6-corrija-a-media$c$, $c$function mediaDaTurma(notas) {
+  let soma = 0;
+  for (let i = 0; i < notas.length; i++) {
+    soma += notas[i];
+  }
+  return soma / notas.length;
+}$c$, $c$soma = notas[i] substitui o acumulador em cada volta. O correto é somar: soma += notas[i].$c$),
   ($c$maior-de-dois$c$, $c$function maiorDeDois(a, b) {
   return a > b ? a : b;
 }$c$, $c$$c$),
@@ -3147,7 +4069,7 @@ on conflict (exercise_id) do update set solution = excluded.solution, commentary
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -3843,6 +4765,206 @@ from (values
   ($c$media-do-vetor$c$, $c$m5-acumuladores$c$, 1),
   ($c$segundo-maior$c$, $c$m6-percorrer-for$c$, 2),
   ($c$segundo-maior$c$, $c$m4-if$c$, 1),
+  ($c$vet-intro-para-que-serve$c$, $c$m6-introducao-vetores$c$, 3),
+  ($c$vet-intro-soma-das-pontas$c$, $c$m6-introducao-vetores$c$, 3),
+  ($c$vet-intro-soma-das-pontas$c$, $c$m6-indices$c$, 2),
+  ($c$vet-intro-complete-o-vetor$c$, $c$m6-introducao-vetores$c$, 2),
+  ($c$vet-intro-complete-o-vetor$c$, $c$m6-arrays$c$, 1),
+  ($c$vet-intro-quando-usar$c$, $c$m6-introducao-vetores$c$, 3),
+  ($c$vet-intro-tipos-misturados$c$, $c$m6-introducao-vetores$c$, 2),
+  ($c$vet-intro-tipos-misturados$c$, $c$m6-arrays$c$, 2),
+  ($c$vet-intro-soma-de-tres$c$, $c$m6-introducao-vetores$c$, 2),
+  ($c$vet-intro-soma-de-tres$c$, $c$m6-indices$c$, 2),
+  ($c$vet-intro-corrija-a-posicao$c$, $c$m6-introducao-vetores$c$, 2),
+  ($c$vet-intro-corrija-a-posicao$c$, $c$m6-indices$c$, 3),
+  ($c$vet-intro-mesmo-vetor$c$, $c$m6-introducao-vetores$c$, 2),
+  ($c$vet-intro-mesmo-vetor$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-como-declarar$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-alterar-elemento$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-alterar-elemento$c$, $c$m6-indices$c$, 1),
+  ($c$arr-complete-o-vazio$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-const-permite-alterar$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-inverter-tres$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-inverter-tres$c$, $c$m6-indices$c$, 2),
+  ($c$arr-corrija-a-atribuicao$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-copia-ou-referencia$c$, $c$m6-arrays$c$, 3),
+  ($c$arr-copia-com-spread$c$, $c$m6-arrays$c$, 3),
+  ($c$ind-primeiro-indice$c$, $c$m6-indices$c$, 3),
+  ($c$ind-uva$c$, $c$m6-indices$c$, 3),
+  ($c$ind-complete-a-primeira-cor$c$, $c$m6-indices$c$, 3),
+  ($c$ind-fora-do-limite$c$, $c$m6-indices$c$, 3),
+  ($c$ind-segundo$c$, $c$m6-indices$c$, 3),
+  ($c$ind-trocar-duas-posicoes$c$, $c$m6-indices$c$, 3),
+  ($c$ind-trocar-duas-posicoes$c$, $c$m3-atribuicao$c$, 1),
+  ($c$ind-corrija-o-ultimo$c$, $c$m6-indices$c$, 3),
+  ($c$ind-corrija-o-ultimo$c$, $c$m6-length$c$, 2),
+  ($c$ind-indice-calculado$c$, $c$m6-indices$c$, 3),
+  ($c$ind-indice-calculado$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$len-o-que-e$c$, $c$m6-length$c$, 3),
+  ($c$len-tamanho$c$, $c$m6-length$c$, 3),
+  ($c$len-complete-o-ultimo$c$, $c$m6-length$c$, 3),
+  ($c$len-complete-o-ultimo$c$, $c$m6-indices$c$, 2),
+  ($c$len-fora-do-fim$c$, $c$m6-length$c$, 3),
+  ($c$len-fora-do-fim$c$, $c$m6-indices$c$, 2),
+  ($c$len-esta-vazio$c$, $c$m6-length$c$, 3),
+  ($c$len-esta-vazio$c$, $c$m3-relacionais$c$, 1),
+  ($c$len-ultimo-elemento$c$, $c$m6-length$c$, 3),
+  ($c$len-ultimo-elemento$c$, $c$m6-indices$c$, 2),
+  ($c$len-ultimo-elemento$c$, $c$m4-if-else$c$, 1),
+  ($c$len-corrija-o-ultimo-indice$c$, $c$m6-length$c$, 3),
+  ($c$len-corrija-o-ultimo-indice$c$, $c$m6-indices$c$, 2),
+  ($c$len-posicao-distante$c$, $c$m6-length$c$, 3),
+  ($c$len-posicao-distante$c$, $c$m6-indices$c$, 2),
+  ($c$push-o-que-faz$c$, $c$m6-push$c$, 3),
+  ($c$push-novo-tamanho$c$, $c$m6-push$c$, 3),
+  ($c$push-novo-tamanho$c$, $c$m6-length$c$, 1),
+  ($c$push-complete-o-metodo$c$, $c$m6-push$c$, 3),
+  ($c$push-o-que-devolve$c$, $c$m6-push$c$, 3),
+  ($c$push-lista-de-pares$c$, $c$m6-push$c$, 3),
+  ($c$push-lista-de-pares$c$, $c$m5-for$c$, 2),
+  ($c$push-lista-de-pares$c$, $c$m4-if$c$, 1),
+  ($c$push-copiar-positivos$c$, $c$m6-push$c$, 3),
+  ($c$push-copiar-positivos$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$push-copiar-positivos$c$, $c$m4-if$c$, 1),
+  ($c$push-corrija-os-quadrados$c$, $c$m6-push$c$, 3),
+  ($c$push-corrija-os-quadrados$c$, $c$m5-for$c$, 1),
+  ($c$push-montando-no-laco$c$, $c$m6-push$c$, 3),
+  ($c$push-montando-no-laco$c$, $c$m6-length$c$, 2),
+  ($c$push-montando-no-laco$c$, $c$m5-for$c$, 1),
+  ($c$push-sem-repetidos$c$, $c$m6-push$c$, 3),
+  ($c$push-sem-repetidos$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$push-sem-repetidos$c$, $c$m4-if$c$, 2),
+  ($c$pop-o-que-faz$c$, $c$m6-pop$c$, 3),
+  ($c$pop-tamanho-depois$c$, $c$m6-pop$c$, 3),
+  ($c$pop-tamanho-depois$c$, $c$m6-length$c$, 1),
+  ($c$pop-complete-o-metodo$c$, $c$m6-pop$c$, 3),
+  ($c$pop-o-que-devolve$c$, $c$m6-pop$c$, 3),
+  ($c$pop-remover-ultimos$c$, $c$m6-pop$c$, 3),
+  ($c$pop-remover-ultimos$c$, $c$m5-for$c$, 1),
+  ($c$pop-remover-ultimos$c$, $c$m6-length$c$, 1),
+  ($c$pop-corrija-o-retorno$c$, $c$m6-pop$c$, 3),
+  ($c$pop-pilha$c$, $c$m6-pop$c$, 3),
+  ($c$pop-pilha$c$, $c$m6-push$c$, 3),
+  ($c$shift-qual-remove-do-inicio$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-novo-primeiro$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-novo-primeiro$c$, $c$m6-indices$c$, 1),
+  ($c$shift-complete-o-unshift$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-unshift-ordem$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-unshift-retornos$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-unshift-retornos$c$, $c$m6-push$c$, 1),
+  ($c$shift-rotacionar$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-rotacionar$c$, $c$m6-push$c$, 2),
+  ($c$shift-corrija-o-inicio$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-corrija-o-inicio$c$, $c$m6-push$c$, 2),
+  ($c$shift-primeiros-n$c$, $c$m6-shift-unshift$c$, 3),
+  ($c$shift-primeiros-n$c$, $c$m6-push$c$, 2),
+  ($c$shift-primeiros-n$c$, $c$m5-for$c$, 1),
+  ($c$for-vet-condicao-correta$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-mostra-tudo$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-complete-o-limite$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-complete-o-limite$c$, $c$m6-length$c$, 2),
+  ($c$for-vet-passando-do-fim$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-passando-do-fim$c$, $c$m6-length$c$, 2),
+  ($c$for-vet-somar$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-somar$c$, $c$m5-acumuladores$c$, 2),
+  ($c$for-vet-maior$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-maior$c$, $c$m4-if$c$, 1),
+  ($c$for-vet-contar-maiores$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-contar-maiores$c$, $c$m5-contadores$c$, 2),
+  ($c$for-vet-corrija-a-media$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-corrija-a-media$c$, $c$m6-length$c$, 2),
+  ($c$for-vet-corrija-a-media$c$, $c$m5-acumuladores$c$, 1),
+  ($c$for-vet-de-tras-para-frente$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-de-tras-para-frente$c$, $c$m2-concatenacao$c$, 1),
+  ($c$for-vet-segundo-maior$c$, $c$m6-percorrer-for$c$, 3),
+  ($c$for-vet-segundo-maior$c$, $c$m4-else-if$c$, 2),
+  ($c$while-vet-o-que-nao-pode-faltar$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-o-que-nao-pode-faltar$c$, $c$m5-while$c$, 1),
+  ($c$while-vet-mostra-tudo$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-complete-a-atualizacao$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-complete-a-atualizacao$c$, $c$m5-while$c$, 2),
+  ($c$while-vet-parar-no-oito$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-parar-no-oito$c$, $c$m3-logicos$c$, 1),
+  ($c$while-vet-primeiro-negativo$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-primeiro-negativo$c$, $c$m3-logicos$c$, 1),
+  ($c$while-vet-somar-ate-zero$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-somar-ate-zero$c$, $c$m5-acumuladores$c$, 2),
+  ($c$while-vet-corrija-a-busca$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-corrija-a-busca$c$, $c$m5-while$c$, 2),
+  ($c$while-vet-pulando-de-dois-em-dois$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-pulando-de-dois-em-dois$c$, $c$m5-acumuladores$c$, 1),
+  ($c$while-vet-todos-crescentes$c$, $c$m6-percorrer-while$c$, 3),
+  ($c$while-vet-todos-crescentes$c$, $c$m3-relacionais$c$, 1),
+  ($c$while-vet-todos-crescentes$c$, $c$m4-if$c$, 1),
+  ($c$mat-intro-o-que-e$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-numero-de-linhas$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-numero-de-linhas$c$, $c$m6-length$c$, 1),
+  ($c$mat-intro-complete-a-segunda-linha$c$, $c$m6-introducao-matrizes$c$, 2),
+  ($c$mat-intro-complete-a-segunda-linha$c$, $c$m6-arrays$c$, 1),
+  ($c$mat-intro-numero-de-colunas$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-numero-de-colunas$c$, $c$m6-length$c$, 1),
+  ($c$mat-intro-total-de-elementos$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-total-de-elementos$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$mat-intro-criar-2x2$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-criar-2x2$c$, $c$m6-arrays$c$, 1),
+  ($c$mat-intro-corrija-contar-linhas$c$, $c$m6-introducao-matrizes$c$, 3),
+  ($c$mat-intro-corrija-contar-linhas$c$, $c$m6-length$c$, 2),
+  ($c$mat-intro-dois-indices$c$, $c$m6-introducao-matrizes$c$, 2),
+  ($c$mat-intro-dois-indices$c$, $c$m6-bidimensionais$c$, 2),
+  ($c$bid-linha-ou-coluna$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-elemento$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-complete-a-linha$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-alterar-e-somar$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-alterar-e-somar$c$, $c$m3-atribuicao$c$, 1),
+  ($c$bid-elemento-em$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-soma-da-linha$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-soma-da-linha$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$bid-soma-da-linha$c$, $c$m5-acumuladores$c$, 1),
+  ($c$bid-ultima-linha$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-ultima-linha$c$, $c$m6-length$c$, 2),
+  ($c$bid-corrija-linha-e-coluna$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-linhas-irregulares$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-linhas-irregulares$c$, $c$m6-length$c$, 2),
+  ($c$bid-coluna$c$, $c$m6-bidimensionais$c$, 3),
+  ($c$bid-coluna$c$, $c$m6-push$c$, 2),
+  ($c$bid-coluna$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$pm-limites$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-soma-total$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-soma-total$c$, $c$m5-acumuladores$c$, 1),
+  ($c$pm-complete-o-limite$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-complete-o-limite$c$, $c$m6-length$c$, 1),
+  ($c$pm-conta-as-voltas$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-conta-as-voltas$c$, $c$m5-contadores$c$, 2),
+  ($c$pm-soma-matriz$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-soma-matriz$c$, $c$m5-acumuladores$c$, 2),
+  ($c$pm-contar-valor$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-contar-valor$c$, $c$m5-contadores$c$, 2),
+  ($c$pm-contar-valor$c$, $c$m4-if$c$, 1),
+  ($c$pm-mostrar-matriz$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-mostrar-matriz$c$, $c$m2-console-log$c$, 1),
+  ($c$pm-mostrar-matriz$c$, $c$m2-concatenacao$c$, 1),
+  ($c$pm-corrija-o-maior$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-corrija-o-maior$c$, $c$m4-if$c$, 1),
+  ($c$pm-diagonais$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-diagonais$c$, $c$m6-bidimensionais$c$, 2),
+  ($c$pm-diagonal-principal$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-diagonal-principal$c$, $c$m6-bidimensionais$c$, 2),
+  ($c$pm-diagonal-principal$c$, $c$m5-acumuladores$c$, 1),
+  ($c$pm-transposta$c$, $c$m6-percorrer-matrizes$c$, 3),
+  ($c$pm-transposta$c$, $c$m6-push$c$, 2),
+  ($c$pm-transposta$c$, $c$m6-bidimensionais$c$, 2),
+  ($c$desafio6-notas-da-turma$c$, $c$m6-arrays$c$, 2),
+  ($c$desafio6-notas-da-turma$c$, $c$m6-push$c$, 2),
+  ($c$desafio6-notas-da-turma$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$desafio6-notas-da-turma$c$, $c$m5-acumuladores$c$, 2),
+  ($c$desafio6-notas-da-turma$c$, $c$m5-contadores$c$, 1),
+  ($c$desafio6-notas-da-turma$c$, $c$m2-entrada-saida$c$, 1),
+  ($c$desafio6-corrija-a-media$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$desafio6-corrija-a-media$c$, $c$m5-acumuladores$c$, 3),
+  ($c$desafio6-corrija-a-media$c$, $c$m6-length$c$, 1),
+  ($c$desafio6-acompanhe-as-notas$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$desafio6-acompanhe-as-notas$c$, $c$m5-acumuladores$c$, 2),
+  ($c$desafio6-acompanhe-as-notas$c$, $c$m6-indices$c$, 2),
   ($c$parametro-e-retorno$c$, $c$m7-parametros$c$, 2),
   ($c$parametro-e-retorno$c$, $c$m7-return$c$, 1),
   ($c$completar-funcao$c$, $c$m7-declaracao$c$, 2),
@@ -3859,7 +4981,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

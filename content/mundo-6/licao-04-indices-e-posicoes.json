@@ -1,0 +1,218 @@
+{
+  "id": "indices-e-posicoes",
+  "mundo": "mundo-6",
+  "titulo": "Índices e posições",
+  "foco": "Acessar elementos pela posição (índice)",
+  "posicao": 603,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O índice é o número da posição de um elemento no array. Em JavaScript (e na maioria das linguagens), a contagem começa em 0: o primeiro elemento tem índice 0, o segundo tem índice 1, e assim por diante.\n\nconst cores = [\"azul\", \"verde\", \"rosa\"];\n//  índice:      0        1        2\n\ncores[0] é \"azul\" e cores[2] é \"rosa\".\n\nSe você pedir um índice que não existe (como cores[3]), o JavaScript não dá erro: devolve undefined, que significa \"não há nada aí\". Esse é um dos erros mais comuns: confiar que o valor existe e usar o undefined em uma conta (o resultado vira NaN).\n\nO índice pode ser qualquer expressão numérica: cores[1 + 1], cores[i], cores[i - 1]. Isso será essencial para percorrer arrays com laços.\n\nAtenção: o índice do último elemento é a quantidade de elementos menos 1 (veremos na próxima lição).",
+  "exemplo": "const v = [10, 20, 30, 40];\nconst i = 2;\nconsole.log(v[i]);\nconsole.log(v[i - 1]);\nconsole.log(v[4]);\n\nPasso a passo:\n1. v[i] com i valendo 2 acessa a terceira posição: mostra 30.\n2. v[i - 1] é v[1], a segunda posição: mostra 20.\n3. v[4] não existe (o último índice é 3): mostra undefined.",
+  "revisao": "- O índice é a posição do elemento; o primeiro é o 0.\n- cores[i] lê o elemento da posição i, e i pode ser uma variável ou uma conta.\n- Um índice que não existe devolve undefined (sem erro).\n- Usar undefined em uma conta resulta em NaN.\n- O último índice é a quantidade de elementos menos 1.",
+  "exercicios": [
+    {
+      "id": "ind-primeiro-indice",
+      "tipo": "escolha",
+      "titulo": "O primeiro índice",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "Qual é o índice do primeiro elemento de um array?",
+      "opcoes": [
+        "0",
+        { "texto": "1", "confusao": "acha que a contagem de posições começa em 1" },
+        { "texto": "-1", "confusao": "acha que a primeira posição usa índice negativo" },
+        {
+          "texto": "O mesmo número da quantidade de elementos",
+          "confusao": "confunde o índice do primeiro com a quantidade"
+        }
+      ],
+      "correta": 0,
+      "dica": "Em programação, começamos a contar do zero.",
+      "explicacao": "O primeiro elemento tem índice 0, o segundo 1, o terceiro 2, e assim por diante."
+    },
+    {
+      "id": "ind-uva",
+      "tipo": "interpretacao",
+      "titulo": "Qual fruta?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const f = [\"maçã\", \"uva\", \"pera\"];\nconsole.log(f[1]);",
+      "opcoes": [
+        { "texto": "maçã", "confusao": "acha que o índice 1 é o primeiro elemento" },
+        { "texto": "pera", "confusao": "confunde o índice 1 com o último elemento" },
+        "uva",
+        { "texto": "1", "confusao": "mostra o índice em vez do elemento" }
+      ],
+      "correta": 2,
+      "dica": "Índice 0 é o primeiro; qual é o 1?",
+      "explicacao": "O índice 1 é o segundo elemento: uva."
+    },
+    {
+      "id": "ind-complete-a-primeira-cor",
+      "tipo": "lacuna",
+      "titulo": "Primeira cor",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "Complete o índice para mostrar a primeira cor.",
+      "modelo": "const cores = [\"azul\", \"verde\", \"rosa\"];\nconsole.log(cores[{{1}}]);",
+      "lacunas": [
+        { "respostas": ["0"] }
+      ],
+      "dica": "Qual é o índice do primeiro elemento?",
+      "explicacao": "A primeira posição é a de índice 0."
+    },
+    {
+      "id": "ind-fora-do-limite",
+      "tipo": "interpretacao",
+      "titulo": "Fora do limite",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nconsole.log(v[3]);",
+      "opcoes": [
+        { "texto": "3", "confusao": "acha que o índice 3 é o terceiro elemento" },
+        "undefined",
+        {
+          "texto": "Erro e o programa para",
+          "confusao": "acha que acessar um índice inexistente causa erro"
+        },
+        { "texto": "0", "confusao": "acha que posições vazias valem zero" }
+      ],
+      "correta": 1,
+      "dica": "Os índices existentes são 0, 1 e 2.",
+      "explicacao": "O índice 3 não existe: o JavaScript devolve undefined, sem erro."
+    },
+    {
+      "id": "ind-segundo",
+      "tipo": "codigo",
+      "titulo": "O segundo elemento",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `segundo(v)` que devolve o segundo elemento do array (o array tem pelo menos 2 elementos).",
+      "funcao": "segundo",
+      "codigoInicial": "function segundo(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[4, 8, 15]],
+          "esperado": 8
+        },
+        {
+          "entrada": [["a", "b"]],
+          "esperado": "b"
+        },
+        {
+          "entrada": [[0, 0, 0, 7]],
+          "esperado": 0
+        }
+      ],
+      "dica": "O segundo elemento tem índice 1.",
+      "comentario": "O segundo elemento está na posição de índice 1: v[1]."
+    },
+    {
+      "id": "ind-trocar-duas-posicoes",
+      "tipo": "codigo",
+      "titulo": "Trocar duas posições",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `trocar(v, i, j)` que troca de lugar os elementos das posições i e j do array e devolve o array. Por exemplo, trocar([1, 2, 3], 0, 2) devolve [3, 2, 1].",
+      "funcao": "trocar",
+      "codigoInicial": "function trocar(v, i, j) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3], 0, 2],
+          "esperado": [3, 2, 1]
+        },
+        {
+          "entrada": [["a", "b", "c", "d"], 1, 3],
+          "esperado": ["a", "d", "c", "b"]
+        },
+        {
+          "entrada": [[5, 6], 1, 1],
+          "esperado": [5, 6]
+        }
+      ],
+      "dica": "Guarde um dos valores em uma variável auxiliar antes de sobrescrevê-lo.",
+      "comentario": "Com uma variável auxiliar guardando v[i], os dois valores podem ser trocados sem perder nenhum."
+    },
+    {
+      "id": "ind-corrija-o-ultimo",
+      "tipo": "corrigir",
+      "titulo": "Corrija o último",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "A função `ultimo(v)` deveria devolver o último elemento do array, mas devolve undefined. Corrija o defeito.",
+      "funcao": "ultimo",
+      "codigoInicial": "function ultimo(v) {\n  return v[v.length];\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 3
+        },
+        {
+          "entrada": [["x"]],
+          "esperado": "x"
+        },
+        {
+          "entrada": [[9, 8, 7, 6]],
+          "esperado": 6
+        }
+      ],
+      "dica": "Se o array tem 3 elementos, qual é o índice do último?",
+      "comentario": "Os índices vão de 0 a length - 1. v[v.length] está uma posição além do fim; o certo é v[v.length - 1]."
+    },
+    {
+      "id": "ind-indice-calculado",
+      "tipo": "interpretacao",
+      "titulo": "Índice calculado",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-indices", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [10, 20, 30, 40];\nconst i = 2;\nconsole.log(v[i - 1] + v[i + 1]);",
+      "opcoes": [
+        { "texto": "50", "confusao": "soma o elemento do índice 1 com o do índice 2" },
+        { "texto": "70", "confusao": "soma os elementos do índice 2 e do índice 3" },
+        { "texto": "80", "confusao": "soma o primeiro e o último sem calcular os índices" },
+        "60"
+      ],
+      "correta": 3,
+      "dica": "Calcule primeiro i - 1 e i + 1.",
+      "explicacao": "v[1] vale 20 e v[3] vale 40: 20 + 40 = 60."
+    }
+  ]
+}

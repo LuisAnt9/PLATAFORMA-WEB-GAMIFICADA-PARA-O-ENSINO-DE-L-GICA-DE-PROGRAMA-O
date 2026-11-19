@@ -1,0 +1,294 @@
+{
+  "id": "percorrer-arrays-com-for",
+  "mundo": "mundo-6",
+  "titulo": "Percorrer arrays com for",
+  "foco": "Visitar cada elemento com um laço for",
+  "posicao": 608,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Percorrer um array é visitar cada um dos seus elementos, do primeiro ao último. O jeito mais comum é um for com um índice:\n\nfor (let i = 0; i < v.length; i++) {\n  // v[i] é o elemento da vez\n}\n\nO índice i começa em 0 (primeira posição) e vai até v.length - 1 (última). Por isso a condição é i < v.length, e não i <= v.length: com <=, o laço tentaria acessar v[v.length], que não existe (undefined), e contas com ele dão NaN.\n\nCom esse laço, você consegue:\n- somar os elementos (acumulador);\n- contar quantos atendem a uma regra (contador);\n- achar o maior ou o menor (guardando o melhor até agora);\n- construir outro array com push.\n\nPara percorrer de trás para frente: for (let i = v.length - 1; i >= 0; i--).",
+  "exemplo": "const v = [4, 8, 15];\nlet soma = 0;\nfor (let i = 0; i < v.length; i++) {\n  soma += v[i];\n}\nconsole.log(soma);\n\nPasso a passo:\n1. soma começa em 0. O laço vai de i = 0 até i = 2 (v.length vale 3).\n2. i = 0: soma = 4. i = 1: soma = 12. i = 2: soma = 27.\n3. i = 3 não satisfaz i < 3: o laço termina e mostra 27.",
+  "revisao": "- Para percorrer: for (let i = 0; i < v.length; i++) e use v[i].\n- A condição é i < v.length; com <= o laço passa do fim.\n- Ao passar do fim, v[i] é undefined e contas viram NaN.\n- Combine o laço com acumuladores, contadores e push.\n- De trás para frente: i começa em v.length - 1 e vai até 0.",
+  "exercicios": [
+    {
+      "id": "for-vet-condicao-correta",
+      "tipo": "escolha",
+      "titulo": "A condição do laço",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 }
+      ],
+      "enunciado": "Qual condição percorre todos os elementos de v sem passar do fim?",
+      "opcoes": [
+        "i < v.length",
+        { "texto": "i <= v.length", "confusao": "ultrapassa o limite: v[v.length] não existe" },
+        { "texto": "i < v.length - 1", "confusao": "deixa o último elemento de fora" },
+        { "texto": "i <= v.length - 2", "confusao": "deixa de fora os dois últimos elementos" }
+      ],
+      "correta": 0,
+      "dica": "O último índice válido é v.length - 1.",
+      "explicacao": "i < v.length faz i valer de 0 até v.length - 1, exatamente os índices válidos."
+    },
+    {
+      "id": "for-vet-mostra-tudo",
+      "tipo": "interpretacao",
+      "titulo": "Mostrando os elementos",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "const v = [3, 6, 9];\nfor (let i = 0; i < v.length; i++) {\n  console.log(v[i]);\n}",
+      "opcoes": [
+        { "texto": "0\n1\n2", "confusao": "mostra os índices em vez dos elementos" },
+        { "texto": "6\n9", "confusao": "começa pelo índice 1, pulando o primeiro" },
+        "3\n6\n9",
+        { "texto": "3\n6\n9\nundefined", "confusao": "acha que o laço também visita v[v.length]" }
+      ],
+      "correta": 2,
+      "dica": "v[i] é o elemento; i é só o índice.",
+      "explicacao": "O laço visita os índices 0, 1 e 2 e mostra os elementos 3, 6 e 9."
+    },
+    {
+      "id": "for-vet-complete-o-limite",
+      "tipo": "lacuna",
+      "titulo": "Complete o limite",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "Complete a condição para percorrer todo o array notas.",
+      "modelo": "for (let i = 0; i < notas.{{1}}; i++) {\n  console.log(notas[i]);\n}",
+      "lacunas": [
+        { "respostas": ["length"] }
+      ],
+      "dica": "Quantos elementos o array tem?",
+      "explicacao": "notas.length é a quantidade de elementos; i < notas.length percorre todos."
+    },
+    {
+      "id": "for-vet-passando-do-fim",
+      "tipo": "interpretacao",
+      "titulo": "Passando do fim",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m6-length", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nlet s = 0;\nfor (let i = 0; i <= v.length; i++) {\n  s += v[i];\n}\nconsole.log(s);",
+      "opcoes": [
+        { "texto": "6", "confusao": "esquece que a volta extra soma undefined" },
+        "NaN",
+        { "texto": "Erro e o programa para", "confusao": "acha que acessar v[3] causa erro" },
+        { "texto": "9", "confusao": "acha que a volta extra soma o último valor de novo" }
+      ],
+      "correta": 1,
+      "dica": "Na última volta, i vale 3. O que existe em v[3]?",
+      "explicacao": "Com <=, a última volta soma undefined, e 6 + undefined resulta em NaN."
+    },
+    {
+      "id": "for-vet-somar",
+      "tipo": "codigo",
+      "titulo": "Somar os elementos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somar(v)` que devolve a soma de todos os elementos do array (0 para array vazio).",
+      "funcao": "somar",
+      "codigoInicial": "function somar(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 6
+        },
+        {
+          "entrada": [[]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[-2, 2, 10]],
+          "esperado": 10
+        }
+      ],
+      "dica": "Um acumulador começa em 0 e soma v[i] a cada volta.",
+      "comentario": "O acumulador soma cada elemento durante o laço; com array vazio o laço não executa e o resultado é 0."
+    },
+    {
+      "id": "for-vet-maior",
+      "tipo": "codigo",
+      "titulo": "O maior elemento",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `maior(v)` que devolve o maior elemento do array (o array tem pelo menos 1 elemento).",
+      "funcao": "maior",
+      "codigoInicial": "function maior(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 9, 2]],
+          "esperado": 9
+        },
+        {
+          "entrada": [[-5, -2, -9]],
+          "esperado": -2
+        },
+        {
+          "entrada": [[7]],
+          "esperado": 7
+        },
+        {
+          "entrada": [[1, 1, 1]],
+          "esperado": 1
+        }
+      ],
+      "dica": "Comece supondo que o maior é o primeiro elemento.",
+      "comentario": "Guardamos o maior visto até agora (começando por v[0]) e o atualizamos sempre que um elemento maior aparece."
+    },
+    {
+      "id": "for-vet-contar-maiores",
+      "tipo": "codigo",
+      "titulo": "Contar os maiores",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m5-contadores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `contarMaiores(v, limite)` que devolve quantos elementos do array são maiores que `limite`.",
+      "funcao": "contarMaiores",
+      "codigoInicial": "function contarMaiores(v, limite) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 5, 8, 3], 4],
+          "esperado": 2
+        },
+        {
+          "entrada": [[1, 2], 10],
+          "esperado": 0
+        },
+        {
+          "entrada": [[], 0],
+          "esperado": 0
+        },
+        {
+          "entrada": [[4, 4], 4],
+          "esperado": 0
+        }
+      ],
+      "dica": "Some 1 ao contador quando v[i] > limite.",
+      "comentario": "Um contador sobe 1 para cada elemento maior que o limite."
+    },
+    {
+      "id": "for-vet-corrija-a-media",
+      "tipo": "corrigir",
+      "titulo": "Corrija a média",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m6-length", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "A função `media(v)` deveria devolver a média dos elementos do array, mas devolve NaN. Corrija o defeito.",
+      "funcao": "media",
+      "codigoInicial": "function media(v) {\n  let soma = 0;\n  for (let i = 0; i <= v.length; i++) {\n    soma += v[i];\n  }\n  return soma / v.length;\n}\n",
+      "testes": [
+        {
+          "entrada": [[2, 4, 6]],
+          "esperado": 4
+        },
+        {
+          "entrada": [[10]],
+          "esperado": 10
+        },
+        {
+          "entrada": [[1, 2]],
+          "esperado": 1.5
+        }
+      ],
+      "dica": "Até qual índice o laço vai? Existe elemento nessa última volta?",
+      "comentario": "Com i <= v.length o laço soma undefined na última volta. A condição correta é i < v.length."
+    },
+    {
+      "id": "for-vet-de-tras-para-frente",
+      "tipo": "interpretacao",
+      "titulo": "De trás para frente",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [4, 8, 15];\nlet r = \"\";\nfor (let i = v.length - 1; i >= 0; i--) {\n  r += v[i] + \" \";\n}\nconsole.log(r.trim());",
+      "opcoes": [
+        { "texto": "4 8 15", "confusao": "acha que o laço percorre na ordem normal" },
+        { "texto": "15 8", "confusao": "acha que o laço para antes do primeiro elemento" },
+        { "texto": "2 1 0", "confusao": "mostra os índices em vez dos elementos" },
+        "15 8 4"
+      ],
+      "correta": 3,
+      "dica": "O índice começa no último e vai diminuindo até 0.",
+      "explicacao": "O laço visita os índices 2, 1 e 0 e junta 15, 8 e 4 nessa ordem."
+    },
+    {
+      "id": "for-vet-segundo-maior",
+      "tipo": "codigo",
+      "titulo": "Segundo maior",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 3 },
+        { "id": "m4-else-if", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `segundoMaior(v)` que devolve o segundo maior elemento do array (o array tem pelo menos 2 elementos; elementos repetidos contam: no array [9, 9, 1] o segundo maior é 9).",
+      "funcao": "segundoMaior",
+      "codigoInicial": "function segundoMaior(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[5, 9, 7]],
+          "esperado": 7
+        },
+        {
+          "entrada": [[9, 9, 1]],
+          "esperado": 9
+        },
+        {
+          "entrada": [[1, 2]],
+          "esperado": 1
+        },
+        {
+          "entrada": [[3, 3]],
+          "esperado": 3
+        },
+        {
+          "entrada": [[-1, -5, -3]],
+          "esperado": -3
+        }
+      ],
+      "dica": "Guarde dois valores durante o laço: o maior e o segundo maior.",
+      "comentario": "O laço mantém o maior e o segundo maior vistos até agora, atualizando os dois conforme cada elemento."
+    }
+  ]
+}

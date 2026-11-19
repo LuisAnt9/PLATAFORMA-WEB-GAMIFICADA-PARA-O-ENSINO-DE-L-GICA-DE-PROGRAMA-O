@@ -1,0 +1,122 @@
+{
+  "id": "desafio-do-mundo-6",
+  "mundo": "mundo-6",
+  "titulo": "Desafio final do Mundo 6",
+  "foco": "Guardar as notas da turma em um vetor e analisá-las",
+  "posicao": 613,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou o desafio do Mundo 6: um programa de notas da turma. Você vai ler as notas dos estudantes, guardá-las em um vetor e calcular a média da turma, a maior nota e quantos estudantes ficaram acima da média.\n\nAqui você junta tudo: vetor para guardar os valores, push para ir montando o vetor, laços para percorrê-lo, acumulador para a soma e variável auxiliar para a maior nota.\n\nO desafio principal é o primeiro exercício. Os outros dois treinam a leitura de laços com vetores e a correção de um erro clássico no acumulador.",
+  "exemplo": "Como montar o programa:\n1. Leia a quantidade de notas com lerEntrada() e converta com Number().\n2. Crie um vetor vazio e, em um laço, leia cada nota, converta e guarde com push.\n3. Percorra o vetor para somar as notas e descobrir a maior.\n4. Calcule a média: soma ÷ quantidade.\n5. Percorra o vetor de novo, contando as notas maiores que a média.\n6. Mostre os três resultados com console.log.\n7. Teste um caso com notas repetidas e um caso em que ninguém passa da média.",
+  "revisao": "- Vetor para guardar as notas; push para adicioná-las.\n- Dois percursos: um para somar e achar a maior; outro para contar as acima da média (a média só é conhecida depois do primeiro).\n- Acumulador começa em 0; a maior nota começa pela primeira nota.\n- Média = soma ÷ quantidade.\n- Teste os casos de fronteira.",
+  "exercicios": [
+    {
+      "id": "desafio6-notas-da-turma",
+      "tipo": "desafio",
+      "titulo": "Desafio: notas da turma",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 2 },
+        { "id": "m6-push", "peso": 2 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m5-contadores", "peso": 1 },
+        { "id": "m2-entrada-saida", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `analisarTurma()`: leia a quantidade de notas com `lerEntrada()` e depois cada nota (tudo chega como texto). Guarde as notas em um vetor e mostre três linhas com `console.log`: `Média: <valor>`, `Maior nota: <valor>` e `Acima da média: <quantidade>` (quantas notas são maiores que a média).",
+      "funcao": "analisarTurma",
+      "codigoInicial": "function analisarTurma() {\n  // leia as notas, guarde em um vetor e mostre as três linhas\n}\n",
+      "testes": [
+        {
+          "entrada": [],
+          "entradas": ["3", "7", "9", "5"],
+          "saida": ["Média: 7", "Maior nota: 9", "Acima da média: 1"]
+        },
+        {
+          "entrada": [],
+          "entradas": ["2", "6", "8"],
+          "saida": ["Média: 7", "Maior nota: 8", "Acima da média: 1"]
+        },
+        {
+          "entrada": [],
+          "entradas": ["1", "10"],
+          "saida": ["Média: 10", "Maior nota: 10", "Acima da média: 0"]
+        },
+        {
+          "entrada": [],
+          "entradas": ["4", "5", "5", "5", "5"],
+          "saida": ["Média: 5", "Maior nota: 5", "Acima da média: 0"]
+        },
+        {
+          "entrada": [],
+          "entradas": ["2", "5", "6"],
+          "saida": ["Média: 5.5", "Maior nota: 6", "Acima da média: 1"]
+        }
+      ],
+      "dica": "Guarde as notas com push. A média só é conhecida depois de somar tudo: use um segundo percurso para contar as acima da média.",
+      "comentario": "As notas vão para um vetor com push. Um primeiro laço soma e encontra a maior; com a média pronta, um segundo laço conta as notas maiores que ela."
+    },
+    {
+      "id": "desafio6-corrija-a-media",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija a média",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "A função `mediaDaTurma(notas)` deveria devolver a média das notas do vetor (7 para [7, 9, 5]), mas devolve um valor muito menor. Corrija o defeito.",
+      "funcao": "mediaDaTurma",
+      "codigoInicial": "function mediaDaTurma(notas) {\n  let soma = 0;\n  for (let i = 0; i < notas.length; i++) {\n    soma = notas[i];\n  }\n  return soma / notas.length;\n}\n",
+      "testes": [
+        {
+          "entrada": [[7, 9, 5]],
+          "esperado": 7
+        },
+        {
+          "entrada": [[10]],
+          "esperado": 10
+        },
+        {
+          "entrada": [[4, 6]],
+          "esperado": 5
+        },
+        {
+          "entrada": [[0, 0, 9]],
+          "esperado": 3
+        }
+      ],
+      "dica": "O acumulador está juntando as notas ou sendo substituído a cada volta?",
+      "comentario": "soma = notas[i] substitui o acumulador em cada volta. O correto é somar: soma += notas[i]."
+    },
+    {
+      "id": "desafio6-acompanhe-as-notas",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe as notas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?",
+      "codigo": "const notas = [6, 8, 10];\nlet soma = 0;\nlet maior = notas[0];\nfor (let i = 1; i < notas.length; i++) {\n  soma += notas[i];\n  if (notas[i] > maior) {\n    maior = notas[i];\n  }\n}\nconsole.log(soma, maior);",
+      "opcoes": [
+        { "texto": "24 10", "confusao": "soma também a nota da posição 0, que o laço não visita" },
+        { "texto": "18 8", "confusao": "para de procurar o maior antes do último elemento" },
+        "18 10",
+        { "texto": "8 10", "confusao": "mostra a segunda nota no lugar da soma" }
+      ],
+      "correta": 2,
+      "dica": "O laço começa em i = 1: a nota da posição 0 só entra no maior, não na soma.",
+      "explicacao": "O laço visita 8 e 10: soma = 8 + 10 = 18. O maior começa em 6 e vira 8 e depois 10."
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "id": "remocao-com-pop",
+  "mundo": "mundo-6",
+  "titulo": "Remoção de elementos com pop()",
+  "foco": "Retirar o último elemento do array",
+  "posicao": 606,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O método pop() remove o último elemento do array e devolve o elemento removido.\n\nconst pilha = [\"a\", \"b\", \"c\"];\nconst retirado = pilha.pop();   // retirado vale \"c\"; pilha fica com \"a\" e \"b\"\n\nComparando com o push:\n- push(valor) acrescenta no final e devolve o novo tamanho;\n- pop() retira do final e devolve o elemento retirado.\n\nComo os dois mexem no final do array, eles formam uma pilha: o último a entrar é o primeiro a sair, como uma pilha de pratos.\n\nSe o array estiver vazio, pop() não dá erro: devolve undefined e o array continua vazio.\n\nAtenção: pop altera o próprio array. Se você precisar do array original, faça uma cópia antes ([...v]).",
+  "exemplo": "const v = [1, 2, 3];\nconst x = v.pop();\nconsole.log(x);\nconsole.log(v.length);\n\nPasso a passo:\n1. v tem 1, 2 e 3.\n2. v.pop() remove o último (3) e o devolve: x vale 3 (mostra 3).\n3. O array ficou com 1 e 2: v.length mostra 2.",
+  "revisao": "- pop() remove o último elemento e devolve o elemento removido.\n- pop altera o próprio array.\n- Em um array vazio, pop() devolve undefined.\n- push e pop trabalham no final: formam uma pilha (último a entrar, primeiro a sair).",
+  "exercicios": [
+    {
+      "id": "pop-o-que-faz",
+      "tipo": "escolha",
+      "titulo": "O que o pop faz?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 }
+      ],
+      "enunciado": "O que o método pop() faz?",
+      "opcoes": [
+        "Remove o último elemento e o devolve",
+        { "texto": "Adiciona um elemento no final", "confusao": "confunde pop com push" },
+        { "texto": "Remove o primeiro elemento", "confusao": "confunde pop com shift" },
+        { "texto": "Esvazia o array inteiro", "confusao": "acha que pop remove todos os elementos" }
+      ],
+      "correta": 0,
+      "dica": "Pense em retirar o prato que está no topo da pilha.",
+      "explicacao": "pop retira o último elemento do array e devolve o elemento retirado."
+    },
+    {
+      "id": "pop-tamanho-depois",
+      "tipo": "interpretacao",
+      "titulo": "Depois do pop",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nv.pop();\nconsole.log(v.length);",
+      "opcoes": [
+        { "texto": "3", "confusao": "acha que o pop não altera o array" },
+        { "texto": "1", "confusao": "acha que o pop remove todos os elementos menos um" },
+        "2",
+        { "texto": "0", "confusao": "acha que o pop esvazia o array" }
+      ],
+      "correta": 2,
+      "dica": "pop remove um elemento.",
+      "explicacao": "O array tinha 3 elementos e perdeu o último: sobram 2."
+    },
+    {
+      "id": "pop-complete-o-metodo",
+      "tipo": "lacuna",
+      "titulo": "Complete o método",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 }
+      ],
+      "enunciado": "Complete o método que retira o último elemento e o guarda em ultimo.",
+      "modelo": "const ultimo = v.{{1}}();",
+      "lacunas": [
+        { "respostas": ["pop"] }
+      ],
+      "dica": "É o inverso de push.",
+      "explicacao": "pop remove e devolve o último elemento."
+    },
+    {
+      "id": "pop-o-que-devolve",
+      "tipo": "interpretacao",
+      "titulo": "O que o pop devolve?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nconst x = v.pop();\nconsole.log(x);",
+      "opcoes": [
+        { "texto": "2", "confusao": "acha que pop devolve o novo último elemento" },
+        "3",
+        { "texto": "undefined", "confusao": "acha que pop não devolve nada" },
+        { "texto": "1", "confusao": "acha que pop devolve o primeiro elemento" }
+      ],
+      "correta": 1,
+      "dica": "pop devolve o que foi removido.",
+      "explicacao": "pop devolve o elemento removido: o 3."
+    },
+    {
+      "id": "pop-remover-ultimos",
+      "tipo": "codigo",
+      "titulo": "Remover os últimos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 },
+        { "id": "m5-for", "peso": 1 },
+        { "id": "m6-length", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `removerUltimos(v, n)` que remove os n últimos elementos do array e o devolve. Se n for maior que o tamanho, o array fica vazio.",
+      "funcao": "removerUltimos",
+      "codigoInicial": "function removerUltimos(v, n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3, 4], 2],
+          "esperado": [1, 2]
+        },
+        {
+          "entrada": [[1], 5],
+          "esperado": []
+        },
+        {
+          "entrada": [[7, 8, 9], 0],
+          "esperado": [7, 8, 9]
+        },
+        {
+          "entrada": [[], 2],
+          "esperado": []
+        }
+      ],
+      "dica": "Repita pop n vezes, parando se o array esvaziar.",
+      "comentario": "Um laço repete pop() n vezes (no máximo o tamanho do array); em array vazio pop não causa erro."
+    },
+    {
+      "id": "pop-corrija-o-retorno",
+      "tipo": "corrigir",
+      "titulo": "Corrija o retorno",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 }
+      ],
+      "enunciado": "A função `retirarUltimo(v)` deveria devolver o elemento retirado do final do array (3 para [1, 2, 3]), mas devolve o array. Corrija o defeito.",
+      "funcao": "retirarUltimo",
+      "codigoInicial": "function retirarUltimo(v) {\n  v.pop();\n  return v;\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 3
+        },
+        {
+          "entrada": [["a", "b"]],
+          "esperado": "b"
+        },
+        {
+          "entrada": [[9]],
+          "esperado": 9
+        }
+      ],
+      "dica": "O que pop devolve? Guarde ou devolva esse valor.",
+      "comentario": "pop já devolve o elemento removido; basta retornar v.pop() (ou guardar o resultado e retorná-lo)."
+    },
+    {
+      "id": "pop-pilha",
+      "tipo": "interpretacao",
+      "titulo": "Uma pilha",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-pop", "peso": 3 },
+        { "id": "m6-push", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const p = [];\np.push(1);\np.push(2);\np.pop();\np.push(3);\nconsole.log(p.pop() + p.pop());",
+      "opcoes": [
+        { "texto": "5", "confusao": "esquece que o pop retirou o 2 antes do push(3)" },
+        { "texto": "3", "confusao": "considera só o último valor que entrou" },
+        { "texto": "6", "confusao": "soma todos os valores que passaram pelo array" },
+        "4"
+      ],
+      "correta": 3,
+      "dica": "Acompanhe o array a cada linha: [1], [1, 2], [1], [1, 3].",
+      "explicacao": "No final o array é [1, 3]. O primeiro pop devolve 3 e o segundo devolve 1: 3 + 1 = 4."
+    }
+  ]
+}

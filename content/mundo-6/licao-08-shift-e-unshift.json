@@ -1,0 +1,223 @@
+{
+  "id": "shift-e-unshift",
+  "mundo": "mundo-6",
+  "titulo": "Utilização de shift() e unshift()",
+  "foco": "Trabalhar com o início do array",
+  "posicao": 607,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Enquanto push e pop mexem no final do array, shift e unshift mexem no início.\n\n- shift() remove o primeiro elemento e devolve o elemento removido.\n- unshift(valor) adiciona um elemento no início e devolve o novo tamanho.\n\nconst fila = [\"Ana\", \"Bia\", \"Caio\"];\nconst atendido = fila.shift();   // atendido vale \"Ana\"; fila: Bia, Caio\nfila.unshift(\"Zé\");              // fila: Zé, Bia, Caio\n\nUm resumo para não confundir:\n\n| método       | onde mexe | o que faz   | o que devolve     |\n| push(x)      | final     | adiciona    | novo tamanho      |\n| pop()        | final     | remove      | o removido        |\n| unshift(x)   | início    | adiciona    | novo tamanho      |\n| shift()      | início    | remove      | o removido        |\n\nUma fila (primeiro a chegar, primeiro a ser atendido) usa push para entrar e shift para sair.\n\nTodos esses métodos alteram o próprio array.",
+  "exemplo": "const v = [1, 2, 3];\nconst x = v.shift();\nconst n = v.unshift(9);\nconsole.log(x, n);\nconsole.log(v[0]);\n\nPasso a passo:\n1. v.shift() remove o primeiro elemento (1) e devolve 1: x vale 1. v fica com 2 e 3.\n2. v.unshift(9) adiciona 9 no início: v fica com 9, 2 e 3. Devolve o novo tamanho: n vale 3.\n3. Mostra 1 3, e depois v[0], que é 9.",
+  "revisao": "- shift() remove o primeiro elemento e devolve o removido.\n- unshift(x) adiciona no início e devolve o novo tamanho.\n- push/pop trabalham no final; unshift/shift trabalham no início.\n- Os que adicionam (push, unshift) devolvem o novo tamanho; os que removem (pop, shift) devolvem o elemento removido.\n- Uma fila usa push para entrar e shift para sair.",
+  "exercicios": [
+    {
+      "id": "shift-qual-remove-do-inicio",
+      "tipo": "escolha",
+      "titulo": "Qual remove do início?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 }
+      ],
+      "enunciado": "Qual método remove o primeiro elemento de um array?",
+      "opcoes": [
+        "shift()",
+        { "texto": "pop()", "confusao": "confunde pop (final) com shift (início)" },
+        { "texto": "unshift()", "confusao": "acha que unshift remove, mas ele adiciona no início" },
+        { "texto": "push()", "confusao": "acha que push remove elementos" }
+      ],
+      "correta": 0,
+      "dica": "Um deles remove do início, outro do final.",
+      "explicacao": "shift remove o primeiro elemento; pop remove o último."
+    },
+    {
+      "id": "shift-novo-primeiro",
+      "tipo": "interpretacao",
+      "titulo": "Novo primeiro",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 },
+        { "id": "m6-indices", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nv.shift();\nconsole.log(v[0]);",
+      "opcoes": [
+        { "texto": "1", "confusao": "acha que o shift não altera o array" },
+        { "texto": "3", "confusao": "acha que o shift remove o último elemento" },
+        "2",
+        { "texto": "undefined", "confusao": "acha que a posição 0 fica vazia depois do shift" }
+      ],
+      "correta": 2,
+      "dica": "Depois do shift, os elementos andam uma posição para a frente.",
+      "explicacao": "shift remove o 1; o array fica [2, 3] e v[0] vale 2."
+    },
+    {
+      "id": "shift-complete-o-unshift",
+      "tipo": "lacuna",
+      "titulo": "Adicionar no início",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 }
+      ],
+      "enunciado": "Complete o método que adiciona 0 no início do array.",
+      "modelo": "const v = [1, 2];\nv.{{1}}(0);",
+      "lacunas": [
+        { "respostas": ["unshift"] }
+      ],
+      "dica": "É o oposto de shift.",
+      "explicacao": "unshift adiciona elementos no início do array."
+    },
+    {
+      "id": "shift-unshift-ordem",
+      "tipo": "interpretacao",
+      "titulo": "Ordem depois do unshift",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [2, 3];\nv.unshift(1);\nconsole.log(v[0] + \",\" + v[1] + \",\" + v[2]);",
+      "opcoes": [
+        { "texto": "2,3,1", "confusao": "acha que unshift adiciona no final" },
+        "1,2,3",
+        { "texto": "1,3,undefined", "confusao": "acha que unshift substitui o primeiro elemento" },
+        { "texto": "2,3,undefined", "confusao": "acha que o unshift não altera o array" }
+      ],
+      "correta": 1,
+      "dica": "unshift coloca o novo valor na frente.",
+      "explicacao": "O 1 entra no início e os demais andam uma posição: [1, 2, 3]."
+    },
+    {
+      "id": "shift-unshift-retornos",
+      "tipo": "interpretacao",
+      "titulo": "Retornos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 },
+        { "id": "m6-push", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nconst x = v.shift();\nconst n = v.unshift(9);\nconsole.log(x, n);",
+      "opcoes": [
+        { "texto": "1 2", "confusao": "acha que unshift devolve o tamanho antes da inserção" },
+        { "texto": "3 3", "confusao": "acha que shift devolve o último elemento" },
+        { "texto": "undefined 3", "confusao": "acha que shift não devolve o elemento removido" },
+        "1 3"
+      ],
+      "correta": 3,
+      "dica": "shift devolve o removido; unshift devolve o novo tamanho.",
+      "explicacao": "shift devolve 1. Depois v é [2, 3]; unshift(9) deixa [9, 2, 3] e devolve 3."
+    },
+    {
+      "id": "shift-rotacionar",
+      "tipo": "codigo",
+      "titulo": "Rotacionar",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 },
+        { "id": "m6-push", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `rotacionar(v)` que move o primeiro elemento do array para o final e devolve o array. Por exemplo, [1, 2, 3] vira [2, 3, 1]. Se o array estiver vazio, devolve o array vazio.",
+      "funcao": "rotacionar",
+      "codigoInicial": "function rotacionar(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": [2, 3, 1]
+        },
+        {
+          "entrada": [[5]],
+          "esperado": [5]
+        },
+        {
+          "entrada": [[]],
+          "esperado": []
+        },
+        {
+          "entrada": [["a", "b"]],
+          "esperado": ["b", "a"]
+        }
+      ],
+      "dica": "Retire o primeiro com shift e adicione no final com push (se houver elementos).",
+      "comentario": "shift tira o primeiro elemento e push o coloca no final. Com array vazio, nada é movido."
+    },
+    {
+      "id": "shift-corrija-o-inicio",
+      "tipo": "corrigir",
+      "titulo": "Corrija o início",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 },
+        { "id": "m6-push", "peso": 2 }
+      ],
+      "enunciado": "A função `adicionarNoInicio(v, x)` deveria colocar x no início do array e devolver o array (por exemplo, [1, 2, 3] para v = [2, 3] e x = 1), mas coloca no final. Corrija o defeito.",
+      "funcao": "adicionarNoInicio",
+      "codigoInicial": "function adicionarNoInicio(v, x) {\n  v.push(x);\n  return v;\n}\n",
+      "testes": [
+        {
+          "entrada": [[2, 3], 1],
+          "esperado": [1, 2, 3]
+        },
+        {
+          "entrada": [[], 5],
+          "esperado": [5]
+        },
+        {
+          "entrada": [["b"], "a"],
+          "esperado": ["a", "b"]
+        }
+      ],
+      "dica": "Qual método trabalha no início do array?",
+      "comentario": "push adiciona no final. Para adicionar no início, use unshift."
+    },
+    {
+      "id": "shift-primeiros-n",
+      "tipo": "codigo",
+      "titulo": "Retirar os primeiros",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-shift-unshift", "peso": 3 },
+        { "id": "m6-push", "peso": 2 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `retirarPrimeiros(v, n)` que remove os n primeiros elementos de v e devolve um array NOVO com os elementos removidos, na ordem original. Se houver menos de n elementos, devolve todos. Por exemplo, retirarPrimeiros([1, 2, 3, 4], 2) devolve [1, 2].",
+      "funcao": "retirarPrimeiros",
+      "codigoInicial": "function retirarPrimeiros(v, n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3, 4], 2],
+          "esperado": [1, 2]
+        },
+        {
+          "entrada": [[1], 3],
+          "esperado": [1]
+        },
+        {
+          "entrada": [[5, 6, 7], 0],
+          "esperado": []
+        },
+        {
+          "entrada": [[], 2],
+          "esperado": []
+        }
+      ],
+      "dica": "A cada volta, shift retira um elemento; guarde-o no array novo.",
+      "comentario": "Um laço repete até n vezes (ou até esvaziar): shift retira o primeiro e push o guarda no resultado."
+    }
+  ]
+}

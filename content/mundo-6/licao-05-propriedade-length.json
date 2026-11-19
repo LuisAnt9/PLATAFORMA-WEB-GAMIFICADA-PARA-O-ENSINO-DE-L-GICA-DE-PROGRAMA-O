@@ -1,0 +1,226 @@
+{
+  "id": "propriedade-length",
+  "mundo": "mundo-6",
+  "titulo": "Propriedade length",
+  "foco": "Descobrir quantos elementos o array tem",
+  "posicao": 604,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Todo array tem uma propriedade chamada length (comprimento), que guarda a quantidade de elementos.\n\nconst notas = [7, 8, 9];\nconsole.log(notas.length);   // 3\n\nRepare que length não leva parênteses: não é uma função, é uma informação do array.\n\nComo os índices começam em 0, o último elemento tem índice length - 1. Em um array com 3 elementos, os índices são 0, 1 e 2, e o último é notas[notas.length - 1].\n\nCuidado com um erro clássico: notas[notas.length] não é o último elemento, é uma posição que não existe, e devolve undefined.\n\nUm array vazio tem length 0. Por isso, antes de pegar o último elemento, vale conferir se o array não está vazio.\n\nO length também acompanha as mudanças: quando adicionamos ou removemos elementos, ele se atualiza sozinho.",
+  "exemplo": "const v = [5, 6, 7, 8];\nconsole.log(v.length);\nconsole.log(v[v.length - 1]);\nconsole.log(v[v.length]);\n\nPasso a passo:\n1. O array tem 4 elementos: v.length mostra 4.\n2. O último índice é 4 - 1 = 3: v[3] vale 8.\n3. v[4] não existe: mostra undefined.",
+  "revisao": "- array.length é a quantidade de elementos (sem parênteses).\n- O último índice é length - 1.\n- array[array.length] não existe: devolve undefined.\n- Um array vazio tem length 0.\n- length se atualiza quando o array cresce ou diminui.",
+  "exercicios": [
+    {
+      "id": "len-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é length?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 }
+      ],
+      "enunciado": "O que a propriedade length de um array informa?",
+      "opcoes": [
+        "A quantidade de elementos do array",
+        {
+          "texto": "O índice do último elemento",
+          "confusao": "confunde a quantidade de elementos com o último índice"
+        },
+        { "texto": "A soma dos elementos", "confusao": "acha que length soma os valores" },
+        { "texto": "O primeiro elemento", "confusao": "acha que length devolve um elemento" }
+      ],
+      "correta": 0,
+      "dica": "Se o array tem 4 valores, length vale...?",
+      "explicacao": "length é a quantidade de elementos. O último índice é length - 1."
+    },
+    {
+      "id": "len-tamanho",
+      "tipo": "interpretacao",
+      "titulo": "Quantos elementos?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [5, 6, 7, 8];\nconsole.log(v.length);",
+      "opcoes": [
+        { "texto": "3", "confusao": "confunde length com o último índice" },
+        { "texto": "26", "confusao": "acha que length soma os elementos" },
+        "4",
+        { "texto": "5", "confusao": "conta uma posição a mais" }
+      ],
+      "correta": 2,
+      "dica": "Conte os elementos.",
+      "explicacao": "O array tem 4 elementos, então length vale 4."
+    },
+    {
+      "id": "len-complete-o-ultimo",
+      "tipo": "lacuna",
+      "titulo": "Complete o último índice",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "Complete a conta para obter o último elemento do array.",
+      "modelo": "const ultimo = v[v.length - {{1}}];",
+      "lacunas": [
+        { "respostas": ["1"] }
+      ],
+      "dica": "O último índice é uma unidade a menos que a quantidade.",
+      "explicacao": "O último índice é length - 1."
+    },
+    {
+      "id": "len-fora-do-fim",
+      "tipo": "interpretacao",
+      "titulo": "Passando do fim",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nconsole.log(v[v.length]);",
+      "opcoes": [
+        { "texto": "3", "confusao": "acha que v[v.length] é o último elemento" },
+        "undefined",
+        {
+          "texto": "Erro e o programa para",
+          "confusao": "acha que acessar um índice inexistente causa erro"
+        },
+        { "texto": "1", "confusao": "acha que o acesso volta ao início do array" }
+      ],
+      "correta": 1,
+      "dica": "Com 3 elementos, os índices são 0, 1 e 2.",
+      "explicacao": "v.length vale 3 e o índice 3 não existe: o resultado é undefined. O último é v[v.length - 1]."
+    },
+    {
+      "id": "len-esta-vazio",
+      "tipo": "codigo",
+      "titulo": "Está vazio?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `estaVazio(v)` que devolve true se o array não tem elementos e false caso contrário.",
+      "funcao": "estaVazio",
+      "codigoInicial": "function estaVazio(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[]],
+          "esperado": true
+        },
+        {
+          "entrada": [[1]],
+          "esperado": false
+        },
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": false
+        }
+      ],
+      "dica": "Um array vazio tem length igual a quanto?",
+      "comentario": "Um array vazio tem length 0; basta comparar v.length === 0."
+    },
+    {
+      "id": "len-ultimo-elemento",
+      "tipo": "codigo",
+      "titulo": "Último elemento",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `ultimoElemento(v)` que devolve o último elemento do array. Se o array estiver vazio, devolve o texto \"vazio\".",
+      "funcao": "ultimoElemento",
+      "codigoInicial": "function ultimoElemento(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": 3
+        },
+        {
+          "entrada": [["a"]],
+          "esperado": "a"
+        },
+        {
+          "entrada": [[]],
+          "esperado": "vazio"
+        },
+        {
+          "entrada": [[9, 8]],
+          "esperado": 8
+        }
+      ],
+      "dica": "Confira o length antes de ler o último elemento.",
+      "comentario": "Se length é 0 devolvemos \"vazio\"; senão, o último elemento está em v[v.length - 1]."
+    },
+    {
+      "id": "len-corrija-o-ultimo-indice",
+      "tipo": "corrigir",
+      "titulo": "Corrija o último índice",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "A função `ultimoIndice(v)` deveria devolver o índice do último elemento (2 para um array de 3 elementos), mas devolve um valor a mais. Corrija o defeito.",
+      "funcao": "ultimoIndice",
+      "codigoInicial": "function ultimoIndice(v) {\n  return v.length;\n}\n",
+      "testes": [
+        {
+          "entrada": [[4, 5, 6]],
+          "esperado": 2
+        },
+        {
+          "entrada": [[9]],
+          "esperado": 0
+        },
+        {
+          "entrada": [[1, 2, 3, 4, 5]],
+          "esperado": 4
+        }
+      ],
+      "dica": "length conta quantos elementos; os índices começam em 0.",
+      "comentario": "length é a quantidade; o último índice é length - 1."
+    },
+    {
+      "id": "len-posicao-distante",
+      "tipo": "interpretacao",
+      "titulo": "Posição distante",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-length", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const v = [1, 2, 3];\nv[5] = 9;\nconsole.log(v.length);",
+      "opcoes": [
+        { "texto": "4", "confusao": "acha que o elemento novo é colocado logo depois do último" },
+        { "texto": "3", "confusao": "acha que a atribuição fora do limite é ignorada" },
+        { "texto": "5", "confusao": "acha que length é o maior índice usado" },
+        "6"
+      ],
+      "correta": 3,
+      "dica": "length é o maior índice mais 1.",
+      "explicacao": "Atribuir ao índice 5 faz o array crescer até essa posição: o maior índice é 5 e length passa a ser 6 (as posições 3 e 4 ficam vazias)."
+    }
+  ]
+}

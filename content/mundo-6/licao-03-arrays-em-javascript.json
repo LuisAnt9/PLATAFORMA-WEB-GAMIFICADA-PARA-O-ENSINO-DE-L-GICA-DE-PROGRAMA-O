@@ -1,0 +1,214 @@
+{
+  "id": "arrays-em-javascript",
+  "mundo": "mundo-6",
+  "titulo": "Arrays em JavaScript",
+  "foco": "Criar, ler e alterar elementos de um array",
+  "posicao": 602,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Em JavaScript, criamos um array escrevendo os valores entre colchetes, separados por vírgula:\n\nconst frutas = [\"maçã\", \"uva\", \"pera\"];\nconst vazio = [];\n\nPara ler um elemento, escrevemos o nome do array e a posição entre colchetes: frutas[1] é \"uva\". Para alterar, atribuímos um novo valor àquela posição: frutas[1] = \"kiwi\".\n\nUm array pode guardar qualquer tipo de valor (números, textos, booleanos) e até misturá-los, mas o mais comum é guardar valores do mesmo tipo.\n\nDuas observações importantes:\n1. Declarar com const não impede de mudar os elementos: const garante que a variável sempre aponta para o mesmo array, mas o conteúdo pode ser alterado.\n2. Atribuir um array a outra variável (const b = a) não copia os dados: as duas variáveis apontam para o mesmo array. Para criar uma cópia, use [...a].",
+  "exemplo": "const notas = [6, 8, 10];\nnotas[0] = 7;\nconsole.log(notas[0]);\n\nconst copia = [...notas];\ncopia[1] = 0;\nconsole.log(notas[1]);\n\nPasso a passo:\n1. notas começa com 6, 8 e 10.\n2. notas[0] = 7 troca o primeiro elemento: o array passa a ter 7, 8 e 10. Mostra 7.\n3. [...notas] cria um array novo com os mesmos valores.\n4. Alterar copia[1] não afeta notas: notas[1] continua 8.",
+  "revisao": "- Array: valores entre colchetes, separados por vírgula; [] é o array vazio.\n- Ler: nome[posição]. Alterar: nome[posição] = valor.\n- const impede trocar o array por outro, mas não impede alterar os elementos.\n- Atribuir um array a outra variável não copia: as duas apontam para o mesmo array.\n- Para copiar, use [...array].",
+  "exercicios": [
+    {
+      "id": "arr-como-declarar",
+      "tipo": "escolha",
+      "titulo": "Como declarar?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "Qual é a forma correta de declarar um array com os números 1, 2 e 3?",
+      "opcoes": [
+        { "texto": "const n = (1, 2, 3);", "confusao": "usa parênteses no lugar de colchetes" },
+        { "texto": "const n = {1, 2, 3};", "confusao": "usa chaves, que não criam array" },
+        { "texto": "const n = <1, 2, 3>;", "confusao": "usa sinais de menor e maior" },
+        "const n = [1, 2, 3];"
+      ],
+      "correta": 3,
+      "dica": "Os arrays usam colchetes.",
+      "explicacao": "Os valores de um array ficam entre colchetes e separados por vírgula."
+    },
+    {
+      "id": "arr-alterar-elemento",
+      "tipo": "interpretacao",
+      "titulo": "Trocando um valor",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 },
+        { "id": "m6-indices", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const n = [4, 5, 6];\nn[1] = 50;\nconsole.log(n[1]);",
+      "opcoes": [
+        "50",
+        { "texto": "5", "confusao": "acha que a atribuição não altera o array" },
+        { "texto": "4", "confusao": "acha que n[1] é o primeiro elemento" },
+        { "texto": "50, 5", "confusao": "acha que o valor novo é somado ao antigo" }
+      ],
+      "correta": 0,
+      "dica": "n[1] = 50 guarda um novo valor naquela posição.",
+      "explicacao": "A atribuição troca o valor da posição 1 (de 5 para 50), e o programa mostra 50."
+    },
+    {
+      "id": "arr-complete-o-vazio",
+      "tipo": "lacuna",
+      "titulo": "Array vazio",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "Complete a declaração de um array vazio.",
+      "modelo": "const lista = {{1}};",
+      "lacunas": [
+        { "respostas": ["[]", "[ ]"] }
+      ],
+      "dica": "Colchetes sem nada dentro.",
+      "explicacao": "[] cria um array sem elementos, pronto para receber valores depois."
+    },
+    {
+      "id": "arr-const-permite-alterar",
+      "tipo": "interpretacao",
+      "titulo": "const e o conteúdo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = [1, 2];\na[0] = 9;\nconsole.log(a[0]);",
+      "opcoes": [
+        { "texto": "1", "confusao": "acha que const impede alterar os elementos" },
+        {
+          "texto": "Erro: a é constante",
+          "confusao": "acha que const trava também o conteúdo do array"
+        },
+        "9",
+        { "texto": "2", "confusao": "acha que a[0] é o segundo elemento" }
+      ],
+      "correta": 2,
+      "dica": "const impede trocar o array por outro. E alterar um elemento?",
+      "explicacao": "const só impede reatribuir a variável (a = outroArray). Os elementos podem ser alterados: a[0] passa a valer 9."
+    },
+    {
+      "id": "arr-inverter-tres",
+      "tipo": "codigo",
+      "titulo": "Inverter três",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 },
+        { "id": "m6-indices", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `inverterTres(v)` que recebe um array com exatamente 3 elementos e devolve um array NOVO com os mesmos elementos na ordem inversa. Por exemplo, [1, 2, 3] vira [3, 2, 1].",
+      "funcao": "inverterTres",
+      "codigoInicial": "function inverterTres(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": [3, 2, 1]
+        },
+        {
+          "entrada": [["a", "b", "c"]],
+          "esperado": ["c", "b", "a"]
+        },
+        {
+          "entrada": [[7, 7, 8]],
+          "esperado": [8, 7, 7]
+        }
+      ],
+      "dica": "Monte um novo array com v[2], v[1] e v[0].",
+      "comentario": "Um novo array é criado com os elementos lidos das posições 2, 1 e 0."
+    },
+    {
+      "id": "arr-corrija-a-atribuicao",
+      "tipo": "corrigir",
+      "titulo": "Corrija a atribuição",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "A função `dobrarSegundo(v)` deveria dobrar o segundo elemento do array e devolver o array (por exemplo, [1, 2, 3] vira [1, 4, 3]), mas o array volta igual. Corrija o defeito.",
+      "funcao": "dobrarSegundo",
+      "codigoInicial": "function dobrarSegundo(v) {\n  v[1] * 2;\n  return v;\n}\n",
+      "testes": [
+        {
+          "entrada": [[1, 2, 3]],
+          "esperado": [1, 4, 3]
+        },
+        {
+          "entrada": [[0, 5]],
+          "esperado": [0, 10]
+        },
+        {
+          "entrada": [[3, 0, 9]],
+          "esperado": [3, 0, 9]
+        }
+      ],
+      "dica": "Calcular o dobro não guarda o resultado em lugar nenhum.",
+      "comentario": "v[1] * 2 só calcula o valor e o descarta. É preciso atribuir o resultado: v[1] = v[1] * 2."
+    },
+    {
+      "id": "arr-copia-ou-referencia",
+      "tipo": "escolha",
+      "titulo": "Copia ou aponta?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "Depois de const b = a; (a é um array), o que acontece ao executar b[0] = 1?",
+      "opcoes": [
+        {
+          "texto": "Só o array b muda; a continua igual",
+          "confusao": "acha que atribuir um array a outra variável cria uma cópia"
+        },
+        "O array a também muda, porque a e b apontam para o mesmo array",
+        {
+          "texto": "Dá erro, porque b é constante",
+          "confusao": "acha que const proíbe alterar os elementos"
+        },
+        {
+          "texto": "O array a é apagado",
+          "confusao": "acha que a atribuição move o conteúdo de a para b"
+        }
+      ],
+      "correta": 1,
+      "dica": "Atribuir um array copia os dados ou só o \"endereço\"?",
+      "explicacao": "a e b são dois nomes para o mesmo array. Alterar por um nome é visível pelo outro. Para copiar, use [...a]."
+    },
+    {
+      "id": "arr-copia-com-spread",
+      "tipo": "interpretacao",
+      "titulo": "Fazendo uma cópia",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m6-arrays", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const a = [1, 2, 3];\nconst b = [...a];\nb[0] = 9;\nconsole.log(a[0], b[0]);",
+      "opcoes": [
+        { "texto": "9 9", "confusao": "acha que [...a] não cria um array novo" },
+        { "texto": "1 1", "confusao": "acha que a atribuição em b[0] não altera b" },
+        { "texto": "9 1", "confusao": "troca os valores: o array alterado é b, não a" },
+        "1 9"
+      ],
+      "correta": 3,
+      "dica": "[...a] cria um array novo com os mesmos valores.",
+      "explicacao": "b é uma cópia independente. Alterar b[0] não muda a: a[0] continua 1 e b[0] vale 9."
+    }
+  ]
+}

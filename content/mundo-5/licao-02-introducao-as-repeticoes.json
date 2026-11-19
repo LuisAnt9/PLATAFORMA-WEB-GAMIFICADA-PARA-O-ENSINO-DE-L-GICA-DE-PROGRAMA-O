@@ -1,0 +1,204 @@
+{
+  "id": "introducao-as-repeticoes",
+  "mundo": "mundo-5",
+  "titulo": "Introdução às estruturas de repetição",
+  "foco": "Entender por que e como repetir instruções",
+  "posicao": 501,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Imagine ter de escrever \"Bom dia!\" cem vezes. Você não escreveria o mesmo texto cem vezes: faria uma regra do tipo \"repita 100 vezes\". É isso que uma estrutura de repetição (ou laço) faz: executa um trecho do código várias vezes, sem precisar escrevê-lo de novo.\n\nTodo laço precisa de três coisas:\n- um ponto de partida (por exemplo, começar a contar em 1);\n- uma condição para continuar (por exemplo, enquanto a contagem for menor ou igual a 5);\n- uma atualização a cada volta (por exemplo, somar 1 à contagem).\n\nSe a condição nunca deixar de ser verdadeira, o laço nunca termina: é o laço infinito, um dos erros mais comuns. Neste mundo você vai conhecer for, while e do...while, além de contadores, acumuladores e os comandos break e continue.",
+  "exemplo": "for (let i = 1; i <= 3; i++) {\n  console.log(\"Oi\");\n}\n\nPasso a passo:\n1. let i = 1: o contador começa em 1 (só acontece uma vez).\n2. i <= 3 é testado: 1 <= 3 é true, então o corpo executa e mostra Oi.\n3. i++ soma 1: i vale 2. A condição é testada de novo: true, mostra Oi.\n4. i vale 3: true, mostra Oi.\n5. i vale 4: 4 <= 3 é false, e o laço termina.\n\nResultado: Oi aparece 3 vezes.",
+  "revisao": "- Um laço repete um trecho do código sem precisar escrevê-lo de novo.\n- Ele precisa de ponto de partida, condição para continuar e atualização a cada volta.\n- Enquanto a condição for verdadeira, o corpo do laço executa.\n- Se a condição nunca ficar falsa, o laço é infinito.\n- Cada execução do corpo é chamada de iteração (ou volta).",
+  "exercicios": [
+    {
+      "id": "rep-intro-para-que-serve",
+      "tipo": "escolha",
+      "titulo": "Para que serve um laço?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 3 }
+      ],
+      "enunciado": "Para que serve uma estrutura de repetição?",
+      "opcoes": [
+        {
+          "texto": "Para executar um trecho só uma vez, quando a condição for verdadeira",
+          "confusao": "confunde repetição com decisão (if)"
+        },
+        "Para executar um trecho várias vezes sem escrevê-lo de novo",
+        {
+          "texto": "Para guardar um valor em uma variável",
+          "confusao": "confunde repetição com declaração de variáveis"
+        },
+        {
+          "texto": "Para mostrar um texto na tela",
+          "confusao": "confunde repetição com saída de dados"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense em \"repita 100 vezes\".",
+      "explicacao": "Um laço executa o mesmo trecho de código várias vezes, evitando copiar e colar instruções."
+    },
+    {
+      "id": "rep-intro-tres-ois",
+      "tipo": "interpretacao",
+      "titulo": "Quantos Oi?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "for (let i = 1; i <= 3; i++) {\n  console.log(\"Oi\");\n}",
+      "opcoes": [
+        { "texto": "Oi", "confusao": "acha que o laço executa só uma vez" },
+        { "texto": "Oi\nOi", "confusao": "erra uma volta (erro de um)" },
+        { "texto": "Oi\nOi\nOi\nOi", "confusao": "conta uma volta a mais (erro de um)" },
+        "Oi\nOi\nOi"
+      ],
+      "correta": 3,
+      "dica": "i vale 1, 2 e 3. Quando i vale 4, a condição é falsa.",
+      "explicacao": "O corpo executa para i = 1, 2 e 3, três vezes, e termina quando i chega a 4."
+    },
+    {
+      "id": "rep-intro-complete-o-while",
+      "tipo": "lacuna",
+      "titulo": "Complete o laço",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 2 },
+        { "id": "m5-while", "peso": 1 }
+      ],
+      "enunciado": "Complete a palavra que inicia o laço que se repete enquanto n for maior que zero.",
+      "modelo": "let n = 3;\n{{1}} (n > 0) {\n  console.log(n);\n  n--;\n}",
+      "lacunas": [
+        { "respostas": ["while"] }
+      ],
+      "dica": "Em inglês, \"enquanto\".",
+      "explicacao": "while repete o bloco enquanto a condição for verdadeira."
+    },
+    {
+      "id": "rep-intro-ordem-do-laco",
+      "tipo": "ordenacao",
+      "titulo": "Ordem de um laço",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 3 },
+        { "id": "m5-while", "peso": 1 }
+      ],
+      "enunciado": "Coloque na ordem em que o computador executa um laço que conta de 1 a 3.",
+      "itens": [
+        "Começar com contador = 1",
+        "Verificar se contador <= 3",
+        "Mostrar o contador",
+        "Somar 1 ao contador",
+        "Voltar a verificar a condição"
+      ],
+      "dica": "O ponto de partida vem uma única vez, antes do teste.",
+      "explicacao": "O laço começa com o ponto de partida, testa a condição, executa o corpo, atualiza o contador e volta ao teste."
+    },
+    {
+      "id": "rep-intro-laco-infinito",
+      "tipo": "interpretacao",
+      "titulo": "Falta o passo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 3 },
+        { "id": "m5-while", "peso": 1 }
+      ],
+      "enunciado": "O que acontece com o programa abaixo?",
+      "codigo": "let i = 1;\nwhile (i <= 3) {\n  console.log(i);\n}",
+      "opcoes": [
+        "Mostra 1 sem parar (laço infinito)",
+        { "texto": "Mostra 1, 2 e 3 e termina", "confusao": "acha que o contador avança sozinho" },
+        { "texto": "Mostra 1 e termina", "confusao": "acha que o laço executa só uma vez" },
+        {
+          "texto": "Dá erro e não mostra nada",
+          "confusao": "acha que o computador detecta o laço infinito antes de executar"
+        }
+      ],
+      "correta": 0,
+      "dica": "Alguma linha altera o valor de i dentro do laço?",
+      "explicacao": "Como i nunca muda, a condição i <= 3 fica sempre verdadeira e o laço repete para sempre. Faltou i++."
+    },
+    {
+      "id": "rep-intro-repetir-texto",
+      "tipo": "codigo",
+      "titulo": "Repetir um texto",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 2 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m2-concatenacao", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `repetir(texto, vezes)` que devolve o texto escrito `vezes` vezes seguidas. Por exemplo, repetir(\"ab\", 2) devolve \"abab\".",
+      "funcao": "repetir",
+      "codigoInicial": "function repetir(texto, vezes) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["a", 3], "esperado": "aaa" },
+        { "entrada": ["ab", 2], "esperado": "abab" },
+        { "entrada": ["x", 1], "esperado": "x" },
+        { "entrada": ["x", 0], "esperado": "" }
+      ],
+      "dica": "Comece com um resultado vazio e junte o texto a ele a cada volta.",
+      "comentario": "Um laço que repete `vezes` vezes e, a cada volta, acrescenta o texto ao resultado. Com 0 vezes, o laço não executa e o resultado fica vazio."
+    },
+    {
+      "id": "rep-intro-corrija-a-contagem",
+      "tipo": "corrigir",
+      "titulo": "Corrija a contagem",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 2 },
+        { "id": "m5-for", "peso": 2 }
+      ],
+      "enunciado": "A função `contagem(n)` deveria devolver os números de 1 até n separados por espaço (por exemplo, \"1 2 3\" para n = 3), mas devolve um número a menos. Corrija o defeito.",
+      "funcao": "contagem",
+      "codigoInicial": "function contagem(n) {\n  let texto = \"\";\n  for (let i = 1; i < n; i++) {\n    texto += (texto === \"\" ? \"\" : \" \") + i;\n  }\n  return texto;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": "1 2 3" },
+        { "entrada": [1], "esperado": "1" },
+        { "entrada": [5], "esperado": "1 2 3 4 5" }
+      ],
+      "dica": "O último número do laço é incluído ou não? Olhe a condição.",
+      "comentario": "Com i < n, o laço para antes de n. Trocando por i <= n, o último valor também entra (erro de um no limite)."
+    },
+    {
+      "id": "rep-intro-acompanhe-o-x",
+      "tipo": "interpretacao",
+      "titulo": "Acompanhe o valor",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-introducao", "peso": 3 },
+        { "id": "m5-for", "peso": 1 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let x = 2;\nfor (let i = 0; i < 3; i++) {\n  x = x * 2;\n}\nconsole.log(x);",
+      "opcoes": [
+        { "texto": "8", "confusao": "acha que o laço executa apenas 2 vezes" },
+        { "texto": "6", "confusao": "acha que o laço soma em vez de multiplicar" },
+        "16",
+        { "texto": "2", "confusao": "acha que o valor de x não muda dentro do laço" }
+      ],
+      "correta": 2,
+      "dica": "Anote x a cada volta: i = 0, 1 e 2.",
+      "explicacao": "O laço executa 3 vezes (i = 0, 1, 2): x vai de 2 para 4, depois 8 e por fim 16."
+    }
+  ]
+}

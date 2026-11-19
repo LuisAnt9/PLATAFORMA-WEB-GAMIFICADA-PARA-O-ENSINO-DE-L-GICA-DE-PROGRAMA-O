@@ -1,0 +1,231 @@
+{
+  "id": "estrutura-while",
+  "mundo": "mundo-5",
+  "titulo": "Estrutura while",
+  "foco": "Repetir enquanto uma condição for verdadeira",
+  "posicao": 503,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O while (\"enquanto\") repete um bloco enquanto a condição for verdadeira. Ele é ideal quando você não sabe de antemão quantas voltas serão necessárias: o laço continua até que uma situação mude.\n\nlet n = 3;\nwhile (n > 0) {\n  console.log(n);\n  n--;\n}\n\nDiferente do for, as três partes ficam separadas: o ponto de partida vem antes do laço, a condição fica nos parênteses e a atualização precisa estar dentro do corpo. Se você esquecer de atualizar a variável da condição, o laço será infinito.\n\nOutra característica: a condição é testada antes de cada volta. Se ela já começar falsa, o corpo não executa nenhuma vez.\n\nUse for quando souber a quantidade de voltas e while quando a repetição depender de uma condição (por exemplo, \"dividir até chegar a zero\").",
+  "exemplo": "let n = 3;\nwhile (n > 0) {\n  console.log(n);\n  n--;\n}\nconsole.log(\"Fogo!\");\n\nPasso a passo:\n1. n vale 3. A condição 3 > 0 é true: mostra 3 e n passa a 2.\n2. 2 > 0 é true: mostra 2 e n passa a 1.\n3. 1 > 0 é true: mostra 1 e n passa a 0.\n4. 0 > 0 é false: o laço termina.\n5. O programa continua e mostra Fogo!\n\nResultado: 3, 2, 1 e Fogo!",
+  "revisao": "- while repete o bloco enquanto a condição for verdadeira.\n- A condição é testada antes de cada volta: pode ser que o corpo nunca execute.\n- Atualize dentro do laço a variável usada na condição, para não criar um laço infinito.\n- Use for quando souber quantas voltas; while quando depender de uma condição.",
+  "exercicios": [
+    {
+      "id": "while-quando-usar",
+      "tipo": "escolha",
+      "titulo": "Quando usar o while?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 }
+      ],
+      "enunciado": "Em que situação o while é mais indicado do que o for?",
+      "opcoes": [
+        {
+          "texto": "Quando sabemos exatamente quantas voltas serão feitas",
+          "confusao": "acha que o while serve só para quantidades conhecidas"
+        },
+        "Quando a quantidade de voltas depende de uma condição",
+        {
+          "texto": "Quando queremos executar o código uma única vez",
+          "confusao": "confunde repetição com decisão"
+        },
+        {
+          "texto": "Quando queremos que o laço nunca termine",
+          "confusao": "acha que o while é sempre infinito"
+        }
+      ],
+      "correta": 1,
+      "dica": "Pense em \"continue até que...\".",
+      "explicacao": "O while é ideal quando não sabemos de antemão quantas voltas serão necessárias: o laço segue enquanto a condição for verdadeira."
+    },
+    {
+      "id": "while-conta-regressiva",
+      "tipo": "interpretacao",
+      "titulo": "Contagem regressiva",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "let n = 3;\nwhile (n > 0) {\n  console.log(n);\n  n--;\n}",
+      "opcoes": [
+        { "texto": "1\n2\n3", "confusao": "inverte a ordem da contagem" },
+        {
+          "texto": "3\n2\n1\n0",
+          "confusao": "inclui o 0, achando que a condição aceita n igual a zero"
+        },
+        { "texto": "3", "confusao": "acha que o laço executa uma só vez" },
+        "3\n2\n1"
+      ],
+      "correta": 3,
+      "dica": "A cada volta n diminui 1. O laço para quando n deixa de ser maior que 0.",
+      "explicacao": "n vale 3, 2 e 1 dentro do laço. Quando n chega a 0, a condição n > 0 é falsa."
+    },
+    {
+      "id": "while-complete-o-passo",
+      "tipo": "lacuna",
+      "titulo": "Complete o passo",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-while", "peso": 2 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "Complete a instrução que diminui n em 1 a cada volta.",
+      "modelo": "let n = 3;\nwhile (n > 0) {\n  console.log(n);\n  {{1}};\n}",
+      "lacunas": [
+        { "respostas": ["n--", "n -= 1", "n = n - 1", "--n"] }
+      ],
+      "dica": "Sem essa linha, o laço seria infinito.",
+      "explicacao": "Diminuir n a cada volta faz a condição n > 0 ficar falsa em algum momento."
+    },
+    {
+      "id": "while-nenhuma-volta",
+      "tipo": "interpretacao",
+      "titulo": "Nenhuma volta",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let x = 10;\nwhile (x < 5) {\n  console.log(\"dentro\");\n  x++;\n}\nconsole.log(\"fim\");",
+      "opcoes": [
+        "fim",
+        { "texto": "dentro\nfim", "confusao": "acha que o corpo executa pelo menos uma vez" },
+        {
+          "texto": "dentro\ndentro\ndentro\ndentro\ndentro\nfim",
+          "confusao": "acha que o laço conta até 5 mesmo com x começando em 10"
+        },
+        {
+          "texto": "Nada, o programa dá erro",
+          "confusao": "acha que um laço que não executa é erro"
+        }
+      ],
+      "correta": 0,
+      "dica": "A condição é testada antes da primeira volta.",
+      "explicacao": "10 < 5 é falso desde o início, então o corpo nunca executa. Só o que vem depois do laço aparece: fim."
+    },
+    {
+      "id": "while-contar-digitos",
+      "tipo": "codigo",
+      "titulo": "Contar dígitos",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `contarDigitos(n)` que devolve quantos dígitos tem o número inteiro positivo n (por exemplo, 120 tem 3). Dica: divida por 10 até chegar a zero.",
+      "funcao": "contarDigitos",
+      "codigoInicial": "function contarDigitos(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": 1 },
+        { "entrada": [42], "esperado": 2 },
+        { "entrada": [1000], "esperado": 4 },
+        { "entrada": [99999], "esperado": 5 }
+      ],
+      "dica": "Math.floor(n / 10) descarta o último dígito.",
+      "comentario": "A cada volta o último dígito é removido (divisão inteira por 10) e o contador sobe um. O laço termina quando n chega a 0."
+    },
+    {
+      "id": "while-corrija-a-condicao",
+      "tipo": "corrigir",
+      "titulo": "Corrija a condição",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "A função `somaDe1Ate(n)` deveria devolver a soma de 1 até n (por exemplo, 10 para n = 4), mas devolve sempre 0. Corrija o defeito.",
+      "funcao": "somaDe1Ate",
+      "codigoInicial": "function somaDe1Ate(n) {\n  let i = 1;\n  let soma = 0;\n  while (i > n) {\n    soma += i;\n    i++;\n  }\n  return soma;\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 10 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [10], "esperado": 55 }
+      ],
+      "dica": "O laço executa alguma vez com i = 1 e n = 4?",
+      "comentario": "A condição i > n é falsa desde o início, então o corpo nunca roda. O correto é continuar enquanto i <= n."
+    },
+    {
+      "id": "while-passos-de-collatz",
+      "tipo": "codigo",
+      "titulo": "Passos até chegar a 1",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 },
+        { "id": "m4-if-else", "peso": 1 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `passos(n)`: a cada passo, se n for par divida por 2; se for ímpar, calcule 3 × n + 1. Devolva quantos passos são necessários para n chegar a 1 (n = 1 precisa de 0 passos).",
+      "funcao": "passos",
+      "codigoInicial": "function passos(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [1], "esperado": 0 },
+        { "entrada": [2], "esperado": 1 },
+        { "entrada": [6], "esperado": 8 },
+        { "entrada": [7], "esperado": 16 },
+        { "entrada": [27], "esperado": 111 }
+      ],
+      "dica": "Não sabemos quantas voltas: use while (n !== 1) e conte cada passo.",
+      "comentario": "Enquanto n for diferente de 1, aplica-se a regra (par ou ímpar) e conta-se um passo. Para n = 1 o laço não executa."
+    },
+    {
+      "id": "while-ordem-de-execucao",
+      "tipo": "ordenacao",
+      "titulo": "Ordem de execução do while",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 }
+      ],
+      "enunciado": "Coloque na ordem em que o computador executa um while.",
+      "itens": [
+        "Testa a condição",
+        "Se for verdadeira, executa o corpo",
+        "Atualiza a variável da condição",
+        "Testa a condição de novo",
+        "Quando for falsa, sai do laço"
+      ],
+      "dica": "O teste da condição vem antes de qualquer volta.",
+      "explicacao": "O while testa a condição antes de cada volta; ela só sai do laço quando a condição se torna falsa."
+    },
+    {
+      "id": "while-dobrando",
+      "tipo": "interpretacao",
+      "titulo": "Dobrando até passar",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-while", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let a = 1;\nwhile (a < 20) {\n  a = a * 2;\n}\nconsole.log(a);",
+      "opcoes": [
+        { "texto": "16", "confusao": "para no último valor que ainda é menor que 20" },
+        { "texto": "20", "confusao": "acha que o laço para exatamente quando chega a 20" },
+        "32",
+        { "texto": "19", "confusao": "acha que o valor sobe de 1 em 1" }
+      ],
+      "correta": 2,
+      "dica": "Anote a: 1, 2, 4, 8, 16... e continue até a condição ficar falsa.",
+      "explicacao": "a vale 1, 2, 4, 8 e 16 (todos < 20), e a próxima volta o torna 32. Como 32 < 20 é falso, o laço termina e mostra 32."
+    }
+  ]
+}

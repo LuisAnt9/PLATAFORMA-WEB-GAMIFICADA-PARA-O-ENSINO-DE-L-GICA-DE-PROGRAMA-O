@@ -1,0 +1,232 @@
+{
+  "id": "comando-break",
+  "mundo": "mundo-5",
+  "titulo": "Comando break",
+  "foco": "Interromper um laço antes da hora",
+  "posicao": 507,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O comando break encerra o laço imediatamente, mesmo que a condição ainda fosse verdadeira. O programa continua na primeira instrução depois do laço.\n\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    break;       // sai do laço quando i vale 3\n  }\n  console.log(i);\n}\n\nEle é útil quando você encontrou o que procurava e não precisa continuar: achar o primeiro número que atende a uma regra, parar de ler quando aparecer um valor especial, ou sair de um laço \"infinito\" de propósito:\n\nwhile (true) {\n  // ...\n  if (terminou) {\n    break;\n  }\n}\n\nCuidado: break não é o mesmo que continue. O break encerra o laço todo; o continue só pula a volta atual.",
+  "exemplo": "for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    break;\n  }\n  console.log(i);\n}\nconsole.log(\"Fim\");\n\nPasso a passo:\n1. i = 1: a condição i === 3 é false: mostra 1.\n2. i = 2: false: mostra 2.\n3. i = 3: true. O break encerra o laço na hora (o 3 não é mostrado).\n4. O programa continua depois do laço e mostra Fim.\n\nResultado: 1, 2 e Fim.",
+  "revisao": "- break encerra o laço imediatamente.\n- O programa segue na primeira instrução depois do laço.\n- Serve para parar quando já achamos o que procurávamos.\n- while (true) com break é um laço que só termina quando a condição de saída acontece.\n- break encerra o laço; continue só pula a volta atual.",
+  "exercicios": [
+    {
+      "id": "break-o-que-faz",
+      "tipo": "escolha",
+      "titulo": "O que o break faz?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 }
+      ],
+      "enunciado": "O que o comando break faz dentro de um laço?",
+      "opcoes": [
+        {
+          "texto": "Pula só a volta atual e vai para a próxima",
+          "confusao": "confunde break com continue"
+        },
+        {
+          "texto": "Encerra o programa inteiro",
+          "confusao": "acha que o break termina o programa, e não o laço"
+        },
+        {
+          "texto": "Reinicia o laço do começo",
+          "confusao": "acha que o break volta o contador para o início"
+        },
+        "Encerra o laço imediatamente"
+      ],
+      "correta": 3,
+      "dica": "Pense em \"quebrar\" o laço.",
+      "explicacao": "O break interrompe o laço na hora; o programa continua na primeira instrução depois dele."
+    },
+    {
+      "id": "break-para-no-tres",
+      "tipo": "interpretacao",
+      "titulo": "Para no três",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    break;\n  }\n  console.log(i);\n}",
+      "opcoes": [
+        "1\n2",
+        { "texto": "1\n2\n3", "confusao": "acha que o break só atua depois de mostrar o 3" },
+        { "texto": "1\n2\n4\n5", "confusao": "confunde break com continue (pula só o 3)" },
+        { "texto": "1\n2\n3\n4\n5", "confusao": "acha que o break não interrompe o laço" }
+      ],
+      "correta": 0,
+      "dica": "O break executa antes do console.log quando i vale 3.",
+      "explicacao": "Para i = 1 e 2 o valor é mostrado. Em i = 3 o break encerra o laço antes de mostrar."
+    },
+    {
+      "id": "break-complete-o-comando",
+      "tipo": "lacuna",
+      "titulo": "Complete o comando",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-break", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Complete o comando que encerra o laço quando i vale 3.",
+      "modelo": "for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    {{1}};\n  }\n}",
+      "lacunas": [
+        { "respostas": ["break"] }
+      ],
+      "dica": "Em inglês, \"quebrar\".",
+      "explicacao": "break sai do laço na hora."
+    },
+    {
+      "id": "break-while-true",
+      "tipo": "interpretacao",
+      "titulo": "Laço com saída",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-while", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let n = 0;\nwhile (true) {\n  n++;\n  if (n >= 3) {\n    break;\n  }\n}\nconsole.log(n);",
+      "opcoes": [
+        {
+          "texto": "Nada, porque while (true) nunca termina",
+          "confusao": "acha que o break não consegue sair de while (true)"
+        },
+        { "texto": "2", "confusao": "acha que o break sai antes de n chegar a 3" },
+        "3",
+        { "texto": "4", "confusao": "acha que o laço dá mais uma volta depois do break" }
+      ],
+      "correta": 2,
+      "dica": "A condição while (true) é sempre verdadeira; o que encerra o laço?",
+      "explicacao": "n sobe de 1 em 1 e, quando chega a 3, o break encerra o laço. O programa mostra 3."
+    },
+    {
+      "id": "break-primeiro-divisor",
+      "tipo": "codigo",
+      "titulo": "Primeiro divisor",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `primeiroDivisor(n)` que devolve o menor número maior que 1 que divide n sem deixar resto (n é maior que 1). Para um número primo, devolve o próprio n. Use break para parar quando achar.",
+      "funcao": "primeiroDivisor",
+      "codigoInicial": "function primeiroDivisor(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [15], "esperado": 3 },
+        { "entrada": [7], "esperado": 7 },
+        { "entrada": [49], "esperado": 7 },
+        { "entrada": [10], "esperado": 2 }
+      ],
+      "dica": "Teste os números a partir do 2 e pare no primeiro que dividir n.",
+      "comentario": "O laço testa 2, 3, 4... e o break encerra no primeiro divisor. Se nenhum antes de n divide, o próprio n é o primeiro divisor."
+    },
+    {
+      "id": "break-somar-ate-negativo",
+      "tipo": "codigo",
+      "titulo": "Somar até um negativo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somarAteNegativo()`: leia números com `lerEntrada()` (chegam como texto) e some-os, parando quando aparecer um número negativo (que não entra na soma). Mostre a soma com `console.log`.",
+      "funcao": "somarAteNegativo",
+      "codigoInicial": "function somarAteNegativo() {\n  // leia os números e mostre a soma\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["4", "6", "-1", "9"], "saida": ["10"] },
+        { "entrada": [], "entradas": ["-1"], "saida": ["0"] },
+        { "entrada": [], "entradas": ["1", "2", "3", "-5"], "saida": ["6"] }
+      ],
+      "dica": "Um while (true) lê números; o break acontece quando o número for menor que 0.",
+      "comentario": "O laço lê cada número e, ao encontrar um negativo, o break encerra antes de somá-lo."
+    },
+    {
+      "id": "break-corrija-o-primeiro",
+      "tipo": "corrigir",
+      "titulo": "Corrija o primeiro múltiplo",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "A função `primeiroMultiploDe7(limite)` deveria devolver o primeiro múltiplo de 7 de 1 até o limite (ou -1 se não houver), mas devolve o último. Corrija o defeito.",
+      "funcao": "primeiroMultiploDe7",
+      "codigoInicial": "function primeiroMultiploDe7(limite) {\n  let achado = -1;\n  for (let i = 1; i <= limite; i++) {\n    if (i % 7 === 0) {\n      achado = i;\n    }\n  }\n  return achado;\n}\n",
+      "testes": [
+        { "entrada": [20], "esperado": 7 },
+        { "entrada": [30], "esperado": 7 },
+        { "entrada": [6], "esperado": -1 },
+        { "entrada": [7], "esperado": 7 }
+      ],
+      "dica": "Depois de achar o primeiro, o laço deveria continuar?",
+      "comentario": "Sem break, o laço continua e sobrescreve achado com os múltiplos seguintes. O break encerra na primeira ocorrência."
+    },
+    {
+      "id": "break-soma-limitada",
+      "tipo": "interpretacao",
+      "titulo": "Soma limitada",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let s = 0;\nfor (let i = 1; i <= 10; i++) {\n  if (s + i > 10) {\n    break;\n  }\n  s += i;\n}\nconsole.log(s);",
+      "opcoes": [
+        { "texto": "55", "confusao": "acha que o break não interrompe a soma" },
+        "10",
+        { "texto": "15", "confusao": "soma mais um valor depois de passar do limite" },
+        { "texto": "6", "confusao": "para cedo demais, achando que s não pode chegar a 10" }
+      ],
+      "correta": 1,
+      "dica": "Acompanhe s: 1, 3, 6, 10... e o que acontece com i = 5.",
+      "explicacao": "s chega a 10 com i = 4. Em i = 5, s + i = 15 > 10, o break encerra e o programa mostra 10."
+    },
+    {
+      "id": "break-eh-primo",
+      "tipo": "codigo",
+      "titulo": "É primo?",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-break", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m4-if-else", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `ehPrimo(n)` que devolve true se n for primo (maior que 1 e divisível só por 1 e por ele mesmo) e false caso contrário.",
+      "funcao": "ehPrimo",
+      "codigoInicial": "function ehPrimo(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2], "esperado": true },
+        { "entrada": [13], "esperado": true },
+        { "entrada": [97], "esperado": true },
+        { "entrada": [1], "esperado": false },
+        { "entrada": [9], "esperado": false },
+        { "entrada": [25], "esperado": false }
+      ],
+      "dica": "Se algum número de 2 até n - 1 dividir n, já sabemos que não é primo: pode parar.",
+      "comentario": "O laço procura um divisor entre 2 e n - 1; ao achar um, o break (ou return) encerra. Se não achar e n > 1, n é primo."
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "id": "estrutura-do-while",
+  "mundo": "mundo-5",
+  "titulo": "Estrutura do...while",
+  "foco": "Repetir com o teste no final do laço",
+  "posicao": 504,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O do...while é parecido com o while, mas com uma diferença importante: o corpo executa primeiro e a condição é testada depois. Por isso, o corpo do do...while executa pelo menos uma vez, mesmo que a condição já comece falsa.\n\ndo {\n  // corpo do laço\n} while (condição);\n\nRepare no ponto e vírgula depois do while(condição): ele faz parte da sintaxe.\n\nIsso é útil quando precisamos fazer algo antes de decidir se repetimos, como pedir uma informação ao usuário e só depois conferir se ela é válida: \"peça a nota; se não estiver entre 0 e 10, peça de novo\".\n\nResumindo: no while o teste vem antes (pode executar zero vezes); no do...while o teste vem depois (executa ao menos uma vez).",
+  "exemplo": "let n = 10;\ndo {\n  console.log(\"Executou\");\n  n++;\n} while (n < 5);\n\nPasso a passo:\n1. O computador executa o corpo primeiro: mostra Executou e n passa a 11.\n2. Só então testa a condição: 11 < 5 é false.\n3. O laço termina depois de uma única volta.\n\nCom um while comum (while (n < 5)), o corpo não executaria nenhuma vez.",
+  "revisao": "- do...while executa o corpo primeiro e testa a condição depois.\n- O corpo executa pelo menos uma vez, mesmo com a condição falsa desde o início.\n- A sintaxe termina com ponto e vírgula: do { ... } while (condição);\n- Ótimo para validar entradas: pedir, conferir e repetir se for preciso.",
+  "exercicios": [
+    {
+      "id": "dowhile-diferenca",
+      "tipo": "escolha",
+      "titulo": "A diferença para o while",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "Qual é a principal diferença entre o while e o do...while?",
+      "opcoes": [
+        {
+          "texto": "O do...while não precisa de condição",
+          "confusao": "acha que o do...while repete sempre, sem condição"
+        },
+        "O do...while executa o corpo pelo menos uma vez, antes de testar a condição",
+        {
+          "texto": "O while executa o corpo primeiro e testa a condição depois",
+          "confusao": "troca a ordem dos dois laços"
+        },
+        {
+          "texto": "O do...while só funciona com números",
+          "confusao": "acha que o laço depende do tipo do dado"
+        }
+      ],
+      "correta": 1,
+      "dica": "Onde fica o teste da condição em cada um?",
+      "explicacao": "No do...while o corpo executa primeiro e a condição é testada no final, garantindo ao menos uma volta."
+    },
+    {
+      "id": "dowhile-condicao-falsa",
+      "tipo": "interpretacao",
+      "titulo": "Condição já falsa",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let n = 10;\ndo {\n  console.log(\"oi\");\n  n++;\n} while (n < 5);",
+      "opcoes": [
+        {
+          "texto": "Nada, porque 10 < 5 é falso",
+          "confusao": "acha que o do...while também testa antes de executar"
+        },
+        { "texto": "oi\noi\noi\noi\noi", "confusao": "acha que o laço conta até 5" },
+        { "texto": "Dá erro", "confusao": "acha que uma condição falsa no início é erro" },
+        "oi"
+      ],
+      "correta": 3,
+      "dica": "O corpo executa antes do primeiro teste.",
+      "explicacao": "O corpo executa uma vez (oi), n vira 11 e a condição 11 < 5 é falsa: o laço termina."
+    },
+    {
+      "id": "dowhile-complete-o-fim",
+      "tipo": "lacuna",
+      "titulo": "Complete o laço",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 2 }
+      ],
+      "enunciado": "Complete a palavra que fecha o laço e testa a condição.",
+      "modelo": "let n = 0;\ndo {\n  n++;\n} {{1}} (n < 3);",
+      "lacunas": [
+        { "respostas": ["while"] }
+      ],
+      "dica": "A mesma palavra que abre o laço while.",
+      "explicacao": "O do...while termina com while (condição); depois do corpo."
+    },
+    {
+      "id": "dowhile-conta-ate-tres",
+      "tipo": "interpretacao",
+      "titulo": "Conta até três",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "let i = 1;\ndo {\n  console.log(i);\n  i++;\n} while (i <= 3);",
+      "opcoes": [
+        "1\n2\n3",
+        { "texto": "1\n2", "confusao": "para uma volta antes, achando que i <= 3 exclui o 3" },
+        { "texto": "1\n2\n3\n4", "confusao": "inclui o valor que torna a condição falsa" },
+        { "texto": "2\n3", "confusao": "acha que o corpo só executa depois de testar" }
+      ],
+      "correta": 0,
+      "dica": "Depois de cada volta, i aumenta e a condição é testada.",
+      "explicacao": "Mostra 1, 2 e 3. Depois do 3, i vale 4 e 4 <= 3 é falso."
+    },
+    {
+      "id": "dowhile-somar-ate-zero",
+      "tipo": "codigo",
+      "titulo": "Somar até o zero",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 1 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somarAteZero()`: leia números com `lerEntrada()` (chegam como texto) até aparecer o 0 e mostre a soma de todos os números lidos com `console.log`. O 0 encerra a leitura.",
+      "funcao": "somarAteZero",
+      "codigoInicial": "function somarAteZero() {\n  // leia os números e mostre a soma\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["5", "3", "0"], "saida": ["8"] },
+        { "entrada": [], "entradas": ["0"], "saida": ["0"] },
+        { "entrada": [], "entradas": ["10", "20", "30", "0"], "saida": ["60"] }
+      ],
+      "dica": "Você precisa ler pelo menos um valor antes de saber se é o 0.",
+      "comentario": "Um do...while lê o número, soma e só então confere se foi o 0. Assim a leitura acontece antes do teste, como o problema pede."
+    },
+    {
+      "id": "dowhile-corrija-o-limite",
+      "tipo": "corrigir",
+      "titulo": "Corrija o limite",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "A função `contarAte(n)` deveria devolver os números de 1 até n separados por espaço (\"1 2 3\" para n = 3), mas deixa o último de fora. Corrija o defeito.",
+      "funcao": "contarAte",
+      "codigoInicial": "function contarAte(n) {\n  let i = 1;\n  let texto = \"\";\n  do {\n    texto += (texto === \"\" ? \"\" : \" \") + i;\n    i++;\n  } while (i < n);\n  return texto;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": "1 2 3" },
+        { "entrada": [1], "esperado": "1" },
+        { "entrada": [5], "esperado": "1 2 3 4 5" }
+      ],
+      "dica": "Depois de mostrar n, o laço deveria continuar?",
+      "comentario": "Com i < n o laço para antes de incluir n. A condição correta é i <= n."
+    },
+    {
+      "id": "dowhile-sempre-uma-vez",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale c?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let c = 0;\ndo {\n  c++;\n} while (c < 0);\nconsole.log(c);",
+      "opcoes": [
+        { "texto": "0", "confusao": "acha que o corpo não executa quando a condição já é falsa" },
+        { "texto": "-1", "confusao": "acha que o laço continua até c ficar negativo" },
+        "1",
+        {
+          "texto": "Nada, o laço nunca termina",
+          "confusao": "acha que a condição falsa causa laço infinito"
+        }
+      ],
+      "correta": 2,
+      "dica": "O corpo executa antes do primeiro teste.",
+      "explicacao": "O corpo executa uma vez (c passa de 0 para 1) e a condição 1 < 0 é falsa."
+    },
+    {
+      "id": "dowhile-minimo-de-voltas",
+      "tipo": "escolha",
+      "titulo": "Quantas voltas, no mínimo?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "Quantas vezes, no mínimo, o corpo de um do...while executa?",
+      "opcoes": [
+        {
+          "texto": "Nenhuma, se a condição for falsa",
+          "confusao": "acha que o do...while pode não executar nenhuma vez"
+        },
+        "Uma",
+        {
+          "texto": "Duas",
+          "confusao": "confunde o teste do final com uma segunda volta obrigatória"
+        },
+        {
+          "texto": "Depende do valor das variáveis",
+          "confusao": "acha que o mínimo varia conforme a condição"
+        }
+      ],
+      "correta": 1,
+      "dica": "O teste da condição só acontece depois da primeira execução.",
+      "explicacao": "O corpo é executado antes do primeiro teste, então roda pelo menos uma vez."
+    },
+    {
+      "id": "dowhile-validar-nota",
+      "tipo": "codigo",
+      "titulo": "Validar a nota",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 },
+        { "id": "m3-logicos", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `validarNota()`: leia números com `lerEntrada()` até aparecer uma nota válida (de 0 a 10, inclusive) e mostre `Nota válida: <valor>`. Notas fora do intervalo são ignoradas e a leitura continua.",
+      "funcao": "validarNota",
+      "codigoInicial": "function validarNota() {\n  // leia até uma nota válida e mostre a mensagem\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["7"], "saida": ["Nota válida: 7"] },
+        { "entrada": [], "entradas": ["15", "-2", "7"], "saida": ["Nota válida: 7"] },
+        { "entrada": [], "entradas": ["11", "10"], "saida": ["Nota válida: 10"] },
+        { "entrada": [], "entradas": ["-1", "0"], "saida": ["Nota válida: 0"] }
+      ],
+      "dica": "Continue lendo enquanto a nota for menor que 0 ou maior que 10.",
+      "comentario": "Um do...while lê a nota e repete enquanto ela for menor que 0 ou maior que 10. Quando sai do laço, a nota é válida."
+    },
+    {
+      "id": "dowhile-ordem-de-execucao",
+      "tipo": "ordenacao",
+      "titulo": "Ordem de execução do do...while",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m5-do-while", "peso": 3 }
+      ],
+      "enunciado": "Coloque na ordem em que o computador executa um do...while.",
+      "itens": [
+        "Executa o corpo do laço",
+        "Testa a condição",
+        "Se for verdadeira, volta ao corpo",
+        "Se for falsa, sai do laço"
+      ],
+      "dica": "O corpo vem antes do primeiro teste.",
+      "explicacao": "O do...while executa o corpo, testa a condição e repete se ela for verdadeira."
+    }
+  ]
+}

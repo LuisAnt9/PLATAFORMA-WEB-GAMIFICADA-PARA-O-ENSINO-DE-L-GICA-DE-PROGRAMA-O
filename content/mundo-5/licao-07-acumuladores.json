@@ -1,0 +1,235 @@
+{
+  "id": "acumuladores",
+  "mundo": "mundo-5",
+  "titulo": "Acumuladores",
+  "foco": "Somar ou multiplicar valores ao longo do laço",
+  "posicao": 506,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Um acumulador é uma variável que vai juntando valores a cada volta do laço: a soma de várias notas, o total de uma compra, o produto de uma sequência.\n\nlet soma = 0;\nfor (let i = 1; i <= 4; i++) {\n  soma += i;     // soma = soma + i\n}\n\nDiferente do contador, que sempre soma 1, o acumulador soma (ou multiplica) o valor que aparece a cada volta.\n\nAtenção ao valor inicial:\n- para somar, comece em 0 (elemento neutro da soma);\n- para multiplicar, comece em 1 (elemento neutro do produto): começando em 0, tudo vira 0.\n\nE o erro mais comum: declarar o acumulador dentro do laço. Isso o reinicia a cada volta, e ele nunca acumula nada. Declare-o antes do laço.\n\nDepois do laço, o acumulador guarda o total, e dá para calcular coisas como a média (soma ÷ quantidade).",
+  "exemplo": "let soma = 0;\nfor (let i = 1; i <= 4; i++) {\n  soma += i;\n}\nconsole.log(soma);\n\nPasso a passo:\n1. soma começa em 0.\n2. i = 1: soma passa a 1.\n3. i = 2: soma passa a 3.\n4. i = 3: soma passa a 6.\n5. i = 4: soma passa a 10.\n6. O laço termina e o programa mostra 10.",
+  "revisao": "- Acumulador: variável que junta valores a cada volta (soma += valor).\n- Para somar, comece em 0; para multiplicar, comece em 1.\n- Declare o acumulador antes do laço, nunca dentro dele.\n- Contador soma sempre 1; acumulador soma o valor da volta.\n- Depois do laço, o acumulador guarda o total (e permite calcular médias).",
+  "exercicios": [
+    {
+      "id": "acumulador-contador-ou-acumulador",
+      "tipo": "escolha",
+      "titulo": "Contador ou acumulador?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-contadores", "peso": 1 }
+      ],
+      "enunciado": "Qual é a diferença entre um contador e um acumulador?",
+      "opcoes": [
+        {
+          "texto": "Não há diferença: os dois sempre somam 1",
+          "confusao": "acha que contador e acumulador são a mesma coisa"
+        },
+        {
+          "texto": "O contador soma valores diferentes e o acumulador soma sempre 1",
+          "confusao": "troca as definições"
+        },
+        {
+          "texto": "O acumulador só serve para multiplicar",
+          "confusao": "acha que o acumulador não soma"
+        },
+        "O contador soma sempre 1 (conta ocorrências); o acumulador soma o valor de cada volta"
+      ],
+      "correta": 3,
+      "dica": "Um conta quantas vezes; o outro junta quanto.",
+      "explicacao": "O contador conta ocorrências (+1), enquanto o acumulador junta valores (soma += valor ou produto *= valor)."
+    },
+    {
+      "id": "acumulador-soma-um-a-quatro",
+      "tipo": "interpretacao",
+      "titulo": "Quanto vale s?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let s = 0;\nfor (let i = 1; i <= 4; i++) {\n  s += i;\n}\nconsole.log(s);",
+      "opcoes": [
+        "10",
+        {
+          "texto": "4",
+          "confusao": "acha que s guarda só o último valor ou a quantidade de voltas"
+        },
+        { "texto": "6", "confusao": "esquece o último valor (erro de um)" },
+        { "texto": "24", "confusao": "acha que += multiplica" }
+      ],
+      "correta": 0,
+      "dica": "s = 0 + 1 + 2 + 3 + 4.",
+      "explicacao": "A cada volta s soma o valor de i: 1, 3, 6 e por fim 10."
+    },
+    {
+      "id": "acumulador-complete-o-inicio",
+      "tipo": "lacuna",
+      "titulo": "Valor inicial",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "Complete com o valor inicial correto do acumulador de uma soma.",
+      "modelo": "let soma = {{1}};\nfor (let i = 1; i <= 3; i++) {\n  soma += i;\n}",
+      "lacunas": [
+        { "respostas": ["0"] }
+      ],
+      "dica": "Qual número não altera uma soma?",
+      "explicacao": "Para somar, o acumulador começa em 0, o elemento neutro da soma."
+    },
+    {
+      "id": "acumulador-reiniciado",
+      "tipo": "interpretacao",
+      "titulo": "Acumulador reiniciado",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m3-atribuicao", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 3; i++) {\n  let s = 0;\n  s += i;\n  console.log(s);\n}",
+      "opcoes": [
+        {
+          "texto": "1\n3\n6",
+          "confusao": "acha que s acumula entre as voltas, mesmo sendo declarado dentro do laço"
+        },
+        { "texto": "6", "confusao": "acha que o resultado só aparece no final" },
+        "1\n2\n3",
+        { "texto": "0\n0\n0", "confusao": "acha que o += não altera s" }
+      ],
+      "correta": 2,
+      "dica": "O que acontece com uma variável declarada dentro do laço a cada volta?",
+      "explicacao": "s é recriada com 0 em toda volta, então só guarda o i da volta atual: 1, 2 e 3. Para acumular, declare s antes do laço."
+    },
+    {
+      "id": "acumulador-soma-dos-pares",
+      "tipo": "codigo",
+      "titulo": "Soma dos pares",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `somaDosPares(n)` que devolve a soma dos números pares de 1 até n.",
+      "funcao": "somaDosPares",
+      "codigoInicial": "function somaDosPares(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [10], "esperado": 30 },
+        { "entrada": [1], "esperado": 0 },
+        { "entrada": [7], "esperado": 12 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "Some i ao acumulador só quando i % 2 === 0.",
+      "comentario": "O acumulador começa em 0 e soma cada par encontrado entre 1 e n."
+    },
+    {
+      "id": "acumulador-somar-tres-entradas",
+      "tipo": "codigo",
+      "titulo": "Somar três números",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-for", "peso": 1 },
+        { "id": "m2-entrada-saida", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somarTres()`: leia três números com `lerEntrada()` (chegam como texto) e mostre a soma deles com `console.log`. Use um laço.",
+      "funcao": "somarTres",
+      "codigoInicial": "function somarTres() {\n  // leia três números e mostre a soma\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["1", "2", "3"], "saida": ["6"] },
+        { "entrada": [], "entradas": ["10", "20", "30"], "saida": ["60"] },
+        { "entrada": [], "entradas": ["-5", "5", "0"], "saida": ["0"] }
+      ],
+      "dica": "Converta cada entrada com Number() antes de somar.",
+      "comentario": "Um for de 3 voltas lê cada número, converte e soma ao acumulador. Ao final, mostra o total."
+    },
+    {
+      "id": "acumulador-corrija-o-produto",
+      "tipo": "corrigir",
+      "titulo": "Corrija o produto",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "A função `produtoAte(n)` deveria devolver o produto de 1 até n (24 para n = 4), mas devolve sempre 0. Corrija o defeito.",
+      "funcao": "produtoAte",
+      "codigoInicial": "function produtoAte(n) {\n  let produto = 0;\n  for (let i = 1; i <= n; i++) {\n    produto *= i;\n  }\n  return produto;\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 24 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [5], "esperado": 120 }
+      ],
+      "dica": "Qualquer número multiplicado por zero vira zero.",
+      "comentario": "Para multiplicar, o acumulador deve começar em 1 (o elemento neutro do produto). Começando em 0, o resultado é sempre 0."
+    },
+    {
+      "id": "acumulador-ate-passar-de-dez",
+      "tipo": "interpretacao",
+      "titulo": "Até passar de dez",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-while", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let s = 0;\nlet i = 1;\nwhile (s < 10) {\n  s += i;\n  i++;\n}\nconsole.log(i);",
+      "opcoes": [
+        {
+          "texto": "4",
+          "confusao": "mostra o último número somado, esquecendo que i++ roda depois da soma"
+        },
+        "5",
+        { "texto": "10", "confusao": "confunde o valor de s com o valor de i" },
+        { "texto": "3", "confusao": "acha que o laço para assim que s passa de 6" }
+      ],
+      "correta": 1,
+      "dica": "Anote s e i a cada volta. s: 1, 3, 6, 10...",
+      "explicacao": "s vai de 0 a 1, 3, 6 e 10 enquanto i vai de 1 a 5. Quando s vale 10, a condição s < 10 é falsa e i já vale 5."
+    },
+    {
+      "id": "acumulador-media-das-entradas",
+      "tipo": "codigo",
+      "titulo": "Média das entradas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-acumuladores", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `media()`: leia primeiro a quantidade de números e depois cada número (tudo com `lerEntrada()`) e mostre a média com `console.log`.",
+      "funcao": "media",
+      "codigoInicial": "function media() {\n  // leia a quantidade, some os números e mostre a média\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["3", "4", "6", "8"], "saida": ["6"] },
+        { "entrada": [], "entradas": ["2", "5", "10"], "saida": ["7.5"] },
+        { "entrada": [], "entradas": ["1", "9"], "saida": ["9"] }
+      ],
+      "dica": "A média é a soma dividida pela quantidade lida.",
+      "comentario": "O acumulador soma os números lidos em um for e, depois do laço, a soma é dividida pela quantidade."
+    }
+  ]
+}

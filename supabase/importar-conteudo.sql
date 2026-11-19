@@ -1102,7 +1102,290 @@ for (let i = 1; i <= 5; i++) {
   total = total + i;
 }
 
-Ele tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.$c$, $c$$c$, $c$$c$, $c$mundo-5$c$, 501, false, $c$arquivo$c$),
+Ele tem três partes: início (let i = 1), condição para continuar (i <= 5) e passo (i++). Para entender um laço, acompanhe a tabela de valores a cada volta: quanto valem i e total? Cuidado com laços que nunca terminam.$c$, $c$$c$, $c$$c$, $c$mundo-5$c$, 590, false, $c$arquivo$c$),
+  ($c$introducao-as-repeticoes$c$, $c$Introdução às estruturas de repetição$c$, $c$Entender por que e como repetir instruções$c$, $c$Imagine ter de escrever "Bom dia!" cem vezes. Você não escreveria o mesmo texto cem vezes: faria uma regra do tipo "repita 100 vezes". É isso que uma estrutura de repetição (ou laço) faz: executa um trecho do código várias vezes, sem precisar escrevê-lo de novo.
+
+Todo laço precisa de três coisas:
+- um ponto de partida (por exemplo, começar a contar em 1);
+- uma condição para continuar (por exemplo, enquanto a contagem for menor ou igual a 5);
+- uma atualização a cada volta (por exemplo, somar 1 à contagem).
+
+Se a condição nunca deixar de ser verdadeira, o laço nunca termina: é o laço infinito, um dos erros mais comuns. Neste mundo você vai conhecer for, while e do...while, além de contadores, acumuladores e os comandos break e continue.$c$, $c$for (let i = 1; i <= 3; i++) {
+  console.log("Oi");
+}
+
+Passo a passo:
+1. let i = 1: o contador começa em 1 (só acontece uma vez).
+2. i <= 3 é testado: 1 <= 3 é true, então o corpo executa e mostra Oi.
+3. i++ soma 1: i vale 2. A condição é testada de novo: true, mostra Oi.
+4. i vale 3: true, mostra Oi.
+5. i vale 4: 4 <= 3 é false, e o laço termina.
+
+Resultado: Oi aparece 3 vezes.$c$, $c$- Um laço repete um trecho do código sem precisar escrevê-lo de novo.
+- Ele precisa de ponto de partida, condição para continuar e atualização a cada volta.
+- Enquanto a condição for verdadeira, o corpo do laço executa.
+- Se a condição nunca ficar falsa, o laço é infinito.
+- Cada execução do corpo é chamada de iteração (ou volta).$c$, $c$mundo-5$c$, 501, false, $c$arquivo$c$),
+  ($c$estrutura-for$c$, $c$Estrutura for$c$, $c$Repetir um número conhecido de vezes$c$, $c$O for é o laço ideal quando você já sabe quantas vezes quer repetir. Ele reúne as três partes do laço em uma só linha:
+
+for (inicialização; condição; passo) {
+  // corpo do laço
+}
+
+- Inicialização: executa uma única vez, antes da primeira volta (por exemplo, let i = 0).
+- Condição: é testada antes de cada volta. Se for falsa, o laço termina.
+- Passo: executa depois de cada volta (por exemplo, i++ soma 1; i += 2 soma 2; i-- subtrai 1).
+
+Atenção ao limite: for (let i = 0; i < 3; i++) repete 3 vezes (0, 1 e 2), enquanto i <= 3 repetiria 4 vezes (0, 1, 2 e 3). Errar o limite por uma volta é o famoso "erro de um".
+
+A ordem de execução é: inicialização → condição → corpo → passo → condição → corpo → passo... até a condição ficar falsa.$c$, $c$for (let i = 1; i <= 10; i += 3) {
+  console.log(i);
+}
+
+Passo a passo:
+1. i começa em 1. A condição 1 <= 10 é true: mostra 1.
+2. O passo i += 3 faz i valer 4: 4 <= 10 é true: mostra 4.
+3. i vale 7: true, mostra 7.
+4. i vale 10: true, mostra 10.
+5. i vale 13: 13 <= 10 é false, o laço termina.
+
+Resultado: 1, 4, 7 e 10.$c$, $c$- for (inicialização; condição; passo): três partes em uma linha.
+- A inicialização executa uma vez; a condição é testada antes de cada volta; o passo roda depois de cada volta.
+- i < n repete n vezes a partir de 0; i <= n inclui o valor n.
+- O passo pode ser i++, i--, i += 2... conforme o que o problema pede.
+- Cuidado com o erro de um no limite do laço.$c$, $c$mundo-5$c$, 502, false, $c$arquivo$c$),
+  ($c$estrutura-while$c$, $c$Estrutura while$c$, $c$Repetir enquanto uma condição for verdadeira$c$, $c$O while ("enquanto") repete um bloco enquanto a condição for verdadeira. Ele é ideal quando você não sabe de antemão quantas voltas serão necessárias: o laço continua até que uma situação mude.
+
+let n = 3;
+while (n > 0) {
+  console.log(n);
+  n--;
+}
+
+Diferente do for, as três partes ficam separadas: o ponto de partida vem antes do laço, a condição fica nos parênteses e a atualização precisa estar dentro do corpo. Se você esquecer de atualizar a variável da condição, o laço será infinito.
+
+Outra característica: a condição é testada antes de cada volta. Se ela já começar falsa, o corpo não executa nenhuma vez.
+
+Use for quando souber a quantidade de voltas e while quando a repetição depender de uma condição (por exemplo, "dividir até chegar a zero").$c$, $c$let n = 3;
+while (n > 0) {
+  console.log(n);
+  n--;
+}
+console.log("Fogo!");
+
+Passo a passo:
+1. n vale 3. A condição 3 > 0 é true: mostra 3 e n passa a 2.
+2. 2 > 0 é true: mostra 2 e n passa a 1.
+3. 1 > 0 é true: mostra 1 e n passa a 0.
+4. 0 > 0 é false: o laço termina.
+5. O programa continua e mostra Fogo!
+
+Resultado: 3, 2, 1 e Fogo!$c$, $c$- while repete o bloco enquanto a condição for verdadeira.
+- A condição é testada antes de cada volta: pode ser que o corpo nunca execute.
+- Atualize dentro do laço a variável usada na condição, para não criar um laço infinito.
+- Use for quando souber quantas voltas; while quando depender de uma condição.$c$, $c$mundo-5$c$, 503, false, $c$arquivo$c$),
+  ($c$estrutura-do-while$c$, $c$Estrutura do...while$c$, $c$Repetir com o teste no final do laço$c$, $c$O do...while é parecido com o while, mas com uma diferença importante: o corpo executa primeiro e a condição é testada depois. Por isso, o corpo do do...while executa pelo menos uma vez, mesmo que a condição já comece falsa.
+
+do {
+  // corpo do laço
+} while (condição);
+
+Repare no ponto e vírgula depois do while(condição): ele faz parte da sintaxe.
+
+Isso é útil quando precisamos fazer algo antes de decidir se repetimos, como pedir uma informação ao usuário e só depois conferir se ela é válida: "peça a nota; se não estiver entre 0 e 10, peça de novo".
+
+Resumindo: no while o teste vem antes (pode executar zero vezes); no do...while o teste vem depois (executa ao menos uma vez).$c$, $c$let n = 10;
+do {
+  console.log("Executou");
+  n++;
+} while (n < 5);
+
+Passo a passo:
+1. O computador executa o corpo primeiro: mostra Executou e n passa a 11.
+2. Só então testa a condição: 11 < 5 é false.
+3. O laço termina depois de uma única volta.
+
+Com um while comum (while (n < 5)), o corpo não executaria nenhuma vez.$c$, $c$- do...while executa o corpo primeiro e testa a condição depois.
+- O corpo executa pelo menos uma vez, mesmo com a condição falsa desde o início.
+- A sintaxe termina com ponto e vírgula: do { ... } while (condição);
+- Ótimo para validar entradas: pedir, conferir e repetir se for preciso.$c$, $c$mundo-5$c$, 504, false, $c$arquivo$c$),
+  ($c$contadores$c$, $c$Contadores$c$, $c$Contar quantas vezes algo acontece$c$, $c$Um contador é uma variável que guarda "quantas vezes" alguma coisa aconteceu. Ele começa em zero e aumenta de 1 em 1 (contador++) cada vez que o evento acontece.
+
+let pares = 0;                // começa em zero
+for (let i = 1; i <= 10; i++) {
+  if (i % 2 === 0) {
+    pares++;                  // soma 1 só quando i é par
+  }
+}
+
+Três cuidados:
+1. Inicialize o contador antes do laço (geralmente com 0). Se declarar dentro do laço, ele volta a zero a cada volta.
+2. Só some quando a situação acontecer: use um if para decidir.
+3. Não confunda com acumulador: o contador conta ocorrências (sempre soma 1); o acumulador soma valores (veja a próxima lição).
+
+Contadores servem para contar pares, vogais em um texto, aprovados em uma turma, tentativas e muito mais.$c$, $c$let pares = 0;
+for (let i = 1; i <= 6; i++) {
+  if (i % 2 === 0) {
+    pares++;
+  }
+}
+console.log(pares);
+
+Passo a passo:
+1. pares começa em 0.
+2. O laço percorre i = 1, 2, 3, 4, 5 e 6.
+3. Para i = 2, 4 e 6, o resto da divisão por 2 é 0 e pares aumenta 1 em cada um.
+4. Ao final, pares vale 3 e o programa mostra 3.$c$, $c$- Contador: variável que conta quantas vezes algo aconteceu (contador++).
+- Inicialize antes do laço, normalmente com 0.
+- Use um if para somar só quando a situação ocorrer.
+- Contador conta ocorrências; acumulador soma valores.$c$, $c$mundo-5$c$, 505, false, $c$arquivo$c$),
+  ($c$acumuladores$c$, $c$Acumuladores$c$, $c$Somar ou multiplicar valores ao longo do laço$c$, $c$Um acumulador é uma variável que vai juntando valores a cada volta do laço: a soma de várias notas, o total de uma compra, o produto de uma sequência.
+
+let soma = 0;
+for (let i = 1; i <= 4; i++) {
+  soma += i;     // soma = soma + i
+}
+
+Diferente do contador, que sempre soma 1, o acumulador soma (ou multiplica) o valor que aparece a cada volta.
+
+Atenção ao valor inicial:
+- para somar, comece em 0 (elemento neutro da soma);
+- para multiplicar, comece em 1 (elemento neutro do produto): começando em 0, tudo vira 0.
+
+E o erro mais comum: declarar o acumulador dentro do laço. Isso o reinicia a cada volta, e ele nunca acumula nada. Declare-o antes do laço.
+
+Depois do laço, o acumulador guarda o total, e dá para calcular coisas como a média (soma ÷ quantidade).$c$, $c$let soma = 0;
+for (let i = 1; i <= 4; i++) {
+  soma += i;
+}
+console.log(soma);
+
+Passo a passo:
+1. soma começa em 0.
+2. i = 1: soma passa a 1.
+3. i = 2: soma passa a 3.
+4. i = 3: soma passa a 6.
+5. i = 4: soma passa a 10.
+6. O laço termina e o programa mostra 10.$c$, $c$- Acumulador: variável que junta valores a cada volta (soma += valor).
+- Para somar, comece em 0; para multiplicar, comece em 1.
+- Declare o acumulador antes do laço, nunca dentro dele.
+- Contador soma sempre 1; acumulador soma o valor da volta.
+- Depois do laço, o acumulador guarda o total (e permite calcular médias).$c$, $c$mundo-5$c$, 506, false, $c$arquivo$c$),
+  ($c$comando-break$c$, $c$Comando break$c$, $c$Interromper um laço antes da hora$c$, $c$O comando break encerra o laço imediatamente, mesmo que a condição ainda fosse verdadeira. O programa continua na primeira instrução depois do laço.
+
+for (let i = 1; i <= 5; i++) {
+  if (i === 3) {
+    break;       // sai do laço quando i vale 3
+  }
+  console.log(i);
+}
+
+Ele é útil quando você encontrou o que procurava e não precisa continuar: achar o primeiro número que atende a uma regra, parar de ler quando aparecer um valor especial, ou sair de um laço "infinito" de propósito:
+
+while (true) {
+  // ...
+  if (terminou) {
+    break;
+  }
+}
+
+Cuidado: break não é o mesmo que continue. O break encerra o laço todo; o continue só pula a volta atual.$c$, $c$for (let i = 1; i <= 5; i++) {
+  if (i === 3) {
+    break;
+  }
+  console.log(i);
+}
+console.log("Fim");
+
+Passo a passo:
+1. i = 1: a condição i === 3 é false: mostra 1.
+2. i = 2: false: mostra 2.
+3. i = 3: true. O break encerra o laço na hora (o 3 não é mostrado).
+4. O programa continua depois do laço e mostra Fim.
+
+Resultado: 1, 2 e Fim.$c$, $c$- break encerra o laço imediatamente.
+- O programa segue na primeira instrução depois do laço.
+- Serve para parar quando já achamos o que procurávamos.
+- while (true) com break é um laço que só termina quando a condição de saída acontece.
+- break encerra o laço; continue só pula a volta atual.$c$, $c$mundo-5$c$, 507, false, $c$arquivo$c$),
+  ($c$comando-continue$c$, $c$Comando continue$c$, $c$Pular uma volta sem encerrar o laço$c$, $c$O comando continue pula o resto da volta atual e passa direto para a próxima volta. Diferente do break, o laço não termina: só aquela volta é interrompida.
+
+for (let i = 1; i <= 5; i++) {
+  if (i === 3) {
+    continue;     // pula o resto desta volta
+  }
+  console.log(i);
+}
+
+No exemplo, o 3 não é mostrado, mas o laço segue com 4 e 5.
+
+É útil para ignorar casos que não interessam: pular números pares, ignorar letras que não são vogais, desconsiderar valores inválidos.
+
+Num for, depois do continue o passo (i++) executa normalmente. Num while, cuidado: se a atualização da variável estiver depois do continue, ela será pulada e o laço pode ficar infinito. Faça a atualização antes do continue.$c$, $c$for (let i = 1; i <= 6; i++) {
+  if (i % 2 === 0) {
+    continue;
+  }
+  console.log(i);
+}
+
+Passo a passo:
+1. i = 1: 1 % 2 é 1, a condição é false: mostra 1.
+2. i = 2: par. O continue pula o console.log e vai para i = 3.
+3. i = 3: mostra 3. i = 4: pulado. i = 5: mostra 5. i = 6: pulado.
+
+Resultado: 1, 3 e 5 (só os ímpares).$c$, $c$- continue pula o resto da volta atual e vai para a próxima.
+- O laço não termina: só aquela volta é interrompida.
+- Útil para ignorar valores que não interessam.
+- Num while, atualize a variável antes do continue para evitar laço infinito.
+- break encerra o laço; continue apenas pula uma volta.$c$, $c$mundo-5$c$, 508, false, $c$arquivo$c$),
+  ($c$lacos-aninhados$c$, $c$Laços de repetição aninhados$c$, $c$Colocar um laço dentro de outro$c$, $c$Laços aninhados são laços dentro de outros laços. Para cada volta do laço de fora, o laço de dentro roda por completo, do início ao fim.
+
+for (let i = 1; i <= 3; i++) {        // laço externo: 3 voltas
+  for (let j = 1; j <= 4; j++) {      // laço interno: 4 voltas por volta externa
+    console.log(i, j);
+  }
+}
+
+O corpo do laço interno executa 3 × 4 = 12 vezes: o número de execuções se multiplica, não se soma.
+
+Pense num relógio: o ponteiro dos minutos dá 60 voltas completas enquanto o das horas avança uma casa.
+
+Dicas:
+- use variáveis diferentes em cada laço (i e j);
+- o limite do laço interno pode depender do externo (por exemplo, j <= i para desenhar triângulos);
+- um break dentro do laço interno encerra somente o laço interno.
+
+Laços aninhados servem para tabelas, desenhos com caracteres e para combinar todos os valores de dois conjuntos.$c$, $c$for (let i = 1; i <= 2; i++) {
+  for (let j = 1; j <= 3; j++) {
+    console.log(i, j);
+  }
+}
+
+Passo a passo:
+1. i = 1: o laço interno roda por inteiro: j = 1, 2 e 3 (mostra 1 1, 1 2 e 1 3).
+2. i = 2: o laço interno recomeça e roda de novo: 2 1, 2 2 e 2 3.
+3. O corpo executou 2 × 3 = 6 vezes.
+
+O laço de fora muda devagar; o de dentro muda a cada volta.$c$, $c$- Laço aninhado: um laço dentro de outro.
+- Para cada volta do laço externo, o interno executa por completo.
+- Total de execuções do corpo interno = voltas externas × voltas internas.
+- Use variáveis diferentes (i e j) em cada laço.
+- break dentro do laço interno encerra só o interno.$c$, $c$mundo-5$c$, 509, false, $c$arquivo$c$),
+  ($c$desafio-do-mundo-5$c$, $c$Desafio final do Mundo 5$c$, $c$Juntar os laços em um jogo de adivinhação$c$, $c$Chegou o desafio do Mundo 5: um jogo de adivinhação com tentativas limitadas. O computador "pensa" em um número secreto e o jogador tem um número máximo de tentativas para descobri-lo. A cada palpite errado, o programa dá uma dica: o número secreto é maior ou menor que o palpite.
+
+Aqui você vai juntar o que aprendeu: laços para repetir as tentativas, contador para saber quantas foram usadas, condicionais (Mundo 4) para dar as dicas e break (ou uma condição no laço) para parar quando o jogador acertar.
+
+O desafio principal é o primeiro exercício. Os outros dois treinam a leitura de laços combinados e a correção de um erro clássico.$c$, $c$Como montar o jogo:
+1. Use um laço de no máximo "tentativas" voltas e um contador (a volta atual).
+2. A cada volta, leia o palpite com lerEntrada() e converta com Number().
+3. Se o palpite for igual ao segredo, mostre Acertou! com o número de tentativas e encerre o laço (break ou return).
+4. Se for menor que o segredo, mostre que o número é maior; se for maior, mostre que é menor.
+5. Se o laço terminar sem acerto, mostre o fim de jogo revelando o número.
+6. Teste o acerto na primeira tentativa, o acerto na última e o fim de jogo.$c$, $c$- Laço com limite de voltas: o número máximo de tentativas.
+- Contador: quantas tentativas foram usadas.
+- Condicionais dão as dicas (maior, menor, acertou).
+- break (ou return) encerra o laço quando o jogador acerta.
+- Teste os casos de fronteira: acertar de primeira, acertar na última tentativa e esgotar as tentativas.$c$, $c$mundo-5$c$, 510, false, $c$arquivo$c$),
   ($c$vetores$c$, $c$Vetores$c$, $c$Manipular coleções de dados$c$, $c$Um vetor (array) guarda vários valores numa lista ordenada:
 
 const notas = [7, 9, 5];
@@ -1746,6 +2029,251 @@ $c$, $c$[{"args":[0],"expected":1},{"args":[7],"expected":1},{"args":[10],"expec
   // seu código aqui
 }
 $c$, $c$[{"args":[12,18],"expected":6},{"args":[7,13],"expected":1},{"args":[100,25],"expected":25},{"args":[48,36],"expected":12},{"args":[17,17],"expected":17}]$c$::jsonb, $c${}$c$::jsonb, $c$Repita enquanto b for diferente de 0; quando b chegar a 0, a resposta é a.$c$, 106, false, $c$arquivo$c$),
+  ($c$rep-intro-para-que-serve$c$, $c$introducao-as-repeticoes$c$, $c$choice$c$, $c$Para que serve um laço?$c$, $c$facil$c$, $c$Para que serve uma estrutura de repetição?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para executar um trecho só uma vez, quando a condição for verdadeira","misconception":"confunde repetição com decisão (if)"},{"text":"Para executar um trecho várias vezes sem escrevê-lo de novo"},{"text":"Para guardar um valor em uma variável","misconception":"confunde repetição com declaração de variáveis"},{"text":"Para mostrar um texto na tela","misconception":"confunde repetição com saída de dados"}],"correct":1,"explanation":"Um laço executa o mesmo trecho de código várias vezes, evitando copiar e colar instruções."}$c$::jsonb, $c$Pense em "repita 100 vezes".$c$, 1, false, $c$arquivo$c$),
+  ($c$rep-intro-tres-ois$c$, $c$introducao-as-repeticoes$c$, $c$interpretation$c$, $c$Quantos Oi?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Oi","misconception":"acha que o laço executa só uma vez"},{"text":"Oi\nOi","misconception":"erra uma volta (erro de um)"},{"text":"Oi\nOi\nOi\nOi","misconception":"conta uma volta a mais (erro de um)"},{"text":"Oi\nOi\nOi"}],"correct":3,"code":"for (let i = 1; i <= 3; i++) {\n  console.log(\"Oi\");\n}","explanation":"O corpo executa para i = 1, 2 e 3, três vezes, e termina quando i chega a 4."}$c$::jsonb, $c$i vale 1, 2 e 3. Quando i vale 4, a condição é falsa.$c$, 2, false, $c$arquivo$c$),
+  ($c$rep-intro-complete-o-while$c$, $c$introducao-as-repeticoes$c$, $c$blank$c$, $c$Complete o laço$c$, $c$facil$c$, $c$Complete a palavra que inicia o laço que se repete enquanto n for maior que zero.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let n = 3;\n{{1}} (n > 0) {\n  console.log(n);\n  n--;\n}","blanks":[{"answers":["while"]}],"explanation":"while repete o bloco enquanto a condição for verdadeira."}$c$::jsonb, $c$Em inglês, "enquanto".$c$, 3, false, $c$arquivo$c$),
+  ($c$rep-intro-ordem-do-laco$c$, $c$introducao-as-repeticoes$c$, $c$order$c$, $c$Ordem de um laço$c$, $c$medio$c$, $c$Coloque na ordem em que o computador executa um laço que conta de 1 a 3.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Começar com contador = 1","Verificar se contador <= 3","Mostrar o contador","Somar 1 ao contador","Voltar a verificar a condição"],"explanation":"O laço começa com o ponto de partida, testa a condição, executa o corpo, atualiza o contador e volta ao teste."}$c$::jsonb, $c$O ponto de partida vem uma única vez, antes do teste.$c$, 4, false, $c$arquivo$c$),
+  ($c$rep-intro-laco-infinito$c$, $c$introducao-as-repeticoes$c$, $c$interpretation$c$, $c$Falta o passo$c$, $c$medio$c$, $c$O que acontece com o programa abaixo?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Mostra 1 sem parar (laço infinito)"},{"text":"Mostra 1, 2 e 3 e termina","misconception":"acha que o contador avança sozinho"},{"text":"Mostra 1 e termina","misconception":"acha que o laço executa só uma vez"},{"text":"Dá erro e não mostra nada","misconception":"acha que o computador detecta o laço infinito antes de executar"}],"correct":0,"code":"let i = 1;\nwhile (i <= 3) {\n  console.log(i);\n}","explanation":"Como i nunca muda, a condição i <= 3 fica sempre verdadeira e o laço repete para sempre. Faltou i++."}$c$::jsonb, $c$Alguma linha altera o valor de i dentro do laço?$c$, 5, false, $c$arquivo$c$),
+  ($c$rep-intro-repetir-texto$c$, $c$introducao-as-repeticoes$c$, $c$code$c$, $c$Repetir um texto$c$, $c$facil$c$, $c$Escreva a função `repetir(texto, vezes)` que devolve o texto escrito `vezes` vezes seguidas. Por exemplo, repetir("ab", 2) devolve "abab".$c$, null, $c$repetir$c$, $c$function repetir(texto, vezes) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["a",3],"expected":"aaa"},{"args":["ab",2],"expected":"abab"},{"args":["x",1],"expected":"x"},{"args":["x",0],"expected":""}]$c$::jsonb, $c${}$c$::jsonb, $c$Comece com um resultado vazio e junte o texto a ele a cada volta.$c$, 6, false, $c$arquivo$c$),
+  ($c$rep-intro-corrija-a-contagem$c$, $c$introducao-as-repeticoes$c$, $c$fix$c$, $c$Corrija a contagem$c$, $c$medio$c$, $c$A função `contagem(n)` deveria devolver os números de 1 até n separados por espaço (por exemplo, "1 2 3" para n = 3), mas devolve um número a menos. Corrija o defeito.$c$, null, $c$contagem$c$, $c$function contagem(n) {
+  let texto = "";
+  for (let i = 1; i < n; i++) {
+    texto += (texto === "" ? "" : " ") + i;
+  }
+  return texto;
+}
+$c$, $c$[{"args":[3],"expected":"1 2 3"},{"args":[1],"expected":"1"},{"args":[5],"expected":"1 2 3 4 5"}]$c$::jsonb, $c${}$c$::jsonb, $c$O último número do laço é incluído ou não? Olhe a condição.$c$, 7, false, $c$arquivo$c$),
+  ($c$rep-intro-acompanhe-o-x$c$, $c$introducao-as-repeticoes$c$, $c$interpretation$c$, $c$Acompanhe o valor$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"8","misconception":"acha que o laço executa apenas 2 vezes"},{"text":"6","misconception":"acha que o laço soma em vez de multiplicar"},{"text":"16"},{"text":"2","misconception":"acha que o valor de x não muda dentro do laço"}],"correct":2,"code":"let x = 2;\nfor (let i = 0; i < 3; i++) {\n  x = x * 2;\n}\nconsole.log(x);","explanation":"O laço executa 3 vezes (i = 0, 1, 2): x vai de 2 para 4, depois 8 e por fim 16."}$c$::jsonb, $c$Anote x a cada volta: i = 0, 1 e 2.$c$, 8, false, $c$arquivo$c$),
+  ($c$for-complete-a-condicao$c$, $c$estrutura-for$c$, $c$blank$c$, $c$Complete a condição$c$, $c$facil$c$, $c$Complete a condição para que o laço repita 3 vezes (com i valendo 0, 1 e 2).$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 0; {{1}}; i++) {\n  console.log(i);\n}","blanks":[{"answers":["i < 3","i<3","i <= 2","i<=2"]}],"explanation":"i < 3 é verdadeira para 0, 1 e 2 e falsa quando i vale 3, resultando em 3 voltas."}$c$::jsonb, $c$O laço deve parar quando i chegar a 3.$c$, 1, false, $c$arquivo$c$),
+  ($c$for-mostra-o-indice$c$, $c$estrutura-for$c$, $c$interpretation$c$, $c$Quais números?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n2\n3","misconception":"acha que a contagem começa em 1"},{"text":"0\n1\n2"},{"text":"0\n1\n2\n3","misconception":"inclui o valor do limite (i < 3 deixa o 3 de fora)"},{"text":"0\n1","misconception":"erra uma volta (erro de um)"}],"correct":1,"code":"for (let i = 0; i < 3; i++) {\n  console.log(i);\n}","explanation":"i vale 0, 1 e 2. Quando vale 3, a condição i < 3 é falsa e o laço termina sem mostrar o 3."}$c$::jsonb, $c$O laço começa com i = 0 e para quando i chega a 3.$c$, 2, false, $c$arquivo$c$),
+  ($c$for-partes-do-for$c$, $c$estrutura-for$c$, $c$choice$c$, $c$As partes do for$c$, $c$facil$c$, $c$Em for (let i = 0; i < 5; i++), qual parte é executada uma única vez, antes da primeira volta?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"i < 5","misconception":"acha que a condição é testada só no início"},{"text":"i++","misconception":"acha que o passo executa antes do corpo"},{"text":"O corpo do laço","misconception":"acha que o corpo executa uma vez só"},{"text":"let i = 0"}],"correct":3,"explanation":"A inicialização executa uma única vez. A condição é testada antes de cada volta e o passo depois de cada volta."}$c$::jsonb, $c$Qual parte prepara o contador?$c$, 3, false, $c$arquivo$c$),
+  ($c$for-passo-de-tres$c$, $c$estrutura-for$c$, $c$interpretation$c$, $c$Passo de três$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n4\n7\n10"},{"text":"1\n2\n3\n4\n5\n6\n7\n8\n9\n10","misconception":"ignora o passo e conta de 1 em 1"},{"text":"1\n4\n7","misconception":"para antes do 10, achando que o limite não é incluído"},{"text":"3\n6\n9","misconception":"acha que a contagem começa pelo passo"}],"correct":0,"code":"for (let i = 1; i <= 10; i += 3) {\n  console.log(i);\n}","explanation":"i vale 1, 4, 7 e 10 (todos <= 10). O próximo seria 13, que torna a condição falsa."}$c$::jsonb, $c$Some 3 a cada volta e confira se ainda é menor ou igual a 10.$c$, 4, false, $c$arquivo$c$),
+  ($c$for-tabuada$c$, $c$estrutura-for$c$, $c$code$c$, $c$Tabuada$c$, $c$medio$c$, $c$Escreva a função `tabuada()`: leia um número com `lerEntrada()` (chega como texto) e mostre a tabuada de 1 a 10, uma linha por multiplicação, no formato `5 x 1 = 5`.$c$, null, $c$tabuada$c$, $c$function tabuada() {
+  // leia o número e mostre as 10 linhas
+}
+$c$, $c$[{"args":[],"inputs":["5"],"output":["5 x 1 = 5","5 x 2 = 10","5 x 3 = 15","5 x 4 = 20","5 x 5 = 25","5 x 6 = 30","5 x 7 = 35","5 x 8 = 40","5 x 9 = 45","5 x 10 = 50"]},{"args":[],"inputs":["2"],"output":["2 x 1 = 2","2 x 2 = 4","2 x 3 = 6","2 x 4 = 8","2 x 5 = 10","2 x 6 = 12","2 x 7 = 14","2 x 8 = 16","2 x 9 = 18","2 x 10 = 20"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Converta a entrada com Number() e repita de 1 a 10 com um for.$c$, 5, false, $c$arquivo$c$),
+  ($c$for-contagem-regressiva$c$, $c$estrutura-for$c$, $c$code$c$, $c$Contagem regressiva$c$, $c$facil$c$, $c$Escreva a função `regressiva(n)` que devolve os números de n até 1, separados por espaço (por exemplo, "3 2 1"). Para n = 0, devolve texto vazio.$c$, null, $c$regressiva$c$, $c$function regressiva(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[3],"expected":"3 2 1"},{"args":[1],"expected":"1"},{"args":[0],"expected":""},{"args":[5],"expected":"5 4 3 2 1"}]$c$::jsonb, $c${}$c$::jsonb, $c$O passo pode diminuir: i--.$c$, 6, false, $c$arquivo$c$),
+  ($c$for-corrija-a-soma$c$, $c$estrutura-for$c$, $c$fix$c$, $c$Corrija a soma$c$, $c$medio$c$, $c$A função `somarAte(n)` deveria devolver a soma de 1 até n (por exemplo, 10 para n = 4), mas devolve um valor menor. Corrija o defeito.$c$, null, $c$somarAte$c$, $c$function somarAte(n) {
+  let soma = 0;
+  for (let i = 1; i < n; i++) {
+    soma += i;
+  }
+  return soma;
+}
+$c$, $c$[{"args":[4],"expected":10},{"args":[1],"expected":1},{"args":[0],"expected":0},{"args":[10],"expected":55}]$c$::jsonb, $c${}$c$::jsonb, $c$O valor n está sendo somado?$c$, 7, false, $c$arquivo$c$),
+  ($c$for-ordem-de-execucao$c$, $c$estrutura-for$c$, $c$order$c$, $c$Ordem de execução do for$c$, $c$medio$c$, $c$Coloque na ordem em que o computador executa as partes de um for.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Executa a inicialização (uma vez)","Testa a condição","Executa o corpo do laço","Executa o passo (i++)","Testa a condição de novo"],"explanation":"Inicialização, condição, corpo e passo; depois o computador volta a testar a condição até ela ficar falsa."}$c$::jsonb, $c$A inicialização só acontece uma vez, antes de tudo.$c$, 8, false, $c$arquivo$c$),
+  ($c$for-de-tras-para-frente$c$, $c$estrutura-for$c$, $c$interpretation$c$, $c$De trás para frente$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5\n4\n3\n2\n1","misconception":"ignora o passo de 2 e conta de 1 em 1"},{"text":"5\n3","misconception":"para antes do 1, achando que i > 0 exclui o 1"},{"text":"5\n3\n1"},{"text":"5\n3\n1\n-1","misconception":"acha que o laço continua depois de i chegar a 1"}],"correct":2,"code":"for (let i = 5; i > 0; i -= 2) {\n  console.log(i);\n}","explanation":"i vale 5, 3 e 1. Depois vem -1, que não é maior que 0: o laço termina."}$c$::jsonb, $c$Subtraia 2 a cada volta e confira se ainda é maior que 0.$c$, 9, false, $c$arquivo$c$),
+  ($c$for-fatorial$c$, $c$estrutura-for$c$, $c$code$c$, $c$Fatorial$c$, $c$dificil$c$, $c$Escreva a função `fatorial(n)` que devolve o produto de 1 até n (o fatorial de 5 é 5 × 4 × 3 × 2 × 1 = 120). O fatorial de 0 é 1.$c$, null, $c$fatorial$c$, $c$function fatorial(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[0],"expected":1},{"args":[1],"expected":1},{"args":[5],"expected":120},{"args":[6],"expected":720}]$c$::jsonb, $c${}$c$::jsonb, $c$Para multiplicar, o acumulador deve começar em 1, não em 0.$c$, 10, false, $c$arquivo$c$),
+  ($c$while-quando-usar$c$, $c$estrutura-while$c$, $c$choice$c$, $c$Quando usar o while?$c$, $c$facil$c$, $c$Em que situação o while é mais indicado do que o for?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Quando sabemos exatamente quantas voltas serão feitas","misconception":"acha que o while serve só para quantidades conhecidas"},{"text":"Quando a quantidade de voltas depende de uma condição"},{"text":"Quando queremos executar o código uma única vez","misconception":"confunde repetição com decisão"},{"text":"Quando queremos que o laço nunca termine","misconception":"acha que o while é sempre infinito"}],"correct":1,"explanation":"O while é ideal quando não sabemos de antemão quantas voltas serão necessárias: o laço segue enquanto a condição for verdadeira."}$c$::jsonb, $c$Pense em "continue até que...".$c$, 1, false, $c$arquivo$c$),
+  ($c$while-conta-regressiva$c$, $c$estrutura-while$c$, $c$interpretation$c$, $c$Contagem regressiva$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n2\n3","misconception":"inverte a ordem da contagem"},{"text":"3\n2\n1\n0","misconception":"inclui o 0, achando que a condição aceita n igual a zero"},{"text":"3","misconception":"acha que o laço executa uma só vez"},{"text":"3\n2\n1"}],"correct":3,"code":"let n = 3;\nwhile (n > 0) {\n  console.log(n);\n  n--;\n}","explanation":"n vale 3, 2 e 1 dentro do laço. Quando n chega a 0, a condição n > 0 é falsa."}$c$::jsonb, $c$A cada volta n diminui 1. O laço para quando n deixa de ser maior que 0.$c$, 2, false, $c$arquivo$c$),
+  ($c$while-complete-o-passo$c$, $c$estrutura-while$c$, $c$blank$c$, $c$Complete o passo$c$, $c$facil$c$, $c$Complete a instrução que diminui n em 1 a cada volta.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let n = 3;\nwhile (n > 0) {\n  console.log(n);\n  {{1}};\n}","blanks":[{"answers":["n--","n -= 1","n = n - 1","--n"]}],"explanation":"Diminuir n a cada volta faz a condição n > 0 ficar falsa em algum momento."}$c$::jsonb, $c$Sem essa linha, o laço seria infinito.$c$, 3, false, $c$arquivo$c$),
+  ($c$while-nenhuma-volta$c$, $c$estrutura-while$c$, $c$interpretation$c$, $c$Nenhuma volta$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"fim"},{"text":"dentro\nfim","misconception":"acha que o corpo executa pelo menos uma vez"},{"text":"dentro\ndentro\ndentro\ndentro\ndentro\nfim","misconception":"acha que o laço conta até 5 mesmo com x começando em 10"},{"text":"Nada, o programa dá erro","misconception":"acha que um laço que não executa é erro"}],"correct":0,"code":"let x = 10;\nwhile (x < 5) {\n  console.log(\"dentro\");\n  x++;\n}\nconsole.log(\"fim\");","explanation":"10 < 5 é falso desde o início, então o corpo nunca executa. Só o que vem depois do laço aparece: fim."}$c$::jsonb, $c$A condição é testada antes da primeira volta.$c$, 4, false, $c$arquivo$c$),
+  ($c$while-contar-digitos$c$, $c$estrutura-while$c$, $c$code$c$, $c$Contar dígitos$c$, $c$medio$c$, $c$Escreva a função `contarDigitos(n)` que devolve quantos dígitos tem o número inteiro positivo n (por exemplo, 120 tem 3). Dica: divida por 10 até chegar a zero.$c$, null, $c$contarDigitos$c$, $c$function contarDigitos(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[5],"expected":1},{"args":[42],"expected":2},{"args":[1000],"expected":4},{"args":[99999],"expected":5}]$c$::jsonb, $c${}$c$::jsonb, $c$Math.floor(n / 10) descarta o último dígito.$c$, 5, false, $c$arquivo$c$),
+  ($c$while-corrija-a-condicao$c$, $c$estrutura-while$c$, $c$fix$c$, $c$Corrija a condição$c$, $c$medio$c$, $c$A função `somaDe1Ate(n)` deveria devolver a soma de 1 até n (por exemplo, 10 para n = 4), mas devolve sempre 0. Corrija o defeito.$c$, null, $c$somaDe1Ate$c$, $c$function somaDe1Ate(n) {
+  let i = 1;
+  let soma = 0;
+  while (i > n) {
+    soma += i;
+    i++;
+  }
+  return soma;
+}
+$c$, $c$[{"args":[4],"expected":10},{"args":[1],"expected":1},{"args":[0],"expected":0},{"args":[10],"expected":55}]$c$::jsonb, $c${}$c$::jsonb, $c$O laço executa alguma vez com i = 1 e n = 4?$c$, 6, false, $c$arquivo$c$),
+  ($c$while-passos-de-collatz$c$, $c$estrutura-while$c$, $c$code$c$, $c$Passos até chegar a 1$c$, $c$dificil$c$, $c$Escreva a função `passos(n)`: a cada passo, se n for par divida por 2; se for ímpar, calcule 3 × n + 1. Devolva quantos passos são necessários para n chegar a 1 (n = 1 precisa de 0 passos).$c$, null, $c$passos$c$, $c$function passos(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[1],"expected":0},{"args":[2],"expected":1},{"args":[6],"expected":8},{"args":[7],"expected":16},{"args":[27],"expected":111}]$c$::jsonb, $c${}$c$::jsonb, $c$Não sabemos quantas voltas: use while (n !== 1) e conte cada passo.$c$, 7, false, $c$arquivo$c$),
+  ($c$while-ordem-de-execucao$c$, $c$estrutura-while$c$, $c$order$c$, $c$Ordem de execução do while$c$, $c$medio$c$, $c$Coloque na ordem em que o computador executa um while.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Testa a condição","Se for verdadeira, executa o corpo","Atualiza a variável da condição","Testa a condição de novo","Quando for falsa, sai do laço"],"explanation":"O while testa a condição antes de cada volta; ela só sai do laço quando a condição se torna falsa."}$c$::jsonb, $c$O teste da condição vem antes de qualquer volta.$c$, 8, false, $c$arquivo$c$),
+  ($c$while-dobrando$c$, $c$estrutura-while$c$, $c$interpretation$c$, $c$Dobrando até passar$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"16","misconception":"para no último valor que ainda é menor que 20"},{"text":"20","misconception":"acha que o laço para exatamente quando chega a 20"},{"text":"32"},{"text":"19","misconception":"acha que o valor sobe de 1 em 1"}],"correct":2,"code":"let a = 1;\nwhile (a < 20) {\n  a = a * 2;\n}\nconsole.log(a);","explanation":"a vale 1, 2, 4, 8 e 16 (todos < 20), e a próxima volta o torna 32. Como 32 < 20 é falso, o laço termina e mostra 32."}$c$::jsonb, $c$Anote a: 1, 2, 4, 8, 16... e continue até a condição ficar falsa.$c$, 9, false, $c$arquivo$c$),
+  ($c$dowhile-diferenca$c$, $c$estrutura-do-while$c$, $c$choice$c$, $c$A diferença para o while$c$, $c$facil$c$, $c$Qual é a principal diferença entre o while e o do...while?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"O do...while não precisa de condição","misconception":"acha que o do...while repete sempre, sem condição"},{"text":"O do...while executa o corpo pelo menos uma vez, antes de testar a condição"},{"text":"O while executa o corpo primeiro e testa a condição depois","misconception":"troca a ordem dos dois laços"},{"text":"O do...while só funciona com números","misconception":"acha que o laço depende do tipo do dado"}],"correct":1,"explanation":"No do...while o corpo executa primeiro e a condição é testada no final, garantindo ao menos uma volta."}$c$::jsonb, $c$Onde fica o teste da condição em cada um?$c$, 1, false, $c$arquivo$c$),
+  ($c$dowhile-condicao-falsa$c$, $c$estrutura-do-while$c$, $c$interpretation$c$, $c$Condição já falsa$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Nada, porque 10 < 5 é falso","misconception":"acha que o do...while também testa antes de executar"},{"text":"oi\noi\noi\noi\noi","misconception":"acha que o laço conta até 5"},{"text":"Dá erro","misconception":"acha que uma condição falsa no início é erro"},{"text":"oi"}],"correct":3,"code":"let n = 10;\ndo {\n  console.log(\"oi\");\n  n++;\n} while (n < 5);","explanation":"O corpo executa uma vez (oi), n vira 11 e a condição 11 < 5 é falsa: o laço termina."}$c$::jsonb, $c$O corpo executa antes do primeiro teste.$c$, 2, false, $c$arquivo$c$),
+  ($c$dowhile-complete-o-fim$c$, $c$estrutura-do-while$c$, $c$blank$c$, $c$Complete o laço$c$, $c$facil$c$, $c$Complete a palavra que fecha o laço e testa a condição.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let n = 0;\ndo {\n  n++;\n} {{1}} (n < 3);","blanks":[{"answers":["while"]}],"explanation":"O do...while termina com while (condição); depois do corpo."}$c$::jsonb, $c$A mesma palavra que abre o laço while.$c$, 3, false, $c$arquivo$c$),
+  ($c$dowhile-conta-ate-tres$c$, $c$estrutura-do-while$c$, $c$interpretation$c$, $c$Conta até três$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n2\n3"},{"text":"1\n2","misconception":"para uma volta antes, achando que i <= 3 exclui o 3"},{"text":"1\n2\n3\n4","misconception":"inclui o valor que torna a condição falsa"},{"text":"2\n3","misconception":"acha que o corpo só executa depois de testar"}],"correct":0,"code":"let i = 1;\ndo {\n  console.log(i);\n  i++;\n} while (i <= 3);","explanation":"Mostra 1, 2 e 3. Depois do 3, i vale 4 e 4 <= 3 é falso."}$c$::jsonb, $c$Depois de cada volta, i aumenta e a condição é testada.$c$, 4, false, $c$arquivo$c$),
+  ($c$dowhile-somar-ate-zero$c$, $c$estrutura-do-while$c$, $c$code$c$, $c$Somar até o zero$c$, $c$medio$c$, $c$Escreva a função `somarAteZero()`: leia números com `lerEntrada()` (chegam como texto) até aparecer o 0 e mostre a soma de todos os números lidos com `console.log`. O 0 encerra a leitura.$c$, null, $c$somarAteZero$c$, $c$function somarAteZero() {
+  // leia os números e mostre a soma
+}
+$c$, $c$[{"args":[],"inputs":["5","3","0"],"output":["8"]},{"args":[],"inputs":["0"],"output":["0"]},{"args":[],"inputs":["10","20","30","0"],"output":["60"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Você precisa ler pelo menos um valor antes de saber se é o 0.$c$, 5, false, $c$arquivo$c$),
+  ($c$dowhile-corrija-o-limite$c$, $c$estrutura-do-while$c$, $c$fix$c$, $c$Corrija o limite$c$, $c$medio$c$, $c$A função `contarAte(n)` deveria devolver os números de 1 até n separados por espaço ("1 2 3" para n = 3), mas deixa o último de fora. Corrija o defeito.$c$, null, $c$contarAte$c$, $c$function contarAte(n) {
+  let i = 1;
+  let texto = "";
+  do {
+    texto += (texto === "" ? "" : " ") + i;
+    i++;
+  } while (i < n);
+  return texto;
+}
+$c$, $c$[{"args":[3],"expected":"1 2 3"},{"args":[1],"expected":"1"},{"args":[5],"expected":"1 2 3 4 5"}]$c$::jsonb, $c${}$c$::jsonb, $c$Depois de mostrar n, o laço deveria continuar?$c$, 6, false, $c$arquivo$c$),
+  ($c$dowhile-sempre-uma-vez$c$, $c$estrutura-do-while$c$, $c$interpretation$c$, $c$Quanto vale c?$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0","misconception":"acha que o corpo não executa quando a condição já é falsa"},{"text":"-1","misconception":"acha que o laço continua até c ficar negativo"},{"text":"1"},{"text":"Nada, o laço nunca termina","misconception":"acha que a condição falsa causa laço infinito"}],"correct":2,"code":"let c = 0;\ndo {\n  c++;\n} while (c < 0);\nconsole.log(c);","explanation":"O corpo executa uma vez (c passa de 0 para 1) e a condição 1 < 0 é falsa."}$c$::jsonb, $c$O corpo executa antes do primeiro teste.$c$, 7, false, $c$arquivo$c$),
+  ($c$dowhile-minimo-de-voltas$c$, $c$estrutura-do-while$c$, $c$choice$c$, $c$Quantas voltas, no mínimo?$c$, $c$medio$c$, $c$Quantas vezes, no mínimo, o corpo de um do...while executa?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Nenhuma, se a condição for falsa","misconception":"acha que o do...while pode não executar nenhuma vez"},{"text":"Uma"},{"text":"Duas","misconception":"confunde o teste do final com uma segunda volta obrigatória"},{"text":"Depende do valor das variáveis","misconception":"acha que o mínimo varia conforme a condição"}],"correct":1,"explanation":"O corpo é executado antes do primeiro teste, então roda pelo menos uma vez."}$c$::jsonb, $c$O teste da condição só acontece depois da primeira execução.$c$, 8, false, $c$arquivo$c$),
+  ($c$dowhile-validar-nota$c$, $c$estrutura-do-while$c$, $c$code$c$, $c$Validar a nota$c$, $c$dificil$c$, $c$Escreva a função `validarNota()`: leia números com `lerEntrada()` até aparecer uma nota válida (de 0 a 10, inclusive) e mostre `Nota válida: <valor>`. Notas fora do intervalo são ignoradas e a leitura continua.$c$, null, $c$validarNota$c$, $c$function validarNota() {
+  // leia até uma nota válida e mostre a mensagem
+}
+$c$, $c$[{"args":[],"inputs":["7"],"output":["Nota válida: 7"]},{"args":[],"inputs":["15","-2","7"],"output":["Nota válida: 7"]},{"args":[],"inputs":["11","10"],"output":["Nota válida: 10"]},{"args":[],"inputs":["-1","0"],"output":["Nota válida: 0"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Continue lendo enquanto a nota for menor que 0 ou maior que 10.$c$, 9, false, $c$arquivo$c$),
+  ($c$dowhile-ordem-de-execucao$c$, $c$estrutura-do-while$c$, $c$order$c$, $c$Ordem de execução do do...while$c$, $c$medio$c$, $c$Coloque na ordem em que o computador executa um do...while.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Executa o corpo do laço","Testa a condição","Se for verdadeira, volta ao corpo","Se for falsa, sai do laço"],"explanation":"O do...while executa o corpo, testa a condição e repete se ela for verdadeira."}$c$::jsonb, $c$O corpo vem antes do primeiro teste.$c$, 10, false, $c$arquivo$c$),
+  ($c$contador-o-que-e$c$, $c$contadores$c$, $c$choice$c$, $c$O que é um contador?$c$, $c$facil$c$, $c$O que é um contador?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Uma variável que soma valores diferentes a cada volta","misconception":"confunde contador com acumulador"},{"text":"Uma variável que guarda sempre o último valor lido","misconception":"confunde contador com uma variável comum"},{"text":"Uma variável que nunca muda","misconception":"acha que o contador é uma constante"},{"text":"Uma variável que guarda quantas vezes algo aconteceu"}],"correct":3,"explanation":"O contador começa em zero e aumenta (geralmente de 1 em 1) a cada ocorrência que queremos contar."}$c$::jsonb, $c$Pense em marcar um traço a cada ocorrência.$c$, 1, false, $c$arquivo$c$),
+  ($c$contador-cinco-voltas$c$, $c$contadores$c$, $c$interpretation$c$, $c$Quanto vale c?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5"},{"text":"4","misconception":"erra uma volta (erro de um)"},{"text":"15","misconception":"acha que c acumula os valores de i"},{"text":"0","misconception":"acha que c não muda porque não aparece na condição"}],"correct":0,"code":"let c = 0;\nfor (let i = 1; i <= 5; i++) {\n  c++;\n}\nconsole.log(c);","explanation":"O laço dá 5 voltas (i = 1 a 5) e c sobe 1 em cada uma, chegando a 5."}$c$::jsonb, $c$c aumenta 1 a cada volta.$c$, 2, false, $c$arquivo$c$),
+  ($c$contador-complete-o-incremento$c$, $c$contadores$c$, $c$blank$c$, $c$Complete o contador$c$, $c$facil$c$, $c$Complete a instrução que soma 1 ao contador quando o número é par.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let pares = 0;\nfor (let i = 1; i <= 10; i++) {\n  if (i % 2 === 0) {\n    {{1}};\n  }\n}","blanks":[{"answers":["pares++","pares += 1","pares = pares + 1","++pares"]}],"explanation":"Cada vez que o número é par, o contador pares aumenta 1."}$c$::jsonb, $c$O contador soma 1 a cada ocorrência.$c$, 3, false, $c$arquivo$c$),
+  ($c$contador-multiplos-de-tres$c$, $c$contadores$c$, $c$interpretation$c$, $c$Múltiplos de três$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10","misconception":"acha que o contador conta todas as voltas, ignorando o if"},{"text":"9","misconception":"confunde o último múltiplo com a quantidade de múltiplos"},{"text":"3"},{"text":"4","misconception":"conta o 0 ou o 12 como múltiplos dentro do intervalo"}],"correct":2,"code":"let c = 0;\nfor (let i = 1; i <= 10; i++) {\n  if (i % 3 === 0) {\n    c++;\n  }\n}\nconsole.log(c);","explanation":"Os múltiplos de 3 entre 1 e 10 são 3, 6 e 9: o contador sobe 3 vezes."}$c$::jsonb, $c$Quais números de 1 a 10 têm resto 0 na divisão por 3?$c$, 3, false, $c$arquivo$c$),
+  ($c$contador-contar-pares$c$, $c$contadores$c$, $c$code$c$, $c$Contar pares$c$, $c$medio$c$, $c$Escreva a função `contarPares(n)` que devolve quantos números pares existem de 1 até n.$c$, null, $c$contarPares$c$, $c$function contarPares(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[10],"expected":5},{"args":[1],"expected":0},{"args":[7],"expected":3},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Um número é par quando n % 2 === 0.$c$, 4, false, $c$arquivo$c$),
+  ($c$contador-contar-vogais$c$, $c$contadores$c$, $c$code$c$, $c$Contar vogais$c$, $c$medio$c$, $c$Escreva a função `contarVogais(texto)` que devolve quantas vogais (a, e, i, o, u, maiúsculas ou minúsculas) o texto tem.$c$, null, $c$contarVogais$c$, $c$function contarVogais(texto) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["banana"],"expected":3},{"args":["Ola"],"expected":2},{"args":["sky"],"expected":0},{"args":["ARARA"],"expected":3},{"args":[""],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$texto[i] devolve a letra da posição i; texto.length é o tamanho do texto.$c$, 5, false, $c$arquivo$c$),
+  ($c$contador-corrija-o-inicio$c$, $c$contadores$c$, $c$fix$c$, $c$Corrija o início do contador$c$, $c$medio$c$, $c$A função `contarMultiplos(n, k)` deveria devolver quantos múltiplos de k existem de 1 até n, mas devolve um a mais. Corrija o defeito.$c$, null, $c$contarMultiplos$c$, $c$function contarMultiplos(n, k) {
+  let contador = 1;
+  for (let i = 1; i <= n; i++) {
+    if (i % k === 0) {
+      contador++;
+    }
+  }
+  return contador;
+}
+$c$, $c$[{"args":[10,3],"expected":3},{"args":[10,5],"expected":2},{"args":[4,7],"expected":0},{"args":[12,1],"expected":12}]$c$::jsonb, $c${}$c$::jsonb, $c$Com quantos múltiplos o contador deve começar, antes de olhar qualquer número?$c$, 6, false, $c$arquivo$c$),
+  ($c$contador-dois-contadores$c$, $c$contadores$c$, $c$interpretation$c$, $c$Dois contadores$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4 3","misconception":"troca os contadores de pares e ímpares"},{"text":"3 4"},{"text":"3 3","misconception":"acha que pares e ímpares aparecem na mesma quantidade"},{"text":"7 0","misconception":"acha que só o primeiro contador é atualizado"}],"correct":1,"code":"let a = 0;\nlet b = 0;\nfor (let i = 1; i <= 7; i++) {\n  if (i % 2 === 0) {\n    a++;\n  } else {\n    b++;\n  }\n}\nconsole.log(a, b);","explanation":"Pares: 2, 4 e 6 (a = 3). Ímpares: 1, 3, 5 e 7 (b = 4)."}$c$::jsonb, $c$a conta os pares e b os ímpares, de 1 a 7.$c$, 7, false, $c$arquivo$c$),
+  ($c$contador-contar-divisores$c$, $c$contadores$c$, $c$code$c$, $c$Contar divisores$c$, $c$dificil$c$, $c$Escreva a função `contarDivisores(n)` que devolve quantos números de 1 até n dividem n sem deixar resto (o 12 tem 6 divisores: 1, 2, 3, 4, 6 e 12).$c$, null, $c$contarDivisores$c$, $c$function contarDivisores(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[12],"expected":6},{"args":[7],"expected":2},{"args":[1],"expected":1},{"args":[36],"expected":9}]$c$::jsonb, $c${}$c$::jsonb, $c$n é divisível por i quando n % i === 0.$c$, 8, false, $c$arquivo$c$),
+  ($c$acumulador-contador-ou-acumulador$c$, $c$acumuladores$c$, $c$choice$c$, $c$Contador ou acumulador?$c$, $c$facil$c$, $c$Qual é a diferença entre um contador e um acumulador?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Não há diferença: os dois sempre somam 1","misconception":"acha que contador e acumulador são a mesma coisa"},{"text":"O contador soma valores diferentes e o acumulador soma sempre 1","misconception":"troca as definições"},{"text":"O acumulador só serve para multiplicar","misconception":"acha que o acumulador não soma"},{"text":"O contador soma sempre 1 (conta ocorrências); o acumulador soma o valor de cada volta"}],"correct":3,"explanation":"O contador conta ocorrências (+1), enquanto o acumulador junta valores (soma += valor ou produto *= valor)."}$c$::jsonb, $c$Um conta quantas vezes; o outro junta quanto.$c$, 1, false, $c$arquivo$c$),
+  ($c$acumulador-soma-um-a-quatro$c$, $c$acumuladores$c$, $c$interpretation$c$, $c$Quanto vale s?$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10"},{"text":"4","misconception":"acha que s guarda só o último valor ou a quantidade de voltas"},{"text":"6","misconception":"esquece o último valor (erro de um)"},{"text":"24","misconception":"acha que += multiplica"}],"correct":0,"code":"let s = 0;\nfor (let i = 1; i <= 4; i++) {\n  s += i;\n}\nconsole.log(s);","explanation":"A cada volta s soma o valor de i: 1, 3, 6 e por fim 10."}$c$::jsonb, $c$s = 0 + 1 + 2 + 3 + 4.$c$, 2, false, $c$arquivo$c$),
+  ($c$acumulador-complete-o-inicio$c$, $c$acumuladores$c$, $c$blank$c$, $c$Valor inicial$c$, $c$facil$c$, $c$Complete com o valor inicial correto do acumulador de uma soma.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"let soma = {{1}};\nfor (let i = 1; i <= 3; i++) {\n  soma += i;\n}","blanks":[{"answers":["0"]}],"explanation":"Para somar, o acumulador começa em 0, o elemento neutro da soma."}$c$::jsonb, $c$Qual número não altera uma soma?$c$, 3, false, $c$arquivo$c$),
+  ($c$acumulador-reiniciado$c$, $c$acumuladores$c$, $c$interpretation$c$, $c$Acumulador reiniciado$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n3\n6","misconception":"acha que s acumula entre as voltas, mesmo sendo declarado dentro do laço"},{"text":"6","misconception":"acha que o resultado só aparece no final"},{"text":"1\n2\n3"},{"text":"0\n0\n0","misconception":"acha que o += não altera s"}],"correct":2,"code":"for (let i = 1; i <= 3; i++) {\n  let s = 0;\n  s += i;\n  console.log(s);\n}","explanation":"s é recriada com 0 em toda volta, então só guarda o i da volta atual: 1, 2 e 3. Para acumular, declare s antes do laço."}$c$::jsonb, $c$O que acontece com uma variável declarada dentro do laço a cada volta?$c$, 4, false, $c$arquivo$c$),
+  ($c$acumulador-soma-dos-pares$c$, $c$acumuladores$c$, $c$code$c$, $c$Soma dos pares$c$, $c$medio$c$, $c$Escreva a função `somaDosPares(n)` que devolve a soma dos números pares de 1 até n.$c$, null, $c$somaDosPares$c$, $c$function somaDosPares(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[10],"expected":30},{"args":[1],"expected":0},{"args":[7],"expected":12},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Some i ao acumulador só quando i % 2 === 0.$c$, 5, false, $c$arquivo$c$),
+  ($c$acumulador-somar-tres-entradas$c$, $c$acumuladores$c$, $c$code$c$, $c$Somar três números$c$, $c$medio$c$, $c$Escreva a função `somarTres()`: leia três números com `lerEntrada()` (chegam como texto) e mostre a soma deles com `console.log`. Use um laço.$c$, null, $c$somarTres$c$, $c$function somarTres() {
+  // leia três números e mostre a soma
+}
+$c$, $c$[{"args":[],"inputs":["1","2","3"],"output":["6"]},{"args":[],"inputs":["10","20","30"],"output":["60"]},{"args":[],"inputs":["-5","5","0"],"output":["0"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Converta cada entrada com Number() antes de somar.$c$, 6, false, $c$arquivo$c$),
+  ($c$acumulador-corrija-o-produto$c$, $c$acumuladores$c$, $c$fix$c$, $c$Corrija o produto$c$, $c$medio$c$, $c$A função `produtoAte(n)` deveria devolver o produto de 1 até n (24 para n = 4), mas devolve sempre 0. Corrija o defeito.$c$, null, $c$produtoAte$c$, $c$function produtoAte(n) {
+  let produto = 0;
+  for (let i = 1; i <= n; i++) {
+    produto *= i;
+  }
+  return produto;
+}
+$c$, $c$[{"args":[4],"expected":24},{"args":[1],"expected":1},{"args":[5],"expected":120}]$c$::jsonb, $c${}$c$::jsonb, $c$Qualquer número multiplicado por zero vira zero.$c$, 7, false, $c$arquivo$c$),
+  ($c$acumulador-ate-passar-de-dez$c$, $c$acumuladores$c$, $c$interpretation$c$, $c$Até passar de dez$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"mostra o último número somado, esquecendo que i++ roda depois da soma"},{"text":"5"},{"text":"10","misconception":"confunde o valor de s com o valor de i"},{"text":"3","misconception":"acha que o laço para assim que s passa de 6"}],"correct":1,"code":"let s = 0;\nlet i = 1;\nwhile (s < 10) {\n  s += i;\n  i++;\n}\nconsole.log(i);","explanation":"s vai de 0 a 1, 3, 6 e 10 enquanto i vai de 1 a 5. Quando s vale 10, a condição s < 10 é falsa e i já vale 5."}$c$::jsonb, $c$Anote s e i a cada volta. s: 1, 3, 6, 10...$c$, 8, false, $c$arquivo$c$),
+  ($c$acumulador-media-das-entradas$c$, $c$acumuladores$c$, $c$code$c$, $c$Média das entradas$c$, $c$dificil$c$, $c$Escreva a função `media()`: leia primeiro a quantidade de números e depois cada número (tudo com `lerEntrada()`) e mostre a média com `console.log`.$c$, null, $c$media$c$, $c$function media() {
+  // leia a quantidade, some os números e mostre a média
+}
+$c$, $c$[{"args":[],"inputs":["3","4","6","8"],"output":["6"]},{"args":[],"inputs":["2","5","10"],"output":["7.5"]},{"args":[],"inputs":["1","9"],"output":["9"]}]$c$::jsonb, $c${}$c$::jsonb, $c$A média é a soma dividida pela quantidade lida.$c$, 9, false, $c$arquivo$c$),
+  ($c$break-o-que-faz$c$, $c$comando-break$c$, $c$choice$c$, $c$O que o break faz?$c$, $c$facil$c$, $c$O que o comando break faz dentro de um laço?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Pula só a volta atual e vai para a próxima","misconception":"confunde break com continue"},{"text":"Encerra o programa inteiro","misconception":"acha que o break termina o programa, e não o laço"},{"text":"Reinicia o laço do começo","misconception":"acha que o break volta o contador para o início"},{"text":"Encerra o laço imediatamente"}],"correct":3,"explanation":"O break interrompe o laço na hora; o programa continua na primeira instrução depois dele."}$c$::jsonb, $c$Pense em "quebrar" o laço.$c$, 1, false, $c$arquivo$c$),
+  ($c$break-para-no-tres$c$, $c$comando-break$c$, $c$interpretation$c$, $c$Para no três$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n2"},{"text":"1\n2\n3","misconception":"acha que o break só atua depois de mostrar o 3"},{"text":"1\n2\n4\n5","misconception":"confunde break com continue (pula só o 3)"},{"text":"1\n2\n3\n4\n5","misconception":"acha que o break não interrompe o laço"}],"correct":0,"code":"for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    break;\n  }\n  console.log(i);\n}","explanation":"Para i = 1 e 2 o valor é mostrado. Em i = 3 o break encerra o laço antes de mostrar."}$c$::jsonb, $c$O break executa antes do console.log quando i vale 3.$c$, 2, false, $c$arquivo$c$),
+  ($c$break-complete-o-comando$c$, $c$comando-break$c$, $c$blank$c$, $c$Complete o comando$c$, $c$facil$c$, $c$Complete o comando que encerra o laço quando i vale 3.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    {{1}};\n  }\n}","blanks":[{"answers":["break"]}],"explanation":"break sai do laço na hora."}$c$::jsonb, $c$Em inglês, "quebrar".$c$, 3, false, $c$arquivo$c$),
+  ($c$break-while-true$c$, $c$comando-break$c$, $c$interpretation$c$, $c$Laço com saída$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Nada, porque while (true) nunca termina","misconception":"acha que o break não consegue sair de while (true)"},{"text":"2","misconception":"acha que o break sai antes de n chegar a 3"},{"text":"3"},{"text":"4","misconception":"acha que o laço dá mais uma volta depois do break"}],"correct":2,"code":"let n = 0;\nwhile (true) {\n  n++;\n  if (n >= 3) {\n    break;\n  }\n}\nconsole.log(n);","explanation":"n sobe de 1 em 1 e, quando chega a 3, o break encerra o laço. O programa mostra 3."}$c$::jsonb, $c$A condição while (true) é sempre verdadeira; o que encerra o laço?$c$, 4, false, $c$arquivo$c$),
+  ($c$break-primeiro-divisor$c$, $c$comando-break$c$, $c$code$c$, $c$Primeiro divisor$c$, $c$medio$c$, $c$Escreva a função `primeiroDivisor(n)` que devolve o menor número maior que 1 que divide n sem deixar resto (n é maior que 1). Para um número primo, devolve o próprio n. Use break para parar quando achar.$c$, null, $c$primeiroDivisor$c$, $c$function primeiroDivisor(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[15],"expected":3},{"args":[7],"expected":7},{"args":[49],"expected":7},{"args":[10],"expected":2}]$c$::jsonb, $c${}$c$::jsonb, $c$Teste os números a partir do 2 e pare no primeiro que dividir n.$c$, 5, false, $c$arquivo$c$),
+  ($c$break-somar-ate-negativo$c$, $c$comando-break$c$, $c$code$c$, $c$Somar até um negativo$c$, $c$medio$c$, $c$Escreva a função `somarAteNegativo()`: leia números com `lerEntrada()` (chegam como texto) e some-os, parando quando aparecer um número negativo (que não entra na soma). Mostre a soma com `console.log`.$c$, null, $c$somarAteNegativo$c$, $c$function somarAteNegativo() {
+  // leia os números e mostre a soma
+}
+$c$, $c$[{"args":[],"inputs":["4","6","-1","9"],"output":["10"]},{"args":[],"inputs":["-1"],"output":["0"]},{"args":[],"inputs":["1","2","3","-5"],"output":["6"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Um while (true) lê números; o break acontece quando o número for menor que 0.$c$, 6, false, $c$arquivo$c$),
+  ($c$break-corrija-o-primeiro$c$, $c$comando-break$c$, $c$fix$c$, $c$Corrija o primeiro múltiplo$c$, $c$medio$c$, $c$A função `primeiroMultiploDe7(limite)` deveria devolver o primeiro múltiplo de 7 de 1 até o limite (ou -1 se não houver), mas devolve o último. Corrija o defeito.$c$, null, $c$primeiroMultiploDe7$c$, $c$function primeiroMultiploDe7(limite) {
+  let achado = -1;
+  for (let i = 1; i <= limite; i++) {
+    if (i % 7 === 0) {
+      achado = i;
+    }
+  }
+  return achado;
+}
+$c$, $c$[{"args":[20],"expected":7},{"args":[30],"expected":7},{"args":[6],"expected":-1},{"args":[7],"expected":7}]$c$::jsonb, $c${}$c$::jsonb, $c$Depois de achar o primeiro, o laço deveria continuar?$c$, 7, false, $c$arquivo$c$),
+  ($c$break-soma-limitada$c$, $c$comando-break$c$, $c$interpretation$c$, $c$Soma limitada$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"55","misconception":"acha que o break não interrompe a soma"},{"text":"10"},{"text":"15","misconception":"soma mais um valor depois de passar do limite"},{"text":"6","misconception":"para cedo demais, achando que s não pode chegar a 10"}],"correct":1,"code":"let s = 0;\nfor (let i = 1; i <= 10; i++) {\n  if (s + i > 10) {\n    break;\n  }\n  s += i;\n}\nconsole.log(s);","explanation":"s chega a 10 com i = 4. Em i = 5, s + i = 15 > 10, o break encerra e o programa mostra 10."}$c$::jsonb, $c$Acompanhe s: 1, 3, 6, 10... e o que acontece com i = 5.$c$, 8, false, $c$arquivo$c$),
+  ($c$break-eh-primo$c$, $c$comando-break$c$, $c$code$c$, $c$É primo?$c$, $c$dificil$c$, $c$Escreva a função `ehPrimo(n)` que devolve true se n for primo (maior que 1 e divisível só por 1 e por ele mesmo) e false caso contrário.$c$, null, $c$ehPrimo$c$, $c$function ehPrimo(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[2],"expected":true},{"args":[13],"expected":true},{"args":[97],"expected":true},{"args":[1],"expected":false},{"args":[9],"expected":false},{"args":[25],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Se algum número de 2 até n - 1 dividir n, já sabemos que não é primo: pode parar.$c$, 9, false, $c$arquivo$c$),
+  ($c$continue-break-ou-continue$c$, $c$comando-continue$c$, $c$choice$c$, $c$break ou continue?$c$, $c$facil$c$, $c$Qual é a diferença entre break e continue?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Não há diferença: os dois encerram o laço","misconception":"acha que break e continue fazem a mesma coisa"},{"text":"O continue encerra o laço e o break pula a volta","misconception":"troca o efeito dos dois comandos"},{"text":"O break só funciona em while e o continue só em for","misconception":"acha que cada comando é de um tipo de laço"},{"text":"O break encerra o laço; o continue pula só a volta atual"}],"correct":3,"explanation":"O break encerra o laço inteiro. O continue interrompe apenas a volta atual e o laço segue."}$c$::jsonb, $c$Um "quebra" o laço; o outro "continua" na próxima volta.$c$, 1, false, $c$arquivo$c$),
+  ($c$continue-pula-o-tres$c$, $c$comando-continue$c$, $c$interpretation$c$, $c$Pula o três$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n2\n4\n5"},{"text":"1\n2","misconception":"confunde continue com break (encerra o laço)"},{"text":"1\n2\n3\n4\n5","misconception":"acha que o continue não tem efeito"},{"text":"3","misconception":"acha que o continue mostra só o valor pulado"}],"correct":0,"code":"for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    continue;\n  }\n  console.log(i);\n}","explanation":"Em i = 3, o continue pula o resto da volta; o laço segue e mostra 4 e 5."}$c$::jsonb, $c$O continue pula o console.log só quando i vale 3.$c$, 2, false, $c$arquivo$c$),
+  ($c$continue-complete-o-comando$c$, $c$comando-continue$c$, $c$blank$c$, $c$Complete o comando$c$, $c$facil$c$, $c$Complete o comando que pula as voltas em que i é par, para mostrar só os ímpares.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 1; i <= 5; i++) {\n  if (i % 2 === 0) {\n    {{1}};\n  }\n  console.log(i);\n}","blanks":[{"answers":["continue"]}],"explanation":"continue pula o resto da volta e passa para a próxima."}$c$::jsonb, $c$Não queremos encerrar o laço, só pular.$c$, 3, false, $c$arquivo$c$),
+  ($c$continue-so-impares$c$, $c$comando-continue$c$, $c$interpretation$c$, $c$Só os ímpares$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2\n4\n6","misconception":"inverte: acha que o continue seleciona os pares"},{"text":"1","misconception":"acha que o continue encerra o laço depois do primeiro valor"},{"text":"1\n3\n5"},{"text":"1\n2\n3\n4\n5\n6","misconception":"acha que o continue não pula nada"}],"correct":2,"code":"for (let i = 1; i <= 6; i++) {\n  if (i % 2 === 0) {\n    continue;\n  }\n  console.log(i);\n}","explanation":"Os pares (2, 4 e 6) caem no continue e são pulados; os ímpares são mostrados."}$c$::jsonb, $c$Para os pares, o console.log é pulado.$c$, 4, false, $c$arquivo$c$),
+  ($c$continue-soma-sem-multiplos-de-tres$c$, $c$comando-continue$c$, $c$code$c$, $c$Soma sem múltiplos de 3$c$, $c$medio$c$, $c$Escreva a função `somaSemMultiplosDeTres(n)` que devolve a soma de 1 até n, ignorando os múltiplos de 3. Use continue.$c$, null, $c$somaSemMultiplosDeTres$c$, $c$function somaSemMultiplosDeTres(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[10],"expected":37},{"args":[2],"expected":3},{"args":[3],"expected":3},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Quando i % 3 === 0, pule a volta.$c$, 5, false, $c$arquivo$c$),
+  ($c$continue-sem-vogais$c$, $c$comando-continue$c$, $c$code$c$, $c$Texto sem vogais$c$, $c$medio$c$, $c$Escreva a função `semVogais(texto)` que devolve o texto sem as vogais (a, e, i, o, u, maiúsculas ou minúsculas). Use continue para pular as vogais.$c$, null, $c$semVogais$c$, $c$function semVogais(texto) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["banana"],"expected":"bnn"},{"args":["Sol"],"expected":"Sl"},{"args":["aeiou"],"expected":""},{"args":["Ola"],"expected":"l"}]$c$::jsonb, $c${}$c$::jsonb, $c$Se a letra for vogal, pule; senão, acrescente ao resultado.$c$, 6, false, $c$arquivo$c$),
+  ($c$continue-corrija-o-laco$c$, $c$comando-continue$c$, $c$fix$c$, $c$Corrija o laço$c$, $c$medio$c$, $c$A função `somarImpares(n)` deveria devolver a soma dos ímpares de 1 até n, mas o laço nunca termina (o computador desiste por tempo esgotado). Corrija o defeito.$c$, null, $c$somarImpares$c$, $c$function somarImpares(n) {
+  let i = 0;
+  let soma = 0;
+  while (i < n) {
+    if (i % 2 === 0) {
+      continue;
+    }
+    soma += i;
+    i++;
+  }
+  return soma;
+}
+$c$, $c$[{"args":[5],"expected":9},{"args":[1],"expected":1},{"args":[0],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$O i++ está depois do continue: ele chega a ser executado quando i é par?$c$, 7, false, $c$arquivo$c$),
+  ($c$continue-e-break-juntos$c$, $c$comando-continue$c$, $c$interpretation$c$, $c$continue e break juntos$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n3\n5\n7\n9","misconception":"esquece que o break encerra o laço quando i passa de 7"},{"text":"1\n3\n5\n7"},{"text":"2\n4\n6","misconception":"acha que o continue seleciona os pares"},{"text":"1\n3\n5\n7\n9\n11","misconception":"acha que o laço segue depois do break"}],"correct":1,"code":"for (let i = 1; i <= 10; i++) {\n  if (i % 2 === 0) {\n    continue;\n  }\n  if (i > 7) {\n    break;\n  }\n  console.log(i);\n}","explanation":"Os pares são pulados e os ímpares até 7 são mostrados. Em i = 9, o break encerra o laço."}$c$::jsonb, $c$Pares são pulados; quando i chega a 9 (ímpar), o break entra em ação.$c$, 8, false, $c$arquivo$c$),
+  ($c$continue-o-que-acontece-depois$c$, $c$comando-continue$c$, $c$choice$c$, $c$O que vem depois do continue?$c$, $c$medio$c$, $c$Em uma volta em que o continue é executado, o que acontece com as instruções que vêm depois dele no corpo do laço?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Elas executam normalmente, depois o laço continua","misconception":"acha que o continue não altera o fluxo da volta"},{"text":"O laço encerra e elas são ignoradas para sempre","misconception":"confunde continue com break"},{"text":"O laço recomeça do zero","misconception":"acha que o continue reinicia o laço"},{"text":"Elas são ignoradas nessa volta, e o laço segue com a próxima volta"}],"correct":3,"explanation":"O continue interrompe a volta atual: o que está depois dele é ignorado só nessa volta, e o laço continua."}$c$::jsonb, $c$O continue "pula" o restante da volta.$c$, 9, false, $c$arquivo$c$),
+  ($c$aninhados-quantas-vezes$c$, $c$lacos-aninhados$c$, $c$choice$c$, $c$Quantas execuções?$c$, $c$facil$c$, $c$Um laço externo dá 3 voltas e, em cada uma, um laço interno dá 4 voltas. Quantas vezes o corpo do laço interno executa no total?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"12"},{"text":"7","misconception":"acha que as voltas se somam em vez de multiplicar"},{"text":"4","misconception":"conta só as voltas do laço interno"},{"text":"3","misconception":"conta só as voltas do laço externo"}],"correct":0,"explanation":"O número de execuções se multiplica: 3 × 4 = 12."}$c$::jsonb, $c$Para cada volta externa, o interno roda inteiro.$c$, 1, false, $c$arquivo$c$),
+  ($c$aninhados-pares-de-valores$c$, $c$lacos-aninhados$c$, $c$interpretation$c$, $c$Pares (i, j)$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1 1\n2 2\n3 3","misconception":"acha que os dois laços avançam juntos"},{"text":"1 1\n1 2\n1 3","misconception":"acha que o laço externo executa só uma vez"},{"text":"1 1\n1 2\n1 3\n2 1\n2 2\n2 3"},{"text":"1 1\n2 1\n1 2\n2 2\n1 3\n2 3","misconception":"inverte quem muda mais rápido (o interno muda a cada volta)"}],"correct":2,"code":"for (let i = 1; i <= 2; i++) {\n  for (let j = 1; j <= 3; j++) {\n    console.log(i, j);\n  }\n}","explanation":"Para i = 1, j vai de 1 a 3; só depois i passa a 2 e j recomeça de 1."}$c$::jsonb, $c$Enquanto i vale 1, j percorre todos os seus valores.$c$, 2, false, $c$arquivo$c$),
+  ($c$aninhados-complete-a-variavel$c$, $c$lacos-aninhados$c$, $c$blank$c$, $c$Complete o laço interno$c$, $c$facil$c$, $c$Complete o nome da variável do laço interno, que deve ser diferente da do laço externo.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"for (let i = 1; i <= 3; i++) {\n  for (let {{1}} = 1; j <= 3; j++) {\n    console.log(i, j);\n  }\n}","blanks":[{"answers":["j"]}],"explanation":"O laço interno usa a variável j, diferente de i (usada pelo laço externo)."}$c$::jsonb, $c$Olhe a condição do laço interno.$c$, 3, false, $c$arquivo$c$),
+  ($c$aninhados-conta-as-voltas$c$, $c$lacos-aninhados$c$, $c$interpretation$c$, $c$Conta as voltas$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"soma as voltas dos dois laços em vez de multiplicar"},{"text":"12"},{"text":"4","misconception":"conta só as voltas do laço interno"},{"text":"3","misconception":"conta só as voltas do laço externo"}],"correct":1,"code":"let c = 0;\nfor (let i = 0; i < 3; i++) {\n  for (let j = 0; j < 4; j++) {\n    c++;\n  }\n}\nconsole.log(c);","explanation":"O corpo interno executa 3 × 4 = 12 vezes, e o contador sobe a cada execução."}$c$::jsonb, $c$O c++ está dentro do laço interno.$c$, 4, false, $c$arquivo$c$),
+  ($c$aninhados-retangulo$c$, $c$lacos-aninhados$c$, $c$code$c$, $c$Retângulo de asteriscos$c$, $c$medio$c$, $c$Escreva a função `retangulo(linhas, colunas)` que mostra, com `console.log`, um retângulo de asteriscos: uma linha de texto para cada linha do retângulo, com `colunas` asteriscos. Por exemplo, retangulo(2, 3) mostra *** duas vezes.$c$, null, $c$retangulo$c$, $c$function retangulo(linhas, colunas) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[2,3],"output":["***","***"]},{"args":[3,1],"output":["*","*","*"]},{"args":[1,4],"output":["****"]},{"args":[2,2],"output":["**","**"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Monte cada linha com um laço interno e mostre-a com um console.log depois dele.$c$, 6, false, $c$arquivo$c$),
+  ($c$aninhados-tabela-de-multiplicacao$c$, $c$lacos-aninhados$c$, $c$code$c$, $c$Tabela de multiplicação$c$, $c$medio$c$, $c$Escreva a função `tabela()` que mostra a tabela de multiplicação de 1 a 3, uma linha por número, com os produtos separados por espaço (primeira linha: 1 2 3).$c$, null, $c$tabela$c$, $c$function tabela() {
+  // mostre as três linhas
+}
+$c$, $c$[{"args":[],"output":["1 2 3","2 4 6","3 6 9"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Para cada linha i, o laço interno junta i × j para j de 1 a 3.$c$, 7, false, $c$arquivo$c$),
+  ($c$aninhados-corrija-o-triangulo$c$, $c$lacos-aninhados$c$, $c$fix$c$, $c$Corrija o triângulo$c$, $c$medio$c$, $c$A função `triangulo(n)` deveria mostrar um triângulo de asteriscos (a linha 1 tem 1 asterisco, a linha 2 tem 2, e assim por diante), mas mostra um retângulo. Corrija o defeito.$c$, null, $c$triangulo$c$, $c$function triangulo(n) {
+  for (let i = 1; i <= n; i++) {
+    let linha = "";
+    for (let j = 1; j <= n; j++) {
+      linha += "*";
+    }
+    console.log(linha);
+  }
+}
+$c$, $c$[{"args":[3],"output":["*","**","***"]},{"args":[1],"output":["*"]},{"args":[4],"output":["*","**","***","****"]}]$c$::jsonb, $c${}$c$::jsonb, $c$O limite do laço interno deveria depender da linha atual.$c$, 8, false, $c$arquivo$c$),
+  ($c$aninhados-linha-crescente$c$, $c$lacos-aninhados$c$, $c$interpretation$c$, $c$Linhas crescentes$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1\n1\n1","misconception":"acha que o limite do laço interno não depende de i"},{"text":"123\n123\n123","misconception":"acha que o laço interno sempre vai até 3"},{"text":"1\n3\n6","misconception":"confunde concatenar com somar"},{"text":"1\n12\n123"}],"correct":3,"code":"for (let i = 1; i <= 3; i++) {\n  let linha = \"\";\n  for (let j = 1; j <= i; j++) {\n    linha += j;\n  }\n  console.log(linha);\n}","explanation":"Para i = 1, linha vira 1; para i = 2, 12; para i = 3, 123. Os números são juntados como texto."}$c$::jsonb, $c$O laço interno vai de 1 até i, e a linha é refeita em cada volta externa.$c$, 9, false, $c$arquivo$c$),
+  ($c$aninhados-contar-pares$c$, $c$lacos-aninhados$c$, $c$code$c$, $c$Pares de valores$c$, $c$dificil$c$, $c$Escreva a função `contarPares(n)` que devolve quantos pares (i, j) existem com 1 <= i < j <= n (o par (1, 2) conta, o par (2, 1) não). Use dois laços aninhados.$c$, null, $c$contarPares$c$, $c$function contarPares(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[1],"expected":0},{"args":[3],"expected":3},{"args":[4],"expected":6},{"args":[5],"expected":10}]$c$::jsonb, $c${}$c$::jsonb, $c$Para cada i, o laço interno começa em i + 1.$c$, 10, false, $c$arquivo$c$),
+  ($c$aninhados-break-no-interno$c$, $c$lacos-aninhados$c$, $c$choice$c$, $c$break no laço interno$c$, $c$medio$c$, $c$Em dois laços aninhados, o que um break dentro do laço interno encerra?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Apenas o laço interno; o externo segue para a próxima volta"},{"text":"Os dois laços","misconception":"acha que o break atinge também o laço externo"},{"text":"Só o laço externo","misconception":"inverte qual laço é encerrado"},{"text":"O programa inteiro","misconception":"acha que o break termina o programa"}],"correct":0,"explanation":"O break encerra só o laço em que está escrito (o mais interno); o externo continua normalmente."}$c$::jsonb, $c$O break atua no laço mais próximo.$c$, 5, false, $c$arquivo$c$),
+  ($c$desafio5-adivinhacao$c$, $c$desafio-do-mundo-5$c$, $c$challenge$c$, $c$Desafio: jogo de adivinhação$c$, $c$dificil$c$, $c$Escreva a função `adivinhar(segredo, tentativas)`: leia até `tentativas` palpites com `lerEntrada()` (chegam como texto). Para cada palpite errado, mostre `O número é maior` (se o segredo for maior que o palpite) ou `O número é menor`. Se acertar, mostre `Acertou! Tentativas: N` (N = quantos palpites foram usados) e pare de ler. Se as tentativas acabarem sem acerto, mostre `Fim de jogo! O número era X`.$c$, null, $c$adivinhar$c$, $c$function adivinhar(segredo, tentativas) {
+  // leia os palpites e mostre as dicas
+}
+$c$, $c$[{"args":[7,3],"inputs":["5","9","7"],"output":["O número é maior","O número é menor","Acertou! Tentativas: 3"]},{"args":[7,3],"inputs":["7"],"output":["Acertou! Tentativas: 1"]},{"args":[7,2],"inputs":["1","2"],"output":["O número é maior","O número é maior","Fim de jogo! O número era 7"]},{"args":[4,3],"inputs":["9","1","4"],"output":["O número é menor","O número é maior","Acertou! Tentativas: 3"]},{"args":[4,3],"inputs":["4","1"],"output":["Acertou! Tentativas: 1"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Use um for de 1 até tentativas. Se acertar, mostre a mensagem e use return (ou break); se o laço terminar, mostre o fim de jogo.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio5-corrija-o-resumo$c$, $c$desafio-do-mundo-5$c$, $c$fix$c$, $c$Desafio: corrija o resumo$c$, $c$dificil$c$, $c$A função `resumo(n)` deveria devolver, em texto, a soma dos ímpares e a quantidade de pares de 1 até n (por exemplo, "9 3" para n = 6: ímpares 1 + 3 + 5 = 9 e três pares). Hoje a quantidade de pares sai sempre 0. Corrija o defeito.$c$, null, $c$resumo$c$, $c$function resumo(n) {
+  let soma = 0;
+  let pares = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 0) {
+      continue;
+      pares++;
+    }
+    soma += i;
+  }
+  return soma + " " + pares;
+}
+$c$, $c$[{"args":[6],"expected":"9 3"},{"args":[1],"expected":"1 0"},{"args":[0],"expected":"0 0"},{"args":[10],"expected":"25 5"}]$c$::jsonb, $c${}$c$::jsonb, $c$O que vem depois do continue na mesma volta é executado?$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio5-acompanhe-os-lacos$c$, $c$desafio-do-mundo-5$c$, $c$interpretation$c$, $c$Desafio: acompanhe os laços$c$, $c$dificil$c$, $c$Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"12","misconception":"esquece que o laço interno de i = 3 ainda soma 3 e 6 antes do continue"},{"text":"18","misconception":"ignora o break e o continue e soma todos os produtos"},{"text":"13"},{"text":"9","misconception":"acha que o break encerra o laço externo também"}],"correct":2,"code":"let total = 0;\nfor (let i = 1; i <= 3; i++) {\n  for (let j = 1; j <= 3; j++) {\n    if (j === i) {\n      continue;\n    }\n    if (j > 2) {\n      break;\n    }\n    total += i * j;\n  }\n}\nconsole.log(total);","explanation":"i = 1: soma 1×2 = 2 (j = 1 é pulado, j = 3 faz break). i = 2: soma 2×1 = 2 (j = 2 pulado, j = 3 break). i = 3: soma 3×1 e 3×2 (j = 3 é pulado). Total: 2 + 2 + 3 + 6 = 13."}$c$::jsonb, $c$Faça uma tabela com i, j e total. O break só encerra o laço interno.$c$, 3, false, $c$arquivo$c$),
   ($c$soma-vetor$c$, $c$vetores$c$, $c$code$c$, $c$Soma dos elementos$c$, $c$medio$c$, $c$Escreva `somaVetor(v)` que retorna a soma de todos os elementos do vetor `v`.$c$, null, $c$somaVetor$c$, $c$function somaVetor(v) {
   // seu código aqui
 }
@@ -2254,6 +2782,306 @@ from (values
   }
   return a;
 }$c$, $c$$c$),
+  ($c$rep-intro-repetir-texto$c$, $c$function repetir(texto, vezes) {
+  let resultado = "";
+  for (let i = 0; i < vezes; i++) {
+    resultado += texto;
+  }
+  return resultado;
+}$c$, $c$Um laço que repete `vezes` vezes e, a cada volta, acrescenta o texto ao resultado. Com 0 vezes, o laço não executa e o resultado fica vazio.$c$),
+  ($c$rep-intro-corrija-a-contagem$c$, $c$function contagem(n) {
+  let texto = "";
+  for (let i = 1; i <= n; i++) {
+    texto += (texto === "" ? "" : " ") + i;
+  }
+  return texto;
+}$c$, $c$Com i < n, o laço para antes de n. Trocando por i <= n, o último valor também entra (erro de um no limite).$c$),
+  ($c$for-tabuada$c$, $c$function tabuada() {
+  const n = Number(lerEntrada());
+  for (let i = 1; i <= 10; i++) {
+    console.log(n + " x " + i + " = " + n * i);
+  }
+}$c$, $c$Um for de 1 a 10 mostra uma linha por volta, usando o número lido e o valor do contador.$c$),
+  ($c$for-contagem-regressiva$c$, $c$function regressiva(n) {
+  let texto = "";
+  for (let i = n; i >= 1; i--) {
+    texto += (texto === "" ? "" : " ") + i;
+  }
+  return texto;
+}$c$, $c$Um for que começa em n e usa i-- enquanto i >= 1 percorre os números de trás para frente.$c$),
+  ($c$for-corrija-a-soma$c$, $c$function somarAte(n) {
+  let soma = 0;
+  for (let i = 1; i <= n; i++) {
+    soma += i;
+  }
+  return soma;
+}$c$, $c$Com i < n, o último valor (n) fica de fora. Usando i <= n, a soma inclui todos os números de 1 a n.$c$),
+  ($c$for-fatorial$c$, $c$function fatorial(n) {
+  let resultado = 1;
+  for (let i = 1; i <= n; i++) {
+    resultado *= i;
+  }
+  return resultado;
+}$c$, $c$O resultado começa em 1 e é multiplicado por cada valor de 1 até n. Para n = 0 o laço não executa e o resultado continua 1.$c$),
+  ($c$while-contar-digitos$c$, $c$function contarDigitos(n) {
+  let digitos = 0;
+  while (n > 0) {
+    n = Math.floor(n / 10);
+    digitos++;
+  }
+  return digitos;
+}$c$, $c$A cada volta o último dígito é removido (divisão inteira por 10) e o contador sobe um. O laço termina quando n chega a 0.$c$),
+  ($c$while-corrija-a-condicao$c$, $c$function somaDe1Ate(n) {
+  let i = 1;
+  let soma = 0;
+  while (i <= n) {
+    soma += i;
+    i++;
+  }
+  return soma;
+}$c$, $c$A condição i > n é falsa desde o início, então o corpo nunca roda. O correto é continuar enquanto i <= n.$c$),
+  ($c$while-passos-de-collatz$c$, $c$function passos(n) {
+  let contador = 0;
+  while (n !== 1) {
+    if (n % 2 === 0) {
+      n = n / 2;
+    } else {
+      n = 3 * n + 1;
+    }
+    contador++;
+  }
+  return contador;
+}$c$, $c$Enquanto n for diferente de 1, aplica-se a regra (par ou ímpar) e conta-se um passo. Para n = 1 o laço não executa.$c$),
+  ($c$dowhile-somar-ate-zero$c$, $c$function somarAteZero() {
+  let soma = 0;
+  let valor;
+  do {
+    valor = Number(lerEntrada());
+    soma += valor;
+  } while (valor !== 0);
+  console.log(soma);
+}$c$, $c$Um do...while lê o número, soma e só então confere se foi o 0. Assim a leitura acontece antes do teste, como o problema pede.$c$),
+  ($c$dowhile-corrija-o-limite$c$, $c$function contarAte(n) {
+  let i = 1;
+  let texto = "";
+  do {
+    texto += (texto === "" ? "" : " ") + i;
+    i++;
+  } while (i <= n);
+  return texto;
+}$c$, $c$Com i < n o laço para antes de incluir n. A condição correta é i <= n.$c$),
+  ($c$dowhile-validar-nota$c$, $c$function validarNota() {
+  let nota;
+  do {
+    nota = Number(lerEntrada());
+  } while (nota < 0 || nota > 10);
+  console.log("Nota válida:", nota);
+}$c$, $c$Um do...while lê a nota e repete enquanto ela for menor que 0 ou maior que 10. Quando sai do laço, a nota é válida.$c$),
+  ($c$contador-contar-pares$c$, $c$function contarPares(n) {
+  let pares = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 0) {
+      pares++;
+    }
+  }
+  return pares;
+}$c$, $c$Um contador começa em 0 e sobe 1 para cada par encontrado entre 1 e n.$c$),
+  ($c$contador-contar-vogais$c$, $c$function contarVogais(texto) {
+  let vogais = 0;
+  for (let i = 0; i < texto.length; i++) {
+    if ("aeiou".includes(texto[i].toLowerCase())) {
+      vogais++;
+    }
+  }
+  return vogais;
+}$c$, $c$O laço percorre cada letra e, se ela é uma vogal, o contador sobe 1.$c$),
+  ($c$contador-corrija-o-inicio$c$, $c$function contarMultiplos(n, k) {
+  let contador = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % k === 0) {
+      contador++;
+    }
+  }
+  return contador;
+}$c$, $c$Um contador começa em 0: antes de olhar os números, nada foi contado. Começando em 1, o resultado fica sempre um a mais.$c$),
+  ($c$contador-contar-divisores$c$, $c$function contarDivisores(n) {
+  let divisores = 0;
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) {
+      divisores++;
+    }
+  }
+  return divisores;
+}$c$, $c$Um contador sobe para cada i de 1 até n que divide n sem deixar resto.$c$),
+  ($c$acumulador-soma-dos-pares$c$, $c$function somaDosPares(n) {
+  let soma = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 0) {
+      soma += i;
+    }
+  }
+  return soma;
+}$c$, $c$O acumulador começa em 0 e soma cada par encontrado entre 1 e n.$c$),
+  ($c$acumulador-somar-tres-entradas$c$, $c$function somarTres() {
+  let soma = 0;
+  for (let i = 0; i < 3; i++) {
+    soma += Number(lerEntrada());
+  }
+  console.log(soma);
+}$c$, $c$Um for de 3 voltas lê cada número, converte e soma ao acumulador. Ao final, mostra o total.$c$),
+  ($c$acumulador-corrija-o-produto$c$, $c$function produtoAte(n) {
+  let produto = 1;
+  for (let i = 1; i <= n; i++) {
+    produto *= i;
+  }
+  return produto;
+}$c$, $c$Para multiplicar, o acumulador deve começar em 1 (o elemento neutro do produto). Começando em 0, o resultado é sempre 0.$c$),
+  ($c$acumulador-media-das-entradas$c$, $c$function media() {
+  const quantidade = Number(lerEntrada());
+  let soma = 0;
+  for (let i = 0; i < quantidade; i++) {
+    soma += Number(lerEntrada());
+  }
+  console.log(soma / quantidade);
+}$c$, $c$O acumulador soma os números lidos em um for e, depois do laço, a soma é dividida pela quantidade.$c$),
+  ($c$break-primeiro-divisor$c$, $c$function primeiroDivisor(n) {
+  let divisor = n;
+  for (let i = 2; i <= n; i++) {
+    if (n % i === 0) {
+      divisor = i;
+      break;
+    }
+  }
+  return divisor;
+}$c$, $c$O laço testa 2, 3, 4... e o break encerra no primeiro divisor. Se nenhum antes de n divide, o próprio n é o primeiro divisor.$c$),
+  ($c$break-somar-ate-negativo$c$, $c$function somarAteNegativo() {
+  let soma = 0;
+  while (true) {
+    const n = Number(lerEntrada());
+    if (n < 0) {
+      break;
+    }
+    soma += n;
+  }
+  console.log(soma);
+}$c$, $c$O laço lê cada número e, ao encontrar um negativo, o break encerra antes de somá-lo.$c$),
+  ($c$break-corrija-o-primeiro$c$, $c$function primeiroMultiploDe7(limite) {
+  let achado = -1;
+  for (let i = 1; i <= limite; i++) {
+    if (i % 7 === 0) {
+      achado = i;
+      break;
+    }
+  }
+  return achado;
+}$c$, $c$Sem break, o laço continua e sobrescreve achado com os múltiplos seguintes. O break encerra na primeira ocorrência.$c$),
+  ($c$break-eh-primo$c$, $c$function ehPrimo(n) {
+  if (n < 2) {
+    return false;
+  }
+  let primo = true;
+  for (let i = 2; i < n; i++) {
+    if (n % i === 0) {
+      primo = false;
+      break;
+    }
+  }
+  return primo;
+}$c$, $c$O laço procura um divisor entre 2 e n - 1; ao achar um, o break (ou return) encerra. Se não achar e n > 1, n é primo.$c$),
+  ($c$continue-soma-sem-multiplos-de-tres$c$, $c$function somaSemMultiplosDeTres(n) {
+  let soma = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0) {
+      continue;
+    }
+    soma += i;
+  }
+  return soma;
+}$c$, $c$O laço soma cada i ao acumulador, exceto os múltiplos de 3, que caem no continue.$c$),
+  ($c$continue-sem-vogais$c$, $c$function semVogais(texto) {
+  let resultado = "";
+  for (let i = 0; i < texto.length; i++) {
+    if ("aeiou".includes(texto[i].toLowerCase())) {
+      continue;
+    }
+    resultado += texto[i];
+  }
+  return resultado;
+}$c$, $c$O laço percorre as letras; vogais são puladas e as demais são acrescentadas ao resultado.$c$),
+  ($c$continue-corrija-o-laco$c$, $c$function somarImpares(n) {
+  let i = 0;
+  let soma = 0;
+  while (i < n) {
+    i++;
+    if (i % 2 === 0) {
+      continue;
+    }
+    soma += i;
+  }
+  return soma;
+}$c$, $c$Com o continue antes de i++, quando i é par o contador nunca avança. Atualize i antes do continue (por exemplo, no início do laço, somando 1).$c$),
+  ($c$aninhados-retangulo$c$, $c$function retangulo(linhas, colunas) {
+  for (let i = 0; i < linhas; i++) {
+    let linha = "";
+    for (let j = 0; j < colunas; j++) {
+      linha += "*";
+    }
+    console.log(linha);
+  }
+}$c$, $c$O laço externo percorre as linhas; o interno acrescenta um asterisco por coluna; ao fim de cada linha, ela é mostrada.$c$),
+  ($c$aninhados-tabela-de-multiplicacao$c$, $c$function tabela() {
+  for (let i = 1; i <= 3; i++) {
+    let linha = "";
+    for (let j = 1; j <= 3; j++) {
+      linha += (j === 1 ? "" : " ") + i * j;
+    }
+    console.log(linha);
+  }
+}$c$, $c$O laço externo escolhe a linha (i) e o interno percorre as colunas (j), juntando os produtos em um texto que é mostrado ao fim da linha.$c$),
+  ($c$aninhados-corrija-o-triangulo$c$, $c$function triangulo(n) {
+  for (let i = 1; i <= n; i++) {
+    let linha = "";
+    for (let j = 1; j <= i; j++) {
+      linha += "*";
+    }
+    console.log(linha);
+  }
+}$c$, $c$Com j <= n, todas as linhas têm n asteriscos. Com j <= i, a linha i tem i asteriscos.$c$),
+  ($c$aninhados-contar-pares$c$, $c$function contarPares(n) {
+  let pares = 0;
+  for (let i = 1; i <= n; i++) {
+    for (let j = i + 1; j <= n; j++) {
+      pares++;
+    }
+  }
+  return pares;
+}$c$, $c$O laço interno começa em i + 1, então cada par é contado uma só vez. Um contador soma 1 a cada par.$c$),
+  ($c$desafio5-adivinhacao$c$, $c$function adivinhar(segredo, tentativas) {
+  for (let i = 1; i <= tentativas; i++) {
+    const palpite = Number(lerEntrada());
+    if (palpite === segredo) {
+      console.log("Acertou! Tentativas: " + i);
+      return;
+    } else if (palpite < segredo) {
+      console.log("O número é maior");
+    } else {
+      console.log("O número é menor");
+    }
+  }
+  console.log("Fim de jogo! O número era " + segredo);
+}$c$, $c$Um for percorre as tentativas, lendo e comparando cada palpite. No acerto, o jogo encerra com o número de tentativas usadas; se o laço acaba, revela o número.$c$),
+  ($c$desafio5-corrija-o-resumo$c$, $c$function resumo(n) {
+  let soma = 0;
+  let pares = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 2 === 0) {
+      pares++;
+      continue;
+    }
+    soma += i;
+  }
+  return soma + " " + pares;
+}$c$, $c$O pares++ ficava depois do continue, então nunca executava. Colocando-o antes do continue, cada par é contado e depois a volta é pulada.$c$),
   ($c$soma-vetor$c$, $c$function somaVetor(v) {
   let s = 0;
   for (let i = 0; i < v.length; i++) s += v[i];
@@ -2319,7 +3147,7 @@ on conflict (exercise_id) do update set solution = excluded.solution, commentary
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -2819,6 +3647,183 @@ from (values
   ($c$conta-digitos$c$, $c$m5-contadores$c$, 1),
   ($c$mdc$c$, $c$m5-while$c$, 2),
   ($c$mdc$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$rep-intro-para-que-serve$c$, $c$m5-introducao$c$, 3),
+  ($c$rep-intro-tres-ois$c$, $c$m5-introducao$c$, 3),
+  ($c$rep-intro-tres-ois$c$, $c$m5-for$c$, 1),
+  ($c$rep-intro-complete-o-while$c$, $c$m5-introducao$c$, 2),
+  ($c$rep-intro-complete-o-while$c$, $c$m5-while$c$, 1),
+  ($c$rep-intro-ordem-do-laco$c$, $c$m5-introducao$c$, 3),
+  ($c$rep-intro-ordem-do-laco$c$, $c$m5-while$c$, 1),
+  ($c$rep-intro-laco-infinito$c$, $c$m5-introducao$c$, 3),
+  ($c$rep-intro-laco-infinito$c$, $c$m5-while$c$, 1),
+  ($c$rep-intro-repetir-texto$c$, $c$m5-introducao$c$, 2),
+  ($c$rep-intro-repetir-texto$c$, $c$m5-for$c$, 2),
+  ($c$rep-intro-repetir-texto$c$, $c$m2-concatenacao$c$, 1),
+  ($c$rep-intro-corrija-a-contagem$c$, $c$m5-introducao$c$, 2),
+  ($c$rep-intro-corrija-a-contagem$c$, $c$m5-for$c$, 2),
+  ($c$rep-intro-acompanhe-o-x$c$, $c$m5-introducao$c$, 3),
+  ($c$rep-intro-acompanhe-o-x$c$, $c$m5-for$c$, 1),
+  ($c$rep-intro-acompanhe-o-x$c$, $c$m3-atribuicao$c$, 1),
+  ($c$for-complete-a-condicao$c$, $c$m5-for$c$, 3),
+  ($c$for-mostra-o-indice$c$, $c$m5-for$c$, 3),
+  ($c$for-partes-do-for$c$, $c$m5-for$c$, 3),
+  ($c$for-passo-de-tres$c$, $c$m5-for$c$, 3),
+  ($c$for-tabuada$c$, $c$m5-for$c$, 3),
+  ($c$for-tabuada$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$for-tabuada$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$for-contagem-regressiva$c$, $c$m5-for$c$, 3),
+  ($c$for-corrija-a-soma$c$, $c$m5-for$c$, 2),
+  ($c$for-corrija-a-soma$c$, $c$m5-acumuladores$c$, 1),
+  ($c$for-ordem-de-execucao$c$, $c$m5-for$c$, 3),
+  ($c$for-de-tras-para-frente$c$, $c$m5-for$c$, 3),
+  ($c$for-fatorial$c$, $c$m5-for$c$, 3),
+  ($c$for-fatorial$c$, $c$m5-acumuladores$c$, 2),
+  ($c$for-fatorial$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$while-quando-usar$c$, $c$m5-while$c$, 3),
+  ($c$while-conta-regressiva$c$, $c$m5-while$c$, 3),
+  ($c$while-complete-o-passo$c$, $c$m5-while$c$, 2),
+  ($c$while-complete-o-passo$c$, $c$m3-atribuicao$c$, 1),
+  ($c$while-nenhuma-volta$c$, $c$m5-while$c$, 3),
+  ($c$while-contar-digitos$c$, $c$m5-while$c$, 3),
+  ($c$while-contar-digitos$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$while-corrija-a-condicao$c$, $c$m5-while$c$, 3),
+  ($c$while-corrija-a-condicao$c$, $c$m3-relacionais$c$, 1),
+  ($c$while-passos-de-collatz$c$, $c$m5-while$c$, 3),
+  ($c$while-passos-de-collatz$c$, $c$m4-if-else$c$, 1),
+  ($c$while-passos-de-collatz$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$while-ordem-de-execucao$c$, $c$m5-while$c$, 3),
+  ($c$while-dobrando$c$, $c$m5-while$c$, 3),
+  ($c$while-dobrando$c$, $c$m3-atribuicao$c$, 1),
+  ($c$dowhile-diferenca$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-condicao-falsa$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-complete-o-fim$c$, $c$m5-do-while$c$, 2),
+  ($c$dowhile-conta-ate-tres$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-somar-ate-zero$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-somar-ate-zero$c$, $c$m5-acumuladores$c$, 1),
+  ($c$dowhile-somar-ate-zero$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$dowhile-corrija-o-limite$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-corrija-o-limite$c$, $c$m3-relacionais$c$, 1),
+  ($c$dowhile-sempre-uma-vez$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-minimo-de-voltas$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-validar-nota$c$, $c$m5-do-while$c$, 3),
+  ($c$dowhile-validar-nota$c$, $c$m3-logicos$c$, 2),
+  ($c$dowhile-validar-nota$c$, $c$m2-entrada-saida$c$, 1),
+  ($c$dowhile-ordem-de-execucao$c$, $c$m5-do-while$c$, 3),
+  ($c$contador-o-que-e$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-cinco-voltas$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-cinco-voltas$c$, $c$m5-for$c$, 1),
+  ($c$contador-complete-o-incremento$c$, $c$m5-contadores$c$, 2),
+  ($c$contador-complete-o-incremento$c$, $c$m4-if$c$, 1),
+  ($c$contador-multiplos-de-tres$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-multiplos-de-tres$c$, $c$m4-if$c$, 1),
+  ($c$contador-contar-pares$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-contar-pares$c$, $c$m5-for$c$, 2),
+  ($c$contador-contar-pares$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$contador-contar-vogais$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-contar-vogais$c$, $c$m5-for$c$, 1),
+  ($c$contador-contar-vogais$c$, $c$m2-string$c$, 1),
+  ($c$contador-corrija-o-inicio$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-corrija-o-inicio$c$, $c$m3-atribuicao$c$, 1),
+  ($c$contador-dois-contadores$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-dois-contadores$c$, $c$m4-if-else$c$, 2),
+  ($c$contador-contar-divisores$c$, $c$m5-contadores$c$, 3),
+  ($c$contador-contar-divisores$c$, $c$m5-for$c$, 2),
+  ($c$contador-contar-divisores$c$, $c$m4-if$c$, 1),
+  ($c$acumulador-contador-ou-acumulador$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-contador-ou-acumulador$c$, $c$m5-contadores$c$, 1),
+  ($c$acumulador-soma-um-a-quatro$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-soma-um-a-quatro$c$, $c$m5-for$c$, 1),
+  ($c$acumulador-complete-o-inicio$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-complete-o-inicio$c$, $c$m3-atribuicao$c$, 1),
+  ($c$acumulador-reiniciado$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-reiniciado$c$, $c$m3-atribuicao$c$, 1),
+  ($c$acumulador-soma-dos-pares$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-soma-dos-pares$c$, $c$m5-for$c$, 2),
+  ($c$acumulador-soma-dos-pares$c$, $c$m4-if$c$, 1),
+  ($c$acumulador-somar-tres-entradas$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-somar-tres-entradas$c$, $c$m5-for$c$, 1),
+  ($c$acumulador-somar-tres-entradas$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$acumulador-corrija-o-produto$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-corrija-o-produto$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$acumulador-ate-passar-de-dez$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-ate-passar-de-dez$c$, $c$m5-while$c$, 2),
+  ($c$acumulador-media-das-entradas$c$, $c$m5-acumuladores$c$, 3),
+  ($c$acumulador-media-das-entradas$c$, $c$m5-for$c$, 2),
+  ($c$acumulador-media-das-entradas$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$acumulador-media-das-entradas$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$break-o-que-faz$c$, $c$m5-break$c$, 3),
+  ($c$break-para-no-tres$c$, $c$m5-break$c$, 3),
+  ($c$break-para-no-tres$c$, $c$m5-for$c$, 1),
+  ($c$break-complete-o-comando$c$, $c$m5-break$c$, 2),
+  ($c$break-complete-o-comando$c$, $c$m4-if$c$, 1),
+  ($c$break-while-true$c$, $c$m5-break$c$, 3),
+  ($c$break-while-true$c$, $c$m5-while$c$, 1),
+  ($c$break-primeiro-divisor$c$, $c$m5-break$c$, 3),
+  ($c$break-primeiro-divisor$c$, $c$m5-for$c$, 2),
+  ($c$break-primeiro-divisor$c$, $c$m4-if$c$, 1),
+  ($c$break-somar-ate-negativo$c$, $c$m5-break$c$, 3),
+  ($c$break-somar-ate-negativo$c$, $c$m5-acumuladores$c$, 2),
+  ($c$break-somar-ate-negativo$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$break-corrija-o-primeiro$c$, $c$m5-break$c$, 3),
+  ($c$break-corrija-o-primeiro$c$, $c$m4-if$c$, 1),
+  ($c$break-soma-limitada$c$, $c$m5-break$c$, 3),
+  ($c$break-soma-limitada$c$, $c$m5-acumuladores$c$, 2),
+  ($c$break-soma-limitada$c$, $c$m4-if$c$, 1),
+  ($c$break-eh-primo$c$, $c$m5-break$c$, 3),
+  ($c$break-eh-primo$c$, $c$m5-for$c$, 2),
+  ($c$break-eh-primo$c$, $c$m4-if-else$c$, 1),
+  ($c$continue-break-ou-continue$c$, $c$m5-continue$c$, 3),
+  ($c$continue-break-ou-continue$c$, $c$m5-break$c$, 1),
+  ($c$continue-pula-o-tres$c$, $c$m5-continue$c$, 3),
+  ($c$continue-pula-o-tres$c$, $c$m5-for$c$, 1),
+  ($c$continue-complete-o-comando$c$, $c$m5-continue$c$, 2),
+  ($c$continue-complete-o-comando$c$, $c$m4-if$c$, 1),
+  ($c$continue-so-impares$c$, $c$m5-continue$c$, 3),
+  ($c$continue-so-impares$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$continue-soma-sem-multiplos-de-tres$c$, $c$m5-continue$c$, 3),
+  ($c$continue-soma-sem-multiplos-de-tres$c$, $c$m5-acumuladores$c$, 2),
+  ($c$continue-sem-vogais$c$, $c$m5-continue$c$, 3),
+  ($c$continue-sem-vogais$c$, $c$m2-concatenacao$c$, 1),
+  ($c$continue-sem-vogais$c$, $c$m2-string$c$, 1),
+  ($c$continue-corrija-o-laco$c$, $c$m5-continue$c$, 3),
+  ($c$continue-corrija-o-laco$c$, $c$m5-while$c$, 2),
+  ($c$continue-e-break-juntos$c$, $c$m5-continue$c$, 3),
+  ($c$continue-e-break-juntos$c$, $c$m5-break$c$, 2),
+  ($c$continue-o-que-acontece-depois$c$, $c$m5-continue$c$, 3),
+  ($c$aninhados-quantas-vezes$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-pares-de-valores$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-complete-a-variavel$c$, $c$m5-aninhados$c$, 2),
+  ($c$aninhados-complete-a-variavel$c$, $c$m5-for$c$, 1),
+  ($c$aninhados-conta-as-voltas$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-conta-as-voltas$c$, $c$m5-contadores$c$, 2),
+  ($c$aninhados-retangulo$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-retangulo$c$, $c$m5-for$c$, 2),
+  ($c$aninhados-retangulo$c$, $c$m2-console-log$c$, 1),
+  ($c$aninhados-tabela-de-multiplicacao$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-tabela-de-multiplicacao$c$, $c$m5-for$c$, 2),
+  ($c$aninhados-tabela-de-multiplicacao$c$, $c$m2-concatenacao$c$, 1),
+  ($c$aninhados-corrija-o-triangulo$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-corrija-o-triangulo$c$, $c$m5-for$c$, 1),
+  ($c$aninhados-linha-crescente$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-linha-crescente$c$, $c$m2-concatenacao$c$, 1),
+  ($c$aninhados-contar-pares$c$, $c$m5-aninhados$c$, 3),
+  ($c$aninhados-contar-pares$c$, $c$m5-contadores$c$, 2),
+  ($c$aninhados-contar-pares$c$, $c$m5-for$c$, 1),
+  ($c$aninhados-break-no-interno$c$, $c$m5-aninhados$c$, 2),
+  ($c$aninhados-break-no-interno$c$, $c$m5-break$c$, 2),
+  ($c$desafio5-adivinhacao$c$, $c$m5-for$c$, 2),
+  ($c$desafio5-adivinhacao$c$, $c$m5-break$c$, 2),
+  ($c$desafio5-adivinhacao$c$, $c$m5-contadores$c$, 2),
+  ($c$desafio5-adivinhacao$c$, $c$m4-else-if$c$, 2),
+  ($c$desafio5-adivinhacao$c$, $c$m2-entrada-saida$c$, 1),
+  ($c$desafio5-adivinhacao$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$desafio5-corrija-o-resumo$c$, $c$m5-continue$c$, 2),
+  ($c$desafio5-corrija-o-resumo$c$, $c$m5-contadores$c$, 2),
+  ($c$desafio5-corrija-o-resumo$c$, $c$m5-acumuladores$c$, 2),
+  ($c$desafio5-acompanhe-os-lacos$c$, $c$m5-aninhados$c$, 2),
+  ($c$desafio5-acompanhe-os-lacos$c$, $c$m5-continue$c$, 2),
+  ($c$desafio5-acompanhe-os-lacos$c$, $c$m5-break$c$, 2),
+  ($c$desafio5-acompanhe-os-lacos$c$, $c$m5-acumuladores$c$, 1),
   ($c$soma-vetor$c$, $c$m6-percorrer-for$c$, 2),
   ($c$soma-vetor$c$, $c$m5-acumuladores$c$, 1),
   ($c$inverter-vetor$c$, $c$m6-percorrer-for$c$, 2),
@@ -2854,7 +3859,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

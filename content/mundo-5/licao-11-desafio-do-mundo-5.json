@@ -1,0 +1,106 @@
+{
+  "id": "desafio-do-mundo-5",
+  "mundo": "mundo-5",
+  "titulo": "Desafio final do Mundo 5",
+  "foco": "Juntar os laços em um jogo de adivinhação",
+  "posicao": 510,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou o desafio do Mundo 5: um jogo de adivinhação com tentativas limitadas. O computador \"pensa\" em um número secreto e o jogador tem um número máximo de tentativas para descobri-lo. A cada palpite errado, o programa dá uma dica: o número secreto é maior ou menor que o palpite.\n\nAqui você vai juntar o que aprendeu: laços para repetir as tentativas, contador para saber quantas foram usadas, condicionais (Mundo 4) para dar as dicas e break (ou uma condição no laço) para parar quando o jogador acertar.\n\nO desafio principal é o primeiro exercício. Os outros dois treinam a leitura de laços combinados e a correção de um erro clássico.",
+  "exemplo": "Como montar o jogo:\n1. Use um laço de no máximo \"tentativas\" voltas e um contador (a volta atual).\n2. A cada volta, leia o palpite com lerEntrada() e converta com Number().\n3. Se o palpite for igual ao segredo, mostre Acertou! com o número de tentativas e encerre o laço (break ou return).\n4. Se for menor que o segredo, mostre que o número é maior; se for maior, mostre que é menor.\n5. Se o laço terminar sem acerto, mostre o fim de jogo revelando o número.\n6. Teste o acerto na primeira tentativa, o acerto na última e o fim de jogo.",
+  "revisao": "- Laço com limite de voltas: o número máximo de tentativas.\n- Contador: quantas tentativas foram usadas.\n- Condicionais dão as dicas (maior, menor, acertou).\n- break (ou return) encerra o laço quando o jogador acerta.\n- Teste os casos de fronteira: acertar de primeira, acertar na última tentativa e esgotar as tentativas.",
+  "exercicios": [
+    {
+      "id": "desafio5-adivinhacao",
+      "tipo": "desafio",
+      "titulo": "Desafio: jogo de adivinhação",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m5-break", "peso": 2 },
+        { "id": "m5-contadores", "peso": 2 },
+        { "id": "m4-else-if", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 1 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `adivinhar(segredo, tentativas)`: leia até `tentativas` palpites com `lerEntrada()` (chegam como texto). Para cada palpite errado, mostre `O número é maior` (se o segredo for maior que o palpite) ou `O número é menor`. Se acertar, mostre `Acertou! Tentativas: N` (N = quantos palpites foram usados) e pare de ler. Se as tentativas acabarem sem acerto, mostre `Fim de jogo! O número era X`.",
+      "funcao": "adivinhar",
+      "codigoInicial": "function adivinhar(segredo, tentativas) {\n  // leia os palpites e mostre as dicas\n}\n",
+      "testes": [
+        {
+          "entrada": [7, 3],
+          "entradas": ["5", "9", "7"],
+          "saida": ["O número é maior", "O número é menor", "Acertou! Tentativas: 3"]
+        },
+        { "entrada": [7, 3], "entradas": ["7"], "saida": ["Acertou! Tentativas: 1"] },
+        {
+          "entrada": [7, 2],
+          "entradas": ["1", "2"],
+          "saida": ["O número é maior", "O número é maior", "Fim de jogo! O número era 7"]
+        },
+        {
+          "entrada": [4, 3],
+          "entradas": ["9", "1", "4"],
+          "saida": ["O número é menor", "O número é maior", "Acertou! Tentativas: 3"]
+        },
+        { "entrada": [4, 3], "entradas": ["4", "1"], "saida": ["Acertou! Tentativas: 1"] }
+      ],
+      "dica": "Use um for de 1 até tentativas. Se acertar, mostre a mensagem e use return (ou break); se o laço terminar, mostre o fim de jogo.",
+      "comentario": "Um for percorre as tentativas, lendo e comparando cada palpite. No acerto, o jogo encerra com o número de tentativas usadas; se o laço acaba, revela o número."
+    },
+    {
+      "id": "desafio5-corrija-o-resumo",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija o resumo",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 2 },
+        { "id": "m5-contadores", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "A função `resumo(n)` deveria devolver, em texto, a soma dos ímpares e a quantidade de pares de 1 até n (por exemplo, \"9 3\" para n = 6: ímpares 1 + 3 + 5 = 9 e três pares). Hoje a quantidade de pares sai sempre 0. Corrija o defeito.",
+      "funcao": "resumo",
+      "codigoInicial": "function resumo(n) {\n  let soma = 0;\n  let pares = 0;\n  for (let i = 1; i <= n; i++) {\n    if (i % 2 === 0) {\n      continue;\n      pares++;\n    }\n    soma += i;\n  }\n  return soma + \" \" + pares;\n}\n",
+      "testes": [
+        { "entrada": [6], "esperado": "9 3" },
+        { "entrada": [1], "esperado": "1 0" },
+        { "entrada": [0], "esperado": "0 0" },
+        { "entrada": [10], "esperado": "25 5" }
+      ],
+      "dica": "O que vem depois do continue na mesma volta é executado?",
+      "comentario": "O pares++ ficava depois do continue, então nunca executava. Colocando-o antes do continue, cada par é contado e depois a volta é pulada."
+    },
+    {
+      "id": "desafio5-acompanhe-os-lacos",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe os laços",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-aninhados", "peso": 2 },
+        { "id": "m5-continue", "peso": 2 },
+        { "id": "m5-break", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?",
+      "codigo": "let total = 0;\nfor (let i = 1; i <= 3; i++) {\n  for (let j = 1; j <= 3; j++) {\n    if (j === i) {\n      continue;\n    }\n    if (j > 2) {\n      break;\n    }\n    total += i * j;\n  }\n}\nconsole.log(total);",
+      "opcoes": [
+        {
+          "texto": "12",
+          "confusao": "esquece que o laço interno de i = 3 ainda soma 3 e 6 antes do continue"
+        },
+        { "texto": "18", "confusao": "ignora o break e o continue e soma todos os produtos" },
+        "13",
+        { "texto": "9", "confusao": "acha que o break encerra o laço externo também" }
+      ],
+      "correta": 2,
+      "dica": "Faça uma tabela com i, j e total. O break só encerra o laço interno.",
+      "explicacao": "i = 1: soma 1×2 = 2 (j = 1 é pulado, j = 3 faz break). i = 2: soma 2×1 = 2 (j = 2 pulado, j = 3 break). i = 3: soma 3×1 e 3×2 (j = 3 é pulado). Total: 2 + 2 + 3 + 6 = 13."
+    }
+  ]
+}

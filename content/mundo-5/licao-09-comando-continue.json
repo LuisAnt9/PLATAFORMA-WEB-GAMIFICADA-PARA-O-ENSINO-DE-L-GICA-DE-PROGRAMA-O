@@ -1,0 +1,232 @@
+{
+  "id": "comando-continue",
+  "mundo": "mundo-5",
+  "titulo": "Comando continue",
+  "foco": "Pular uma volta sem encerrar o laço",
+  "posicao": 508,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O comando continue pula o resto da volta atual e passa direto para a próxima volta. Diferente do break, o laço não termina: só aquela volta é interrompida.\n\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    continue;     // pula o resto desta volta\n  }\n  console.log(i);\n}\n\nNo exemplo, o 3 não é mostrado, mas o laço segue com 4 e 5.\n\nÉ útil para ignorar casos que não interessam: pular números pares, ignorar letras que não são vogais, desconsiderar valores inválidos.\n\nNum for, depois do continue o passo (i++) executa normalmente. Num while, cuidado: se a atualização da variável estiver depois do continue, ela será pulada e o laço pode ficar infinito. Faça a atualização antes do continue.",
+  "exemplo": "for (let i = 1; i <= 6; i++) {\n  if (i % 2 === 0) {\n    continue;\n  }\n  console.log(i);\n}\n\nPasso a passo:\n1. i = 1: 1 % 2 é 1, a condição é false: mostra 1.\n2. i = 2: par. O continue pula o console.log e vai para i = 3.\n3. i = 3: mostra 3. i = 4: pulado. i = 5: mostra 5. i = 6: pulado.\n\nResultado: 1, 3 e 5 (só os ímpares).",
+  "revisao": "- continue pula o resto da volta atual e vai para a próxima.\n- O laço não termina: só aquela volta é interrompida.\n- Útil para ignorar valores que não interessam.\n- Num while, atualize a variável antes do continue para evitar laço infinito.\n- break encerra o laço; continue apenas pula uma volta.",
+  "exercicios": [
+    {
+      "id": "continue-break-ou-continue",
+      "tipo": "escolha",
+      "titulo": "break ou continue?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m5-break", "peso": 1 }
+      ],
+      "enunciado": "Qual é a diferença entre break e continue?",
+      "opcoes": [
+        {
+          "texto": "Não há diferença: os dois encerram o laço",
+          "confusao": "acha que break e continue fazem a mesma coisa"
+        },
+        {
+          "texto": "O continue encerra o laço e o break pula a volta",
+          "confusao": "troca o efeito dos dois comandos"
+        },
+        {
+          "texto": "O break só funciona em while e o continue só em for",
+          "confusao": "acha que cada comando é de um tipo de laço"
+        },
+        "O break encerra o laço; o continue pula só a volta atual"
+      ],
+      "correta": 3,
+      "dica": "Um \"quebra\" o laço; o outro \"continua\" na próxima volta.",
+      "explicacao": "O break encerra o laço inteiro. O continue interrompe apenas a volta atual e o laço segue."
+    },
+    {
+      "id": "continue-pula-o-tres",
+      "tipo": "interpretacao",
+      "titulo": "Pula o três",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    continue;\n  }\n  console.log(i);\n}",
+      "opcoes": [
+        "1\n2\n4\n5",
+        { "texto": "1\n2", "confusao": "confunde continue com break (encerra o laço)" },
+        { "texto": "1\n2\n3\n4\n5", "confusao": "acha que o continue não tem efeito" },
+        { "texto": "3", "confusao": "acha que o continue mostra só o valor pulado" }
+      ],
+      "correta": 0,
+      "dica": "O continue pula o console.log só quando i vale 3.",
+      "explicacao": "Em i = 3, o continue pula o resto da volta; o laço segue e mostra 4 e 5."
+    },
+    {
+      "id": "continue-complete-o-comando",
+      "tipo": "lacuna",
+      "titulo": "Complete o comando",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Complete o comando que pula as voltas em que i é par, para mostrar só os ímpares.",
+      "modelo": "for (let i = 1; i <= 5; i++) {\n  if (i % 2 === 0) {\n    {{1}};\n  }\n  console.log(i);\n}",
+      "lacunas": [
+        { "respostas": ["continue"] }
+      ],
+      "dica": "Não queremos encerrar o laço, só pular.",
+      "explicacao": "continue pula o resto da volta e passa para a próxima."
+    },
+    {
+      "id": "continue-so-impares",
+      "tipo": "interpretacao",
+      "titulo": "Só os ímpares",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 6; i++) {\n  if (i % 2 === 0) {\n    continue;\n  }\n  console.log(i);\n}",
+      "opcoes": [
+        { "texto": "2\n4\n6", "confusao": "inverte: acha que o continue seleciona os pares" },
+        { "texto": "1", "confusao": "acha que o continue encerra o laço depois do primeiro valor" },
+        "1\n3\n5",
+        { "texto": "1\n2\n3\n4\n5\n6", "confusao": "acha que o continue não pula nada" }
+      ],
+      "correta": 2,
+      "dica": "Para os pares, o console.log é pulado.",
+      "explicacao": "Os pares (2, 4 e 6) caem no continue e são pulados; os ímpares são mostrados."
+    },
+    {
+      "id": "continue-soma-sem-multiplos-de-tres",
+      "tipo": "codigo",
+      "titulo": "Soma sem múltiplos de 3",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `somaSemMultiplosDeTres(n)` que devolve a soma de 1 até n, ignorando os múltiplos de 3. Use continue.",
+      "funcao": "somaSemMultiplosDeTres",
+      "codigoInicial": "function somaSemMultiplosDeTres(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [10], "esperado": 37 },
+        { "entrada": [2], "esperado": 3 },
+        { "entrada": [3], "esperado": 3 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "Quando i % 3 === 0, pule a volta.",
+      "comentario": "O laço soma cada i ao acumulador, exceto os múltiplos de 3, que caem no continue."
+    },
+    {
+      "id": "continue-sem-vogais",
+      "tipo": "codigo",
+      "titulo": "Texto sem vogais",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m2-concatenacao", "peso": 1 },
+        { "id": "m2-string", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `semVogais(texto)` que devolve o texto sem as vogais (a, e, i, o, u, maiúsculas ou minúsculas). Use continue para pular as vogais.",
+      "funcao": "semVogais",
+      "codigoInicial": "function semVogais(texto) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["banana"], "esperado": "bnn" },
+        { "entrada": ["Sol"], "esperado": "Sl" },
+        { "entrada": ["aeiou"], "esperado": "" },
+        { "entrada": ["Ola"], "esperado": "l" }
+      ],
+      "dica": "Se a letra for vogal, pule; senão, acrescente ao resultado.",
+      "comentario": "O laço percorre as letras; vogais são puladas e as demais são acrescentadas ao resultado."
+    },
+    {
+      "id": "continue-corrija-o-laco",
+      "tipo": "corrigir",
+      "titulo": "Corrija o laço",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m5-while", "peso": 2 }
+      ],
+      "enunciado": "A função `somarImpares(n)` deveria devolver a soma dos ímpares de 1 até n, mas o laço nunca termina (o computador desiste por tempo esgotado). Corrija o defeito.",
+      "funcao": "somarImpares",
+      "codigoInicial": "function somarImpares(n) {\n  let i = 0;\n  let soma = 0;\n  while (i < n) {\n    if (i % 2 === 0) {\n      continue;\n    }\n    soma += i;\n    i++;\n  }\n  return soma;\n}\n",
+      "testes": [
+        { "entrada": [5], "esperado": 9 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [0], "esperado": 0 }
+      ],
+      "dica": "O i++ está depois do continue: ele chega a ser executado quando i é par?",
+      "comentario": "Com o continue antes de i++, quando i é par o contador nunca avança. Atualize i antes do continue (por exemplo, no início do laço, somando 1)."
+    },
+    {
+      "id": "continue-e-break-juntos",
+      "tipo": "interpretacao",
+      "titulo": "continue e break juntos",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 },
+        { "id": "m5-break", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 10; i++) {\n  if (i % 2 === 0) {\n    continue;\n  }\n  if (i > 7) {\n    break;\n  }\n  console.log(i);\n}",
+      "opcoes": [
+        {
+          "texto": "1\n3\n5\n7\n9",
+          "confusao": "esquece que o break encerra o laço quando i passa de 7"
+        },
+        "1\n3\n5\n7",
+        { "texto": "2\n4\n6", "confusao": "acha que o continue seleciona os pares" },
+        { "texto": "1\n3\n5\n7\n9\n11", "confusao": "acha que o laço segue depois do break" }
+      ],
+      "correta": 1,
+      "dica": "Pares são pulados; quando i chega a 9 (ímpar), o break entra em ação.",
+      "explicacao": "Os pares são pulados e os ímpares até 7 são mostrados. Em i = 9, o break encerra o laço."
+    },
+    {
+      "id": "continue-o-que-acontece-depois",
+      "tipo": "escolha",
+      "titulo": "O que vem depois do continue?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-continue", "peso": 3 }
+      ],
+      "enunciado": "Em uma volta em que o continue é executado, o que acontece com as instruções que vêm depois dele no corpo do laço?",
+      "opcoes": [
+        {
+          "texto": "Elas executam normalmente, depois o laço continua",
+          "confusao": "acha que o continue não altera o fluxo da volta"
+        },
+        {
+          "texto": "O laço encerra e elas são ignoradas para sempre",
+          "confusao": "confunde continue com break"
+        },
+        { "texto": "O laço recomeça do zero", "confusao": "acha que o continue reinicia o laço" },
+        "Elas são ignoradas nessa volta, e o laço segue com a próxima volta"
+      ],
+      "correta": 3,
+      "dica": "O continue \"pula\" o restante da volta.",
+      "explicacao": "O continue interrompe a volta atual: o que está depois dele é ignorado só nessa volta, e o laço continua."
+    }
+  ]
+}

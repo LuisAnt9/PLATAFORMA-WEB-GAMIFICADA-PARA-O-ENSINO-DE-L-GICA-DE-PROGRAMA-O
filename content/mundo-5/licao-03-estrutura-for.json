@@ -1,0 +1,261 @@
+{
+  "id": "estrutura-for",
+  "mundo": "mundo-5",
+  "titulo": "Estrutura for",
+  "foco": "Repetir um número conhecido de vezes",
+  "posicao": 502,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O for é o laço ideal quando você já sabe quantas vezes quer repetir. Ele reúne as três partes do laço em uma só linha:\n\nfor (inicialização; condição; passo) {\n  // corpo do laço\n}\n\n- Inicialização: executa uma única vez, antes da primeira volta (por exemplo, let i = 0).\n- Condição: é testada antes de cada volta. Se for falsa, o laço termina.\n- Passo: executa depois de cada volta (por exemplo, i++ soma 1; i += 2 soma 2; i-- subtrai 1).\n\nAtenção ao limite: for (let i = 0; i < 3; i++) repete 3 vezes (0, 1 e 2), enquanto i <= 3 repetiria 4 vezes (0, 1, 2 e 3). Errar o limite por uma volta é o famoso \"erro de um\".\n\nA ordem de execução é: inicialização → condição → corpo → passo → condição → corpo → passo... até a condição ficar falsa.",
+  "exemplo": "for (let i = 1; i <= 10; i += 3) {\n  console.log(i);\n}\n\nPasso a passo:\n1. i começa em 1. A condição 1 <= 10 é true: mostra 1.\n2. O passo i += 3 faz i valer 4: 4 <= 10 é true: mostra 4.\n3. i vale 7: true, mostra 7.\n4. i vale 10: true, mostra 10.\n5. i vale 13: 13 <= 10 é false, o laço termina.\n\nResultado: 1, 4, 7 e 10.",
+  "revisao": "- for (inicialização; condição; passo): três partes em uma linha.\n- A inicialização executa uma vez; a condição é testada antes de cada volta; o passo roda depois de cada volta.\n- i < n repete n vezes a partir de 0; i <= n inclui o valor n.\n- O passo pode ser i++, i--, i += 2... conforme o que o problema pede.\n- Cuidado com o erro de um no limite do laço.",
+  "exercicios": [
+    {
+      "id": "for-complete-a-condicao",
+      "tipo": "lacuna",
+      "titulo": "Complete a condição",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "Complete a condição para que o laço repita 3 vezes (com i valendo 0, 1 e 2).",
+      "modelo": "for (let i = 0; {{1}}; i++) {\n  console.log(i);\n}",
+      "lacunas": [
+        { "respostas": ["i < 3", "i<3", "i <= 2", "i<=2"] }
+      ],
+      "dica": "O laço deve parar quando i chegar a 3.",
+      "explicacao": "i < 3 é verdadeira para 0, 1 e 2 e falsa quando i vale 3, resultando em 3 voltas."
+    },
+    {
+      "id": "for-mostra-o-indice",
+      "tipo": "interpretacao",
+      "titulo": "Quais números?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 0; i < 3; i++) {\n  console.log(i);\n}",
+      "opcoes": [
+        { "texto": "1\n2\n3", "confusao": "acha que a contagem começa em 1" },
+        "0\n1\n2",
+        { "texto": "0\n1\n2\n3", "confusao": "inclui o valor do limite (i < 3 deixa o 3 de fora)" },
+        { "texto": "0\n1", "confusao": "erra uma volta (erro de um)" }
+      ],
+      "correta": 1,
+      "dica": "O laço começa com i = 0 e para quando i chega a 3.",
+      "explicacao": "i vale 0, 1 e 2. Quando vale 3, a condição i < 3 é falsa e o laço termina sem mostrar o 3."
+    },
+    {
+      "id": "for-partes-do-for",
+      "tipo": "escolha",
+      "titulo": "As partes do for",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "Em for (let i = 0; i < 5; i++), qual parte é executada uma única vez, antes da primeira volta?",
+      "opcoes": [
+        { "texto": "i < 5", "confusao": "acha que a condição é testada só no início" },
+        { "texto": "i++", "confusao": "acha que o passo executa antes do corpo" },
+        { "texto": "O corpo do laço", "confusao": "acha que o corpo executa uma vez só" },
+        "let i = 0"
+      ],
+      "correta": 3,
+      "dica": "Qual parte prepara o contador?",
+      "explicacao": "A inicialização executa uma única vez. A condição é testada antes de cada volta e o passo depois de cada volta."
+    },
+    {
+      "id": "for-passo-de-tres",
+      "tipo": "interpretacao",
+      "titulo": "Passo de três",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 1; i <= 10; i += 3) {\n  console.log(i);\n}",
+      "opcoes": [
+        "1\n4\n7\n10",
+        { "texto": "1\n2\n3\n4\n5\n6\n7\n8\n9\n10", "confusao": "ignora o passo e conta de 1 em 1" },
+        { "texto": "1\n4\n7", "confusao": "para antes do 10, achando que o limite não é incluído" },
+        { "texto": "3\n6\n9", "confusao": "acha que a contagem começa pelo passo" }
+      ],
+      "correta": 0,
+      "dica": "Some 3 a cada volta e confira se ainda é menor ou igual a 10.",
+      "explicacao": "i vale 1, 4, 7 e 10 (todos <= 10). O próximo seria 13, que torna a condição falsa."
+    },
+    {
+      "id": "for-tabuada",
+      "tipo": "codigo",
+      "titulo": "Tabuada",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 },
+        { "id": "m2-entrada-saida", "peso": 2 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `tabuada()`: leia um número com `lerEntrada()` (chega como texto) e mostre a tabuada de 1 a 10, uma linha por multiplicação, no formato `5 x 1 = 5`.",
+      "funcao": "tabuada",
+      "codigoInicial": "function tabuada() {\n  // leia o número e mostre as 10 linhas\n}\n",
+      "testes": [
+        {
+          "entrada": [],
+          "entradas": ["5"],
+          "saida": [
+            "5 x 1 = 5",
+            "5 x 2 = 10",
+            "5 x 3 = 15",
+            "5 x 4 = 20",
+            "5 x 5 = 25",
+            "5 x 6 = 30",
+            "5 x 7 = 35",
+            "5 x 8 = 40",
+            "5 x 9 = 45",
+            "5 x 10 = 50"
+          ]
+        },
+        {
+          "entrada": [],
+          "entradas": ["2"],
+          "saida": [
+            "2 x 1 = 2",
+            "2 x 2 = 4",
+            "2 x 3 = 6",
+            "2 x 4 = 8",
+            "2 x 5 = 10",
+            "2 x 6 = 12",
+            "2 x 7 = 14",
+            "2 x 8 = 16",
+            "2 x 9 = 18",
+            "2 x 10 = 20"
+          ]
+        }
+      ],
+      "dica": "Converta a entrada com Number() e repita de 1 a 10 com um for.",
+      "comentario": "Um for de 1 a 10 mostra uma linha por volta, usando o número lido e o valor do contador."
+    },
+    {
+      "id": "for-contagem-regressiva",
+      "tipo": "codigo",
+      "titulo": "Contagem regressiva",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "Escreva a função `regressiva(n)` que devolve os números de n até 1, separados por espaço (por exemplo, \"3 2 1\"). Para n = 0, devolve texto vazio.",
+      "funcao": "regressiva",
+      "codigoInicial": "function regressiva(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": "3 2 1" },
+        { "entrada": [1], "esperado": "1" },
+        { "entrada": [0], "esperado": "" },
+        { "entrada": [5], "esperado": "5 4 3 2 1" }
+      ],
+      "dica": "O passo pode diminuir: i--.",
+      "comentario": "Um for que começa em n e usa i-- enquanto i >= 1 percorre os números de trás para frente."
+    },
+    {
+      "id": "for-corrija-a-soma",
+      "tipo": "corrigir",
+      "titulo": "Corrija a soma",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 1 }
+      ],
+      "enunciado": "A função `somarAte(n)` deveria devolver a soma de 1 até n (por exemplo, 10 para n = 4), mas devolve um valor menor. Corrija o defeito.",
+      "funcao": "somarAte",
+      "codigoInicial": "function somarAte(n) {\n  let soma = 0;\n  for (let i = 1; i < n; i++) {\n    soma += i;\n  }\n  return soma;\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 10 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [10], "esperado": 55 }
+      ],
+      "dica": "O valor n está sendo somado?",
+      "comentario": "Com i < n, o último valor (n) fica de fora. Usando i <= n, a soma inclui todos os números de 1 a n."
+    },
+    {
+      "id": "for-ordem-de-execucao",
+      "tipo": "ordenacao",
+      "titulo": "Ordem de execução do for",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "Coloque na ordem em que o computador executa as partes de um for.",
+      "itens": [
+        "Executa a inicialização (uma vez)",
+        "Testa a condição",
+        "Executa o corpo do laço",
+        "Executa o passo (i++)",
+        "Testa a condição de novo"
+      ],
+      "dica": "A inicialização só acontece uma vez, antes de tudo.",
+      "explicacao": "Inicialização, condição, corpo e passo; depois o computador volta a testar a condição até ela ficar falsa."
+    },
+    {
+      "id": "for-de-tras-para-frente",
+      "tipo": "interpretacao",
+      "titulo": "De trás para frente",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "for (let i = 5; i > 0; i -= 2) {\n  console.log(i);\n}",
+      "opcoes": [
+        { "texto": "5\n4\n3\n2\n1", "confusao": "ignora o passo de 2 e conta de 1 em 1" },
+        { "texto": "5\n3", "confusao": "para antes do 1, achando que i > 0 exclui o 1" },
+        "5\n3\n1",
+        { "texto": "5\n3\n1\n-1", "confusao": "acha que o laço continua depois de i chegar a 1" }
+      ],
+      "correta": 2,
+      "dica": "Subtraia 2 a cada volta e confira se ainda é maior que 0.",
+      "explicacao": "i vale 5, 3 e 1. Depois vem -1, que não é maior que 0: o laço termina."
+    },
+    {
+      "id": "for-fatorial",
+      "tipo": "codigo",
+      "titulo": "Fatorial",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m5-for", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `fatorial(n)` que devolve o produto de 1 até n (o fatorial de 5 é 5 × 4 × 3 × 2 × 1 = 120). O fatorial de 0 é 1.",
+      "funcao": "fatorial",
+      "codigoInicial": "function fatorial(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [0], "esperado": 1 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [5], "esperado": 120 },
+        { "entrada": [6], "esperado": 720 }
+      ],
+      "dica": "Para multiplicar, o acumulador deve começar em 1, não em 0.",
+      "comentario": "O resultado começa em 1 e é multiplicado por cada valor de 1 até n. Para n = 0 o laço não executa e o resultado continua 1."
+    }
+  ]
+}

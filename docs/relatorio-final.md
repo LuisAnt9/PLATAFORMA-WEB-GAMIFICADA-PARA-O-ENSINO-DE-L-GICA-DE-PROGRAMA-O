@@ -14,7 +14,7 @@ Data: 19/11/2026. Branch `claude/development-needed-6vi6j1`.
 | Testes de navegador (e2e), em computador | 14 suítes, todas passando |
 | Testes de navegador, em celular (390×844) | passando: área do aluno, atividades, inteligência, modo aprendizado e privacidade/pesquisa |
 | Navegação só pelo teclado | passando (pular para o conteúdo, menu, lição, exercício, ranking e questionário) |
-| Acessibilidade (axe, WCAG 2.2 AA) | ver 1.3 |
+| Acessibilidade (axe, WCAG 2.2 AA), todas as telas, 4 combinações | **nenhuma violação** (ver 1.3) |
 
 ### 1.1 Permissões (testes de banco)
 - Toda tabela do esquema `public` tem RLS ligada; visitante não tem permissão em nenhuma tabela e só executa funções puras e o `ping`.
@@ -33,7 +33,7 @@ Data: 19/11/2026. Branch `claude/development-needed-6vi6j1`.
 ### 1.3 Acessibilidade
 - Nas etapas anteriores, a suíte completa (4 combinações: celular/computador × claro/escuro) achou menu estourando a largura no celular, dois links sem sublinhado e um rótulo repetido. Tudo foi corrigido e reconferido.
 - Telas novas da E15 (política, questionário do aluno e painel de pesquisa do professor): sem violações.
-- **Atenção:** a execução completa da suíte final de acessibilidade, com todas as telas, estava em andamento quando este relatório foi escrito. O resultado dela fica em `e2e/.out/audit.json` quando terminar; rode `node e2e/acessibilidade.mjs` para refazer.
+- **Suíte final completa** (todas as telas do aluno e do professor, 4 combinações de celular/computador × claro/escuro, com checagem de rolagem horizontal): **nenhuma violação do axe e nenhuma rolagem horizontal.**
 
 ### 1.4 Execução segura de código
 Em navegador real: laço infinito (tempo esgotado), `fetch`, `XMLHttpRequest`, `WebSocket`, `importScripts`, `import()`, `new Function`, construtor de função assíncrona, `localStorage`, `sendBeacon`, `document`, `postMessage` forjado, 200 mil linhas de saída e consumo de memória sem fim. Tudo bloqueado ou interrompido, a página continua viva, **nenhuma requisição saiu para a internet** e o código normal volta a funcionar depois.

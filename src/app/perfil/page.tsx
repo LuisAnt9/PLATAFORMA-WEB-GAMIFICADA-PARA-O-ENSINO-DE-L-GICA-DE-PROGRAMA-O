@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import MyClasses from "@/components/MyClasses";
 import { CatalogGate, useCatalog } from "@/components/CatalogProvider";
-import RankingOptIn from "@/components/RankingOptIn";
+import PrivacySettings from "@/components/PrivacySettings";
 import { useTotalXp } from "@/components/useBadgeContext";
 import { useStreak } from "@/lib/activity-store";
 import { localDay, recentDays } from "@/lib/streak";
@@ -147,12 +147,19 @@ function PerfilContent() {
 
       {profile.role === "aluno" && <MyClasses />}
 
+      <PrivacySettings />
+
       {profile.role === "aluno" && (
-        <section aria-labelledby="privacidade">
-          <h2 id="privacidade" className="mb-3 text-lg font-semibold">
-            Privacidade
+        <section aria-labelledby="pesquisa">
+          <h2 id="pesquisa" className="mb-2 text-lg font-semibold">
+            Sua opinião
           </h2>
-          <RankingOptIn />
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Ajude a avaliar a plataforma respondendo a dois questionários curtos, de forma anônima se preferir.{" "}
+            <Link href="/pesquisa" className="text-emerald-700 underline dark:text-emerald-400">
+              Responder agora
+            </Link>
+          </p>
         </section>
       )}
 

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import AuthProvider from "@/components/AuthProvider";
 import CatalogProvider from "@/components/CatalogProvider";
+import ConsentGate from "@/components/ConsentGate";
 import GamificationSync from "@/components/GamificationSync";
 import Header from "@/components/Header";
 import { THEME_SCRIPT } from "@/lib/theme";
@@ -60,7 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 tabIndex={-1}
                 className="mx-auto w-full max-w-4xl flex-1 px-4 py-8 outline-none"
               >
-                {children}
+                <ConsentGate>{children}</ConsentGate>
               </main>
             </CatalogProvider>
           </AuthProvider>

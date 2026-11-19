@@ -13,7 +13,8 @@
     "content:check": "node scripts/content-check.mjs",
     "content:build": "node scripts/content-build.mjs",
     "content:review": "node scripts/content-review.mjs",
-    "content:publish": "node scripts/content-publish.mjs"
+    "content:publish": "node scripts/content-publish.mjs",
+    "docs:er": "node scripts/gerar-er.mjs"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.5",

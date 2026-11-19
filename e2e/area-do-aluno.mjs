@@ -29,7 +29,7 @@ const links=[["a1","k1"],["a2","k1"],["a3","k2"]].map(([e,c])=>({exercise_id:e,c
 
 const patches=[]; let rankingRows=[];
 async function newCtx({solved=[],extra=[],colorScheme="light",days=[]}={}){
-  const ctx=await b.newContext({viewport:{width:1000,height:1000},colorScheme});
+  const ctx=await b.newContext({viewport:{width:Number(process.env.E2E_W||1000),height:Number(process.env.E2E_H||1000)},colorScheme});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
   await ctx.route("**/*.supabase.co/**", async route=>{
     const req=route.request(), u=req.url(), m=req.method();

@@ -17,6 +17,9 @@ const suites = [
   ["area-do-aluno", "Área do aluno: início, mundos, lição em passos, progresso, conquistas e tema"],
   ["atividades", "Atividades e avaliações: professor cria, aluno resolve, professor acompanha"],
   ["inteligencia", "Painel de dificuldades por conceito, recomendações, filtros e análise individual (dados de simulação)"],
+  ["seguranca-do-executor", "Execução segura de código: rede, DOM, saída gigante, memória e laço infinito"],
+  ["privacidade-e-pesquisa", "Consentimento, privacidade (LGPD), questionários SUS/Likert e painel de pesquisa"],
+  ["teclado", "Navegação só pelo teclado: pular para o conteúdo, menu, lição, exercício, ranking e questionário"],
   ["acessibilidade", "Acessibilidade (axe) e layout em celular/computador, claro/escuro"],
 ];
 

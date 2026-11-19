@@ -34,7 +34,7 @@ const mkReport=(total)=>({
 const calls=[]; let total=8;
 const attemptsDetail=[{id:1,exercise_id:"l1",passed:false,answer:"{\"selected\":1}",error_category:"escolha_incorreta",misconception:"confunde && com ||",mode:"livre",created_at:ago(3)},{id:2,exercise_id:"l2",passed:true,answer:null,error_category:null,misconception:null,mode:"atividade",created_at:ago(1)}];
 
-const ctx=await b.newContext({viewport:{width:1100,height:1000}});
+const ctx=await b.newContext({viewport:{width:Number(process.env.E2E_W||1000),height:Number(process.env.E2E_H||1000)}});
 await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
 await ctx.route("**/*.supabase.co/**", async route=>{
   const req=route.request(), u=req.url(), m=req.method(), acc=req.headers()["accept"]||"";

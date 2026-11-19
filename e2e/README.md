@@ -24,4 +24,12 @@ Chromium/Chrome) e `E2E_OUT` (onde guardar capturas e relatórios; padrão `e2e/
 | `editor-de-codigo.mjs` | criar/editar exercício de código, validação com solução de referência, rascunho, reordenar, módulos |
 | `analise-da-turma.mjs` | painel da turma: alertas, gráfico, grade de progresso, exercícios mais difíceis |
 | `tipos-e-sequencia.mjs` | múltipla escolha, lacunas, sequência diária, medalha de constância e editor dos novos tipos |
-| `acessibilidade.mjs` | axe-core (WCAG 2.2 AA) em 15 telas × celular/computador × claro/escuro, e rolagem horizontal |
+| `atividades.mjs` | ciclo completo: professor cria atividade e avaliação, aluno resolve, professor acompanha |
+| `inteligencia.mjs` | painel de conceitos, recomendações, filtros, reforço pré-preenchido e análise individual (dados de simulação) |
+| `seguranca-do-executor.mjs` | rede, DOM, `importScripts`, `new Function`, saída gigante e consumo de memória no executor de código |
+| `privacidade-e-pesquisa.mjs` | consentimento no cadastro, aceite de contas antigas, desligar IA, baixar dados, excluir conta, SUS/Likert e painel de pesquisa |
+| `teclado.mjs` | navegação só pelo teclado (pular para o conteúdo, menu, lição, exercício, ranking, questionário) |
+| `acessibilidade.mjs` | axe-core (WCAG 2.2 AA) em todas as telas × celular/computador × claro/escuro, e rolagem horizontal |
+
+Para rodar uma suíte no tamanho de celular: `E2E_W=390 E2E_H=844 node e2e/area-do-aluno.mjs` (vale para `area-do-aluno`, `atividades`,
+`inteligencia`, `modo-aprendizado` e `privacidade-e-pesquisa`).

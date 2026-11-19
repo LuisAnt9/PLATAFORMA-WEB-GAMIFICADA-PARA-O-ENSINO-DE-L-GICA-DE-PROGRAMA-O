@@ -58,6 +58,12 @@ export async function POST(request: Request) {
     p_limit: DAILY_HINT_LIMIT,
   });
   if (quotaError) {
+    if (quotaError.message.includes("IA_DESLIGADA")) {
+      return json(
+        { error: "Você desligou a dica com IA no seu Perfil. Ligue de novo para usá-la." },
+        403,
+      );
+    }
     if (quotaError.message.includes("LIMITE_DIARIO")) {
       return json(
         {

@@ -21,6 +21,12 @@ export interface Profile {
   role: "aluno" | "professor";
   /** Escolha de aparecer no ranking da turma (migration 0014; ausente antes dela). */
   show_in_ranking?: boolean;
+  /** Consentimento (migration 0017): null = ainda não aceitou o termo; ausente = migration não aplicada. */
+  consent_at?: string | null;
+  consent_version?: string | null;
+  over_18?: boolean | null;
+  /** Escolha de usar a dica com IA (migration 0017). */
+  ai_hints_enabled?: boolean;
 }
 
 interface AuthState {
@@ -32,7 +38,12 @@ interface AuthState {
     name: string,
     email: string,
     password: string,
+    consent?: { version: string; over18: boolean },
   ) => Promise<{ error: string | null; needsConfirmation: boolean }>;
+  acceptTerms: (version: string, over18: boolean) => Promise<string | null>;
+  setAiHintsEnabled: (value: boolean) => Promise<string | null>;
+  exportData: () => Promise<unknown>;
+  deleteAccount: () => Promise<string | null>;
   signOut: () => Promise<void>;
   updateName: (name: string) => Promise<string | null>;
   setRankingOptIn: (value: boolean) => Promise<string | null>;
@@ -47,6 +58,8 @@ export function useAuth(): AuthState {
 }
 
 const PUBLIC_PATHS = ["/entrar"];
+/** Páginas abertas a qualquer pessoa, com ou sem login (a política de privacidade). */
+const OPEN_PATHS = ["/privacidade"];
 
 /** Traduz as mensagens de erro mais comuns do Supabase Auth. */
 export function authMessage(message: string): string {
@@ -119,11 +132,13 @@ export default function AuthProvider({
   }, [hydrate]);
 
   const isPublic = PUBLIC_PATHS.includes(pathname);
+  const isOpen = OPEN_PATHS.includes(pathname);
   useEffect(() => {
     if (loading) return;
+    if (isOpen) return;
     if (!session && !isPublic) router.replace("/entrar");
     if (session && isPublic) router.replace("/");
-  }, [loading, session, isPublic, router]);
+  }, [loading, session, isPublic, isOpen, router]);
 
   const value = useMemo<AuthState>(
     () => ({
@@ -137,11 +152,21 @@ export default function AuthProvider({
         });
         return error ? authMessage(error.message) : null;
       },
-      signUp: async (name, email, password) => {
+      signUp: async (name, email, password, consent) => {
         const { data, error } = await getSupabase().auth.signUp({
           email,
           password,
-          options: { data: { name } },
+          options: {
+            data: {
+              name,
+              ...(consent
+                ? {
+                    consent_version: consent.version,
+                    over_18: String(consent.over18),
+                  }
+                : {}),
+            },
+          },
         });
         if (error)
           return {
@@ -163,6 +188,42 @@ export default function AuthProvider({
         setProfile({ ...profile, name });
         return null;
       },
+      acceptTerms: async (version, over18) => {
+        if (!profile) return "Sessão expirada.";
+        const { error } = await getSupabase().rpc("accept_terms", {
+          p_version: version,
+          p_over_18: over18,
+        });
+        if (error) return authMessage(error.message);
+        setProfile({
+          ...profile,
+          consent_at: new Date().toISOString(),
+          consent_version: version,
+          over_18: over18,
+        });
+        return null;
+      },
+      setAiHintsEnabled: async (value) => {
+        if (!profile) return "Sessão expirada.";
+        const { error } = await getSupabase()
+          .from("profiles")
+          .update({ ai_hints_enabled: value })
+          .eq("id", profile.id);
+        if (error) return authMessage(error.message);
+        setProfile({ ...profile, ai_hints_enabled: value });
+        return null;
+      },
+      exportData: async () => {
+        const { data, error } = await getSupabase().rpc("export_my_data");
+        if (error) throw new Error(authMessage(error.message));
+        return data;
+      },
+      deleteAccount: async () => {
+        const { error } = await getSupabase().rpc("delete_my_account");
+        if (error) return authMessage(error.message);
+        await getSupabase().auth.signOut();
+        return null;
+      },
       setRankingOptIn: async (value) => {
         if (!profile) return "Sessão expirada.";
         const { error } = await getSupabase()
@@ -177,7 +238,7 @@ export default function AuthProvider({
     [loading, profile, loadError],
   );
 
-  if (loading || (!session && !isPublic) || (session && isPublic)) {
+  if (!isOpen && (loading || (!session && !isPublic) || (session && isPublic))) {
     return (
       <AuthContext.Provider value={value}>
         <p

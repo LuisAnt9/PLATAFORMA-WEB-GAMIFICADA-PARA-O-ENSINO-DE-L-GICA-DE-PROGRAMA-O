@@ -14,7 +14,7 @@ const mods=[
 ];
 
 async function newCtx(role,solvedIds=[]){
-  const ctx=await b.newContext({viewport:{width:1000,height:1000}});
+  const ctx=await b.newContext({viewport:{width:Number(process.env.E2E_W||1000),height:Number(process.env.E2E_H||1000)}});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
   await ctx.route("**/*.supabase.co/**", async route=>{
     const req=route.request(), u=req.url(), m=req.method();
@@ -81,7 +81,7 @@ const main=p=>p.locator("main").innerText();
     {id:"m3",title:"Módulo Gama",focus:"F3",intro:"",position:3},
   ];
   const exs2=[choice("a1","m1","Alfa um",1),choice("b1","m2","Extra um",1),choice("g1","m3","Gama um",1)];
-  const ctx=await b.newContext({viewport:{width:1000,height:1000}});
+  const ctx=await b.newContext({viewport:{width:Number(process.env.E2E_W||1000),height:Number(process.env.E2E_H||1000)}});
   await ctx.addInitScript(s=>localStorage.setItem("sb-shmdjhfleduxefoodrfm-auth-token",JSON.stringify(s)),session);
   await ctx.route("**/*.supabase.co/**", async route=>{
     const req=route.request(), u=req.url(), m=req.method();

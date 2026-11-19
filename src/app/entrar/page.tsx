@@ -3,6 +3,8 @@
 import { usePageTitle } from "@/lib/use-page-title";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import { Termo } from "@/components/ConsentGate";
+import { TERMS_VERSION } from "@/lib/privacy";
 
 export default function EntrarPage() {
   usePageTitle("Entrar");
@@ -14,6 +16,8 @@ export default function EntrarPage() {
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [over18, setOver18] = useState<boolean | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,7 +27,15 @@ export default function EntrarPage() {
     if (mode === "entrar") {
       setError(await signIn(email.trim(), password));
     } else {
-      const r = await signUp(name.trim(), email.trim(), password);
+      if (!agree || over18 === null) {
+        setError("Para criar a conta, informe sua idade e aceite a política de privacidade.");
+        setBusy(false);
+        return;
+      }
+      const r = await signUp(name.trim(), email.trim(), password, {
+        version: TERMS_VERSION,
+        over18,
+      });
       setError(r.error);
       if (!r.error && r.needsConfirmation) {
         setInfo(
@@ -94,6 +106,10 @@ export default function EntrarPage() {
           />
         </label>
 
+        {mode === "cadastrar" && (
+          <Termo over18={over18} setOver18={setOver18} agree={agree} setAgree={setAgree} />
+        )}
+
         {error && (
           <p
             role="alert"
@@ -120,6 +136,11 @@ export default function EntrarPage() {
         </button>
       </form>
 
+      <p className="mt-4 text-xs text-zinc-600 dark:text-zinc-400">
+        <a href="/privacidade" className="underline">
+          Política de privacidade
+        </a>
+      </p>
       <button
         onClick={() => {
           setMode(mode === "entrar" ? "cadastrar" : "entrar");

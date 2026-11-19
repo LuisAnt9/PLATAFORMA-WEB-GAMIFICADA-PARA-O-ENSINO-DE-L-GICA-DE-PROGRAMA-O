@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import type { HintContext } from "@/lib/ai-hint";
+import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
+import { useAuth } from "./AuthProvider";
 
 interface Props {
   exerciseId: string;
@@ -27,6 +29,8 @@ export default function AiHint({
   const [hint, setHint] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [remaining, setRemaining] = useState<number | null>(null);
+  const { profile } = useAuth();
+  const aiOff = profile?.ai_hints_enabled === false;
 
   async function ask() {
     setBusy(true);
@@ -68,8 +72,8 @@ export default function AiHint({
       <button
         type="button"
         onClick={() => void ask()}
-        disabled={busy || disabled}
-        title={disabled ? disabledReason : undefined}
+        disabled={busy || disabled || aiOff}
+        title={aiOff ? "Você desligou a dica com IA no Perfil" : disabled ? disabledReason : undefined}
         className="rounded-xl border border-emerald-700 bg-white px-5 py-2.5 text-emerald-800 hover:bg-emerald-50 disabled:opacity-50 dark:border-emerald-500 dark:bg-zinc-900 dark:text-emerald-300 dark:hover:bg-emerald-950"
       >
         {busy ? "Pensando..." : "✨ Dica com IA"}
@@ -78,11 +82,21 @@ export default function AiHint({
         aria-live="polite"
         className="w-full basis-full space-y-2 empty:hidden"
       >
+        {aiOff && (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            A dica com IA está desligada.{" "}
+            <Link href="/perfil" className="text-emerald-700 underline dark:text-emerald-400">
+              Ligar no Perfil
+            </Link>
+          </p>
+        )}
         {hint && (
           <div className="rounded-lg bg-sky-50 p-3 text-sm dark:bg-sky-950">
             <p className="whitespace-pre-line">✨ {hint}</p>
             <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
-              Dica gerada por IA, pode conter erros. Ela não entrega a resposta.
+              Dica gerada por IA, pode conter erros. Ela não entrega a resposta. O
+              enunciado e o seu código são enviados ao Google (Gemini) para gerar
+              a dica; você pode desligá-la no Perfil.
               {remaining !== null && ` Restam ${remaining} hoje.`}
             </p>
           </div>

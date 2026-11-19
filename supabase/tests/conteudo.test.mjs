@@ -96,6 +96,19 @@ const LICOES_MUNDO_6 = [
   "percorrer-matrizes",
   "desafio-do-mundo-6",
 ];
+const LICOES_MUNDO_7 = [
+  "introducao-as-funcoes",
+  "declaracao-de-funcoes",
+  "chamada-de-funcoes",
+  "parametros",
+  "argumentos",
+  "retorno-com-return",
+  "funcoes-com-parametros-e-retornos",
+  "escopo-global",
+  "escopo-local",
+  "arrow-functions",
+  "desafio-do-mundo-7",
+];
 let idsOriginais = null;
 const exercises = () =>
   idsOriginais
@@ -257,6 +270,7 @@ describe("importação do conteúdo", () => {
       "repeticao",
       ...LICOES_MUNDO_6,
       "vetores",
+      ...LICOES_MUNDO_7,
       "funcoes",
       "exemplos-dos-tipos",
     ]);
@@ -272,7 +286,8 @@ describe("importação do conteúdo", () => {
       "mundo-5", // a lição antiga "repeticao" (posição 590)
       ...Array(LICOES_MUNDO_6.length).fill("mundo-6"),
       "mundo-6", // a lição antiga "vetores" (posição 690)
-      "mundo-7",
+      ...Array(LICOES_MUNDO_7.length).fill("mundo-7"),
+      "mundo-7", // a lição antiga "funcoes" (posição 790)
       "mundo-1",
     ]);
   });
@@ -309,10 +324,10 @@ describe("importação do conteúdo", () => {
     expect("expected" in e["exemplo-entrada-saida"].tests[0]).toBe(false);
   });
 
-  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2 + 12 do Mundo 3 + 23 do Mundo 4 + 33 do Mundo 5 + 43 do Mundo 6), com o comentário", async () => {
+  it("importa as soluções dos exercícios de código (33 + 2 exemplos + 2 do Mundo 1 + 19 do Mundo 2 + 12 do Mundo 3 + 23 do Mundo 4 + 33 do Mundo 5 + 43 do Mundo 6 + 28 do Mundo 7), com o comentário", async () => {
     expect(
       (await one("select count(*)::int as n from public.exercise_solutions")).n,
-    ).toBe(167);
+    ).toBe(195);
     const s = await one(
       "select solution, commentary from public.exercise_solutions where exercise_id = 'exemplo-corrigir'",
     );
@@ -709,12 +724,12 @@ describe("Mundo 4 (E7): importação, rascunho, publicação e lição complemen
     expect(conceitos).toHaveLength(9); // todos os conceitos do mundo são avaliados
   });
 
-  it("só a lição do operador ternário é complementar", async () => {
+  it("só as lições complementares (ternário e arrow functions) têm o selo", async () => {
     await db.exec(buildImportSql(content()));
     const comp = await rows(
       "select id from public.modules where optional order by id",
     );
-    expect(comp.map((m) => m.id)).toEqual(["operador-ternario"]);
+    expect(comp.map((m) => m.id)).toEqual(["arrow-functions", "operador-ternario"]);
   });
 
   it("toda alternativa errada das questões de escolha traz a confusão", async () => {
@@ -856,5 +871,58 @@ describe("Mundo 6 (E13): importação, rascunho e publicação", () => {
     expect((await doMundo6()).every((e) => e.published)).toBe(true);
     await db.exec(buildPublishSql(content(), "mundo-6", { publish: false }));
     expect((await doMundo6()).some((e) => e.published)).toBe(false);
+  });
+});
+
+describe("Mundo 7 (E14): importação, rascunho e publicação", () => {
+  const lista = LICOES_MUNDO_7.map((l) => `'${l}'`).join(",");
+  const doMundo7 = () =>
+    rows(
+      `select e.* from public.exercises e where e.module_id in (${lista}) order by e.id`,
+    );
+
+  it("importa as 11 lições e os 89 exercícios, todos como rascunho e com conceitos", async () => {
+    await db.exec(buildImportSql(content()));
+    const ex = await doMundo7();
+    expect(ex).toHaveLength(89);
+    expect(ex.every((e) => e.published === false)).toBe(true);
+    const sem = await rows(
+      `select e.id from public.exercises e where e.module_id in (${lista}) and not exists (select 1 from public.exercise_concepts c where c.exercise_id = e.id)`,
+    );
+    expect(sem).toEqual([]);
+    const conceitos = await rows(
+      `select distinct c.concept_id from public.exercise_concepts c join public.exercises e on e.id = c.exercise_id where e.module_id in (${lista}) and c.concept_id like 'm7-%' order by 1`,
+    );
+    expect(conceitos).toHaveLength(10); // todos os conceitos do mundo são avaliados
+  });
+
+  it("toda alternativa errada das questões de escolha traz a confusão", async () => {
+    const escolha = (await doMundo7()).filter(
+      (e) => e.kind === "choice" || e.kind === "interpretation",
+    );
+    expect(escolha.length).toBeGreaterThan(40);
+    for (const e of escolha) {
+      const erradas = e.config.options.filter((_, i) => i !== e.config.correct);
+      expect(
+        erradas.every((o) => typeof o === "object" && o.misconception),
+        e.id,
+      ).toBe(true);
+    }
+    expect(new Set(escolha.map((e) => e.config.correct)).size).toBe(4);
+  });
+
+  it("o desafio da calculadora testa as quatro operações, a divisão por zero e a operação inválida", async () => {
+    const e = await one(
+      "select tests from public.exercises where id = 'desafio7-calculadora'",
+    );
+    const esperados = e.tests.map((t) => t.expected);
+    expect(esperados).toEqual(expect.arrayContaining([5, -1, 20, 2.5, "Divisão por zero", "Operação inválida"]));
+  });
+
+  it("publicar o Mundo 7 não mexe na lição antiga e é reversível", async () => {
+    await db.exec(buildPublishSql(content(), "mundo-7"));
+    expect((await doMundo7()).every((e) => e.published)).toBe(true);
+    await db.exec(buildPublishSql(content(), "mundo-7", { publish: false }));
+    expect((await doMundo7()).some((e) => e.published)).toBe(false);
   });
 });

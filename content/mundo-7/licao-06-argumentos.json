@@ -1,0 +1,206 @@
+{
+  "id": "argumentos",
+  "mundo": "mundo-7",
+  "titulo": "Argumentos",
+  "foco": "Enviar valores na chamada da função",
+  "posicao": 705,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Argumentos são os valores que enviamos na chamada da função. Eles preenchem os parâmetros, pela ordem.\n\nfunction somar(a, b) {      // a e b: parâmetros\n  return a + b;\n}\nsomar(2, 3);                // 2 e 3: argumentos\n\nResumindo a diferença: o parâmetro é o espaço da declaração; o argumento é o valor da chamada.\n\nOs argumentos podem ser valores, variáveis ou expressões. As expressões são resolvidas antes de a função executar: somar(1 + 1, 3) envia 2 e 3.\n\nO que acontece se a quantidade não bater?\n- Faltou argumento: o parâmetro correspondente vale undefined. Em contas, isso produz NaN.\n- Sobrou argumento: o valor extra é ignorado.\n\nA correspondência é por posição, não por nome. Os nomes das variáveis que você usa na chamada não precisam ser iguais aos dos parâmetros:\n\nconst x = 5; const y = 2;\nsomar(y, x);   // envia 2 e 5; a recebe 2 e b recebe 5\n\nPor isso, a ordem dos argumentos é um detalhe que muda o resultado (em subtrações e divisões, por exemplo).",
+  "exemplo": "function diferenca(a, b) {\n  return a - b;\n}\n\nconst x = 5;\nconst y = 2;\nconsole.log(diferenca(x, y));\nconsole.log(diferenca(y, x));\n\nPasso a passo:\n1. diferenca(x, y) envia 5 e 2: a vale 5, b vale 2 e o resultado é 3.\n2. diferenca(y, x) envia 2 e 5: a vale 2, b vale 5 e o resultado é -3.\n\nOs nomes x e y não importam: o que conta é a posição de cada argumento.",
+  "revisao": "- Argumento: o valor enviado na chamada; parâmetro: a variável da declaração.\n- Os argumentos preenchem os parâmetros pela ordem (posição), não pelo nome.\n- Podem ser valores, variáveis ou expressões (resolvidas antes).\n- Argumento faltando: o parâmetro vira undefined (e contas dão NaN).\n- Argumento sobrando: é ignorado.",
+  "exercicios": [
+    {
+      "id": "arg-parametro-ou-argumento",
+      "tipo": "escolha",
+      "titulo": "Parâmetro ou argumento?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "Em function f(a) { ... } e na chamada f(10), qual afirmação é correta?",
+      "opcoes": [
+        {
+          "texto": "a é um argumento e 10 é um parâmetro",
+          "confusao": "troca os conceitos de parâmetro e argumento"
+        },
+        {
+          "texto": "a e 10 são parâmetros",
+          "confusao": "acha que tudo que aparece nos parênteses é parâmetro"
+        },
+        "a é um parâmetro e 10 é um argumento",
+        {
+          "texto": "a e 10 são argumentos",
+          "confusao": "acha que tudo que aparece nos parênteses é argumento"
+        }
+      ],
+      "correta": 2,
+      "dica": "O parâmetro fica na declaração; o argumento, na chamada.",
+      "explicacao": "a é o parâmetro (variável da declaração) e 10 é o argumento (valor enviado na chamada)."
+    },
+    {
+      "id": "arg-expressao",
+      "tipo": "interpretacao",
+      "titulo": "Argumento é uma conta",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m3-precedencia", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function dobro(n) {\n  return n * 2;\n}\nconsole.log(dobro(2 + 3));",
+      "opcoes": [
+        {
+          "texto": "7",
+          "confusao": "multiplica só o 3 por 2 e soma o 2, sem resolver o argumento antes"
+        },
+        "10",
+        { "texto": "5", "confusao": "acha que a função não dobra o valor recebido" },
+        { "texto": "4", "confusao": "usa apenas o primeiro número do argumento" }
+      ],
+      "correta": 1,
+      "dica": "O argumento 2 + 3 é calculado antes da função executar.",
+      "explicacao": "O argumento vale 5 antes de entrar na função, e dobro(5) devolve 10."
+    },
+    {
+      "id": "arg-complete-o-segundo",
+      "tipo": "lacuna",
+      "titulo": "Complete o argumento",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 }
+      ],
+      "enunciado": "Complete o segundo argumento para que o resultado seja 7.",
+      "modelo": "function somar(a, b) {\n  return a + b;\n}\nconst resultado = somar(2, {{1}});",
+      "lacunas": [
+        { "respostas": ["5"] }
+      ],
+      "dica": "2 + ? = 7.",
+      "explicacao": "Com o segundo argumento 5, a soma 2 + 5 resulta em 7."
+    },
+    {
+      "id": "arg-faltando",
+      "tipo": "interpretacao",
+      "titulo": "Argumento faltando",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function somar(a, b) {\n  return a + b;\n}\nconsole.log(somar(1));",
+      "opcoes": [
+        { "texto": "1", "confusao": "acha que o parâmetro sem valor conta como zero" },
+        { "texto": "0", "confusao": "acha que um argumento faltando vale zero" },
+        { "texto": "Erro e o programa para", "confusao": "acha que faltar um argumento causa erro" },
+        "NaN"
+      ],
+      "correta": 3,
+      "dica": "Que valor tem o parâmetro b quando não recebe nada?",
+      "explicacao": "b vale undefined. A conta 1 + undefined resulta em NaN."
+    },
+    {
+      "id": "arg-sobrando",
+      "tipo": "interpretacao",
+      "titulo": "Argumentos sobrando",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function mostrar(a) {\n  console.log(a);\n}\nmostrar(1, 2, 3);",
+      "opcoes": [
+        "1",
+        {
+          "texto": "1 2 3",
+          "confusao": "acha que todos os argumentos aparecem mesmo sem parâmetro"
+        },
+        { "texto": "3", "confusao": "acha que o último argumento é o que vale" },
+        { "texto": "undefined", "confusao": "acha que o excesso de argumentos anula o valor" }
+      ],
+      "correta": 0,
+      "dica": "Quantos parâmetros a função tem?",
+      "explicacao": "Só existe o parâmetro a, que recebe o primeiro argumento. Os outros são ignorados."
+    },
+    {
+      "id": "arg-potencia",
+      "tipo": "codigo",
+      "titulo": "Potência",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m5-for", "peso": 2 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `potencia(base, expoente)` que devolve a base elevada ao expoente (inteiro, maior ou igual a zero), usando um laço (sem o operador **). Qualquer número elevado a 0 é 1.",
+      "funcao": "potencia",
+      "codigoInicial": "function potencia(base, expoente) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [2, 3], "esperado": 8 },
+        { "entrada": [5, 0], "esperado": 1 },
+        { "entrada": [3, 1], "esperado": 3 },
+        { "entrada": [10, 4], "esperado": 10000 }
+      ],
+      "dica": "Multiplique um acumulador que começa em 1, expoente vezes.",
+      "comentario": "Um acumulador começa em 1 e é multiplicado pela base a cada volta, expoente vezes."
+    },
+    {
+      "id": "arg-corrija-a-ordem",
+      "tipo": "corrigir",
+      "titulo": "Corrija a ordem",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "A função `faltaPara10(n)` deveria devolver quanto falta para chegar a 10 (por exemplo, 7 para n = 3), mas devolve o valor com o sinal trocado. Corrija o defeito.",
+      "funcao": "faltaPara10",
+      "codigoInicial": "function diferenca(a, b) {\n  return a - b;\n}\n\nfunction faltaPara10(n) {\n  return diferenca(n, 10);\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": 7 },
+        { "entrada": [10], "esperado": 0 },
+        { "entrada": [0], "esperado": 10 }
+      ],
+      "dica": "O primeiro argumento vai para a, o segundo para b: qual deve ser o minuendo?",
+      "comentario": "A ordem dos argumentos estava invertida. diferenca(10, n) calcula 10 - n."
+    },
+    {
+      "id": "arg-por-posicao",
+      "tipo": "interpretacao",
+      "titulo": "Por posição, não por nome",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-argumentos", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function f(a, b) {\n  return a - b;\n}\nconst x = 5;\nconst y = 2;\nconsole.log(f(y, x));",
+      "opcoes": [
+        { "texto": "3", "confusao": "acha que os nomes x e y têm relação com os parâmetros a e b" },
+        { "texto": "7", "confusao": "soma os argumentos em vez de subtrair" },
+        "-3",
+        { "texto": "2", "confusao": "acha que a função devolve o primeiro argumento" }
+      ],
+      "correta": 2,
+      "dica": "O primeiro argumento (y) vai para a; o segundo (x) vai para b.",
+      "explicacao": "f(y, x) envia 2 e 5: a vale 2, b vale 5 e 2 - 5 = -3."
+    }
+  ]
+}

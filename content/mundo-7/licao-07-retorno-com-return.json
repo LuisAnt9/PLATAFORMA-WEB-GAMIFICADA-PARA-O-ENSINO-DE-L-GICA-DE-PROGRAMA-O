@@ -1,0 +1,256 @@
+{
+  "id": "retorno-com-return",
+  "mundo": "mundo-7",
+  "titulo": "Retorno com return",
+  "foco": "Devolver o resultado da função",
+  "posicao": 706,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O comando return devolve um valor para quem chamou a função e encerra a função na hora.\n\nfunction dobro(n) {\n  return n * 2;\n}\nconst r = dobro(4);   // r recebe 8\n\nTrês pontos para não esquecer:\n\n1. Devolver é diferente de mostrar. console.log mostra um valor na tela, mas o valor se perde; return entrega o valor ao programa, que pode guardá-lo, somá-lo, compará-lo. Uma função que só usa console.log devolve undefined.\n\n2. Sem return, a função devolve undefined. Calcular n * 2 sem return não faz nada útil.\n\n3. Depois do return, a função termina: nenhuma linha seguinte é executada. Por isso podemos usar return dentro de um if ou de um laço para sair assim que o resultado é conhecido:\n\nfunction primeiroPar(v) {\n  for (let i = 0; i < v.length; i++) {\n    if (v[i] % 2 === 0) {\n      return v[i];\n    }\n  }\n  return -1;\n}\n\nCada caminho possível da função deveria terminar em um return, para que ela sempre devolva algo.",
+  "exemplo": "function f(n) {\n  console.log(n);\n  return n * 2;\n}\n\nconst r = f(3);\nconsole.log(r);\n\nPasso a passo:\n1. f(3) executa: o console.log mostra 3.\n2. return n * 2 devolve 6 e encerra a função.\n3. r recebe 6.\n4. O segundo console.log mostra 6.\n\nO console.log mostrou 3 (efeito colateral); o return entregou 6 ao programa.",
+  "revisao": "- return devolve um valor a quem chamou e encerra a função.\n- console.log mostra na tela; return entrega o valor ao programa. Não são a mesma coisa.\n- Sem return, a função devolve undefined.\n- O que vem depois do return não executa.\n- Use return dentro de if e laços para sair assim que o resultado for conhecido.",
+  "exercicios": [
+    {
+      "id": "ret-o-que-faz",
+      "tipo": "escolha",
+      "titulo": "O que o return faz?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "O que o comando return faz?",
+      "opcoes": [
+        { "texto": "Mostra um valor na tela", "confusao": "confunde return com console.log" },
+        "Devolve um valor a quem chamou a função e encerra a função",
+        { "texto": "Repete a função", "confusao": "acha que return volta ao início da função" },
+        { "texto": "Apaga a variável", "confusao": "acha que return remove uma variável" }
+      ],
+      "correta": 1,
+      "dica": "Pense em entregar o resultado.",
+      "explicacao": "return entrega o valor ao ponto onde a função foi chamada e termina a função."
+    },
+    {
+      "id": "ret-guardar-o-resultado",
+      "tipo": "interpretacao",
+      "titulo": "Guardando o resultado",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function dobro(n) {\n  return n * 2;\n}\nconst r = dobro(4);\nconsole.log(r);",
+      "opcoes": [
+        { "texto": "4", "confusao": "acha que a função devolve o argumento sem alterar" },
+        { "texto": "undefined", "confusao": "acha que a variável r não recebe o valor devolvido" },
+        { "texto": "dobro(4)", "confusao": "acha que r guarda o texto da chamada" },
+        "8"
+      ],
+      "correta": 3,
+      "dica": "r recebe o valor devolvido pela função.",
+      "explicacao": "dobro(4) devolve 8 e esse valor é guardado em r."
+    },
+    {
+      "id": "ret-complete-o-comando",
+      "tipo": "lacuna",
+      "titulo": "Complete o retorno",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "Complete a palavra que devolve a soma.",
+      "modelo": "function somar(a, b) {\n  {{1}} a + b;\n}",
+      "lacunas": [
+        { "respostas": ["return"] }
+      ],
+      "dica": "Em inglês, \"retornar\".",
+      "explicacao": "return devolve o resultado da soma a quem chamou a função."
+    },
+    {
+      "id": "ret-sem-return",
+      "tipo": "interpretacao",
+      "titulo": "Sem return",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function dobro(n) {\n  n * 2;\n}\nconsole.log(dobro(4));",
+      "opcoes": [
+        "undefined",
+        {
+          "texto": "8",
+          "confusao": "acha que a função devolve o resultado da última conta sozinha"
+        },
+        { "texto": "4", "confusao": "acha que a função devolve o argumento" },
+        {
+          "texto": "Erro e o programa para",
+          "confusao": "acha que faltar o return é erro de execução"
+        }
+      ],
+      "correta": 0,
+      "dica": "A função tem algum return?",
+      "explicacao": "Sem return, a função devolve undefined. A conta n * 2 é feita e descartada."
+    },
+    {
+      "id": "ret-apos-o-return",
+      "tipo": "interpretacao",
+      "titulo": "Depois do return",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "function f() {\n  return 1;\n  console.log(\"x\");\n}\nconsole.log(f());",
+      "opcoes": [
+        { "texto": "x\n1", "confusao": "acha que as linhas depois do return também executam" },
+        { "texto": "x", "confusao": "acha que a função mostra o texto e esquece o return" },
+        "1",
+        { "texto": "undefined", "confusao": "acha que o valor do return é descartado" }
+      ],
+      "correta": 2,
+      "dica": "O que acontece com as linhas depois de um return?",
+      "explicacao": "O return encerra a função na hora: o console.log(\"x\") nunca executa. Mostra só o 1 devolvido."
+    },
+    {
+      "id": "ret-maior-de-idade",
+      "tipo": "codigo",
+      "titulo": "Maior de idade?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `ehMaiorDeIdade(idade)` que devolve true se a idade for 18 ou mais e false caso contrário.",
+      "funcao": "ehMaiorDeIdade",
+      "codigoInicial": "function ehMaiorDeIdade(idade) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [18], "esperado": true },
+        { "entrada": [17], "esperado": false },
+        { "entrada": [40], "esperado": true },
+        { "entrada": [0], "esperado": false }
+      ],
+      "dica": "A própria comparação já é um valor true ou false.",
+      "comentario": "return idade >= 18 devolve o resultado da comparação."
+    },
+    {
+      "id": "ret-corrija-o-return",
+      "tipo": "corrigir",
+      "titulo": "Mostrar não é devolver",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "A função `dobro(n)` deveria devolver o dobro de n, mas só o mostra na tela (e devolve undefined). Corrija o defeito.",
+      "funcao": "dobro",
+      "codigoInicial": "function dobro(n) {\n  console.log(n * 2);\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 8 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-3], "esperado": -6 }
+      ],
+      "dica": "Quem chamou a função consegue guardar o que foi mostrado na tela?",
+      "comentario": "console.log só mostra o valor. Para entregá-lo a quem chamou, use return n * 2."
+    },
+    {
+      "id": "ret-classificar-nota",
+      "tipo": "codigo",
+      "titulo": "Classificar a nota",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m4-else-if", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `classificar(nota)` que devolve \"aprovado\" para nota 7 ou mais, \"recuperacao\" para nota de 5 até menos de 7 e \"reprovado\" para menos de 5. Use return dentro dos if.",
+      "funcao": "classificar",
+      "codigoInicial": "function classificar(nota) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [9], "esperado": "aprovado" },
+        { "entrada": [7], "esperado": "aprovado" },
+        { "entrada": [6], "esperado": "recuperacao" },
+        { "entrada": [5], "esperado": "recuperacao" },
+        { "entrada": [4.9], "esperado": "reprovado" }
+      ],
+      "dica": "Cada caminho do if pode terminar com um return.",
+      "comentario": "Os if/else if devolvem o texto da faixa correspondente e o return encerra a função."
+    },
+    {
+      "id": "ret-mostrar-e-devolver",
+      "tipo": "interpretacao",
+      "titulo": "Mostrar e devolver",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m2-console-log", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "function f(n) {\n  console.log(n);\n  return n * 2;\n}\nconst r = f(3);\nconsole.log(r);",
+      "opcoes": [
+        {
+          "texto": "6",
+          "confusao": "esquece que o console.log dentro da função também mostra o valor"
+        },
+        "3\n6",
+        { "texto": "3", "confusao": "acha que o return mostra o valor na tela" },
+        { "texto": "3\n3", "confusao": "acha que o valor devolvido é igual ao argumento" }
+      ],
+      "correta": 1,
+      "dica": "A função mostra e devolve: são duas coisas diferentes.",
+      "explicacao": "Dentro de f, o console.log mostra 3. O return entrega 6, guardado em r e mostrado depois."
+    },
+    {
+      "id": "ret-primeiro-par",
+      "tipo": "codigo",
+      "titulo": "Primeiro par",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 10,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `primeiroPar(v)` que devolve o primeiro número par do array `v`, ou -1 se não houver nenhum. Use return dentro do laço para sair assim que achar.",
+      "funcao": "primeiroPar",
+      "codigoInicial": "function primeiroPar(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 5, 8, 10]],
+          "esperado": 8
+        },
+        {
+          "entrada": [[1, 3, 5]],
+          "esperado": -1
+        },
+        {
+          "entrada": [[]],
+          "esperado": -1
+        },
+        {
+          "entrada": [[4]],
+          "esperado": 4
+        }
+      ],
+      "dica": "Dentro do laço, ao achar um par, devolva-o; depois do laço, devolva -1.",
+      "comentario": "O return dentro do if encerra a função no primeiro par. Se o laço termina sem achar, o return -1 final é executado."
+    }
+  ]
+}

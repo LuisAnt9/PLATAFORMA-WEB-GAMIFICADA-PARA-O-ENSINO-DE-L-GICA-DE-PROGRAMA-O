@@ -1,0 +1,214 @@
+{
+  "id": "introducao-as-funcoes",
+  "mundo": "mundo-7",
+  "titulo": "Introdução às funções",
+  "foco": "Entender por que e como organizar o código em funções",
+  "posicao": 701,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Uma receita de bolo não explica de novo como bater ovos toda vez que aparece \"bata os ovos\": ela dá um nome ao passo e o reaproveita. Uma função faz o mesmo no código: é um bloco de instruções com um nome, que você escreve uma vez e usa quantas vezes quiser.\n\nFunções trazem três vantagens:\n- Reaproveitamento: o mesmo trecho é usado em vários lugares, sem copiar e colar.\n- Organização: o programa vira peças pequenas, cada uma com um nome que explica o que faz.\n- Manutenção: se algo precisa mudar, você corrige em um lugar só.\n\nUsar uma função tem duas etapas:\n1. Declarar: escrever a função (isso só ensina ao computador o que fazer, não executa nada).\n2. Chamar: usar o nome da função com parênteses (aí o bloco é executado).\n\nEsquecer a chamada é um erro comum: a função existe, mas nada acontece.\n\nNos mundos anteriores você já escreveu funções para resolver os exercícios. Agora vamos entender como elas funcionam por dentro.",
+  "exemplo": "function saudar() {\n  console.log(\"Olá!\");\n}\n\nsaudar();\nsaudar();\n\nPasso a passo:\n1. A declaração function saudar() { ... } ensina o computador o que é \"saudar\". Nada é mostrado ainda.\n2. saudar(); é a primeira chamada: o bloco executa e mostra Olá!\n3. saudar(); é a segunda chamada: o mesmo bloco executa de novo e mostra Olá!\n\nResultado: Olá! aparece duas vezes, sem repetir o console.log no código.",
+  "revisao": "- Função: bloco de instruções com um nome, reaproveitável.\n- Vantagens: reaproveitar código, organizar o programa e facilitar a manutenção.\n- Declarar a função não a executa; é preciso chamá-la.\n- Para chamar, use o nome seguido de parênteses.\n- Uma função declarada e nunca chamada não faz nada.",
+  "exercicios": [
+    {
+      "id": "func-intro-para-que-serve",
+      "tipo": "escolha",
+      "titulo": "Para que serve uma função?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 }
+      ],
+      "enunciado": "Para que serve uma função?",
+      "opcoes": [
+        {
+          "texto": "Para guardar um valor que nunca muda",
+          "confusao": "confunde função com constante"
+        },
+        "Para dar um nome a um bloco de código e reutilizá-lo quando quiser",
+        {
+          "texto": "Para repetir um trecho várias vezes dentro de um único laço",
+          "confusao": "confunde função com estrutura de repetição"
+        },
+        { "texto": "Para guardar vários valores em fila", "confusao": "confunde função com vetor" }
+      ],
+      "correta": 1,
+      "dica": "Pense em uma receita com passos que você reaproveita.",
+      "explicacao": "Uma função agrupa instruções sob um nome, permitindo reutilizá-las em vários pontos do programa."
+    },
+    {
+      "id": "func-intro-duas-chamadas",
+      "tipo": "interpretacao",
+      "titulo": "Duas chamadas",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "function saudar() {\n  console.log(\"Olá!\");\n}\nsaudar();\nsaudar();",
+      "opcoes": [
+        {
+          "texto": "Olá!",
+          "confusao": "acha que a função só executa uma vez, apesar das duas chamadas"
+        },
+        { "texto": "Olá!\nOlá!\nOlá!", "confusao": "acha que a declaração também executa a função" },
+        { "texto": "Nada", "confusao": "acha que a função não executa sem um laço" },
+        "Olá!\nOlá!"
+      ],
+      "correta": 3,
+      "dica": "Conte as chamadas, não as declarações.",
+      "explicacao": "A declaração não executa nada. Cada chamada executa o bloco: duas chamadas, duas mensagens."
+    },
+    {
+      "id": "func-intro-complete-a-palavra",
+      "tipo": "lacuna",
+      "titulo": "Complete a declaração",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 2 },
+        { "id": "m7-declaracao", "peso": 2 }
+      ],
+      "enunciado": "Complete a palavra que inicia a declaração de uma função.",
+      "modelo": "{{1}} saudar() {\n  console.log(\"Olá!\");\n}",
+      "lacunas": [
+        { "respostas": ["function"] }
+      ],
+      "dica": "Em inglês, \"função\".",
+      "explicacao": "A palavra function inicia a declaração de uma função em JavaScript."
+    },
+    {
+      "id": "func-intro-nunca-chamada",
+      "tipo": "interpretacao",
+      "titulo": "Nunca chamada",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function mostrar() {\n  console.log(\"dentro\");\n}\nconsole.log(\"fora\");",
+      "opcoes": [
+        "fora",
+        {
+          "texto": "dentro\nfora",
+          "confusao": "acha que declarar a função já executa o que está dentro dela"
+        },
+        { "texto": "dentro", "confusao": "acha que só o conteúdo da função aparece" },
+        {
+          "texto": "Nada, porque a função tem erro",
+          "confusao": "acha que uma função declarada e não chamada é erro"
+        }
+      ],
+      "correta": 0,
+      "dica": "A função é chamada em algum lugar?",
+      "explicacao": "A função foi declarada, mas nunca chamada: seu conteúdo não executa. Só o console.log de fora aparece."
+    },
+    {
+      "id": "func-intro-vantagem",
+      "tipo": "escolha",
+      "titulo": "A vantagem de reutilizar",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 }
+      ],
+      "enunciado": "Você usa o mesmo cálculo em 5 lugares do programa. Qual é a principal vantagem de colocá-lo em uma função?",
+      "opcoes": [
+        {
+          "texto": "O computador executa o cálculo mais rápido",
+          "confusao": "acha que a função melhora a velocidade do cálculo"
+        },
+        {
+          "texto": "O cálculo é executado automaticamente sem precisar ser chamado",
+          "confusao": "acha que a função executa sozinha"
+        },
+        "O cálculo é escrito uma vez só e, se mudar, é corrigido em um lugar só",
+        {
+          "texto": "Não é mais preciso usar variáveis",
+          "confusao": "acha que a função elimina a necessidade de variáveis"
+        }
+      ],
+      "correta": 2,
+      "dica": "O que acontece se o cálculo precisar de uma correção?",
+      "explicacao": "Com a função, o cálculo existe em um único lugar: reaproveitá-lo é fácil e corrigi-lo também."
+    },
+    {
+      "id": "func-intro-ordem-de-uso",
+      "tipo": "ordenacao",
+      "titulo": "Como usar uma função",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 1 }
+      ],
+      "enunciado": "Coloque na ordem o que acontece quando o programa usa uma função.",
+      "itens": [
+        "Declarar a função com um nome",
+        "Escrever as instruções dentro da função",
+        "Chamar a função pelo nome, com parênteses",
+        "O computador executa as instruções da função",
+        "O programa continua depois da chamada"
+      ],
+      "dica": "A função precisa existir antes de ser usada.",
+      "explicacao": "Primeiro se declara e escreve a função; depois, cada chamada executa o bloco e o programa segue adiante."
+    },
+    {
+      "id": "func-intro-ola-mundo",
+      "tipo": "codigo",
+      "titulo": "Primeira função",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 },
+        { "id": "m7-declaracao", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `ola()` que devolve o texto \"Olá, mundo!\".",
+      "funcao": "ola",
+      "codigoInicial": "function ola() {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [], "esperado": "Olá, mundo!" }
+      ],
+      "dica": "A função não recebe nada e devolve um texto.",
+      "comentario": "A função devolve o texto com return."
+    },
+    {
+      "id": "func-intro-dobrar-duas-vezes",
+      "tipo": "interpretacao",
+      "titulo": "Usando duas vezes",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-introducao", "peso": 3 },
+        { "id": "m7-return", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function dobrar(x) {\n  return x * 2;\n}\nconsole.log(dobrar(3) + dobrar(4));",
+      "opcoes": [
+        { "texto": "7", "confusao": "soma os argumentos sem aplicar a função" },
+        "14",
+        { "texto": "24", "confusao": "multiplica os resultados em vez de somá-los" },
+        {
+          "texto": "10",
+          "confusao": "dobra só o primeiro argumento e soma o segundo sem dobrar (6 + 4)"
+        }
+      ],
+      "correta": 1,
+      "dica": "Resolva cada chamada antes da soma.",
+      "explicacao": "dobrar(3) devolve 6 e dobrar(4) devolve 8: 6 + 8 = 14."
+    }
+  ]
+}

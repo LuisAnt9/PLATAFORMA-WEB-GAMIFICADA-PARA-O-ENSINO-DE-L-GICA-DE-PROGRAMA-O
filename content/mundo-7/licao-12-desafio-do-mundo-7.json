@@ -1,0 +1,116 @@
+{
+  "id": "desafio-do-mundo-7",
+  "mundo": "mundo-7",
+  "titulo": "Desafio final do Mundo 7",
+  "foco": "Montar uma calculadora organizada em funções",
+  "posicao": 711,
+  "diagnostica": true,
+  "formato": "desafio",
+  "intro": "Chegou o desafio final do curso: uma calculadora organizada em funções. Cada operação (somar, subtrair, multiplicar, dividir) vira uma função pequena e uma função principal escolhe qual usar. Esse é o exemplo clássico de modularização: peças simples que se encaixam.\n\nVocê vai reaproveitar tudo o que viu nos mundos anteriores: operadores (Mundo 3), decisões com if e switch (Mundo 4), leitura de entradas (Mundo 2) e, claro, funções com parâmetros e retornos (Mundo 7).\n\nO desafio principal é o primeiro exercício. Os outros dois treinam usar uma função pronta e achar defeitos em funções que trabalham juntas.",
+  "exemplo": "Como montar a calculadora:\n1. Crie uma função para cada operação, com dois parâmetros e return: somar, subtrair, multiplicar e dividir.\n2. Na divisão, trate o divisor zero: devolva o texto \"Divisão por zero\" em vez de dividir.\n3. Crie a função calcular(operacao, a, b) que escolhe a função certa com if/else if ou switch.\n4. Para uma operação desconhecida, devolva \"Operação inválida\".\n5. Teste cada operação, a divisão por zero e uma operação desconhecida.\n\nDica: se uma função já resolve a conta, a outra só precisa chamá-la.",
+  "revisao": "- Uma função por tarefa: cada operação tem a sua.\n- Uma função principal decide qual usar (if/else if ou switch).\n- Todos os caminhos devolvem um valor com return.\n- Trate os casos especiais (divisão por zero, operação desconhecida).\n- Reaproveite funções prontas chamando-as de outras funções.",
+  "exercicios": [
+    {
+      "id": "desafio7-calculadora",
+      "tipo": "desafio",
+      "titulo": "Desafio: calculadora em funções",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 },
+        { "id": "m4-switch", "peso": 2 },
+        { "id": "m4-if-else", "peso": 1 },
+        { "id": "m3-aritmeticos", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `calcular(operacao, a, b)` e, para organizar o código, crie também as funções `somar`, `subtrair`, `multiplicar` e `dividir` (cada uma recebe dois números e devolve o resultado). `calcular` recebe a operação (\"+\", \"-\", \"*\" ou \"/\") e devolve o resultado chamando a função certa. Divisão com divisor zero devolve o texto \"Divisão por zero\", e uma operação desconhecida devolve \"Operação inválida\".",
+      "funcao": "calcular",
+      "codigoInicial": "// crie aqui as funções somar, subtrair, multiplicar e dividir\n\nfunction calcular(operacao, a, b) {\n  // escolha a função certa e devolva o resultado\n}\n",
+      "testes": [
+        { "entrada": ["+", 2, 3], "esperado": 5 },
+        { "entrada": ["-", 2, 3], "esperado": -1 },
+        { "entrada": ["*", 4, 5], "esperado": 20 },
+        { "entrada": ["/", 10, 4], "esperado": 2.5 },
+        { "entrada": ["/", 5, 0], "esperado": "Divisão por zero" },
+        { "entrada": ["%", 1, 2], "esperado": "Operação inválida" }
+      ],
+      "dica": "Cada operação é uma função pequena; calcular só escolhe qual chamar (switch ou if/else if) e devolve o resultado.",
+      "comentario": "As quatro funções fazem as contas e dividir trata o divisor zero. calcular usa um switch (ou if/else if) para chamar a função certa e devolve o resultado, com um caminho final para operações inválidas."
+    },
+    {
+      "id": "desafio7-executar-calculadora",
+      "tipo": "desafio",
+      "titulo": "Desafio: usando a calculadora",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-chamada", "peso": 3 },
+        { "id": "m7-parametros-retorno", "peso": 2 },
+        { "id": "m2-entrada-saida", "peso": 2 },
+        { "id": "m2-conversao-tipos", "peso": 1 }
+      ],
+      "enunciado": "A função `calcular(operacao, a, b)` já existe. Escreva a função `executar()`: leia com `lerEntrada()` a operação, o primeiro número e o segundo número (os números chegam como texto) e mostre `Resultado: <valor>` com `console.log`, usando `calcular`.",
+      "funcao": "executar",
+      "codigoInicial": "function calcular(operacao, a, b) {\n  switch (operacao) {\n    case \"+\":\n      return a + b;\n    case \"-\":\n      return a - b;\n    case \"*\":\n      return a * b;\n    case \"/\":\n      return b === 0 ? \"Divisão por zero\" : a / b;\n    default:\n      return \"Operação inválida\";\n  }\n}\n\nfunction executar() {\n  // leia as entradas e mostre o resultado\n}\n",
+      "testes": [
+        { "entrada": [], "entradas": ["+", "2", "3"], "saida": ["Resultado: 5"] },
+        { "entrada": [], "entradas": ["/", "5", "0"], "saida": ["Resultado: Divisão por zero"] },
+        { "entrada": [], "entradas": ["x", "1", "1"], "saida": ["Resultado: Operação inválida"] },
+        { "entrada": [], "entradas": ["*", "4", "2.5"], "saida": ["Resultado: 10"] }
+      ],
+      "dica": "Converta os números com Number() antes de chamar calcular.",
+      "comentario": "executar lê a operação e os dois números (convertidos com Number), chama calcular e mostra o valor devolvido."
+    },
+    {
+      "id": "desafio7-corrija-a-calculadora",
+      "tipo": "corrigir",
+      "titulo": "Desafio: corrija a calculadora",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-return", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 },
+        { "id": "m7-argumentos", "peso": 2 },
+        { "id": "m4-else-if", "peso": 1 }
+      ],
+      "enunciado": "A função `calcular(operacao, a, b)` deveria devolver o resultado de cada operação, mas há dois defeitos: a subtração sai com o sinal trocado e a multiplicação não devolve nada. Corrija os defeitos.",
+      "funcao": "calcular",
+      "codigoInicial": "function somar(a, b) {\n  return a + b;\n}\n\nfunction subtrair(a, b) {\n  return b - a;\n}\n\nfunction multiplicar(a, b) {\n  console.log(a * b);\n}\n\nfunction calcular(operacao, a, b) {\n  if (operacao === \"+\") {\n    return somar(a, b);\n  } else if (operacao === \"-\") {\n    return subtrair(a, b);\n  } else if (operacao === \"*\") {\n    return multiplicar(a, b);\n  }\n  return \"Operação inválida\";\n}\n",
+      "testes": [
+        { "entrada": ["+", 2, 3], "esperado": 5 },
+        { "entrada": ["-", 5, 2], "esperado": 3 },
+        { "entrada": ["*", 4, 5], "esperado": 20 },
+        { "entrada": ["x", 1, 1], "esperado": "Operação inválida" }
+      ],
+      "dica": "Confira a ordem dos parâmetros em subtrair e o que multiplicar devolve (ou só mostra).",
+      "comentario": "subtrair calculava b - a (ordem trocada) e multiplicar só mostrava o valor com console.log, devolvendo undefined. Corrigindo para a - b e return a * b, as duas passam a devolver o resultado."
+    },
+    {
+      "id": "desafio7-acompanhe-as-funcoes",
+      "tipo": "interpretacao",
+      "titulo": "Desafio: acompanhe as funções",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 },
+        { "id": "m7-parametros-retorno", "peso": 2 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?",
+      "codigo": "let total = 0;\nfunction somar(a, b) {\n  return a + b;\n}\nfunction acumular(n) {\n  total = somar(total, n);\n  return total;\n}\nacumular(2);\nacumular(3);\nconsole.log(acumular(4) + total);",
+      "opcoes": [
+        { "texto": "9", "confusao": "esquece de somar o valor de total depois da última chamada" },
+        { "texto": "13", "confusao": "soma o argumento 4 ao valor devolvido, em vez do total" },
+        { "texto": "20", "confusao": "soma os argumentos das três chamadas ao total de cada uma" },
+        "18"
+      ],
+      "correta": 3,
+      "dica": "acumular altera a variável global total a cada chamada.",
+      "explicacao": "total vira 2, depois 5, e na última chamada vira 9 (acumular(4) devolve 9). Então a soma é 9 + total, que já vale 9: 18."
+    }
+  ]
+}

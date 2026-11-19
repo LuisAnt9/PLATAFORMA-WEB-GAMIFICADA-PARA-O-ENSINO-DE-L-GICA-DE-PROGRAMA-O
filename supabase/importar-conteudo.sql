@@ -1760,7 +1760,384 @@ function ehPar(n) {
   return n % 2 === 0;
 }
 
-Uma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.$c$, $c$$c$, $c$$c$, $c$mundo-7$c$, 701, false, $c$arquivo$c$)
+Uma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.$c$, $c$$c$, $c$$c$, $c$mundo-7$c$, 790, false, $c$arquivo$c$),
+  ($c$introducao-as-funcoes$c$, $c$Introdução às funções$c$, $c$Entender por que e como organizar o código em funções$c$, $c$Uma receita de bolo não explica de novo como bater ovos toda vez que aparece "bata os ovos": ela dá um nome ao passo e o reaproveita. Uma função faz o mesmo no código: é um bloco de instruções com um nome, que você escreve uma vez e usa quantas vezes quiser.
+
+Funções trazem três vantagens:
+- Reaproveitamento: o mesmo trecho é usado em vários lugares, sem copiar e colar.
+- Organização: o programa vira peças pequenas, cada uma com um nome que explica o que faz.
+- Manutenção: se algo precisa mudar, você corrige em um lugar só.
+
+Usar uma função tem duas etapas:
+1. Declarar: escrever a função (isso só ensina ao computador o que fazer, não executa nada).
+2. Chamar: usar o nome da função com parênteses (aí o bloco é executado).
+
+Esquecer a chamada é um erro comum: a função existe, mas nada acontece.
+
+Nos mundos anteriores você já escreveu funções para resolver os exercícios. Agora vamos entender como elas funcionam por dentro.$c$, $c$function saudar() {
+  console.log("Olá!");
+}
+
+saudar();
+saudar();
+
+Passo a passo:
+1. A declaração function saudar() { ... } ensina o computador o que é "saudar". Nada é mostrado ainda.
+2. saudar(); é a primeira chamada: o bloco executa e mostra Olá!
+3. saudar(); é a segunda chamada: o mesmo bloco executa de novo e mostra Olá!
+
+Resultado: Olá! aparece duas vezes, sem repetir o console.log no código.$c$, $c$- Função: bloco de instruções com um nome, reaproveitável.
+- Vantagens: reaproveitar código, organizar o programa e facilitar a manutenção.
+- Declarar a função não a executa; é preciso chamá-la.
+- Para chamar, use o nome seguido de parênteses.
+- Uma função declarada e nunca chamada não faz nada.$c$, $c$mundo-7$c$, 701, false, $c$arquivo$c$),
+  ($c$declaracao-de-funcoes$c$, $c$Declaração de funções$c$, $c$Escrever a estrutura de uma função$c$, $c$Declarar uma função é escrever a sua estrutura:
+
+function nomeDaFuncao(parametros) {
+  // corpo: as instruções da função
+}
+
+As partes:
+- a palavra function;
+- o nome, que deve dizer o que a função faz (calcularMedia, ehPar, mostrarMenu). Começa com letra minúscula e usa camelCase;
+- parênteses, com os parâmetros dentro (podem ser vazios);
+- chaves { }, que delimitam o corpo.
+
+Boas práticas:
+- Dê nomes que descrevem uma ação: calcularArea é melhor que f1.
+- Cada função deve fazer uma coisa só.
+- Funções pequenas são mais fáceis de entender e testar.
+
+Detalhe: em JavaScript, as declarações de função são "içadas": podemos chamar uma função antes da linha em que ela é declarada, desde que ela esteja declarada no mesmo arquivo. Mesmo assim, é mais claro declarar antes de usar.
+
+Lembre-se: declarar não executa. O corpo só roda quando a função é chamada.$c$, $c$console.log("A");
+
+function mostrar() {
+  console.log("B");
+}
+
+console.log("C");
+mostrar();
+
+Passo a passo:
+1. console.log("A") mostra A.
+2. A declaração de mostrar não executa nada.
+3. console.log("C") mostra C.
+4. mostrar() é chamada: o corpo executa e mostra B.
+
+Resultado: A, C e B (nessa ordem).$c$, $c$- Estrutura: function nome(parâmetros) { corpo }.
+- O nome deve descrever o que a função faz (camelCase, em geral começando por um verbo).
+- Cada função deve fazer uma coisa só.
+- Declarar não executa: o corpo só roda quando a função é chamada.
+- Funções declaradas podem ser chamadas antes da linha da declaração (içamento).$c$, $c$mundo-7$c$, 702, false, $c$arquivo$c$),
+  ($c$chamada-de-funcoes$c$, $c$Chamada de funções$c$, $c$Executar uma função e usar o que ela devolve$c$, $c$Chamar uma função é pedir para executá-la. Para isso, escrevemos o nome da função seguido de parênteses:
+
+saudar();
+const resultado = dobro(5);
+
+Os parênteses são obrigatórios. Sem eles, você não está chamando a função: está apenas se referindo a ela, como a um valor.
+
+const x = dobro;      // x passa a ser a própria função (nada foi executado)
+const y = dobro(5);   // y recebe o valor devolvido pela chamada (10)
+
+Quando a função devolve um valor, a chamada vira esse valor dentro da expressão. Por isso podemos usar a chamada em contas, comparações e até como argumento de outra chamada:
+
+console.log(dobro(2) + dobro(3));   // 4 + 6
+console.log(dobro(dobro(2)));       // dobro(4)
+
+Uma função também pode chamar outra função. Assim, construímos funções maiores combinando funções pequenas, cada uma com uma tarefa.$c$, $c$function soma(a, b) {
+  return a + b;
+}
+
+function dobroDaSoma(a, b) {
+  return soma(a, b) * 2;
+}
+
+console.log(dobroDaSoma(2, 3));
+
+Passo a passo:
+1. dobroDaSoma(2, 3) é chamada e, dentro dela, soma(2, 3) é chamada.
+2. soma(2, 3) devolve 5.
+3. A conta 5 * 2 resulta em 10, que dobroDaSoma devolve.
+4. O console.log mostra 10.$c$, $c$- Chamar: nome da função seguido de parênteses.
+- Sem os parênteses, a função não executa: tem-se só uma referência a ela.
+- Quando a função devolve um valor, a chamada vale esse valor na expressão.
+- Uma chamada pode ser argumento de outra: dobro(dobro(2)).
+- Uma função pode chamar outras funções.$c$, $c$mundo-7$c$, 703, false, $c$arquivo$c$),
+  ($c$parametros$c$, $c$Parâmetros$c$, $c$Receber dados de fora para dentro da função$c$, $c$Até agora, nossas funções faziam sempre a mesma coisa. Com parâmetros, a função recebe informações de fora e pode trabalhar com valores diferentes a cada chamada.
+
+Parâmetros são as variáveis listadas entre parênteses na declaração da função:
+
+function saudar(nome) {
+  console.log("Oi, " + nome);
+}
+
+Aqui, nome é um parâmetro. Dentro da função, ele funciona como uma variável comum, que começa valendo o que foi enviado na chamada.
+
+Uma função pode ter vários parâmetros, separados por vírgula: function area(base, altura). A ordem importa: o primeiro valor enviado vai para o primeiro parâmetro, o segundo para o segundo, e assim por diante.
+
+Outro detalhe importante: o parâmetro é uma variável local da função. Se você alterar o parâmetro dentro da função, a variável original, de fora, não muda (para números, textos e booleanos).
+
+Pense no parâmetro como um espaço reservado na receita: "coloque X colheres de açúcar". O valor de X só é conhecido na hora de preparar.$c$, $c$function mostrar(nome) {
+  console.log("Oi, " + nome);
+}
+
+mostrar("Ana");
+mostrar("Bia");
+
+Passo a passo:
+1. nome é o parâmetro de mostrar: um espaço que receberá um valor.
+2. Na primeira chamada, nome vale "Ana" e o programa mostra Oi, Ana.
+3. Na segunda chamada, nome vale "Bia" e o programa mostra Oi, Bia.
+
+A mesma função, com resultados diferentes.$c$, $c$- Parâmetros são as variáveis entre parênteses na declaração da função.
+- Eles recebem os valores enviados na chamada, pela ordem.
+- Uma função pode ter vários parâmetros, separados por vírgula.
+- O parâmetro é local: alterá-lo não muda a variável de fora (números, textos e booleanos).
+- Parâmetros tornam a função flexível: o mesmo código trabalha com valores diferentes.$c$, $c$mundo-7$c$, 704, false, $c$arquivo$c$),
+  ($c$argumentos$c$, $c$Argumentos$c$, $c$Enviar valores na chamada da função$c$, $c$Argumentos são os valores que enviamos na chamada da função. Eles preenchem os parâmetros, pela ordem.
+
+function somar(a, b) {      // a e b: parâmetros
+  return a + b;
+}
+somar(2, 3);                // 2 e 3: argumentos
+
+Resumindo a diferença: o parâmetro é o espaço da declaração; o argumento é o valor da chamada.
+
+Os argumentos podem ser valores, variáveis ou expressões. As expressões são resolvidas antes de a função executar: somar(1 + 1, 3) envia 2 e 3.
+
+O que acontece se a quantidade não bater?
+- Faltou argumento: o parâmetro correspondente vale undefined. Em contas, isso produz NaN.
+- Sobrou argumento: o valor extra é ignorado.
+
+A correspondência é por posição, não por nome. Os nomes das variáveis que você usa na chamada não precisam ser iguais aos dos parâmetros:
+
+const x = 5; const y = 2;
+somar(y, x);   // envia 2 e 5; a recebe 2 e b recebe 5
+
+Por isso, a ordem dos argumentos é um detalhe que muda o resultado (em subtrações e divisões, por exemplo).$c$, $c$function diferenca(a, b) {
+  return a - b;
+}
+
+const x = 5;
+const y = 2;
+console.log(diferenca(x, y));
+console.log(diferenca(y, x));
+
+Passo a passo:
+1. diferenca(x, y) envia 5 e 2: a vale 5, b vale 2 e o resultado é 3.
+2. diferenca(y, x) envia 2 e 5: a vale 2, b vale 5 e o resultado é -3.
+
+Os nomes x e y não importam: o que conta é a posição de cada argumento.$c$, $c$- Argumento: o valor enviado na chamada; parâmetro: a variável da declaração.
+- Os argumentos preenchem os parâmetros pela ordem (posição), não pelo nome.
+- Podem ser valores, variáveis ou expressões (resolvidas antes).
+- Argumento faltando: o parâmetro vira undefined (e contas dão NaN).
+- Argumento sobrando: é ignorado.$c$, $c$mundo-7$c$, 705, false, $c$arquivo$c$),
+  ($c$retorno-com-return$c$, $c$Retorno com return$c$, $c$Devolver o resultado da função$c$, $c$O comando return devolve um valor para quem chamou a função e encerra a função na hora.
+
+function dobro(n) {
+  return n * 2;
+}
+const r = dobro(4);   // r recebe 8
+
+Três pontos para não esquecer:
+
+1. Devolver é diferente de mostrar. console.log mostra um valor na tela, mas o valor se perde; return entrega o valor ao programa, que pode guardá-lo, somá-lo, compará-lo. Uma função que só usa console.log devolve undefined.
+
+2. Sem return, a função devolve undefined. Calcular n * 2 sem return não faz nada útil.
+
+3. Depois do return, a função termina: nenhuma linha seguinte é executada. Por isso podemos usar return dentro de um if ou de um laço para sair assim que o resultado é conhecido:
+
+function primeiroPar(v) {
+  for (let i = 0; i < v.length; i++) {
+    if (v[i] % 2 === 0) {
+      return v[i];
+    }
+  }
+  return -1;
+}
+
+Cada caminho possível da função deveria terminar em um return, para que ela sempre devolva algo.$c$, $c$function f(n) {
+  console.log(n);
+  return n * 2;
+}
+
+const r = f(3);
+console.log(r);
+
+Passo a passo:
+1. f(3) executa: o console.log mostra 3.
+2. return n * 2 devolve 6 e encerra a função.
+3. r recebe 6.
+4. O segundo console.log mostra 6.
+
+O console.log mostrou 3 (efeito colateral); o return entregou 6 ao programa.$c$, $c$- return devolve um valor a quem chamou e encerra a função.
+- console.log mostra na tela; return entrega o valor ao programa. Não são a mesma coisa.
+- Sem return, a função devolve undefined.
+- O que vem depois do return não executa.
+- Use return dentro de if e laços para sair assim que o resultado for conhecido.$c$, $c$mundo-7$c$, 706, false, $c$arquivo$c$),
+  ($c$funcoes-com-parametros-e-retornos$c$, $c$Funções com parâmetros e retornos$c$, $c$Combinar entrada e saída para criar funções reutilizáveis$c$, $c$As funções mais úteis combinam as duas ideias: recebem dados por parâmetros e devolvem o resultado com return. É como uma máquina: você coloca ingredientes na entrada (parâmetros) e recebe o produto na saída (retorno), sem precisar saber como ela funciona por dentro.
+
+function calcularTotal(preco, quantidade) {
+  return preco * quantidade;
+}
+
+Uma função assim é reutilizável porque:
+- usa só o que recebeu por parâmetros (não depende de variáveis soltas pelo programa);
+- devolve o resultado em vez de apenas mostrá-lo;
+- sempre dá a mesma resposta para os mesmos argumentos.
+
+Como o retorno é um valor, ele pode alimentar outra função:
+
+console.log(dobro(soma(1, 2)));   // soma devolve 3; dobro devolve 6
+
+Montar o programa em funções pequenas que se encaixam é a base da modularização: cada função resolve um pedaço do problema e o programa final junta os pedaços.
+
+Cuidado: se a função tiver vários caminhos (if, else), todos devem terminar em um return. Um caminho sem return devolve undefined.$c$, $c$function media(a, b) {
+  return (a + b) / 2;
+}
+
+function situacao(a, b) {
+  return media(a, b) >= 7 ? "aprovado" : "reprovado";
+}
+
+console.log(situacao(8, 7));
+console.log(situacao(4, 6));
+
+Passo a passo:
+1. situacao(8, 7) chama media(8, 7), que devolve 7.5.
+2. 7.5 >= 7 é true: devolve "aprovado".
+3. situacao(4, 6): media devolve 5, 5 >= 7 é false: devolve "reprovado".
+
+Duas funções pequenas, cada uma com uma tarefa, resolvem o problema juntas.$c$, $c$- Parâmetros levam dados para dentro; return traz o resultado para fora.
+- Uma função reutilizável depende só dos parâmetros e devolve o resultado.
+- O retorno de uma função pode ser usado como argumento de outra.
+- Todos os caminhos da função devem terminar em um return.
+- Modularizar é dividir o problema em funções pequenas que se encaixam.$c$, $c$mundo-7$c$, 707, false, $c$arquivo$c$),
+  ($c$escopo-global$c$, $c$Escopo global$c$, $c$Entender variáveis visíveis em todo o programa$c$, $c$O escopo é a região do programa onde uma variável pode ser usada. Uma variável declarada fora de qualquer função tem escopo global: ela existe em todo o programa e pode ser lida por qualquer função.
+
+const taxa = 0.1;                 // global
+
+function imposto(valor) {
+  return valor * taxa;            // a função enxerga taxa
+}
+
+Funções podem não só ler, mas também alterar variáveis globais:
+
+let contador = 0;
+function incrementar() {
+  contador = contador + 1;        // altera a variável de fora
+}
+
+Isso funciona, mas traz riscos. Quando uma variável pode ser mudada por qualquer função, fica difícil saber quem a alterou e quando. É a origem de muitos erros difíceis de achar: duas funções mexendo na mesma variável sem se darem conta.
+
+A prática recomendada:
+- use constantes globais para valores que nunca mudam (const taxa = 0.1);
+- passe os dados que a função precisa por parâmetros e devolva o resultado com return, em vez de alterar variáveis globais;
+- evite que funções dependam de valores soltos pelo programa.$c$, $c$let n = 1;
+
+function dobrar() {
+  n = n * 2;
+}
+
+dobrar();
+dobrar();
+console.log(n);
+
+Passo a passo:
+1. n é global e vale 1.
+2. A primeira chamada de dobrar altera a variável de fora: n passa a valer 2.
+3. A segunda chamada altera de novo: n passa a valer 4.
+4. O console.log mostra 4.
+
+Como a função mexeu na variável global, o valor ficou "lembrado" entre as chamadas.$c$, $c$- Escopo global: variável declarada fora de qualquer função, visível em todo o programa.
+- Funções podem ler e também alterar variáveis globais.
+- Alterar globais dentro de funções é arriscado: qualquer parte do programa pode mudar o valor sem querer.
+- Prefira passar dados por parâmetros e devolver com return.
+- Constantes globais (const) são seguras para valores que não mudam.$c$, $c$mundo-7$c$, 708, false, $c$arquivo$c$),
+  ($c$escopo-local$c$, $c$Escopo local$c$, $c$Entender variáveis que só existem dentro da função$c$, $c$Uma variável declarada dentro de uma função tem escopo local: ela só existe dentro daquela função, e deixa de existir quando a função termina. Os parâmetros também são variáveis locais.
+
+function calcular(n) {
+  const dobro = n * 2;     // local: só existe aqui dentro
+  return dobro;
+}
+calcular(4);
+console.log(typeof dobro);  // "undefined": fora da função, dobro não existe
+
+Consequências importantes:
+- Fora da função, não dá para usar uma variável local. Para levar um valor para fora, use return.
+- Cada chamada cria suas próprias variáveis locais, do zero. Um acumulador declarado dentro da função recomeça a cada chamada, e isso é bom: uma chamada não interfere na outra.
+- Duas funções podem usar o mesmo nome de variável sem conflito: cada uma tem a sua.
+- Se uma variável local tem o mesmo nome de uma global, dentro da função vale a local (ela "esconde" a global), e a global não é alterada.
+
+O mesmo vale para blocos: uma variável declarada com let dentro de um if ou de um for só existe dentro dele (o i de um for não existe depois do laço).$c$, $c$let x = 1;
+
+function f() {
+  let x = 2;
+  return x;
+}
+
+console.log(f(), x);
+
+Passo a passo:
+1. Existem duas variáveis diferentes chamadas x: a global (1) e a local de f (2).
+2. Dentro de f, o nome x se refere à local: a função devolve 2.
+3. Fora da função, x continua sendo a global: vale 1.
+4. O programa mostra 2 1.$c$, $c$- Variável local: declarada dentro da função; só existe nela.
+- Parâmetros também são locais.
+- Para levar um valor para fora, use return.
+- Cada chamada cria variáveis locais novas (acumuladores recomeçam).
+- Uma local com o mesmo nome de uma global a esconde, sem alterá-la.
+- let em blocos (if, for) só existe dentro do bloco.$c$, $c$mundo-7$c$, 709, false, $c$arquivo$c$),
+  ($c$arrow-functions$c$, $c$Arrow functions$c$, $c$Conhecer uma forma mais curta de escrever funções$c$, $c$Este é um conteúdo complementar: ele não bloqueia a liberação do que vem a seguir. Vale estudar, mas você pode seguir em frente sem concluí-lo.
+
+As arrow functions ("funções seta") são uma forma mais curta de escrever funções. Em vez da palavra function, usamos uma seta (=>) e guardamos a função em uma variável:
+
+const dobro = (n) => n * 2;
+
+É equivalente a:
+
+function dobro(n) {
+  return n * 2;
+}
+
+Regras da forma curta:
+- Sem chaves, o valor depois da seta é devolvido automaticamente (retorno implícito): (n) => n * 2.
+- Com chaves { }, você precisa escrever return: (n) => { return n * 2; }. Sem o return, a função devolve undefined.
+- Com um único parâmetro, os parênteses são opcionais (n => n * 2); com vários ou nenhum, são obrigatórios: (a, b) => a + b, () => 5.
+
+A chamada é igual à de qualquer função: dobro(4).
+
+Quando usar? Em funções curtas, a seta deixa o código mais enxuto. Para funções maiores, a declaração com function costuma ser mais clara. O resultado é o mesmo.$c$, $c$const soma = (a, b) => a + b;
+const dobrar = (n) => n * 2;
+
+console.log(dobrar(soma(1, 2)));
+
+Passo a passo:
+1. soma é uma função que recebe a e b e devolve a + b (retorno implícito, sem chaves).
+2. dobrar recebe n e devolve n * 2.
+3. soma(1, 2) devolve 3 e dobrar(3) devolve 6.
+4. O programa mostra 6.$c$, $c$- Arrow function: (parâmetros) => expressão, guardada em uma variável.
+- Sem chaves, o valor da expressão é devolvido automaticamente.
+- Com chaves, é preciso usar return (senão devolve undefined).
+- Com um só parâmetro, os parênteses são opcionais.
+- É uma forma mais curta: funciona como uma função comum.$c$, $c$mundo-7$c$, 710, true, $c$arquivo$c$),
+  ($c$desafio-do-mundo-7$c$, $c$Desafio final do Mundo 7$c$, $c$Montar uma calculadora organizada em funções$c$, $c$Chegou o desafio final do curso: uma calculadora organizada em funções. Cada operação (somar, subtrair, multiplicar, dividir) vira uma função pequena e uma função principal escolhe qual usar. Esse é o exemplo clássico de modularização: peças simples que se encaixam.
+
+Você vai reaproveitar tudo o que viu nos mundos anteriores: operadores (Mundo 3), decisões com if e switch (Mundo 4), leitura de entradas (Mundo 2) e, claro, funções com parâmetros e retornos (Mundo 7).
+
+O desafio principal é o primeiro exercício. Os outros dois treinam usar uma função pronta e achar defeitos em funções que trabalham juntas.$c$, $c$Como montar a calculadora:
+1. Crie uma função para cada operação, com dois parâmetros e return: somar, subtrair, multiplicar e dividir.
+2. Na divisão, trate o divisor zero: devolva o texto "Divisão por zero" em vez de dividir.
+3. Crie a função calcular(operacao, a, b) que escolhe a função certa com if/else if ou switch.
+4. Para uma operação desconhecida, devolva "Operação inválida".
+5. Teste cada operação, a divisão por zero e uma operação desconhecida.
+
+Dica: se uma função já resolve a conta, a outra só precisa chamá-la.$c$, $c$- Uma função por tarefa: cada operação tem a sua.
+- Uma função principal decide qual usar (if/else if ou switch).
+- Todos os caminhos devolvem um valor com return.
+- Trate os casos especiais (divisão por zero, operação desconhecida).
+- Reaproveite funções prontas chamando-as de outras funções.$c$, $c$mundo-7$c$, 711, false, $c$arquivo$c$)
 on conflict (id) do update set title = excluded.title, focus = excluded.focus, intro = excluded.intro,
   example = excluded.example, review = excluded.review, world_id = excluded.world_id, position = excluded.position,
   optional = excluded.optional
@@ -2953,7 +3330,252 @@ $c$, $c$[{"args":[1,2],"expected":2},{"args":[5,3],"expected":5},{"args":[4,4],"
   ($c$hipotenusa$c$, $c$funcoes$c$, $c$code$c$, $c$Hipotenusa$c$, $c$medio$c$, $c$Escreva `hipotenusa(a, b)` que retorna o comprimento da hipotenusa de um triângulo retângulo com catetos a e b (teorema de Pitágoras). Você pode usar `Math.sqrt`.$c$, $c$Math.sqrt(x) devolve a raiz quadrada de x. Funções prontas como essa podem ser usadas dentro das suas.$c$, $c$hipotenusa$c$, $c$function hipotenusa(a, b) {
   // seu código aqui
 }
-$c$, $c$[{"args":[3,4],"expected":5},{"args":[5,12],"expected":13},{"args":[0,0],"expected":0},{"args":[8,15],"expected":17},{"args":[1,1],"expected":1.4142135623730951}]$c$::jsonb, $c${}$c$::jsonb, $c$A hipotenusa é a raiz quadrada de a² + b².$c$, 105, false, $c$arquivo$c$)
+$c$, $c$[{"args":[3,4],"expected":5},{"args":[5,12],"expected":13},{"args":[0,0],"expected":0},{"args":[8,15],"expected":17},{"args":[1,1],"expected":1.4142135623730951}]$c$::jsonb, $c${}$c$::jsonb, $c$A hipotenusa é a raiz quadrada de a² + b².$c$, 105, false, $c$arquivo$c$),
+  ($c$func-intro-para-que-serve$c$, $c$introducao-as-funcoes$c$, $c$choice$c$, $c$Para que serve uma função?$c$, $c$facil$c$, $c$Para que serve uma função?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Para guardar um valor que nunca muda","misconception":"confunde função com constante"},{"text":"Para dar um nome a um bloco de código e reutilizá-lo quando quiser"},{"text":"Para repetir um trecho várias vezes dentro de um único laço","misconception":"confunde função com estrutura de repetição"},{"text":"Para guardar vários valores em fila","misconception":"confunde função com vetor"}],"correct":1,"explanation":"Uma função agrupa instruções sob um nome, permitindo reutilizá-las em vários pontos do programa."}$c$::jsonb, $c$Pense em uma receita com passos que você reaproveita.$c$, 1, false, $c$arquivo$c$),
+  ($c$func-intro-duas-chamadas$c$, $c$introducao-as-funcoes$c$, $c$interpretation$c$, $c$Duas chamadas$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Olá!","misconception":"acha que a função só executa uma vez, apesar das duas chamadas"},{"text":"Olá!\nOlá!\nOlá!","misconception":"acha que a declaração também executa a função"},{"text":"Nada","misconception":"acha que a função não executa sem um laço"},{"text":"Olá!\nOlá!"}],"correct":3,"code":"function saudar() {\n  console.log(\"Olá!\");\n}\nsaudar();\nsaudar();","explanation":"A declaração não executa nada. Cada chamada executa o bloco: duas chamadas, duas mensagens."}$c$::jsonb, $c$Conte as chamadas, não as declarações.$c$, 2, false, $c$arquivo$c$),
+  ($c$func-intro-complete-a-palavra$c$, $c$introducao-as-funcoes$c$, $c$blank$c$, $c$Complete a declaração$c$, $c$facil$c$, $c$Complete a palavra que inicia a declaração de uma função.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"{{1}} saudar() {\n  console.log(\"Olá!\");\n}","blanks":[{"answers":["function"]}],"explanation":"A palavra function inicia a declaração de uma função em JavaScript."}$c$::jsonb, $c$Em inglês, "função".$c$, 3, false, $c$arquivo$c$),
+  ($c$func-intro-nunca-chamada$c$, $c$introducao-as-funcoes$c$, $c$interpretation$c$, $c$Nunca chamada$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"fora"},{"text":"dentro\nfora","misconception":"acha que declarar a função já executa o que está dentro dela"},{"text":"dentro","misconception":"acha que só o conteúdo da função aparece"},{"text":"Nada, porque a função tem erro","misconception":"acha que uma função declarada e não chamada é erro"}],"correct":0,"code":"function mostrar() {\n  console.log(\"dentro\");\n}\nconsole.log(\"fora\");","explanation":"A função foi declarada, mas nunca chamada: seu conteúdo não executa. Só o console.log de fora aparece."}$c$::jsonb, $c$A função é chamada em algum lugar?$c$, 4, false, $c$arquivo$c$),
+  ($c$func-intro-vantagem$c$, $c$introducao-as-funcoes$c$, $c$choice$c$, $c$A vantagem de reutilizar$c$, $c$medio$c$, $c$Você usa o mesmo cálculo em 5 lugares do programa. Qual é a principal vantagem de colocá-lo em uma função?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"O computador executa o cálculo mais rápido","misconception":"acha que a função melhora a velocidade do cálculo"},{"text":"O cálculo é executado automaticamente sem precisar ser chamado","misconception":"acha que a função executa sozinha"},{"text":"O cálculo é escrito uma vez só e, se mudar, é corrigido em um lugar só"},{"text":"Não é mais preciso usar variáveis","misconception":"acha que a função elimina a necessidade de variáveis"}],"correct":2,"explanation":"Com a função, o cálculo existe em um único lugar: reaproveitá-lo é fácil e corrigi-lo também."}$c$::jsonb, $c$O que acontece se o cálculo precisar de uma correção?$c$, 5, false, $c$arquivo$c$),
+  ($c$func-intro-ordem-de-uso$c$, $c$introducao-as-funcoes$c$, $c$order$c$, $c$Como usar uma função$c$, $c$medio$c$, $c$Coloque na ordem o que acontece quando o programa usa uma função.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"items":["Declarar a função com um nome","Escrever as instruções dentro da função","Chamar a função pelo nome, com parênteses","O computador executa as instruções da função","O programa continua depois da chamada"],"explanation":"Primeiro se declara e escreve a função; depois, cada chamada executa o bloco e o programa segue adiante."}$c$::jsonb, $c$A função precisa existir antes de ser usada.$c$, 6, false, $c$arquivo$c$),
+  ($c$func-intro-ola-mundo$c$, $c$introducao-as-funcoes$c$, $c$code$c$, $c$Primeira função$c$, $c$facil$c$, $c$Escreva a função `ola()` que devolve o texto "Olá, mundo!".$c$, null, $c$ola$c$, $c$function ola() {
+  // seu código aqui
+}
+$c$, $c$[{"args":[],"expected":"Olá, mundo!"}]$c$::jsonb, $c${}$c$::jsonb, $c$A função não recebe nada e devolve um texto.$c$, 7, false, $c$arquivo$c$),
+  ($c$func-intro-dobrar-duas-vezes$c$, $c$introducao-as-funcoes$c$, $c$interpretation$c$, $c$Usando duas vezes$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"soma os argumentos sem aplicar a função"},{"text":"14"},{"text":"24","misconception":"multiplica os resultados em vez de somá-los"},{"text":"10","misconception":"dobra só o primeiro argumento e soma o segundo sem dobrar (6 + 4)"}],"correct":1,"code":"function dobrar(x) {\n  return x * 2;\n}\nconsole.log(dobrar(3) + dobrar(4));","explanation":"dobrar(3) devolve 6 e dobrar(4) devolve 8: 6 + 8 = 14."}$c$::jsonb, $c$Resolva cada chamada antes da soma.$c$, 8, false, $c$arquivo$c$),
+  ($c$decl-forma-correta$c$, $c$declaracao-de-funcoes$c$, $c$choice$c$, $c$A declaração correta$c$, $c$facil$c$, $c$Qual é a forma correta de declarar uma função chamada somar com dois parâmetros?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"somar function(a, b) { return a + b; }","misconception":"coloca o nome antes da palavra function"},{"text":"function somar[a, b] { return a + b; }","misconception":"usa colchetes no lugar de parênteses"},{"text":"function somar(a, b) return a + b;","misconception":"esquece as chaves que delimitam o corpo"},{"text":"function somar(a, b) { return a + b; }"}],"correct":3,"explanation":"A declaração tem function, o nome, os parâmetros entre parênteses e o corpo entre chaves."}$c$::jsonb, $c$A ordem é: palavra function, nome, parênteses com parâmetros, chaves com o corpo.$c$, 1, false, $c$arquivo$c$),
+  ($c$decl-ordem-de-execucao$c$, $c$declaracao-de-funcoes$c$, $c$interpretation$c$, $c$Ordem de execução$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A\nC\nB"},{"text":"A\nB\nC","misconception":"acha que a função executa no ponto em que é declarada"},{"text":"B\nA\nC","misconception":"acha que as funções executam antes do resto do programa"},{"text":"A\nC","misconception":"acha que a função declarada nunca executa"}],"correct":0,"code":"console.log(\"A\");\nfunction mostrar() {\n  console.log(\"B\");\n}\nconsole.log(\"C\");\nmostrar();","explanation":"A e C aparecem na ordem do programa. B só aparece na chamada mostrar(), no final."}$c$::jsonb, $c$A função só executa quando é chamada.$c$, 2, false, $c$arquivo$c$),
+  ($c$decl-complete-o-parametro$c$, $c$declaracao-de-funcoes$c$, $c$blank$c$, $c$Use o parâmetro$c$, $c$facil$c$, $c$Complete com o nome do parâmetro, para mostrar o nome recebido.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function saudar(nome) {\n  console.log(\"Olá, \" + {{1}});\n}","blanks":[{"answers":["nome"]}],"explanation":"Dentro da função, o parâmetro nome funciona como uma variável com o valor recebido."}$c$::jsonb, $c$O parâmetro é a variável que aparece entre parênteses na declaração.$c$, 3, false, $c$arquivo$c$),
+  ($c$decl-bom-nome$c$, $c$declaracao-de-funcoes$c$, $c$choice$c$, $c$Um bom nome$c$, $c$medio$c$, $c$Qual é o melhor nome para uma função que calcula a média das notas?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"f1","misconception":"usa um nome curto que não explica o que a função faz"},{"text":"funcao","misconception":"usa um nome genérico, igual ao de qualquer outra função"},{"text":"calcularMedia"},{"text":"x","misconception":"usa um nome de uma só letra que nada diz"}],"correct":2,"explanation":"Nomes como calcularMedia explicam a função sem precisar ler o corpo."}$c$::jsonb, $c$O nome deve dizer a ação que a função realiza.$c$, 4, false, $c$arquivo$c$),
+  ($c$decl-duas-funcoes$c$, $c$declaracao-de-funcoes$c$, $c$interpretation$c$, $c$Duas funções, uma chamada$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"A\nB","misconception":"acha que todas as funções declaradas executam"},{"text":"B"},{"text":"A","misconception":"confunde a primeira função declarada com a chamada"},{"text":"Nada","misconception":"acha que a função só executa com um laço"}],"correct":1,"code":"function a() {\n  console.log(\"A\");\n}\nfunction b() {\n  console.log(\"B\");\n}\nb();","explanation":"Apenas b() é chamada. A função a foi declarada, mas não executou."}$c$::jsonb, $c$Qual função é chamada no final?$c$, 5, false, $c$arquivo$c$),
+  ($c$decl-triplo$c$, $c$declaracao-de-funcoes$c$, $c$code$c$, $c$Triplo$c$, $c$facil$c$, $c$Escreva a função `triplo(n)` que devolve o triplo de n.$c$, null, $c$triplo$c$, $c$function triplo(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[4],"expected":12},{"args":[0],"expected":0},{"args":[-2],"expected":-6}]$c$::jsonb, $c${}$c$::jsonb, $c$Multiplique o parâmetro por 3 e devolva.$c$, 6, false, $c$arquivo$c$),
+  ($c$decl-eh-par$c$, $c$declaracao-de-funcoes$c$, $c$code$c$, $c$É par?$c$, $c$medio$c$, $c$Escreva a função `ehPar(n)` que devolve true se n for par e false caso contrário.$c$, null, $c$ehPar$c$, $c$function ehPar(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[4],"expected":true},{"args":[7],"expected":false},{"args":[0],"expected":true},{"args":[-3],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$Um número é par quando o resto da divisão por 2 é zero.$c$, 7, false, $c$arquivo$c$),
+  ($c$decl-chamada-antes$c$, $c$declaracao-de-funcoes$c$, $c$interpretation$c$, $c$Chamada antes da declaração$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Erro: dobro ainda não foi declarada","misconception":"acha que a função só existe depois da linha da declaração"},{"text":"undefined","misconception":"acha que a chamada antes da declaração devolve undefined"},{"text":"4","misconception":"acha que a função devolve o argumento sem alteração"},{"text":"8"}],"correct":3,"code":"console.log(dobro(4));\n\nfunction dobro(n) {\n  return n * 2;\n}","explanation":"Funções declaradas com function podem ser chamadas antes da linha da declaração. dobro(4) devolve 8."}$c$::jsonb, $c$Em JavaScript, as declarações de função são içadas para o início.$c$, 8, false, $c$arquivo$c$),
+  ($c$cham-como-chamar$c$, $c$chamada-de-funcoes$c$, $c$choice$c$, $c$Como chamar?$c$, $c$facil$c$, $c$Qual linha chama (executa) a função mostrar?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"mostrar();"},{"text":"mostrar;","misconception":"esquece os parênteses: só se refere à função"},{"text":"function mostrar();","misconception":"usa a palavra function, que serve para declarar"},{"text":"call mostrar;","misconception":"usa uma palavra que não existe em JavaScript"}],"correct":0,"explanation":"Só mostrar() executa a função. Sem os parênteses, nada é executado."}$c$::jsonb, $c$A chamada usa o nome e parênteses.$c$, 1, false, $c$arquivo$c$),
+  ($c$cham-duas-chamadas-com-valor$c$, $c$chamada-de-funcoes$c$, $c$interpretation$c$, $c$Chamadas com valores$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"a","misconception":"acha que só a primeira chamada executa"},{"text":"b","misconception":"acha que só a última chamada aparece"},{"text":"a\nb"},{"text":"a b","misconception":"junta as duas mensagens na mesma linha"}],"correct":2,"code":"function dizer(texto) {\n  console.log(texto);\n}\ndizer(\"a\");\ndizer(\"b\");","explanation":"A primeira chamada mostra a; a segunda, b, em linhas separadas."}$c$::jsonb, $c$Cada chamada executa a função uma vez.$c$, 2, false, $c$arquivo$c$),
+  ($c$cham-complete-os-parenteses$c$, $c$chamada-de-funcoes$c$, $c$blank$c$, $c$Complete a chamada$c$, $c$facil$c$, $c$Complete o que falta para chamar a função saudar.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function saudar() {\n  console.log(\"Oi!\");\n}\nsaudar{{1}};","blanks":[{"answers":["()","( )"]}],"explanation":"A chamada exige parênteses: saudar()."}$c$::jsonb, $c$O que sempre acompanha o nome de uma função na chamada?$c$, 3, false, $c$arquivo$c$),
+  ($c$cham-sem-parenteses$c$, $c$chamada-de-funcoes$c$, $c$interpretation$c$, $c$Sem os parênteses$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"number","misconception":"acha que f sem parênteses já devolve o valor 1"},{"text":"function"},{"text":"undefined","misconception":"acha que a referência à função não tem valor"},{"text":"object","misconception":"confunde função com outro tipo de dado"}],"correct":1,"code":"function f() {\n  return 1;\n}\nconst x = f;\nconsole.log(typeof x);","explanation":"Sem parênteses, f não é chamada: x passa a ser a própria função, e typeof mostra function."}$c$::jsonb, $c$x = f guarda o resultado da chamada ou a própria função?$c$, 4, false, $c$arquivo$c$),
+  ($c$cham-funcao-chama-funcao$c$, $c$chamada-de-funcoes$c$, $c$interpretation$c$, $c$Uma função chama outra$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"esquece de multiplicar por 2 depois da soma"},{"text":"6","misconception":"multiplica só o primeiro argumento por 2 e soma com 3"},{"text":"12","misconception":"dobra cada argumento antes de somar e erra a conta"},{"text":"10"}],"correct":3,"code":"function soma(a, b) {\n  return a + b;\n}\nfunction dobroDaSoma(a, b) {\n  return soma(a, b) * 2;\n}\nconsole.log(dobroDaSoma(2, 3));","explanation":"soma(2, 3) devolve 5 e dobroDaSoma multiplica por 2: 10."}$c$::jsonb, $c$Resolva primeiro soma(2, 3).$c$, 5, false, $c$arquivo$c$),
+  ($c$cham-quadruplo$c$, $c$chamada-de-funcoes$c$, $c$code$c$, $c$Quádruplo com dobro$c$, $c$medio$c$, $c$A função `dobro(n)` já existe. Escreva a função `quadruplo(n)` que devolve o quádruplo de n chamando `dobro` duas vezes.$c$, null, $c$quadruplo$c$, $c$function dobro(n) {
+  return n * 2;
+}
+
+function quadruplo(n) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[3],"expected":12},{"args":[0],"expected":0},{"args":[-5],"expected":-20}]$c$::jsonb, $c${}$c$::jsonb, $c$O resultado de uma chamada pode ser argumento de outra.$c$, 6, false, $c$arquivo$c$),
+  ($c$cham-corrija-a-chamada$c$, $c$chamada-de-funcoes$c$, $c$fix$c$, $c$Corrija a chamada$c$, $c$medio$c$, $c$A função `quadruplo(n)` deveria devolver o quádruplo de n, mas o resultado sai errado. Corrija o defeito.$c$, null, $c$quadruplo$c$, $c$function dobro(n) {
+  return n * 2;
+}
+
+function quadruplo(n) {
+  return dobro(n) + dobro;
+}
+$c$, $c$[{"args":[3],"expected":12},{"args":[0],"expected":0},{"args":[-5],"expected":-20}]$c$::jsonb, $c${}$c$::jsonb, $c$Todas as chamadas de dobro estão com parênteses e argumento?$c$, 7, false, $c$arquivo$c$),
+  ($c$cham-chamadas-aninhadas$c$, $c$chamada-de-funcoes$c$, $c$interpretation$c$, $c$Chamadas aninhadas$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4"},{"text":"2","misconception":"executa só a chamada de fora, sem resolver as de dentro"},{"text":"3","misconception":"executa só duas das três chamadas"},{"text":"1","misconception":"acha que o argumento não muda com as chamadas"}],"correct":0,"code":"function f(x) {\n  return x + 1;\n}\nconsole.log(f(f(f(1))));","explanation":"f(1) = 2; f(2) = 3; f(3) = 4."}$c$::jsonb, $c$Resolva da chamada mais interna para a mais externa.$c$, 8, false, $c$arquivo$c$),
+  ($c$cham-contar-pares-com-ajudante$c$, $c$chamada-de-funcoes$c$, $c$code$c$, $c$Contar pares com uma ajudante$c$, $c$dificil$c$, $c$A função `ehPar(n)` já existe. Escreva a função `contarPares(v)` que devolve quantos elementos pares o array `v` tem, usando `ehPar` para decidir.$c$, null, $c$contarPares$c$, $c$function ehPar(n) {
+  return n % 2 === 0;
+}
+
+function contarPares(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[1,2,3,4]],"expected":2},{"args":[[1,3,5]],"expected":0},{"args":[[]],"expected":0},{"args":[[2,4,6,8]],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$Dentro do laço, chame ehPar(v[i]) na condição do if.$c$, 9, false, $c$arquivo$c$),
+  ($c$par-o-que-e$c$, $c$parametros$c$, $c$choice$c$, $c$O que é um parâmetro?$c$, $c$facil$c$, $c$O que é um parâmetro?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"O valor enviado na chamada da função","misconception":"confunde parâmetro com argumento"},{"text":"O resultado que a função devolve","misconception":"confunde parâmetro com retorno"},{"text":"Uma variável listada nos parênteses da declaração, que recebe o valor da chamada"},{"text":"O nome da função","misconception":"acha que o parâmetro é o nome da função"}],"correct":2,"explanation":"O parâmetro é a variável da declaração; o valor enviado na chamada é o argumento."}$c$::jsonb, $c$Ele aparece na declaração, não na chamada.$c$, 1, false, $c$arquivo$c$),
+  ($c$par-oi-ana$c$, $c$parametros$c$, $c$interpretation$c$, $c$Oi, Ana$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Oi, nome","misconception":"acha que o parâmetro é mostrado como texto literal"},{"text":"Oi, Ana"},{"text":"Oi, ","misconception":"acha que o parâmetro fica vazio na chamada"},{"text":"Ana","misconception":"acha que a função mostra só o argumento"}],"correct":1,"code":"function mostrar(nome) {\n  console.log(\"Oi, \" + nome);\n}\nmostrar(\"Ana\");","explanation":"O parâmetro nome recebe \"Ana\", e a mensagem fica Oi, Ana."}$c$::jsonb, $c$Dentro da função, nome vale o que foi enviado.$c$, 2, false, $c$arquivo$c$),
+  ($c$par-complete-o-primeiro$c$, $c$parametros$c$, $c$blank$c$, $c$Complete o parâmetro$c$, $c$facil$c$, $c$Complete o nome do primeiro parâmetro, usado no corpo da função.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function somar({{1}}, b) {\n  return a + b;\n}","blanks":[{"answers":["a"]}],"explanation":"O corpo usa a e b, então os parâmetros precisam ter esses nomes."}$c$::jsonb, $c$Olhe o que é somado no corpo.$c$, 3, false, $c$arquivo$c$),
+  ($c$par-ordem-importa$c$, $c$parametros$c$, $c$interpretation$c$, $c$A ordem importa$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"0.2","misconception":"troca a ordem: calcula 2 dividido por 10"},{"text":"10","misconception":"acha que a função devolve só o primeiro parâmetro"},{"text":"12","misconception":"soma os parâmetros em vez de dividir"},{"text":"5"}],"correct":3,"code":"function dividir(a, b) {\n  return a / b;\n}\nconsole.log(dividir(10, 2));","explanation":"a vale 10 e b vale 2: 10 / 2 = 5."}$c$::jsonb, $c$O primeiro valor vai para a e o segundo para b.$c$, 4, false, $c$arquivo$c$),
+  ($c$par-area-do-retangulo$c$, $c$parametros$c$, $c$code$c$, $c$Área do retângulo$c$, $c$facil$c$, $c$Escreva a função `area(base, altura)` que devolve a área do retângulo (base vezes altura).$c$, null, $c$area$c$, $c$function area(base, altura) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[3,4],"expected":12},{"args":[5,5],"expected":25},{"args":[0,8],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Use os dois parâmetros na conta.$c$, 5, false, $c$arquivo$c$),
+  ($c$par-media-de-tres$c$, $c$parametros$c$, $c$code$c$, $c$Média de três$c$, $c$medio$c$, $c$Escreva a função `mediaDeTres(a, b, c)` que devolve a média aritmética dos três números.$c$, null, $c$mediaDeTres$c$, $c$function mediaDeTres(a, b, c) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[4,6,8],"expected":6},{"args":[10,10,10],"expected":10},{"args":[0,0,9],"expected":3}]$c$::jsonb, $c${}$c$::jsonb, $c$Não esqueça dos parênteses na soma antes de dividir.$c$, 6, false, $c$arquivo$c$),
+  ($c$par-corrija-o-parametro$c$, $c$parametros$c$, $c$fix$c$, $c$Corrija o parâmetro$c$, $c$medio$c$, $c$A função `calcularArea(base, altura)` deveria devolver a área do retângulo, mas ignora um dos parâmetros. Corrija o defeito.$c$, null, $c$calcularArea$c$, $c$function calcularArea(base, altura) {
+  return base * base;
+}
+$c$, $c$[{"args":[3,4],"expected":12},{"args":[5,2],"expected":10},{"args":[6,6],"expected":36}]$c$::jsonb, $c${}$c$::jsonb, $c$Todos os parâmetros estão sendo usados?$c$, 7, false, $c$arquivo$c$),
+  ($c$par-parametro-e-copia$c$, $c$parametros$c$, $c$interpretation$c$, $c$O parâmetro é uma cópia$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5"},{"text":"6","misconception":"acha que alterar o parâmetro altera a variável de fora"},{"text":"1","misconception":"acha que a chamada zera a variável original"},{"text":"undefined","misconception":"acha que a variável n deixa de existir depois da chamada"}],"correct":0,"code":"function mudar(x) {\n  x = x + 1;\n  return x;\n}\nlet n = 5;\nmudar(n);\nconsole.log(n);","explanation":"x recebe uma cópia do valor de n. Alterar x não muda n, que continua valendo 5."}$c$::jsonb, $c$O parâmetro x é uma variável da função, separada de n.$c$, 8, false, $c$arquivo$c$),
+  ($c$arg-parametro-ou-argumento$c$, $c$argumentos$c$, $c$choice$c$, $c$Parâmetro ou argumento?$c$, $c$facil$c$, $c$Em function f(a) { ... } e na chamada f(10), qual afirmação é correta?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"a é um argumento e 10 é um parâmetro","misconception":"troca os conceitos de parâmetro e argumento"},{"text":"a e 10 são parâmetros","misconception":"acha que tudo que aparece nos parênteses é parâmetro"},{"text":"a é um parâmetro e 10 é um argumento"},{"text":"a e 10 são argumentos","misconception":"acha que tudo que aparece nos parênteses é argumento"}],"correct":2,"explanation":"a é o parâmetro (variável da declaração) e 10 é o argumento (valor enviado na chamada)."}$c$::jsonb, $c$O parâmetro fica na declaração; o argumento, na chamada.$c$, 1, false, $c$arquivo$c$),
+  ($c$arg-expressao$c$, $c$argumentos$c$, $c$interpretation$c$, $c$Argumento é uma conta$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"multiplica só o 3 por 2 e soma o 2, sem resolver o argumento antes"},{"text":"10"},{"text":"5","misconception":"acha que a função não dobra o valor recebido"},{"text":"4","misconception":"usa apenas o primeiro número do argumento"}],"correct":1,"code":"function dobro(n) {\n  return n * 2;\n}\nconsole.log(dobro(2 + 3));","explanation":"O argumento vale 5 antes de entrar na função, e dobro(5) devolve 10."}$c$::jsonb, $c$O argumento 2 + 3 é calculado antes da função executar.$c$, 2, false, $c$arquivo$c$),
+  ($c$arg-complete-o-segundo$c$, $c$argumentos$c$, $c$blank$c$, $c$Complete o argumento$c$, $c$facil$c$, $c$Complete o segundo argumento para que o resultado seja 7.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function somar(a, b) {\n  return a + b;\n}\nconst resultado = somar(2, {{1}});","blanks":[{"answers":["5"]}],"explanation":"Com o segundo argumento 5, a soma 2 + 5 resulta em 7."}$c$::jsonb, $c$2 + ? = 7.$c$, 3, false, $c$arquivo$c$),
+  ($c$arg-faltando$c$, $c$argumentos$c$, $c$interpretation$c$, $c$Argumento faltando$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1","misconception":"acha que o parâmetro sem valor conta como zero"},{"text":"0","misconception":"acha que um argumento faltando vale zero"},{"text":"Erro e o programa para","misconception":"acha que faltar um argumento causa erro"},{"text":"NaN"}],"correct":3,"code":"function somar(a, b) {\n  return a + b;\n}\nconsole.log(somar(1));","explanation":"b vale undefined. A conta 1 + undefined resulta em NaN."}$c$::jsonb, $c$Que valor tem o parâmetro b quando não recebe nada?$c$, 4, false, $c$arquivo$c$),
+  ($c$arg-sobrando$c$, $c$argumentos$c$, $c$interpretation$c$, $c$Argumentos sobrando$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1"},{"text":"1 2 3","misconception":"acha que todos os argumentos aparecem mesmo sem parâmetro"},{"text":"3","misconception":"acha que o último argumento é o que vale"},{"text":"undefined","misconception":"acha que o excesso de argumentos anula o valor"}],"correct":0,"code":"function mostrar(a) {\n  console.log(a);\n}\nmostrar(1, 2, 3);","explanation":"Só existe o parâmetro a, que recebe o primeiro argumento. Os outros são ignorados."}$c$::jsonb, $c$Quantos parâmetros a função tem?$c$, 5, false, $c$arquivo$c$),
+  ($c$arg-potencia$c$, $c$argumentos$c$, $c$code$c$, $c$Potência$c$, $c$medio$c$, $c$Escreva a função `potencia(base, expoente)` que devolve a base elevada ao expoente (inteiro, maior ou igual a zero), usando um laço (sem o operador **). Qualquer número elevado a 0 é 1.$c$, null, $c$potencia$c$, $c$function potencia(base, expoente) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[2,3],"expected":8},{"args":[5,0],"expected":1},{"args":[3,1],"expected":3},{"args":[10,4],"expected":10000}]$c$::jsonb, $c${}$c$::jsonb, $c$Multiplique um acumulador que começa em 1, expoente vezes.$c$, 6, false, $c$arquivo$c$),
+  ($c$arg-corrija-a-ordem$c$, $c$argumentos$c$, $c$fix$c$, $c$Corrija a ordem$c$, $c$medio$c$, $c$A função `faltaPara10(n)` deveria devolver quanto falta para chegar a 10 (por exemplo, 7 para n = 3), mas devolve o valor com o sinal trocado. Corrija o defeito.$c$, null, $c$faltaPara10$c$, $c$function diferenca(a, b) {
+  return a - b;
+}
+
+function faltaPara10(n) {
+  return diferenca(n, 10);
+}
+$c$, $c$[{"args":[3],"expected":7},{"args":[10],"expected":0},{"args":[0],"expected":10}]$c$::jsonb, $c${}$c$::jsonb, $c$O primeiro argumento vai para a, o segundo para b: qual deve ser o minuendo?$c$, 7, false, $c$arquivo$c$),
+  ($c$arg-por-posicao$c$, $c$argumentos$c$, $c$interpretation$c$, $c$Por posição, não por nome$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"3","misconception":"acha que os nomes x e y têm relação com os parâmetros a e b"},{"text":"7","misconception":"soma os argumentos em vez de subtrair"},{"text":"-3"},{"text":"2","misconception":"acha que a função devolve o primeiro argumento"}],"correct":2,"code":"function f(a, b) {\n  return a - b;\n}\nconst x = 5;\nconst y = 2;\nconsole.log(f(y, x));","explanation":"f(y, x) envia 2 e 5: a vale 2, b vale 5 e 2 - 5 = -3."}$c$::jsonb, $c$O primeiro argumento (y) vai para a; o segundo (x) vai para b.$c$, 8, false, $c$arquivo$c$),
+  ($c$ret-o-que-faz$c$, $c$retorno-com-return$c$, $c$choice$c$, $c$O que o return faz?$c$, $c$facil$c$, $c$O que o comando return faz?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Mostra um valor na tela","misconception":"confunde return com console.log"},{"text":"Devolve um valor a quem chamou a função e encerra a função"},{"text":"Repete a função","misconception":"acha que return volta ao início da função"},{"text":"Apaga a variável","misconception":"acha que return remove uma variável"}],"correct":1,"explanation":"return entrega o valor ao ponto onde a função foi chamada e termina a função."}$c$::jsonb, $c$Pense em entregar o resultado.$c$, 1, false, $c$arquivo$c$),
+  ($c$ret-guardar-o-resultado$c$, $c$retorno-com-return$c$, $c$interpretation$c$, $c$Guardando o resultado$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"4","misconception":"acha que a função devolve o argumento sem alterar"},{"text":"undefined","misconception":"acha que a variável r não recebe o valor devolvido"},{"text":"dobro(4)","misconception":"acha que r guarda o texto da chamada"},{"text":"8"}],"correct":3,"code":"function dobro(n) {\n  return n * 2;\n}\nconst r = dobro(4);\nconsole.log(r);","explanation":"dobro(4) devolve 8 e esse valor é guardado em r."}$c$::jsonb, $c$r recebe o valor devolvido pela função.$c$, 2, false, $c$arquivo$c$),
+  ($c$ret-complete-o-comando$c$, $c$retorno-com-return$c$, $c$blank$c$, $c$Complete o retorno$c$, $c$facil$c$, $c$Complete a palavra que devolve a soma.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function somar(a, b) {\n  {{1}} a + b;\n}","blanks":[{"answers":["return"]}],"explanation":"return devolve o resultado da soma a quem chamou a função."}$c$::jsonb, $c$Em inglês, "retornar".$c$, 4, false, $c$arquivo$c$),
+  ($c$ret-sem-return$c$, $c$retorno-com-return$c$, $c$interpretation$c$, $c$Sem return$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"undefined"},{"text":"8","misconception":"acha que a função devolve o resultado da última conta sozinha"},{"text":"4","misconception":"acha que a função devolve o argumento"},{"text":"Erro e o programa para","misconception":"acha que faltar o return é erro de execução"}],"correct":0,"code":"function dobro(n) {\n  n * 2;\n}\nconsole.log(dobro(4));","explanation":"Sem return, a função devolve undefined. A conta n * 2 é feita e descartada."}$c$::jsonb, $c$A função tem algum return?$c$, 3, false, $c$arquivo$c$),
+  ($c$ret-apos-o-return$c$, $c$retorno-com-return$c$, $c$interpretation$c$, $c$Depois do return$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"x\n1","misconception":"acha que as linhas depois do return também executam"},{"text":"x","misconception":"acha que a função mostra o texto e esquece o return"},{"text":"1"},{"text":"undefined","misconception":"acha que o valor do return é descartado"}],"correct":2,"code":"function f() {\n  return 1;\n  console.log(\"x\");\n}\nconsole.log(f());","explanation":"O return encerra a função na hora: o console.log(\"x\") nunca executa. Mostra só o 1 devolvido."}$c$::jsonb, $c$O que acontece com as linhas depois de um return?$c$, 5, false, $c$arquivo$c$),
+  ($c$ret-maior-de-idade$c$, $c$retorno-com-return$c$, $c$code$c$, $c$Maior de idade?$c$, $c$facil$c$, $c$Escreva a função `ehMaiorDeIdade(idade)` que devolve true se a idade for 18 ou mais e false caso contrário.$c$, null, $c$ehMaiorDeIdade$c$, $c$function ehMaiorDeIdade(idade) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[18],"expected":true},{"args":[17],"expected":false},{"args":[40],"expected":true},{"args":[0],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$A própria comparação já é um valor true ou false.$c$, 6, false, $c$arquivo$c$),
+  ($c$ret-corrija-o-return$c$, $c$retorno-com-return$c$, $c$fix$c$, $c$Mostrar não é devolver$c$, $c$medio$c$, $c$A função `dobro(n)` deveria devolver o dobro de n, mas só o mostra na tela (e devolve undefined). Corrija o defeito.$c$, null, $c$dobro$c$, $c$function dobro(n) {
+  console.log(n * 2);
+}
+$c$, $c$[{"args":[4],"expected":8},{"args":[0],"expected":0},{"args":[-3],"expected":-6}]$c$::jsonb, $c${}$c$::jsonb, $c$Quem chamou a função consegue guardar o que foi mostrado na tela?$c$, 7, false, $c$arquivo$c$),
+  ($c$ret-classificar-nota$c$, $c$retorno-com-return$c$, $c$code$c$, $c$Classificar a nota$c$, $c$medio$c$, $c$Escreva a função `classificar(nota)` que devolve "aprovado" para nota 7 ou mais, "recuperacao" para nota de 5 até menos de 7 e "reprovado" para menos de 5. Use return dentro dos if.$c$, null, $c$classificar$c$, $c$function classificar(nota) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[9],"expected":"aprovado"},{"args":[7],"expected":"aprovado"},{"args":[6],"expected":"recuperacao"},{"args":[5],"expected":"recuperacao"},{"args":[4.9],"expected":"reprovado"}]$c$::jsonb, $c${}$c$::jsonb, $c$Cada caminho do if pode terminar com um return.$c$, 8, false, $c$arquivo$c$),
+  ($c$ret-mostrar-e-devolver$c$, $c$retorno-com-return$c$, $c$interpretation$c$, $c$Mostrar e devolver$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela, em ordem?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6","misconception":"esquece que o console.log dentro da função também mostra o valor"},{"text":"3\n6"},{"text":"3","misconception":"acha que o return mostra o valor na tela"},{"text":"3\n3","misconception":"acha que o valor devolvido é igual ao argumento"}],"correct":1,"code":"function f(n) {\n  console.log(n);\n  return n * 2;\n}\nconst r = f(3);\nconsole.log(r);","explanation":"Dentro de f, o console.log mostra 3. O return entrega 6, guardado em r e mostrado depois."}$c$::jsonb, $c$A função mostra e devolve: são duas coisas diferentes.$c$, 9, false, $c$arquivo$c$),
+  ($c$ret-primeiro-par$c$, $c$retorno-com-return$c$, $c$code$c$, $c$Primeiro par$c$, $c$dificil$c$, $c$Escreva a função `primeiroPar(v)` que devolve o primeiro número par do array `v`, ou -1 se não houver nenhum. Use return dentro do laço para sair assim que achar.$c$, null, $c$primeiroPar$c$, $c$function primeiroPar(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[3,5,8,10]],"expected":8},{"args":[[1,3,5]],"expected":-1},{"args":[[]],"expected":-1},{"args":[[4]],"expected":4}]$c$::jsonb, $c${}$c$::jsonb, $c$Dentro do laço, ao achar um par, devolva-o; depois do laço, devolva -1.$c$, 10, false, $c$arquivo$c$),
+  ($c$pr-o-que-torna-reutilizavel$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$choice$c$, $c$Função reutilizável$c$, $c$facil$c$, $c$O que torna uma função fácil de reutilizar em vários lugares?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Usar variáveis soltas do programa em vez de parâmetros","misconception":"acha que depender de variáveis externas facilita o reaproveitamento"},{"text":"Só mostrar o resultado na tela com console.log","misconception":"confunde mostrar com devolver o resultado"},{"text":"Ter o maior número possível de instruções","misconception":"acha que funções maiores são mais reutilizáveis"},{"text":"Receber os dados por parâmetros e devolver o resultado com return"}],"correct":3,"explanation":"Com parâmetros e return, a função funciona com quaisquer valores e entrega o resultado a quem a chamar."}$c$::jsonb, $c$Pense em uma máquina com entrada e saída.$c$, 1, false, $c$arquivo$c$),
+  ($c$pr-media$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$interpretation$c$, $c$Média de dois$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"6"},{"text":"12","misconception":"soma os valores e esquece de dividir"},{"text":"10","misconception":"calcula 4 + 8 / 2 sem os parênteses"},{"text":"2","misconception":"divide só o primeiro parâmetro por 2"}],"correct":0,"code":"function media(a, b) {\n  return (a + b) / 2;\n}\nconsole.log(media(4, 8));","explanation":"(4 + 8) / 2 = 6."}$c$::jsonb, $c$Os parênteses fazem a soma acontecer primeiro.$c$, 2, false, $c$arquivo$c$),
+  ($c$pr-complete-o-retorno$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$blank$c$, $c$Complete o retorno$c$, $c$facil$c$, $c$Complete o valor devolvido quando a é maior que b.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function maior(a, b) {\n  if (a > b) {\n    return {{1}};\n  }\n  return b;\n}","blanks":[{"answers":["a"]}],"explanation":"Quando a > b, devolvemos a; caso contrário, o return final devolve b."}$c$::jsonb, $c$Se a é maior, é ele que a função deve devolver.$c$, 3, false, $c$arquivo$c$),
+  ($c$pr-calcular-total$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$code$c$, $c$Total da compra$c$, $c$medio$c$, $c$Escreva a função `calcularTotal(preco, quantidade)` que devolve o total da compra. Se a quantidade for 10 ou mais, o cliente ganha 10% de desconto sobre o total.$c$, null, $c$calcularTotal$c$, $c$function calcularTotal(preco, quantidade) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[5,2],"expected":10},{"args":[5,10],"expected":45},{"args":[2.5,4],"expected":10},{"args":[0,20],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Calcule o total primeiro; depois aplique o desconto se a quantidade chegar a 10.$c$, 4, false, $c$arquivo$c$),
+  ($c$pr-contar-vogais-com-ajudante$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$code$c$, $c$Vogais com uma ajudante$c$, $c$medio$c$, $c$A função `ehVogal(letra)` já existe. Escreva a função `contarVogais(texto)` que devolve quantas vogais o texto tem, usando `ehVogal`.$c$, null, $c$contarVogais$c$, $c$function ehVogal(letra) {
+  return "aeiou".includes(letra.toLowerCase());
+}
+
+function contarVogais(texto) {
+  // seu código aqui
+}
+$c$, $c$[{"args":["banana"],"expected":3},{"args":["Ola"],"expected":2},{"args":["sky"],"expected":0},{"args":[""],"expected":0}]$c$::jsonb, $c${}$c$::jsonb, $c$Percorra o texto e conte quando ehVogal(texto[i]) for true.$c$, 5, false, $c$arquivo$c$),
+  ($c$pr-composicao$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$interpretation$c$, $c$Resultado como argumento$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5","misconception":"dobra só o segundo argumento e soma com o primeiro"},{"text":"3","misconception":"esquece de aplicar a função dobro"},{"text":"6"},{"text":"4","misconception":"dobra o 1 e soma 2 sem resolver a chamada de dentro"}],"correct":2,"code":"function soma(a, b) {\n  return a + b;\n}\nfunction dobro(n) {\n  return n * 2;\n}\nconsole.log(dobro(soma(1, 2)));","explanation":"soma(1, 2) devolve 3; dobro(3) devolve 6."}$c$::jsonb, $c$Resolva primeiro a chamada de dentro.$c$, 6, false, $c$arquivo$c$),
+  ($c$pr-corrija-o-caminho$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$fix$c$, $c$Um caminho sem retorno$c$, $c$medio$c$, $c$A função `ehPar(n)` deveria devolver true para pares e false para ímpares, mas devolve undefined para os ímpares. Corrija o defeito.$c$, null, $c$ehPar$c$, $c$function ehPar(n) {
+  if (n % 2 === 0) {
+    return true;
+  }
+}
+$c$, $c$[{"args":[4],"expected":true},{"args":[7],"expected":false},{"args":[0],"expected":true},{"args":[-3],"expected":false}]$c$::jsonb, $c${}$c$::jsonb, $c$O que a função devolve quando o if não entra?$c$, 7, false, $c$arquivo$c$),
+  ($c$pr-duas-funcoes-com-ternario$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$interpretation$c$, $c$Funções e ternário$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"baixobaixo","misconception":"usa x = 1 nas duas chamadas e esquece o x + 5"},{"text":"baixoalto"},{"text":"altoalto","misconception":"avalia as duas chamadas como \"alto\""},{"text":"altobaixo","misconception":"inverte a ordem das duas chamadas"}],"correct":1,"code":"function f(x) {\n  return x > 5 ? \"alto\" : \"baixo\";\n}\nfunction g(x) {\n  return f(x) + f(x + 5);\n}\nconsole.log(g(1));","explanation":"f(1) devolve \"baixo\" (1 não é maior que 5) e f(6) devolve \"alto\". Os textos são juntados: baixoalto."}$c$::jsonb, $c$Calcule f(1) e f(6) separadamente.$c$, 8, false, $c$arquivo$c$),
+  ($c$pr-menor-e-maior$c$, $c$funcoes-com-parametros-e-retornos$c$, $c$code$c$, $c$Menor e maior$c$, $c$dificil$c$, $c$Escreva a função `menorEMaior(v)` que devolve um array com dois elementos: o menor e o maior valor do array `v` (que tem pelo menos 1 elemento). Por exemplo, menorEMaior([3, 1, 2]) devolve [1, 3].$c$, null, $c$menorEMaior$c$, $c$function menorEMaior(v) {
+  // seu código aqui
+}
+$c$, $c$[{"args":[[3,1,2]],"expected":[1,3]},{"args":[[5]],"expected":[5,5]},{"args":[[-1,-9,4]],"expected":[-9,4]},{"args":[[2,2,2]],"expected":[2,2]}]$c$::jsonb, $c${}$c$::jsonb, $c$Guarde o menor e o maior vistos até agora, começando pelo primeiro elemento.$c$, 9, false, $c$arquivo$c$),
+  ($c$glob-o-que-e$c$, $c$escopo-global$c$, $c$choice$c$, $c$O que é uma variável global?$c$, $c$facil$c$, $c$O que é uma variável global?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Uma variável declarada dentro de uma função","misconception":"confunde variável global com variável local"},{"text":"Uma variável que só existe durante uma chamada da função","misconception":"descreve uma variável local, não uma global"},{"text":"Um parâmetro de uma função","misconception":"acha que todo parâmetro é global"},{"text":"Uma variável declarada fora de qualquer função, visível em todo o programa"}],"correct":3,"explanation":"A variável global é declarada fora das funções e pode ser usada em qualquer parte do programa."}$c$::jsonb, $c$Onde ela é declarada?$c$, 1, false, $c$arquivo$c$),
+  ($c$glob-ler-uma-global$c$, $c$escopo-global$c$, $c$interpretation$c$, $c$Lendo uma global$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10"},{"text":"100","misconception":"acha que a função não enxerga a variável global taxa"},{"text":"0.1","misconception":"acha que a função devolve o valor da taxa"},{"text":"undefined","misconception":"acha que a variável global não existe dentro da função"}],"correct":0,"code":"const taxa = 0.1;\nfunction imposto(valor) {\n  return valor * taxa;\n}\nconsole.log(imposto(100));","explanation":"A função enxerga a variável global taxa: 100 * 0.1 = 10."}$c$::jsonb, $c$A função consegue ler a variável de fora?$c$, 2, false, $c$arquivo$c$),
+  ($c$glob-complete-o-nome$c$, $c$escopo-global$c$, $c$blank$c$, $c$Complete o comentário$c$, $c$facil$c$, $c$Complete com o tipo de escopo da variável total.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"// variável {{1}}: declarada fora de qualquer função\nlet total = 0;","blanks":[{"answers":["global"]}],"explanation":"Uma variável declarada fora de qualquer função tem escopo global."}$c$::jsonb, $c$Fora das funções, ela vale para todo o programa.$c$, 3, false, $c$arquivo$c$),
+  ($c$glob-alterada-pela-funcao$c$, $c$escopo-global$c$, $c$interpretation$c$, $c$Alterada pela função$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"1","misconception":"acha que a função não consegue alterar a variável de fora"},{"text":"2","misconception":"acha que só a primeira chamada altera a variável"},{"text":"3"},{"text":"4","misconception":"acha que cada chamada dobra o valor"}],"correct":2,"code":"let n = 1;\nfunction incrementar() {\n  n = n + 1;\n}\nincrementar();\nincrementar();\nconsole.log(n);","explanation":"n começa em 1 e a função soma 1 a cada chamada: duas chamadas levam n a 3."}$c$::jsonb, $c$Cada chamada altera a mesma variável global.$c$, 4, false, $c$arquivo$c$),
+  ($c$glob-valor-atual$c$, $c$escopo-global$c$, $c$interpretation$c$, $c$O valor na hora da chamada$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10","misconception":"acha que a função guarda o valor de a do momento em que foi declarada"},{"text":"20"},{"text":"5","misconception":"acha que a função usa o primeiro valor atribuído a a"},{"text":"15","misconception":"soma os dois valores de a"}],"correct":1,"code":"let a = 5;\nfunction f() {\n  return a * 2;\n}\na = 10;\nconsole.log(f());","explanation":"f lê a no momento da chamada, quando a vale 10: 10 * 2 = 20."}$c$::jsonb, $c$A função lê a variável quando é chamada.$c$, 5, false, $c$arquivo$c$),
+  ($c$glob-risco$c$, $c$escopo-global$c$, $c$choice$c$, $c$O risco das globais$c$, $c$medio$c$, $c$Por que é arriscado alterar variáveis globais dentro de funções?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Porque o JavaScript proíbe alterar variáveis globais","misconception":"acha que alterar globais é um erro da linguagem"},{"text":"Porque a função fica mais lenta a cada alteração","misconception":"acha que o risco é de desempenho"},{"text":"Porque a variável global é apagada ao fim da função","misconception":"acha que o valor alterado se perde no fim da chamada"},{"text":"Porque qualquer parte do programa pode mudar o valor sem que percebamos, dificultando achar erros"}],"correct":3,"explanation":"Com globais alteráveis, várias funções podem modificá-las sem aviso, o que torna os erros difíceis de localizar."}$c$::jsonb, $c$Quem mais pode estar mexendo na mesma variável?$c$, 6, false, $c$arquivo$c$),
+  ($c$glob-corrija-a-dependencia$c$, $c$escopo-global$c$, $c$fix$c$, $c$Dependência escondida$c$, $c$medio$c$, $c$A função `precoFinal(valor, taxa)` deveria somar ao valor a taxa recebida (por exemplo, 120 para valor 100 e taxa 0.2), mas usa uma variável global em vez do parâmetro. Corrija o defeito.$c$, null, $c$precoFinal$c$, $c$let taxa = 0.1;
+
+function precoFinal(valor, taxa2) {
+  return valor + valor * taxa;
+}
+$c$, $c$[{"args":[100,0.2],"expected":120},{"args":[200,0.5],"expected":300},{"args":[50,0],"expected":50}]$c$::jsonb, $c${}$c$::jsonb, $c$A taxa que vale é a recebida na chamada ou a global?$c$, 7, false, $c$arquivo$c$),
+  ($c$glob-duas-funcoes-uma-variavel$c$, $c$escopo-global$c$, $c$interpretation$c$, $c$Duas funções, uma variável$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"10"},{"text":"5","misconception":"esquece a última chamada de a()"},{"text":"8","misconception":"calcula 1 * 2 * 2 + 3 + 1, errando a ordem das operações"},{"text":"7","misconception":"soma 3 duas vezes em vez de dobrar de novo"}],"correct":0,"code":"let x = 1;\nfunction a() {\n  x = x * 2;\n}\nfunction b() {\n  x = x + 3;\n}\na();\nb();\na();\nconsole.log(x);","explanation":"x vale 1; a() leva a 2; b() leva a 5; a() leva a 10."}$c$::jsonb, $c$Acompanhe x depois de cada chamada: 2, 5, 10.$c$, 8, false, $c$arquivo$c$),
+  ($c$loc-onde-existe$c$, $c$escopo-local$c$, $c$choice$c$, $c$Onde existe?$c$, $c$facil$c$, $c$Onde uma variável declarada dentro de uma função pode ser usada?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"Em qualquer parte do programa","misconception":"acha que variáveis locais são visíveis em todo o programa"},{"text":"Só na primeira linha da função","misconception":"acha que a variável vale só na linha em que foi declarada"},{"text":"Somente dentro da própria função"},{"text":"Em todas as funções do programa","misconception":"acha que as outras funções enxergam as variáveis locais"}],"correct":2,"explanation":"A variável local só existe dentro da função em que foi declarada."}$c$::jsonb, $c$O escopo local é restrito.$c$, 1, false, $c$arquivo$c$),
+  ($c$loc-valor-dentro$c$, $c$escopo-local$c$, $c$interpretation$c$, $c$Valor local$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"undefined","misconception":"acha que a variável local não existe dentro da própria função"},{"text":"5"},{"text":"x","misconception":"acha que o console.log mostra o nome da variável"},{"text":"Nada","misconception":"acha que a função não executa sem retorno"}],"correct":1,"code":"function f() {\n  let x = 5;\n  console.log(x);\n}\nf();","explanation":"x é local, mas existe dentro de f: o console.log mostra 5."}$c$::jsonb, $c$Dentro da função, x existe.$c$, 2, false, $c$arquivo$c$),
+  ($c$loc-complete-o-escopo$c$, $c$escopo-local$c$, $c$blank$c$, $c$Complete o comentário$c$, $c$facil$c$, $c$Complete com o tipo de escopo da variável resultado.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"function dobro(n) {\n  const resultado = n * 2;   // variável {{1}}\n  return resultado;\n}","blanks":[{"answers":["local"]}],"explanation":"Uma variável declarada dentro da função tem escopo local."}$c$::jsonb, $c$Ela só existe dentro da função.$c$, 3, false, $c$arquivo$c$),
+  ($c$loc-fora-da-funcao$c$, $c$escopo-local$c$, $c$interpretation$c$, $c$Fora da função$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"string","misconception":"acha que a variável local continua existindo depois da função"},{"text":"oi","misconception":"acha que typeof mostra o valor da variável"},{"text":"Erro e o programa para","misconception":"acha que typeof de uma variável inexistente causa erro"},{"text":"undefined"}],"correct":3,"code":"function f() {\n  let msg = \"oi\";\n}\nf();\nconsole.log(typeof msg);","explanation":"msg só existia dentro de f. Fora dela, typeof msg resulta em undefined."}$c$::jsonb, $c$Depois que a função termina, a variável msg ainda existe?$c$, 4, false, $c$arquivo$c$),
+  ($c$loc-mesmo-nome$c$, $c$escopo-local$c$, $c$interpretation$c$, $c$Mesmo nome, variáveis diferentes$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"2 1"},{"text":"2 2","misconception":"acha que a variável local altera a global de mesmo nome"},{"text":"1 1","misconception":"acha que a função devolve a variável global"},{"text":"1 2","misconception":"inverte quem devolve o quê"}],"correct":0,"code":"let x = 1;\nfunction f() {\n  let x = 2;\n  return x;\n}\nconsole.log(f(), x);","explanation":"A variável local x (2) esconde a global dentro de f. A global continua valendo 1."}$c$::jsonb, $c$Dentro de f, x se refere a qual variável?$c$, 5, false, $c$arquivo$c$),
+  ($c$loc-variavel-do-for$c$, $c$escopo-local$c$, $c$interpretation$c$, $c$A variável do for$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"number","misconception":"acha que o contador do for continua existindo depois do laço"},{"text":"3","misconception":"acha que typeof mostra o último valor do contador"},{"text":"undefined"},{"text":"0","misconception":"acha que o contador volta ao valor inicial"}],"correct":2,"code":"for (let i = 0; i < 3; i++) {\n}\nconsole.log(typeof i);","explanation":"Com let no for, i só existe dentro do laço. Depois dele, typeof i é undefined."}$c$::jsonb, $c$Onde a variável i foi declarada?$c$, 6, false, $c$arquivo$c$),
+  ($c$loc-corrija-o-uso-fora$c$, $c$escopo-local$c$, $c$fix$c$, $c$Variável de outra função$c$, $c$medio$c$, $c$A função `mostrarDobro(n)` deveria devolver o dobro de n usando a função `calcular`, mas tenta usar uma variável que só existe dentro de `calcular` e dá erro. Corrija o defeito.$c$, null, $c$mostrarDobro$c$, $c$function calcular(n) {
+  const dobro = n * 2;
+  return dobro;
+}
+
+function mostrarDobro(n) {
+  calcular(n);
+  return dobro;
+}
+$c$, $c$[{"args":[4],"expected":8},{"args":[0],"expected":0},{"args":[-1],"expected":-2}]$c$::jsonb, $c${}$c$::jsonb, $c$Como levar o valor de dentro de calcular para fora dela?$c$, 7, false, $c$arquivo$c$),
+  ($c$loc-corrija-o-acumulador$c$, $c$escopo-local$c$, $c$fix$c$, $c$Acumulador que não reinicia$c$, $c$medio$c$, $c$A função `somaDosQuadrados(n)` deveria devolver a soma dos quadrados de 1 até n (14 para n = 3), mas na segunda chamada o resultado vem acumulado com o da primeira. Corrija o defeito.$c$, null, $c$somaDosQuadrados$c$, $c$let total = 0;
+
+function somaDosQuadrados(n) {
+  for (let i = 1; i <= n; i++) {
+    total += i * i;
+  }
+  return total;
+}
+$c$, $c$[{"args":[3],"expected":14},{"args":[1],"expected":1},{"args":[0],"expected":0},{"args":[2],"expected":5}]$c$::jsonb, $c${}$c$::jsonb, $c$Onde o acumulador deveria ser declarado para recomeçar a cada chamada?$c$, 8, false, $c$arquivo$c$),
+  ($c$loc-parametro-esconde-global$c$, $c$escopo-local$c$, $c$interpretation$c$, $c$O parâmetro esconde a global$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"11 11","misconception":"acha que alterar o parâmetro altera a variável global de mesmo nome"},{"text":"2 10"},{"text":"2 2","misconception":"acha que a global também passa a valer o resultado da função"},{"text":"11 10","misconception":"usa o valor da variável global dentro da função em vez do argumento"}],"correct":1,"code":"let n = 10;\nfunction f(n) {\n  n = n + 1;\n  return n;\n}\nconsole.log(f(1), n);","explanation":"O parâmetro n recebe 1 e vira 2; isso não toca na global. A função devolve 2 e a global continua valendo 10."}$c$::jsonb, $c$Dentro de f, n é o parâmetro. Fora, n é a global.$c$, 9, false, $c$arquivo$c$),
+  ($c$arrow-equivalente$c$, $c$arrow-functions$c$, $c$choice$c$, $c$A forma equivalente$c$, $c$facil$c$, $c$Qual arrow function é equivalente a function dobro(n) { return n * 2; }?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"const dobro = (n) => { n * 2 };","misconception":"usa chaves sem return: a função devolve undefined"},{"text":"const dobro => (n) n * 2;","misconception":"coloca a seta e os parênteses na ordem errada"},{"text":"const dobro = function => n * 2;","misconception":"mistura a palavra function com a seta"},{"text":"const dobro = (n) => n * 2;"}],"correct":3,"explanation":"(n) => n * 2 tem retorno implícito e equivale à função com return n * 2."}$c$::jsonb, $c$Sem chaves, o resultado é devolvido sozinho.$c$, 1, false, $c$arquivo$c$),
+  ($c$arrow-soma$c$, $c$arrow-functions$c$, $c$interpretation$c$, $c$Soma com seta$c$, $c$facil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"5"},{"text":"23","misconception":"acha que os valores são juntados como texto"},{"text":"undefined","misconception":"acha que a função não devolve nada sem a palavra return"},{"text":"a + b","misconception":"acha que a função devolve o texto da expressão"}],"correct":0,"code":"const soma = (a, b) => a + b;\nconsole.log(soma(2, 3));","explanation":"A arrow function devolve a + b automaticamente: 2 + 3 = 5."}$c$::jsonb, $c$Sem chaves, o valor depois da seta é devolvido.$c$, 2, false, $c$arquivo$c$),
+  ($c$arrow-complete-a-seta$c$, $c$arrow-functions$c$, $c$blank$c$, $c$Complete a seta$c$, $c$facil$c$, $c$Complete o símbolo que separa os parâmetros do corpo da arrow function.$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"template":"const triplo = (n) {{1}} n * 3;","blanks":[{"answers":["=>","= >"]}],"explanation":"O símbolo => separa os parâmetros do que a função devolve."}$c$::jsonb, $c$É a "seta" que dá nome a este tipo de função.$c$, 3, false, $c$arquivo$c$),
+  ($c$arrow-chaves-sem-return$c$, $c$arrow-functions$c$, $c$interpretation$c$, $c$Chaves sem return$c$, $c$medio$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"8","misconception":"acha que o retorno implícito vale também quando há chaves"},{"text":"4","misconception":"acha que a função devolve o argumento"},{"text":"undefined"},{"text":"Erro e o programa para","misconception":"acha que chaves sem return é erro de sintaxe"}],"correct":2,"code":"const f = (n) => { n * 2 };\nconsole.log(f(4));","explanation":"Com chaves não há retorno implícito. Sem o return, a função devolve undefined."}$c$::jsonb, $c$Com chaves, a função precisa de return.$c$, 4, false, $c$arquivo$c$),
+  ($c$arrow-quadrado$c$, $c$arrow-functions$c$, $c$code$c$, $c$Quadrado com seta$c$, $c$medio$c$, $c$Escreva a arrow function `quadrado` que recebe um número e devolve o quadrado dele.$c$, null, $c$quadrado$c$, $c$const quadrado = (n) => {
+  // seu código aqui
+};
+$c$, $c$[{"args":[3],"expected":9},{"args":[0],"expected":0},{"args":[-4],"expected":16}]$c$::jsonb, $c${}$c$::jsonb, $c$Com chaves, use return; sem chaves, escreva só a expressão.$c$, 5, false, $c$arquivo$c$),
+  ($c$arrow-par-ou-impar$c$, $c$arrow-functions$c$, $c$code$c$, $c$Par ou ímpar com seta$c$, $c$medio$c$, $c$Escreva a arrow function `parOuImpar` que recebe um número e devolve o texto "par" ou "impar".$c$, null, $c$parOuImpar$c$, $c$const parOuImpar = (n) => {
+  // seu código aqui
+};
+$c$, $c$[{"args":[4],"expected":"par"},{"args":[7],"expected":"impar"},{"args":[0],"expected":"par"}]$c$::jsonb, $c${}$c$::jsonb, $c$O operador ternário cabe bem em uma arrow function curta.$c$, 6, false, $c$arquivo$c$),
+  ($c$arrow-corrija-o-retorno$c$, $c$arrow-functions$c$, $c$fix$c$, $c$Corrija o retorno$c$, $c$medio$c$, $c$A função `dobro(n)` usa uma arrow function interna para calcular o dobro de n, mas devolve undefined. Corrija o defeito.$c$, null, $c$dobro$c$, $c$function dobro(n) {
+  const calcular = (x) => { x * 2 };
+  return calcular(n);
+}
+$c$, $c$[{"args":[4],"expected":8},{"args":[0],"expected":0},{"args":[-3],"expected":-6}]$c$::jsonb, $c${}$c$::jsonb, $c$O que muda com as chaves: o retorno é implícito?$c$, 7, false, $c$arquivo$c$),
+  ($c$arrow-compondo$c$, $c$arrow-functions$c$, $c$interpretation$c$, $c$Compondo setas$c$, $c$dificil$c$, $c$O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"7","misconception":"calcula somar1(dobrar(3)), invertendo a ordem das funções"},{"text":"8"},{"text":"6","misconception":"aplica só a função dobrar ao argumento original"},{"text":"4","misconception":"aplica só a função somar1 e esquece de dobrar"}],"correct":1,"code":"const somar1 = (n) => n + 1;\nconst dobrar = (n) => n * 2;\nconsole.log(dobrar(somar1(3)));","explanation":"somar1(3) devolve 4; dobrar(4) devolve 8."}$c$::jsonb, $c$Resolva primeiro a chamada de dentro.$c$, 8, false, $c$arquivo$c$),
+  ($c$desafio7-calculadora$c$, $c$desafio-do-mundo-7$c$, $c$challenge$c$, $c$Desafio: calculadora em funções$c$, $c$dificil$c$, $c$Escreva a função `calcular(operacao, a, b)` e, para organizar o código, crie também as funções `somar`, `subtrair`, `multiplicar` e `dividir` (cada uma recebe dois números e devolve o resultado). `calcular` recebe a operação ("+", "-", "*" ou "/") e devolve o resultado chamando a função certa. Divisão com divisor zero devolve o texto "Divisão por zero", e uma operação desconhecida devolve "Operação inválida".$c$, null, $c$calcular$c$, $c$// crie aqui as funções somar, subtrair, multiplicar e dividir
+
+function calcular(operacao, a, b) {
+  // escolha a função certa e devolva o resultado
+}
+$c$, $c$[{"args":["+",2,3],"expected":5},{"args":["-",2,3],"expected":-1},{"args":["*",4,5],"expected":20},{"args":["/",10,4],"expected":2.5},{"args":["/",5,0],"expected":"Divisão por zero"},{"args":["%",1,2],"expected":"Operação inválida"}]$c$::jsonb, $c${}$c$::jsonb, $c$Cada operação é uma função pequena; calcular só escolhe qual chamar (switch ou if/else if) e devolve o resultado.$c$, 1, false, $c$arquivo$c$),
+  ($c$desafio7-executar-calculadora$c$, $c$desafio-do-mundo-7$c$, $c$challenge$c$, $c$Desafio: usando a calculadora$c$, $c$dificil$c$, $c$A função `calcular(operacao, a, b)` já existe. Escreva a função `executar()`: leia com `lerEntrada()` a operação, o primeiro número e o segundo número (os números chegam como texto) e mostre `Resultado: <valor>` com `console.log`, usando `calcular`.$c$, null, $c$executar$c$, $c$function calcular(operacao, a, b) {
+  switch (operacao) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return b === 0 ? "Divisão por zero" : a / b;
+    default:
+      return "Operação inválida";
+  }
+}
+
+function executar() {
+  // leia as entradas e mostre o resultado
+}
+$c$, $c$[{"args":[],"inputs":["+","2","3"],"output":["Resultado: 5"]},{"args":[],"inputs":["/","5","0"],"output":["Resultado: Divisão por zero"]},{"args":[],"inputs":["x","1","1"],"output":["Resultado: Operação inválida"]},{"args":[],"inputs":["*","4","2.5"],"output":["Resultado: 10"]}]$c$::jsonb, $c${}$c$::jsonb, $c$Converta os números com Number() antes de chamar calcular.$c$, 2, false, $c$arquivo$c$),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$desafio-do-mundo-7$c$, $c$fix$c$, $c$Desafio: corrija a calculadora$c$, $c$dificil$c$, $c$A função `calcular(operacao, a, b)` deveria devolver o resultado de cada operação, mas há dois defeitos: a subtração sai com o sinal trocado e a multiplicação não devolve nada. Corrija os defeitos.$c$, null, $c$calcular$c$, $c$function somar(a, b) {
+  return a + b;
+}
+
+function subtrair(a, b) {
+  return b - a;
+}
+
+function multiplicar(a, b) {
+  console.log(a * b);
+}
+
+function calcular(operacao, a, b) {
+  if (operacao === "+") {
+    return somar(a, b);
+  } else if (operacao === "-") {
+    return subtrair(a, b);
+  } else if (operacao === "*") {
+    return multiplicar(a, b);
+  }
+  return "Operação inválida";
+}
+$c$, $c$[{"args":["+",2,3],"expected":5},{"args":["-",5,2],"expected":3},{"args":["*",4,5],"expected":20},{"args":["x",1,1],"expected":"Operação inválida"}]$c$::jsonb, $c${}$c$::jsonb, $c$Confira a ordem dos parâmetros em subtrair e o que multiplicar devolve (ou só mostra).$c$, 3, false, $c$arquivo$c$),
+  ($c$desafio7-acompanhe-as-funcoes$c$, $c$desafio-do-mundo-7$c$, $c$interpretation$c$, $c$Desafio: acompanhe as funções$c$, $c$dificil$c$, $c$Acompanhe os valores das variáveis. O que o programa abaixo mostra na tela?$c$, null, null, $c$$c$, $c$[]$c$::jsonb, $c${"options":[{"text":"9","misconception":"esquece de somar o valor de total depois da última chamada"},{"text":"13","misconception":"soma o argumento 4 ao valor devolvido, em vez do total"},{"text":"20","misconception":"soma os argumentos das três chamadas ao total de cada uma"},{"text":"18"}],"correct":3,"code":"let total = 0;\nfunction somar(a, b) {\n  return a + b;\n}\nfunction acumular(n) {\n  total = somar(total, n);\n  return total;\n}\nacumular(2);\nacumular(3);\nconsole.log(acumular(4) + total);","explanation":"total vira 2, depois 5, e na última chamada vira 9 (acumular(4) devolve 9). Então a soma é 9 + total, que já vale 9: 18."}$c$::jsonb, $c$acumular altera a variável global total a cada chamada.$c$, 4, false, $c$arquivo$c$)
 on conflict (id) do update set module_id = excluded.module_id, kind = excluded.kind, title = excluded.title,
   difficulty = excluded.difficulty, statement = excluded.statement, lesson = excluded.lesson,
   function_name = excluded.function_name, starter_code = excluded.starter_code, tests = excluded.tests,
@@ -4062,14 +4684,237 @@ from (values
 }$c$, $c$$c$),
   ($c$hipotenusa$c$, $c$function hipotenusa(a, b) {
   return Math.sqrt(a * a + b * b);
-}$c$, $c$$c$)
+}$c$, $c$$c$),
+  ($c$func-intro-ola-mundo$c$, $c$function ola() {
+  return "Olá, mundo!";
+}$c$, $c$A função devolve o texto com return.$c$),
+  ($c$decl-triplo$c$, $c$function triplo(n) {
+  return n * 3;
+}$c$, $c$A função devolve n * 3.$c$),
+  ($c$decl-eh-par$c$, $c$function ehPar(n) {
+  return n % 2 === 0;
+}$c$, $c$A função devolve o resultado da comparação n % 2 === 0, que já é true ou false.$c$),
+  ($c$cham-quadruplo$c$, $c$function dobro(n) {
+  return n * 2;
+}
+
+function quadruplo(n) {
+  return dobro(dobro(n));
+}$c$, $c$dobro(dobro(n)) dobra o valor duas vezes, resultando no quádruplo.$c$),
+  ($c$cham-corrija-a-chamada$c$, $c$function dobro(n) {
+  return n * 2;
+}
+
+function quadruplo(n) {
+  return dobro(n) + dobro(n);
+}$c$, $c$O segundo dobro estava sem parênteses: era só uma referência à função, e não uma chamada. O correto é dobro(n) + dobro(n).$c$),
+  ($c$cham-contar-pares-com-ajudante$c$, $c$function ehPar(n) {
+  return n % 2 === 0;
+}
+
+function contarPares(v) {
+  let contador = 0;
+  for (let i = 0; i < v.length; i++) {
+    if (ehPar(v[i])) {
+      contador++;
+    }
+  }
+  return contador;
+}$c$, $c$O laço percorre o array e, para cada elemento, chama ehPar; um contador soma 1 quando ela devolve true.$c$),
+  ($c$par-area-do-retangulo$c$, $c$function area(base, altura) {
+  return base * altura;
+}$c$, $c$A função multiplica base por altura.$c$),
+  ($c$par-media-de-tres$c$, $c$function mediaDeTres(a, b, c) {
+  return (a + b + c) / 3;
+}$c$, $c$(a + b + c) / 3: os parênteses garantem que a soma é feita antes da divisão.$c$),
+  ($c$par-corrija-o-parametro$c$, $c$function calcularArea(base, altura) {
+  return base * altura;
+}$c$, $c$O corpo usava base duas vezes e deixava altura de fora. O correto é base * altura.$c$),
+  ($c$arg-potencia$c$, $c$function potencia(base, expoente) {
+  let resultado = 1;
+  for (let i = 0; i < expoente; i++) {
+    resultado *= base;
+  }
+  return resultado;
+}$c$, $c$Um acumulador começa em 1 e é multiplicado pela base a cada volta, expoente vezes.$c$),
+  ($c$arg-corrija-a-ordem$c$, $c$function diferenca(a, b) {
+  return a - b;
+}
+
+function faltaPara10(n) {
+  return diferenca(10, n);
+}$c$, $c$A ordem dos argumentos estava invertida. diferenca(10, n) calcula 10 - n.$c$),
+  ($c$ret-maior-de-idade$c$, $c$function ehMaiorDeIdade(idade) {
+  return idade >= 18;
+}$c$, $c$return idade >= 18 devolve o resultado da comparação.$c$),
+  ($c$ret-corrija-o-return$c$, $c$function dobro(n) {
+  return n * 2;
+}$c$, $c$console.log só mostra o valor. Para entregá-lo a quem chamou, use return n * 2.$c$),
+  ($c$ret-classificar-nota$c$, $c$function classificar(nota) {
+  if (nota >= 7) {
+    return "aprovado";
+  } else if (nota >= 5) {
+    return "recuperacao";
+  } else {
+    return "reprovado";
+  }
+}$c$, $c$Os if/else if devolvem o texto da faixa correspondente e o return encerra a função.$c$),
+  ($c$ret-primeiro-par$c$, $c$function primeiroPar(v) {
+  for (let i = 0; i < v.length; i++) {
+    if (v[i] % 2 === 0) {
+      return v[i];
+    }
+  }
+  return -1;
+}$c$, $c$O return dentro do if encerra a função no primeiro par. Se o laço termina sem achar, o return -1 final é executado.$c$),
+  ($c$pr-calcular-total$c$, $c$function calcularTotal(preco, quantidade) {
+  let total = preco * quantidade;
+  if (quantidade >= 10) {
+    total = total - total / 10;
+  }
+  return total;
+}$c$, $c$O total é preco * quantidade. Com 10 ou mais, subtrai-se 10% dele; os dois caminhos terminam em return.$c$),
+  ($c$pr-contar-vogais-com-ajudante$c$, $c$function ehVogal(letra) {
+  return "aeiou".includes(letra.toLowerCase());
+}
+
+function contarVogais(texto) {
+  let vogais = 0;
+  for (let i = 0; i < texto.length; i++) {
+    if (ehVogal(texto[i])) {
+      vogais++;
+    }
+  }
+  return vogais;
+}$c$, $c$O laço percorre as letras e um contador soma 1 sempre que ehVogal devolve true.$c$),
+  ($c$pr-corrija-o-caminho$c$, $c$function ehPar(n) {
+  if (n % 2 === 0) {
+    return true;
+  }
+  return false;
+}$c$, $c$Quando n é ímpar, nenhum return é executado e a função devolve undefined. Falta devolver false nesse caminho.$c$),
+  ($c$pr-menor-e-maior$c$, $c$function menorEMaior(v) {
+  let menor = v[0];
+  let maior = v[0];
+  for (let i = 1; i < v.length; i++) {
+    if (v[i] < menor) {
+      menor = v[i];
+    }
+    if (v[i] > maior) {
+      maior = v[i];
+    }
+  }
+  return [menor, maior];
+}$c$, $c$O laço atualiza o menor e o maior valor; no final, a função devolve os dois em um array.$c$),
+  ($c$glob-corrija-a-dependencia$c$, $c$let taxa = 0.1;
+
+function precoFinal(valor, taxa2) {
+  return valor + valor * taxa2;
+}$c$, $c$A função ignorava o parâmetro e lia a variável global taxa (0.1). Usando o parâmetro, ela depende só do que recebe.$c$),
+  ($c$loc-corrija-o-uso-fora$c$, $c$function calcular(n) {
+  const dobro = n * 2;
+  return dobro;
+}
+
+function mostrarDobro(n) {
+  return calcular(n);
+}$c$, $c$dobro é local de calcular. Para usar o valor, é preciso guardar (ou devolver) o resultado da chamada: return calcular(n).$c$),
+  ($c$loc-corrija-o-acumulador$c$, $c$function somaDosQuadrados(n) {
+  let total = 0;
+  for (let i = 1; i <= n; i++) {
+    total += i * i;
+  }
+  return total;
+}$c$, $c$total era global e guardava o resultado das chamadas anteriores. Declarado dentro da função, ele recomeça em 0 a cada chamada.$c$),
+  ($c$arrow-quadrado$c$, $c$const quadrado = (n) => n * n;$c$, $c$(n) => n * n devolve o quadrado de n.$c$),
+  ($c$arrow-par-ou-impar$c$, $c$const parOuImpar = (n) => (n % 2 === 0 ? "par" : "impar");$c$, $c$(n) => n % 2 === 0 ? "par" : "impar" devolve o texto conforme a condição.$c$),
+  ($c$arrow-corrija-o-retorno$c$, $c$function dobro(n) {
+  const calcular = (x) => x * 2;
+  return calcular(n);
+}$c$, $c$Com chaves, o return é obrigatório. Basta remover as chaves ((n) => n * 2) ou escrever return n * 2.$c$),
+  ($c$desafio7-calculadora$c$, $c$function somar(a, b) {
+  return a + b;
+}
+
+function subtrair(a, b) {
+  return a - b;
+}
+
+function multiplicar(a, b) {
+  return a * b;
+}
+
+function dividir(a, b) {
+  if (b === 0) {
+    return "Divisão por zero";
+  }
+  return a / b;
+}
+
+function calcular(operacao, a, b) {
+  switch (operacao) {
+    case "+":
+      return somar(a, b);
+    case "-":
+      return subtrair(a, b);
+    case "*":
+      return multiplicar(a, b);
+    case "/":
+      return dividir(a, b);
+    default:
+      return "Operação inválida";
+  }
+}$c$, $c$As quatro funções fazem as contas e dividir trata o divisor zero. calcular usa um switch (ou if/else if) para chamar a função certa e devolve o resultado, com um caminho final para operações inválidas.$c$),
+  ($c$desafio7-executar-calculadora$c$, $c$function calcular(operacao, a, b) {
+  switch (operacao) {
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return b === 0 ? "Divisão por zero" : a / b;
+    default:
+      return "Operação inválida";
+  }
+}
+
+function executar() {
+  const operacao = lerEntrada();
+  const a = Number(lerEntrada());
+  const b = Number(lerEntrada());
+  console.log("Resultado:", calcular(operacao, a, b));
+}$c$, $c$executar lê a operação e os dois números (convertidos com Number), chama calcular e mostra o valor devolvido.$c$),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$function somar(a, b) {
+  return a + b;
+}
+
+function subtrair(a, b) {
+  return a - b;
+}
+
+function multiplicar(a, b) {
+  return a * b;
+}
+
+function calcular(operacao, a, b) {
+  if (operacao === "+") {
+    return somar(a, b);
+  } else if (operacao === "-") {
+    return subtrair(a, b);
+  } else if (operacao === "*") {
+    return multiplicar(a, b);
+  }
+  return "Operação inválida";
+}$c$, $c$subtrair calculava b - a (ordem trocada) e multiplicar só mostrava o valor com console.log, devolvendo undefined. Corrigindo para a - b e return a * b, as duas passam a devolver o resultado.$c$)
 ) as v (exercise_id, solution, commentary)
 join public.exercises e on e.id = v.exercise_id and e.origem = 'arquivo'
 on conflict (exercise_id) do update set solution = excluded.solution, commentary = excluded.commentary;
 
 -- Vínculos exercício-conceito: só dos exercícios que o importador administra.
 delete from public.exercise_concepts where exercise_id in (
-  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$)
+  select id from public.exercises where origem = 'arquivo' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$, $c$func-intro-para-que-serve$c$, $c$func-intro-duas-chamadas$c$, $c$func-intro-complete-a-palavra$c$, $c$func-intro-nunca-chamada$c$, $c$func-intro-vantagem$c$, $c$func-intro-ordem-de-uso$c$, $c$func-intro-ola-mundo$c$, $c$func-intro-dobrar-duas-vezes$c$, $c$decl-forma-correta$c$, $c$decl-ordem-de-execucao$c$, $c$decl-complete-o-parametro$c$, $c$decl-bom-nome$c$, $c$decl-duas-funcoes$c$, $c$decl-triplo$c$, $c$decl-eh-par$c$, $c$decl-chamada-antes$c$, $c$cham-como-chamar$c$, $c$cham-duas-chamadas-com-valor$c$, $c$cham-complete-os-parenteses$c$, $c$cham-sem-parenteses$c$, $c$cham-funcao-chama-funcao$c$, $c$cham-quadruplo$c$, $c$cham-corrija-a-chamada$c$, $c$cham-chamadas-aninhadas$c$, $c$cham-contar-pares-com-ajudante$c$, $c$par-o-que-e$c$, $c$par-oi-ana$c$, $c$par-complete-o-primeiro$c$, $c$par-ordem-importa$c$, $c$par-area-do-retangulo$c$, $c$par-media-de-tres$c$, $c$par-corrija-o-parametro$c$, $c$par-parametro-e-copia$c$, $c$arg-parametro-ou-argumento$c$, $c$arg-expressao$c$, $c$arg-complete-o-segundo$c$, $c$arg-faltando$c$, $c$arg-sobrando$c$, $c$arg-potencia$c$, $c$arg-corrija-a-ordem$c$, $c$arg-por-posicao$c$, $c$ret-o-que-faz$c$, $c$ret-guardar-o-resultado$c$, $c$ret-complete-o-comando$c$, $c$ret-sem-return$c$, $c$ret-apos-o-return$c$, $c$ret-maior-de-idade$c$, $c$ret-corrija-o-return$c$, $c$ret-classificar-nota$c$, $c$ret-mostrar-e-devolver$c$, $c$ret-primeiro-par$c$, $c$pr-o-que-torna-reutilizavel$c$, $c$pr-media$c$, $c$pr-complete-o-retorno$c$, $c$pr-calcular-total$c$, $c$pr-contar-vogais-com-ajudante$c$, $c$pr-composicao$c$, $c$pr-corrija-o-caminho$c$, $c$pr-duas-funcoes-com-ternario$c$, $c$pr-menor-e-maior$c$, $c$glob-o-que-e$c$, $c$glob-ler-uma-global$c$, $c$glob-complete-o-nome$c$, $c$glob-alterada-pela-funcao$c$, $c$glob-valor-atual$c$, $c$glob-risco$c$, $c$glob-corrija-a-dependencia$c$, $c$glob-duas-funcoes-uma-variavel$c$, $c$loc-onde-existe$c$, $c$loc-valor-dentro$c$, $c$loc-complete-o-escopo$c$, $c$loc-fora-da-funcao$c$, $c$loc-mesmo-nome$c$, $c$loc-variavel-do-for$c$, $c$loc-corrija-o-uso-fora$c$, $c$loc-corrija-o-acumulador$c$, $c$loc-parametro-esconde-global$c$, $c$arrow-equivalente$c$, $c$arrow-soma$c$, $c$arrow-complete-a-seta$c$, $c$arrow-chaves-sem-return$c$, $c$arrow-quadrado$c$, $c$arrow-par-ou-impar$c$, $c$arrow-corrija-o-retorno$c$, $c$arrow-compondo$c$, $c$desafio7-calculadora$c$, $c$desafio7-executar-calculadora$c$, $c$desafio7-corrija-a-calculadora$c$, $c$desafio7-acompanhe-as-funcoes$c$)
 );
 insert into public.exercise_concepts (exercise_id, concept_id, weight)
 select v.exercise_id, v.concept_id, v.weight
@@ -4973,7 +5818,174 @@ from (values
   ($c$maior-de-dois$c$, $c$m7-return$c$, 2),
   ($c$maior-de-dois$c$, $c$m4-if$c$, 1),
   ($c$hipotenusa$c$, $c$m7-parametros-retorno$c$, 2),
-  ($c$hipotenusa$c$, $c$m3-aritmeticos$c$, 1)
+  ($c$hipotenusa$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$func-intro-para-que-serve$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-duas-chamadas$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-duas-chamadas$c$, $c$m7-chamada$c$, 2),
+  ($c$func-intro-complete-a-palavra$c$, $c$m7-introducao$c$, 2),
+  ($c$func-intro-complete-a-palavra$c$, $c$m7-declaracao$c$, 2),
+  ($c$func-intro-nunca-chamada$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-nunca-chamada$c$, $c$m7-chamada$c$, 2),
+  ($c$func-intro-vantagem$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-ordem-de-uso$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-ordem-de-uso$c$, $c$m7-chamada$c$, 1),
+  ($c$func-intro-ola-mundo$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-ola-mundo$c$, $c$m7-declaracao$c$, 2),
+  ($c$func-intro-dobrar-duas-vezes$c$, $c$m7-introducao$c$, 3),
+  ($c$func-intro-dobrar-duas-vezes$c$, $c$m7-return$c$, 2),
+  ($c$func-intro-dobrar-duas-vezes$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$decl-forma-correta$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-ordem-de-execucao$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-ordem-de-execucao$c$, $c$m7-chamada$c$, 2),
+  ($c$decl-complete-o-parametro$c$, $c$m7-declaracao$c$, 2),
+  ($c$decl-complete-o-parametro$c$, $c$m7-parametros$c$, 2),
+  ($c$decl-bom-nome$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-duas-funcoes$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-duas-funcoes$c$, $c$m7-chamada$c$, 2),
+  ($c$decl-triplo$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-triplo$c$, $c$m7-return$c$, 2),
+  ($c$decl-triplo$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$decl-eh-par$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-eh-par$c$, $c$m7-return$c$, 2),
+  ($c$decl-eh-par$c$, $c$m3-relacionais$c$, 1),
+  ($c$decl-chamada-antes$c$, $c$m7-declaracao$c$, 3),
+  ($c$decl-chamada-antes$c$, $c$m7-chamada$c$, 2),
+  ($c$cham-como-chamar$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-duas-chamadas-com-valor$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-duas-chamadas-com-valor$c$, $c$m7-argumentos$c$, 2),
+  ($c$cham-complete-os-parenteses$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-sem-parenteses$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-funcao-chama-funcao$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-funcao-chama-funcao$c$, $c$m7-return$c$, 2),
+  ($c$cham-quadruplo$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-quadruplo$c$, $c$m7-return$c$, 2),
+  ($c$cham-corrija-a-chamada$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-chamadas-aninhadas$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-chamadas-aninhadas$c$, $c$m7-return$c$, 2),
+  ($c$cham-contar-pares-com-ajudante$c$, $c$m7-chamada$c$, 3),
+  ($c$cham-contar-pares-com-ajudante$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$cham-contar-pares-com-ajudante$c$, $c$m5-contadores$c$, 2),
+  ($c$par-o-que-e$c$, $c$m7-parametros$c$, 3),
+  ($c$par-o-que-e$c$, $c$m7-argumentos$c$, 1),
+  ($c$par-oi-ana$c$, $c$m7-parametros$c$, 3),
+  ($c$par-complete-o-primeiro$c$, $c$m7-parametros$c$, 3),
+  ($c$par-ordem-importa$c$, $c$m7-parametros$c$, 3),
+  ($c$par-ordem-importa$c$, $c$m7-argumentos$c$, 2),
+  ($c$par-area-do-retangulo$c$, $c$m7-parametros$c$, 3),
+  ($c$par-area-do-retangulo$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$par-media-de-tres$c$, $c$m7-parametros$c$, 3),
+  ($c$par-media-de-tres$c$, $c$m3-precedencia$c$, 2),
+  ($c$par-corrija-o-parametro$c$, $c$m7-parametros$c$, 3),
+  ($c$par-parametro-e-copia$c$, $c$m7-parametros$c$, 3),
+  ($c$par-parametro-e-copia$c$, $c$m7-escopo-local$c$, 2),
+  ($c$arg-parametro-ou-argumento$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-parametro-ou-argumento$c$, $c$m7-parametros$c$, 2),
+  ($c$arg-expressao$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-expressao$c$, $c$m3-precedencia$c$, 1),
+  ($c$arg-complete-o-segundo$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-faltando$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-faltando$c$, $c$m7-parametros$c$, 2),
+  ($c$arg-sobrando$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-potencia$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-potencia$c$, $c$m5-for$c$, 2),
+  ($c$arg-potencia$c$, $c$m5-acumuladores$c$, 2),
+  ($c$arg-corrija-a-ordem$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-corrija-a-ordem$c$, $c$m7-parametros$c$, 2),
+  ($c$arg-por-posicao$c$, $c$m7-argumentos$c$, 3),
+  ($c$arg-por-posicao$c$, $c$m7-parametros$c$, 2),
+  ($c$ret-o-que-faz$c$, $c$m7-return$c$, 3),
+  ($c$ret-guardar-o-resultado$c$, $c$m7-return$c$, 3),
+  ($c$ret-guardar-o-resultado$c$, $c$m7-chamada$c$, 2),
+  ($c$ret-complete-o-comando$c$, $c$m7-return$c$, 3),
+  ($c$ret-sem-return$c$, $c$m7-return$c$, 3),
+  ($c$ret-apos-o-return$c$, $c$m7-return$c$, 3),
+  ($c$ret-maior-de-idade$c$, $c$m7-return$c$, 3),
+  ($c$ret-maior-de-idade$c$, $c$m3-relacionais$c$, 1),
+  ($c$ret-corrija-o-return$c$, $c$m7-return$c$, 3),
+  ($c$ret-classificar-nota$c$, $c$m7-return$c$, 3),
+  ($c$ret-classificar-nota$c$, $c$m4-else-if$c$, 2),
+  ($c$ret-mostrar-e-devolver$c$, $c$m7-return$c$, 3),
+  ($c$ret-mostrar-e-devolver$c$, $c$m2-console-log$c$, 1),
+  ($c$ret-primeiro-par$c$, $c$m7-return$c$, 3),
+  ($c$ret-primeiro-par$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$ret-primeiro-par$c$, $c$m4-if$c$, 1),
+  ($c$pr-o-que-torna-reutilizavel$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-media$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-media$c$, $c$m3-precedencia$c$, 1),
+  ($c$pr-complete-o-retorno$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-complete-o-retorno$c$, $c$m4-if$c$, 1),
+  ($c$pr-calcular-total$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-calcular-total$c$, $c$m4-if-else$c$, 2),
+  ($c$pr-calcular-total$c$, $c$m3-aritmeticos$c$, 1),
+  ($c$pr-contar-vogais-com-ajudante$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-contar-vogais-com-ajudante$c$, $c$m6-percorrer-for$c$, 1),
+  ($c$pr-contar-vogais-com-ajudante$c$, $c$m5-contadores$c$, 2),
+  ($c$pr-composicao$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-composicao$c$, $c$m7-chamada$c$, 2),
+  ($c$pr-corrija-o-caminho$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-corrija-o-caminho$c$, $c$m7-return$c$, 3),
+  ($c$pr-duas-funcoes-com-ternario$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-duas-funcoes-com-ternario$c$, $c$m4-ternario$c$, 1),
+  ($c$pr-duas-funcoes-com-ternario$c$, $c$m7-chamada$c$, 2),
+  ($c$pr-menor-e-maior$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$pr-menor-e-maior$c$, $c$m6-percorrer-for$c$, 2),
+  ($c$pr-menor-e-maior$c$, $c$m6-arrays$c$, 1),
+  ($c$glob-o-que-e$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-ler-uma-global$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-complete-o-nome$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-alterada-pela-funcao$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-valor-atual$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-risco$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-corrija-a-dependencia$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-corrija-a-dependencia$c$, $c$m7-parametros$c$, 2),
+  ($c$glob-duas-funcoes-uma-variavel$c$, $c$m7-escopo-global$c$, 3),
+  ($c$glob-duas-funcoes-uma-variavel$c$, $c$m7-chamada$c$, 2),
+  ($c$loc-onde-existe$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-valor-dentro$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-complete-o-escopo$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-fora-da-funcao$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-mesmo-nome$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-mesmo-nome$c$, $c$m7-escopo-global$c$, 2),
+  ($c$loc-variavel-do-for$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-variavel-do-for$c$, $c$m5-for$c$, 1),
+  ($c$loc-corrija-o-uso-fora$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-corrija-o-uso-fora$c$, $c$m7-return$c$, 2),
+  ($c$loc-corrija-o-acumulador$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-corrija-o-acumulador$c$, $c$m5-acumuladores$c$, 2),
+  ($c$loc-parametro-esconde-global$c$, $c$m7-escopo-local$c$, 3),
+  ($c$loc-parametro-esconde-global$c$, $c$m7-parametros$c$, 2),
+  ($c$loc-parametro-esconde-global$c$, $c$m7-escopo-global$c$, 2),
+  ($c$arrow-equivalente$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-soma$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-soma$c$, $c$m7-chamada$c$, 2),
+  ($c$arrow-complete-a-seta$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-chaves-sem-return$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-chaves-sem-return$c$, $c$m7-return$c$, 2),
+  ($c$arrow-quadrado$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-quadrado$c$, $c$m7-return$c$, 2),
+  ($c$arrow-par-ou-impar$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-par-ou-impar$c$, $c$m4-ternario$c$, 2),
+  ($c$arrow-corrija-o-retorno$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-corrija-o-retorno$c$, $c$m7-return$c$, 2),
+  ($c$arrow-compondo$c$, $c$m7-arrow$c$, 3),
+  ($c$arrow-compondo$c$, $c$m7-chamada$c$, 2),
+  ($c$arrow-compondo$c$, $c$m7-parametros-retorno$c$, 2),
+  ($c$desafio7-calculadora$c$, $c$m7-parametros-retorno$c$, 3),
+  ($c$desafio7-calculadora$c$, $c$m7-chamada$c$, 2),
+  ($c$desafio7-calculadora$c$, $c$m4-switch$c$, 2),
+  ($c$desafio7-calculadora$c$, $c$m4-if-else$c$, 1),
+  ($c$desafio7-calculadora$c$, $c$m3-aritmeticos$c$, 2),
+  ($c$desafio7-executar-calculadora$c$, $c$m7-chamada$c$, 3),
+  ($c$desafio7-executar-calculadora$c$, $c$m7-parametros-retorno$c$, 2),
+  ($c$desafio7-executar-calculadora$c$, $c$m2-entrada-saida$c$, 2),
+  ($c$desafio7-executar-calculadora$c$, $c$m2-conversao-tipos$c$, 1),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$m7-return$c$, 3),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$m7-parametros$c$, 2),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$m7-argumentos$c$, 2),
+  ($c$desafio7-corrija-a-calculadora$c$, $c$m4-else-if$c$, 1),
+  ($c$desafio7-acompanhe-as-funcoes$c$, $c$m7-escopo-global$c$, 3),
+  ($c$desafio7-acompanhe-as-funcoes$c$, $c$m7-parametros-retorno$c$, 2),
+  ($c$desafio7-acompanhe-as-funcoes$c$, $c$m7-chamada$c$, 2)
 ) as v (exercise_id, concept_id, weight)
 join public.exercises e on e.id = v.exercise_id and e.origem = 'arquivo'
 on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
@@ -4981,7 +5993,7 @@ on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 do $$
 declare n integer;
 begin
-  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$);
+  select count(*) into n from public.exercises where origem = 'painel' and id in ($c$o-que-e-algoritmo$c$, $c$ordem-das-instrucoes$c$, $c$valor-da-variavel$c$, $c$completar-condicional$c$, $c$completar-laco$c$, $c$tipos-de-dados$c$, $c$precedencia-operadores$c$, $c$resto-da-divisao$c$, $c$exemplo-interpretacao$c$, $c$exemplo-ordenacao$c$, $c$exemplo-corrigir$c$, $c$exemplo-entrada-saida$c$, $c$prog-o-que-e-programar$c$, $c$prog-quem-e-quem$c$, $c$prog-complete-ola-mundo$c$, $c$prog-ordem-das-instrucoes$c$, $c$prog-texto-ou-conta$c$, $c$prog-quem-responde-pelo-erro$c$, $c$logica-o-que-e$c$, $c$logica-deducao-simples$c$, $c$logica-se-entao-senao$c$, $c$logica-calculo-do-troco$c$, $c$logica-quem-pode-entrar$c$, $c$logica-etapas-do-raciocinio$c$, $c$logica-raciocinio-invertido$c$, $c$algoritmo-qual-e-algoritmo$c$, $c$algoritmo-o-que-nao-precisa$c$, $c$algoritmo-trocar-lampada$c$, $c$algoritmo-contar-ate-tres$c$, $c$algoritmo-instrucao-clara$c$, $c$algoritmo-que-nunca-termina$c$, $c$sequencia-escovar-os-dentes$c$, $c$sequencia-por-que-importa$c$, $c$sequencia-abc$c$, $c$sequencia-ordem-do-programa$c$, $c$sequencia-macarrao$c$, $c$sequencia-saque-no-caixa$c$, $c$eps-o-que-e-entrada$c$, $c$eps-classificar-saida$c$, $c$eps-eco$c$, $c$eps-quais-sao-entrada$c$, $c$eps-qual-e-o-processamento$c$, $c$eps-dobro$c$, $c$eps-soma-de-entradas$c$, $c$pseudo-o-que-e$c$, $c$pseudo-comando-de-saida$c$, $c$pseudo-complete-saudacao$c$, $c$pseudo-soma$c$, $c$pseudo-desconto$c$, $c$pseudo-ordene-o-algoritmo$c$, $c$fluxo-simbolo-da-decisao$c$, $c$fluxo-o-que-as-setas-indicam$c$, $c$fluxo-simbolo-da-entrada$c$, $c$fluxo-dobro$c$, $c$fluxo-maior-de-idade$c$, $c$fluxo-guarda-chuva$c$, $c$desafio1-trocar-o-pneu$c$, $c$desafio1-pseudocodigo-da-media$c$, $c$desafio1-aprovado-ou-nao$c$, $c$tamanho-do-texto$c$, $c$completar-texto$c$, $c$inverter-texto$c$, $c$conta-vogais$c$, $c$palindromo$c$, $c$variaveis-o-que-e$c$, $c$variaveis-mostrar-valor$c$, $c$variaveis-complete-idade$c$, $c$variaveis-trocar-o-valor$c$, $c$variaveis-ordene-o-programa$c$, $c$variaveis-sinal-de-igual$c$, $c$variaveis-copia-de-valor$c$, $c$declaracao-nome-valido$c$, $c$declaracao-linha-correta$c$, $c$declaracao-complete$c$, $c$declaracao-sem-valor$c$, $c$declaracao-maiuscula-minuscula$c$, $c$declaracao-corrija-o-nome$c$, $c$declaracao-so-nomes-validos$c$, $c$letconst-palavra-que-muda$c$, $c$letconst-quando-usar-const$c$, $c$letconst-complete$c$, $c$letconst-alterando-const$c$, $c$letconst-somando-pontos$c$, $c$letconst-corrija-a-area$c$, $c$letconst-qual-funciona$c$, $c$string-qual-e-texto$c$, $c$string-typeof-numero-entre-aspas$c$, $c$string-complete-as-aspas$c$, $c$string-typeof-true-entre-aspas$c$, $c$string-aspas-dentro-do-texto$c$, $c$string-corrija-as-aspas$c$, $c$string-por-que-sao-diferentes$c$, $c$number-como-escrever-decimal$c$, $c$number-typeof-decimal$c$, $c$number-complete-a-altura$c$, $c$number-divisao-decimal$c$, $c$number-o-que-e-nan$c$, $c$number-media-de-dois$c$, $c$number-contas-especiais$c$, $c$boolean-quais-sao-os-valores$c$, $c$boolean-comparacao-simples$c$, $c$boolean-complete-sem-desconto$c$, $c$boolean-qual-e-boolean$c$, $c$boolean-idade-minima$c$, $c$boolean-tres-typeof$c$, $c$boolean-igualdade$c$, $c$textos-propriedade-do-tamanho$c$, $c$textos-tamanho-de-casa$c$, $c$textos-complete-maiusculas$c$, $c$textos-indices-de-banana$c$, $c$textos-recorte-com-slice$c$, $c$textos-email$c$, $c$textos-inicial-em-maiuscula$c$, $c$concat-operador$c$, $c$concat-bom-dia$c$, $c$concat-complete-ola$c$, $c$concat-texto-e-numero$c$, $c$concat-ordene-a-saudacao$c$, $c$concat-idade-na-frase$c$, $c$concat-da-esquerda-para-a-direita$c$, $c$concat-nome-completo$c$, $c$template-qual-simbolo$c$, $c$template-oi-beto$c$, $c$template-complete$c$, $c$template-conta-dentro$c$, $c$template-qual-linha$c$, $c$template-corrija-a-saudacao$c$, $c$template-apresentar$c$, $c$template-soma-na-frase$c$, $c$operacoes-resto$c$, $c$operacoes-resto-de-sete$c$, $c$operacoes-area-do-quadrado$c$, $c$operacoes-media-de-duas-notas$c$, $c$operacoes-media-de-tres$c$, $c$operacoes-porcentagem$c$, $c$operacoes-precedencia-e-arredondamento$c$, $c$conversao-qual-funcao$c$, $c$conversao-tipo-depois-de-number$c$, $c$conversao-complete$c$, $c$conversao-texto-ou-numero$c$, $c$conversao-resultados$c$, $c$conversao-corrija-a-soma$c$, $c$conversao-somar-entradas$c$, $c$conversao-multiplicar-e-somar$c$, $c$es-comando-de-entrada$c$, $c$es-ola-nome$c$, $c$es-boas-vindas$c$, $c$es-entradas-sao-texto$c$, $c$es-ordene-o-programa$c$, $c$es-area-do-retangulo$c$, $c$es-corrija-o-ano-que-vem$c$, $c$es-media-das-notas$c$, $c$log-varias-chamadas$c$, $c$log-com-virgula$c$, $c$log-complete-a-media$c$, $c$log-texto-ou-conta$c$, $c$log-mostrar-os-dados$c$, $c$log-operacoes-em-linhas$c$, $c$log-corrija-o-total$c$, $c$log-quatro-linhas$c$, $c$desafio2-ficha-da-pessoa$c$, $c$desafio2-corrija-o-resumo$c$, $c$desafio2-tipos-e-conversoes$c$, $c$soma$c$, $c$media$c$, $c$celsius$c$, $c$area-retangulo$c$, $c$quadrado$c$, $c$media-ponderada$c$, $c$completar-media$c$, $c$op-intro-quem-e-o-operador$c$, $c$op-intro-grupo-relacional$c$, $c$op-intro-complete-a-conta$c$, $c$op-intro-soma-e-comparacao$c$, $c$op-intro-resultado-boolean$c$, $c$op-intro-operador-unario$c$, $c$op-intro-varios-grupos$c$, $c$arit-operador-da-potencia$c$, $c$arit-resto-de-vinte-por-seis$c$, $c$arit-complete-o-resto$c$, $c$arit-tres-contas$c$, $c$arit-ultimo-digito$c$, $c$arit-parte-inteira$c$, $c$arit-corrija-o-quadrado$c$, $c$arit-divisao-por-zero$c$, $c$atrib-o-que-faz-o-mais-igual$c$, $c$atrib-somar-cinco$c$, $c$atrib-complete-o-contador$c$, $c$atrib-varias-atualizacoes$c$, $c$atrib-forma-equivalente$c$, $c$atrib-corrija-o-total$c$, $c$atrib-aplicar-desconto$c$, $c$atrib-texto-e-numero$c$, $c$rel-operador-de-igualdade$c$, $c$rel-maior-ou-igual$c$, $c$rel-complete-a-comparacao$c$, $c$rel-igual-estrito-e-frouxo$c$, $c$rel-qual-linha-compara$c$, $c$rel-pode-votar$c$, $c$rel-corrija-a-igualdade$c$, $c$rel-comparando-textos$c$, $c$rel-textos-de-numeros-e-decimais$c$, $c$log-qual-e-o-e$c$, $c$log-o-que-e-o-ou$c$, $c$log-true-e-false$c$, $c$log-complete-o-ou$c$, $c$log-quatro-combinacoes$c$, $c$log-pode-entrar$c$, $c$log-comparacoes-combinadas$c$, $c$log-entre-dois-valores$c$, $c$log-corrija-o-intervalo$c$, $c$log-precedencia-dos-logicos$c$, $c$prec-o-que-vem-primeiro$c$, $c$prec-dois-mais-tres-vezes-quatro$c$, $c$prec-complete-os-parenteses$c$, $c$prec-esquerda-direita$c$, $c$prec-contas-e-comparacoes$c$, $c$prec-qual-expressao-da-24$c$, $c$prec-celsius-para-fahrenheit$c$, $c$prec-corrija-a-media$c$, $c$prec-logicos-e-parenteses$c$, $c$desafio3-calculadora$c$, $c$desafio3-corrija-a-aprovacao$c$, $c$desafio3-acompanhe-o-saldo$c$, $c$par-ou-impar$c$, $c$maior-de-tres$c$, $c$nota$c$, $c$bissexto$c$, $c$operadores-logicos$c$, $c$completar-else-if$c$, $c$dentro-do-intervalo$c$, $c$tipo-de-triangulo$c$, $c$cond-intro-para-que-serve$c$, $c$cond-intro-o-que-a-condicao-resulta$c$, $c$cond-intro-condicao-verdadeira$c$, $c$cond-intro-complete-o-if$c$, $c$cond-intro-condicao-falsa$c$, $c$cond-intro-condicao-invalida$c$, $c$cond-intro-ordene-o-if$c$, $c$cond-intro-dois-ifs-seguidos$c$, $c$revrel-pelo-menos$c$, $c$revrel-diferente$c$, $c$revrel-maiusculas-contam$c$, $c$revrel-nota-passou$c$, $c$revrel-corrija-o-igual$c$, $c$revrel-texto-ou-numero$c$, $c$revrel-casos-estranhos$c$, $c$revlog-entre-dois-valores$c$, $c$revlog-crianca-ou-idoso$c$, $c$revlog-tabela-verdade$c$, $c$revlog-tem-desconto$c$, $c$revlog-corrija-o-fim-de-semana$c$, $c$revlog-parenteses-mudam-o-resultado$c$, $c$revlog-de-morgan$c$, $c$if-forma-correta$c$, $c$if-nota-oito$c$, $c$if-complete-a-condicao$c$, $c$if-dois-blocos-independentes$c$, $c$if-bonus-de-vendas$c$, $c$if-corrija-o-ponto-e-virgula$c$, $c$if-corrija-a-atribuicao$c$, $c$if-somando-pontos$c$, $c$ifelse-o-que-faz-o-else$c$, $c$ifelse-par-ou-impar$c$, $c$ifelse-complete-o-else$c$, $c$ifelse-reprovado$c$, $c$ifelse-par-ou-impar-funcao$c$, $c$ifelse-o-maior-de-dois$c$, $c$ifelse-corrija-o-else-que-faltou$c$, $c$ifelse-dois-pares-de-blocos$c$, $c$elseif-quantos-blocos-executam$c$, $c$elseif-escala-de-notas$c$, $c$elseif-complete-a-cadeia$c$, $c$elseif-ordem-errada$c$, $c$elseif-classificar-nota$c$, $c$elseif-sinal-do-numero$c$, $c$elseif-corrija-a-ordem$c$, $c$elseif-versus-ifs-separados$c$, $c$aninhada-o-que-e$c$, $c$aninhada-sem-ingresso$c$, $c$aninhada-complete-o-if-interno$c$, $c$aninhada-menor-de-idade$c$, $c$aninhada-desconto-do-ingresso$c$, $c$aninhada-corrija-o-else-interno$c$, $c$aninhada-equivalente-com-e$c$, $c$aninhada-tres-niveis$c$, $c$switch-quando-usar$c$, $c$switch-dia-da-semana$c$, $c$switch-complete-o-break$c$, $c$switch-sem-break$c$, $c$switch-nome-do-dia$c$, $c$switch-calculadora-de-operacao$c$, $c$switch-corrija-o-break$c$, $c$switch-igualdade-estrita$c$, $c$ternario-o-que-e$c$, $c$ternario-situacao$c$, $c$ternario-complete-os-simbolos$c$, $c$ternario-par-ou-impar$c$, $c$ternario-valor-absoluto$c$, $c$ternario-corrija-a-ordem$c$, $c$ternario-aninhado$c$, $c$desafio4-sistema-de-notas$c$, $c$desafio4-corrija-o-desconto$c$, $c$desafio4-acompanhe-as-decisoes$c$, $c$somatorio$c$, $c$fatorial$c$, $c$tabuada$c$, $c$primo$c$, $c$quantas-vezes$c$, $c$completar-while$c$, $c$soma-dos-pares$c$, $c$potencia$c$, $c$conta-digitos$c$, $c$mdc$c$, $c$rep-intro-para-que-serve$c$, $c$rep-intro-tres-ois$c$, $c$rep-intro-complete-o-while$c$, $c$rep-intro-ordem-do-laco$c$, $c$rep-intro-laco-infinito$c$, $c$rep-intro-repetir-texto$c$, $c$rep-intro-corrija-a-contagem$c$, $c$rep-intro-acompanhe-o-x$c$, $c$for-complete-a-condicao$c$, $c$for-mostra-o-indice$c$, $c$for-partes-do-for$c$, $c$for-passo-de-tres$c$, $c$for-tabuada$c$, $c$for-contagem-regressiva$c$, $c$for-corrija-a-soma$c$, $c$for-ordem-de-execucao$c$, $c$for-de-tras-para-frente$c$, $c$for-fatorial$c$, $c$while-quando-usar$c$, $c$while-conta-regressiva$c$, $c$while-complete-o-passo$c$, $c$while-nenhuma-volta$c$, $c$while-contar-digitos$c$, $c$while-corrija-a-condicao$c$, $c$while-passos-de-collatz$c$, $c$while-ordem-de-execucao$c$, $c$while-dobrando$c$, $c$dowhile-diferenca$c$, $c$dowhile-condicao-falsa$c$, $c$dowhile-complete-o-fim$c$, $c$dowhile-conta-ate-tres$c$, $c$dowhile-somar-ate-zero$c$, $c$dowhile-corrija-o-limite$c$, $c$dowhile-sempre-uma-vez$c$, $c$dowhile-minimo-de-voltas$c$, $c$dowhile-validar-nota$c$, $c$dowhile-ordem-de-execucao$c$, $c$contador-o-que-e$c$, $c$contador-cinco-voltas$c$, $c$contador-complete-o-incremento$c$, $c$contador-multiplos-de-tres$c$, $c$contador-contar-pares$c$, $c$contador-contar-vogais$c$, $c$contador-corrija-o-inicio$c$, $c$contador-dois-contadores$c$, $c$contador-contar-divisores$c$, $c$acumulador-contador-ou-acumulador$c$, $c$acumulador-soma-um-a-quatro$c$, $c$acumulador-complete-o-inicio$c$, $c$acumulador-reiniciado$c$, $c$acumulador-soma-dos-pares$c$, $c$acumulador-somar-tres-entradas$c$, $c$acumulador-corrija-o-produto$c$, $c$acumulador-ate-passar-de-dez$c$, $c$acumulador-media-das-entradas$c$, $c$break-o-que-faz$c$, $c$break-para-no-tres$c$, $c$break-complete-o-comando$c$, $c$break-while-true$c$, $c$break-primeiro-divisor$c$, $c$break-somar-ate-negativo$c$, $c$break-corrija-o-primeiro$c$, $c$break-soma-limitada$c$, $c$break-eh-primo$c$, $c$continue-break-ou-continue$c$, $c$continue-pula-o-tres$c$, $c$continue-complete-o-comando$c$, $c$continue-so-impares$c$, $c$continue-soma-sem-multiplos-de-tres$c$, $c$continue-sem-vogais$c$, $c$continue-corrija-o-laco$c$, $c$continue-e-break-juntos$c$, $c$continue-o-que-acontece-depois$c$, $c$aninhados-quantas-vezes$c$, $c$aninhados-pares-de-valores$c$, $c$aninhados-complete-a-variavel$c$, $c$aninhados-conta-as-voltas$c$, $c$aninhados-retangulo$c$, $c$aninhados-tabela-de-multiplicacao$c$, $c$aninhados-corrija-o-triangulo$c$, $c$aninhados-linha-crescente$c$, $c$aninhados-contar-pares$c$, $c$aninhados-break-no-interno$c$, $c$desafio5-adivinhacao$c$, $c$desafio5-corrija-o-resumo$c$, $c$desafio5-acompanhe-os-lacos$c$, $c$soma-vetor$c$, $c$inverter-vetor$c$, $c$maior-vetor$c$, $c$busca-linear$c$, $c$ordenar$c$, $c$indice-do-vetor$c$, $c$completar-percorrer$c$, $c$conta-pares$c$, $c$media-do-vetor$c$, $c$segundo-maior$c$, $c$vet-intro-para-que-serve$c$, $c$vet-intro-soma-das-pontas$c$, $c$vet-intro-complete-o-vetor$c$, $c$vet-intro-quando-usar$c$, $c$vet-intro-tipos-misturados$c$, $c$vet-intro-soma-de-tres$c$, $c$vet-intro-corrija-a-posicao$c$, $c$vet-intro-mesmo-vetor$c$, $c$arr-como-declarar$c$, $c$arr-alterar-elemento$c$, $c$arr-complete-o-vazio$c$, $c$arr-const-permite-alterar$c$, $c$arr-inverter-tres$c$, $c$arr-corrija-a-atribuicao$c$, $c$arr-copia-ou-referencia$c$, $c$arr-copia-com-spread$c$, $c$ind-primeiro-indice$c$, $c$ind-uva$c$, $c$ind-complete-a-primeira-cor$c$, $c$ind-fora-do-limite$c$, $c$ind-segundo$c$, $c$ind-trocar-duas-posicoes$c$, $c$ind-corrija-o-ultimo$c$, $c$ind-indice-calculado$c$, $c$len-o-que-e$c$, $c$len-tamanho$c$, $c$len-complete-o-ultimo$c$, $c$len-fora-do-fim$c$, $c$len-esta-vazio$c$, $c$len-ultimo-elemento$c$, $c$len-corrija-o-ultimo-indice$c$, $c$len-posicao-distante$c$, $c$push-o-que-faz$c$, $c$push-novo-tamanho$c$, $c$push-complete-o-metodo$c$, $c$push-o-que-devolve$c$, $c$push-lista-de-pares$c$, $c$push-copiar-positivos$c$, $c$push-corrija-os-quadrados$c$, $c$push-montando-no-laco$c$, $c$push-sem-repetidos$c$, $c$pop-o-que-faz$c$, $c$pop-tamanho-depois$c$, $c$pop-complete-o-metodo$c$, $c$pop-o-que-devolve$c$, $c$pop-remover-ultimos$c$, $c$pop-corrija-o-retorno$c$, $c$pop-pilha$c$, $c$shift-qual-remove-do-inicio$c$, $c$shift-novo-primeiro$c$, $c$shift-complete-o-unshift$c$, $c$shift-unshift-ordem$c$, $c$shift-unshift-retornos$c$, $c$shift-rotacionar$c$, $c$shift-corrija-o-inicio$c$, $c$shift-primeiros-n$c$, $c$for-vet-condicao-correta$c$, $c$for-vet-mostra-tudo$c$, $c$for-vet-complete-o-limite$c$, $c$for-vet-passando-do-fim$c$, $c$for-vet-somar$c$, $c$for-vet-maior$c$, $c$for-vet-contar-maiores$c$, $c$for-vet-corrija-a-media$c$, $c$for-vet-de-tras-para-frente$c$, $c$for-vet-segundo-maior$c$, $c$while-vet-o-que-nao-pode-faltar$c$, $c$while-vet-mostra-tudo$c$, $c$while-vet-complete-a-atualizacao$c$, $c$while-vet-parar-no-oito$c$, $c$while-vet-primeiro-negativo$c$, $c$while-vet-somar-ate-zero$c$, $c$while-vet-corrija-a-busca$c$, $c$while-vet-pulando-de-dois-em-dois$c$, $c$while-vet-todos-crescentes$c$, $c$mat-intro-o-que-e$c$, $c$mat-intro-numero-de-linhas$c$, $c$mat-intro-complete-a-segunda-linha$c$, $c$mat-intro-numero-de-colunas$c$, $c$mat-intro-total-de-elementos$c$, $c$mat-intro-criar-2x2$c$, $c$mat-intro-corrija-contar-linhas$c$, $c$mat-intro-dois-indices$c$, $c$bid-linha-ou-coluna$c$, $c$bid-elemento$c$, $c$bid-complete-a-linha$c$, $c$bid-alterar-e-somar$c$, $c$bid-elemento-em$c$, $c$bid-soma-da-linha$c$, $c$bid-ultima-linha$c$, $c$bid-corrija-linha-e-coluna$c$, $c$bid-linhas-irregulares$c$, $c$bid-coluna$c$, $c$pm-limites$c$, $c$pm-soma-total$c$, $c$pm-complete-o-limite$c$, $c$pm-conta-as-voltas$c$, $c$pm-soma-matriz$c$, $c$pm-contar-valor$c$, $c$pm-mostrar-matriz$c$, $c$pm-corrija-o-maior$c$, $c$pm-diagonais$c$, $c$pm-diagonal-principal$c$, $c$pm-transposta$c$, $c$desafio6-notas-da-turma$c$, $c$desafio6-corrija-a-media$c$, $c$desafio6-acompanhe-as-notas$c$, $c$parametro-e-retorno$c$, $c$completar-funcao$c$, $c$escopo-de-variavel$c$, $c$maior-de-dois$c$, $c$hipotenusa$c$, $c$func-intro-para-que-serve$c$, $c$func-intro-duas-chamadas$c$, $c$func-intro-complete-a-palavra$c$, $c$func-intro-nunca-chamada$c$, $c$func-intro-vantagem$c$, $c$func-intro-ordem-de-uso$c$, $c$func-intro-ola-mundo$c$, $c$func-intro-dobrar-duas-vezes$c$, $c$decl-forma-correta$c$, $c$decl-ordem-de-execucao$c$, $c$decl-complete-o-parametro$c$, $c$decl-bom-nome$c$, $c$decl-duas-funcoes$c$, $c$decl-triplo$c$, $c$decl-eh-par$c$, $c$decl-chamada-antes$c$, $c$cham-como-chamar$c$, $c$cham-duas-chamadas-com-valor$c$, $c$cham-complete-os-parenteses$c$, $c$cham-sem-parenteses$c$, $c$cham-funcao-chama-funcao$c$, $c$cham-quadruplo$c$, $c$cham-corrija-a-chamada$c$, $c$cham-chamadas-aninhadas$c$, $c$cham-contar-pares-com-ajudante$c$, $c$par-o-que-e$c$, $c$par-oi-ana$c$, $c$par-complete-o-primeiro$c$, $c$par-ordem-importa$c$, $c$par-area-do-retangulo$c$, $c$par-media-de-tres$c$, $c$par-corrija-o-parametro$c$, $c$par-parametro-e-copia$c$, $c$arg-parametro-ou-argumento$c$, $c$arg-expressao$c$, $c$arg-complete-o-segundo$c$, $c$arg-faltando$c$, $c$arg-sobrando$c$, $c$arg-potencia$c$, $c$arg-corrija-a-ordem$c$, $c$arg-por-posicao$c$, $c$ret-o-que-faz$c$, $c$ret-guardar-o-resultado$c$, $c$ret-complete-o-comando$c$, $c$ret-sem-return$c$, $c$ret-apos-o-return$c$, $c$ret-maior-de-idade$c$, $c$ret-corrija-o-return$c$, $c$ret-classificar-nota$c$, $c$ret-mostrar-e-devolver$c$, $c$ret-primeiro-par$c$, $c$pr-o-que-torna-reutilizavel$c$, $c$pr-media$c$, $c$pr-complete-o-retorno$c$, $c$pr-calcular-total$c$, $c$pr-contar-vogais-com-ajudante$c$, $c$pr-composicao$c$, $c$pr-corrija-o-caminho$c$, $c$pr-duas-funcoes-com-ternario$c$, $c$pr-menor-e-maior$c$, $c$glob-o-que-e$c$, $c$glob-ler-uma-global$c$, $c$glob-complete-o-nome$c$, $c$glob-alterada-pela-funcao$c$, $c$glob-valor-atual$c$, $c$glob-risco$c$, $c$glob-corrija-a-dependencia$c$, $c$glob-duas-funcoes-uma-variavel$c$, $c$loc-onde-existe$c$, $c$loc-valor-dentro$c$, $c$loc-complete-o-escopo$c$, $c$loc-fora-da-funcao$c$, $c$loc-mesmo-nome$c$, $c$loc-variavel-do-for$c$, $c$loc-corrija-o-uso-fora$c$, $c$loc-corrija-o-acumulador$c$, $c$loc-parametro-esconde-global$c$, $c$arrow-equivalente$c$, $c$arrow-soma$c$, $c$arrow-complete-a-seta$c$, $c$arrow-chaves-sem-return$c$, $c$arrow-quadrado$c$, $c$arrow-par-ou-impar$c$, $c$arrow-corrija-o-retorno$c$, $c$arrow-compondo$c$, $c$desafio7-calculadora$c$, $c$desafio7-executar-calculadora$c$, $c$desafio7-corrija-a-calculadora$c$, $c$desafio7-acompanhe-as-funcoes$c$);
   if n > 0 then
     raise notice '% exercício(s) do conteúdo foram ignorados porque foram editados no painel do professor.', n;
   end if;

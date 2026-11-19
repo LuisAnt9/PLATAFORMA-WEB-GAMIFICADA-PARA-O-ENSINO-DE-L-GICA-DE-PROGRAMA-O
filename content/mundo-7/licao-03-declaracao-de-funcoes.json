@@ -1,0 +1,209 @@
+{
+  "id": "declaracao-de-funcoes",
+  "mundo": "mundo-7",
+  "titulo": "Declaração de funções",
+  "foco": "Escrever a estrutura de uma função",
+  "posicao": 702,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Declarar uma função é escrever a sua estrutura:\n\nfunction nomeDaFuncao(parametros) {\n  // corpo: as instruções da função\n}\n\nAs partes:\n- a palavra function;\n- o nome, que deve dizer o que a função faz (calcularMedia, ehPar, mostrarMenu). Começa com letra minúscula e usa camelCase;\n- parênteses, com os parâmetros dentro (podem ser vazios);\n- chaves { }, que delimitam o corpo.\n\nBoas práticas:\n- Dê nomes que descrevem uma ação: calcularArea é melhor que f1.\n- Cada função deve fazer uma coisa só.\n- Funções pequenas são mais fáceis de entender e testar.\n\nDetalhe: em JavaScript, as declarações de função são \"içadas\": podemos chamar uma função antes da linha em que ela é declarada, desde que ela esteja declarada no mesmo arquivo. Mesmo assim, é mais claro declarar antes de usar.\n\nLembre-se: declarar não executa. O corpo só roda quando a função é chamada.",
+  "exemplo": "console.log(\"A\");\n\nfunction mostrar() {\n  console.log(\"B\");\n}\n\nconsole.log(\"C\");\nmostrar();\n\nPasso a passo:\n1. console.log(\"A\") mostra A.\n2. A declaração de mostrar não executa nada.\n3. console.log(\"C\") mostra C.\n4. mostrar() é chamada: o corpo executa e mostra B.\n\nResultado: A, C e B (nessa ordem).",
+  "revisao": "- Estrutura: function nome(parâmetros) { corpo }.\n- O nome deve descrever o que a função faz (camelCase, em geral começando por um verbo).\n- Cada função deve fazer uma coisa só.\n- Declarar não executa: o corpo só roda quando a função é chamada.\n- Funções declaradas podem ser chamadas antes da linha da declaração (içamento).",
+  "exercicios": [
+    {
+      "id": "decl-forma-correta",
+      "tipo": "escolha",
+      "titulo": "A declaração correta",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 }
+      ],
+      "enunciado": "Qual é a forma correta de declarar uma função chamada somar com dois parâmetros?",
+      "opcoes": [
+        {
+          "texto": "somar function(a, b) { return a + b; }",
+          "confusao": "coloca o nome antes da palavra function"
+        },
+        {
+          "texto": "function somar[a, b] { return a + b; }",
+          "confusao": "usa colchetes no lugar de parênteses"
+        },
+        {
+          "texto": "function somar(a, b) return a + b;",
+          "confusao": "esquece as chaves que delimitam o corpo"
+        },
+        "function somar(a, b) { return a + b; }"
+      ],
+      "correta": 3,
+      "dica": "A ordem é: palavra function, nome, parênteses com parâmetros, chaves com o corpo.",
+      "explicacao": "A declaração tem function, o nome, os parâmetros entre parênteses e o corpo entre chaves."
+    },
+    {
+      "id": "decl-ordem-de-execucao",
+      "tipo": "interpretacao",
+      "titulo": "Ordem de execução",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela, em ordem?",
+      "codigo": "console.log(\"A\");\nfunction mostrar() {\n  console.log(\"B\");\n}\nconsole.log(\"C\");\nmostrar();",
+      "opcoes": [
+        "A\nC\nB",
+        { "texto": "A\nB\nC", "confusao": "acha que a função executa no ponto em que é declarada" },
+        {
+          "texto": "B\nA\nC",
+          "confusao": "acha que as funções executam antes do resto do programa"
+        },
+        { "texto": "A\nC", "confusao": "acha que a função declarada nunca executa" }
+      ],
+      "correta": 0,
+      "dica": "A função só executa quando é chamada.",
+      "explicacao": "A e C aparecem na ordem do programa. B só aparece na chamada mostrar(), no final."
+    },
+    {
+      "id": "decl-complete-o-parametro",
+      "tipo": "lacuna",
+      "titulo": "Use o parâmetro",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 2 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "Complete com o nome do parâmetro, para mostrar o nome recebido.",
+      "modelo": "function saudar(nome) {\n  console.log(\"Olá, \" + {{1}});\n}",
+      "lacunas": [
+        { "respostas": ["nome"] }
+      ],
+      "dica": "O parâmetro é a variável que aparece entre parênteses na declaração.",
+      "explicacao": "Dentro da função, o parâmetro nome funciona como uma variável com o valor recebido."
+    },
+    {
+      "id": "decl-bom-nome",
+      "tipo": "escolha",
+      "titulo": "Um bom nome",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 }
+      ],
+      "enunciado": "Qual é o melhor nome para uma função que calcula a média das notas?",
+      "opcoes": [
+        { "texto": "f1", "confusao": "usa um nome curto que não explica o que a função faz" },
+        { "texto": "funcao", "confusao": "usa um nome genérico, igual ao de qualquer outra função" },
+        "calcularMedia",
+        { "texto": "x", "confusao": "usa um nome de uma só letra que nada diz" }
+      ],
+      "correta": 2,
+      "dica": "O nome deve dizer a ação que a função realiza.",
+      "explicacao": "Nomes como calcularMedia explicam a função sem precisar ler o corpo."
+    },
+    {
+      "id": "decl-duas-funcoes",
+      "tipo": "interpretacao",
+      "titulo": "Duas funções, uma chamada",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function a() {\n  console.log(\"A\");\n}\nfunction b() {\n  console.log(\"B\");\n}\nb();",
+      "opcoes": [
+        { "texto": "A\nB", "confusao": "acha que todas as funções declaradas executam" },
+        "B",
+        { "texto": "A", "confusao": "confunde a primeira função declarada com a chamada" },
+        { "texto": "Nada", "confusao": "acha que a função só executa com um laço" }
+      ],
+      "correta": 1,
+      "dica": "Qual função é chamada no final?",
+      "explicacao": "Apenas b() é chamada. A função a foi declarada, mas não executou."
+    },
+    {
+      "id": "decl-triplo",
+      "tipo": "codigo",
+      "titulo": "Triplo",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 },
+        { "id": "m7-return", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `triplo(n)` que devolve o triplo de n.",
+      "funcao": "triplo",
+      "codigoInicial": "function triplo(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 12 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-2], "esperado": -6 }
+      ],
+      "dica": "Multiplique o parâmetro por 3 e devolva.",
+      "comentario": "A função devolve n * 3."
+    },
+    {
+      "id": "decl-eh-par",
+      "tipo": "codigo",
+      "titulo": "É par?",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 },
+        { "id": "m7-return", "peso": 2 },
+        { "id": "m3-relacionais", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `ehPar(n)` que devolve true se n for par e false caso contrário.",
+      "funcao": "ehPar",
+      "codigoInicial": "function ehPar(n) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": true },
+        { "entrada": [7], "esperado": false },
+        { "entrada": [0], "esperado": true },
+        { "entrada": [-3], "esperado": false }
+      ],
+      "dica": "Um número é par quando o resto da divisão por 2 é zero.",
+      "comentario": "A função devolve o resultado da comparação n % 2 === 0, que já é true ou false."
+    },
+    {
+      "id": "decl-chamada-antes",
+      "tipo": "interpretacao",
+      "titulo": "Chamada antes da declaração",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-declaracao", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "console.log(dobro(4));\n\nfunction dobro(n) {\n  return n * 2;\n}",
+      "opcoes": [
+        {
+          "texto": "Erro: dobro ainda não foi declarada",
+          "confusao": "acha que a função só existe depois da linha da declaração"
+        },
+        {
+          "texto": "undefined",
+          "confusao": "acha que a chamada antes da declaração devolve undefined"
+        },
+        { "texto": "4", "confusao": "acha que a função devolve o argumento sem alteração" },
+        "8"
+      ],
+      "correta": 3,
+      "dica": "Em JavaScript, as declarações de função são içadas para o início.",
+      "explicacao": "Funções declaradas com function podem ser chamadas antes da linha da declaração. dobro(4) devolve 8."
+    }
+  ]
+}

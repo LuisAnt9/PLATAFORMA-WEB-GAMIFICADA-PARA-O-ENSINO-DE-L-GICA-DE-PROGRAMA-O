@@ -1,0 +1,242 @@
+{
+  "id": "escopo-local",
+  "mundo": "mundo-7",
+  "titulo": "Escopo local",
+  "foco": "Entender variáveis que só existem dentro da função",
+  "posicao": 709,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Uma variável declarada dentro de uma função tem escopo local: ela só existe dentro daquela função, e deixa de existir quando a função termina. Os parâmetros também são variáveis locais.\n\nfunction calcular(n) {\n  const dobro = n * 2;     // local: só existe aqui dentro\n  return dobro;\n}\ncalcular(4);\nconsole.log(typeof dobro);  // \"undefined\": fora da função, dobro não existe\n\nConsequências importantes:\n- Fora da função, não dá para usar uma variável local. Para levar um valor para fora, use return.\n- Cada chamada cria suas próprias variáveis locais, do zero. Um acumulador declarado dentro da função recomeça a cada chamada, e isso é bom: uma chamada não interfere na outra.\n- Duas funções podem usar o mesmo nome de variável sem conflito: cada uma tem a sua.\n- Se uma variável local tem o mesmo nome de uma global, dentro da função vale a local (ela \"esconde\" a global), e a global não é alterada.\n\nO mesmo vale para blocos: uma variável declarada com let dentro de um if ou de um for só existe dentro dele (o i de um for não existe depois do laço).",
+  "exemplo": "let x = 1;\n\nfunction f() {\n  let x = 2;\n  return x;\n}\n\nconsole.log(f(), x);\n\nPasso a passo:\n1. Existem duas variáveis diferentes chamadas x: a global (1) e a local de f (2).\n2. Dentro de f, o nome x se refere à local: a função devolve 2.\n3. Fora da função, x continua sendo a global: vale 1.\n4. O programa mostra 2 1.",
+  "revisao": "- Variável local: declarada dentro da função; só existe nela.\n- Parâmetros também são locais.\n- Para levar um valor para fora, use return.\n- Cada chamada cria variáveis locais novas (acumuladores recomeçam).\n- Uma local com o mesmo nome de uma global a esconde, sem alterá-la.\n- let em blocos (if, for) só existe dentro do bloco.",
+  "exercicios": [
+    {
+      "id": "loc-onde-existe",
+      "tipo": "escolha",
+      "titulo": "Onde existe?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 }
+      ],
+      "enunciado": "Onde uma variável declarada dentro de uma função pode ser usada?",
+      "opcoes": [
+        {
+          "texto": "Em qualquer parte do programa",
+          "confusao": "acha que variáveis locais são visíveis em todo o programa"
+        },
+        {
+          "texto": "Só na primeira linha da função",
+          "confusao": "acha que a variável vale só na linha em que foi declarada"
+        },
+        "Somente dentro da própria função",
+        {
+          "texto": "Em todas as funções do programa",
+          "confusao": "acha que as outras funções enxergam as variáveis locais"
+        }
+      ],
+      "correta": 2,
+      "dica": "O escopo local é restrito.",
+      "explicacao": "A variável local só existe dentro da função em que foi declarada."
+    },
+    {
+      "id": "loc-valor-dentro",
+      "tipo": "interpretacao",
+      "titulo": "Valor local",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function f() {\n  let x = 5;\n  console.log(x);\n}\nf();",
+      "opcoes": [
+        {
+          "texto": "undefined",
+          "confusao": "acha que a variável local não existe dentro da própria função"
+        },
+        "5",
+        { "texto": "x", "confusao": "acha que o console.log mostra o nome da variável" },
+        { "texto": "Nada", "confusao": "acha que a função não executa sem retorno" }
+      ],
+      "correta": 1,
+      "dica": "Dentro da função, x existe.",
+      "explicacao": "x é local, mas existe dentro de f: o console.log mostra 5."
+    },
+    {
+      "id": "loc-complete-o-escopo",
+      "tipo": "lacuna",
+      "titulo": "Complete o comentário",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 }
+      ],
+      "enunciado": "Complete com o tipo de escopo da variável resultado.",
+      "modelo": "function dobro(n) {\n  const resultado = n * 2;   // variável {{1}}\n  return resultado;\n}",
+      "lacunas": [
+        { "respostas": ["local"] }
+      ],
+      "dica": "Ela só existe dentro da função.",
+      "explicacao": "Uma variável declarada dentro da função tem escopo local."
+    },
+    {
+      "id": "loc-fora-da-funcao",
+      "tipo": "interpretacao",
+      "titulo": "Fora da função",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function f() {\n  let msg = \"oi\";\n}\nf();\nconsole.log(typeof msg);",
+      "opcoes": [
+        {
+          "texto": "string",
+          "confusao": "acha que a variável local continua existindo depois da função"
+        },
+        { "texto": "oi", "confusao": "acha que typeof mostra o valor da variável" },
+        {
+          "texto": "Erro e o programa para",
+          "confusao": "acha que typeof de uma variável inexistente causa erro"
+        },
+        "undefined"
+      ],
+      "correta": 3,
+      "dica": "Depois que a função termina, a variável msg ainda existe?",
+      "explicacao": "msg só existia dentro de f. Fora dela, typeof msg resulta em undefined."
+    },
+    {
+      "id": "loc-mesmo-nome",
+      "tipo": "interpretacao",
+      "titulo": "Mesmo nome, variáveis diferentes",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 },
+        { "id": "m7-escopo-global", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let x = 1;\nfunction f() {\n  let x = 2;\n  return x;\n}\nconsole.log(f(), x);",
+      "opcoes": [
+        "2 1",
+        { "texto": "2 2", "confusao": "acha que a variável local altera a global de mesmo nome" },
+        { "texto": "1 1", "confusao": "acha que a função devolve a variável global" },
+        { "texto": "1 2", "confusao": "inverte quem devolve o quê" }
+      ],
+      "correta": 0,
+      "dica": "Dentro de f, x se refere a qual variável?",
+      "explicacao": "A variável local x (2) esconde a global dentro de f. A global continua valendo 1."
+    },
+    {
+      "id": "loc-variavel-do-for",
+      "tipo": "interpretacao",
+      "titulo": "A variável do for",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 },
+        { "id": "m5-for", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "for (let i = 0; i < 3; i++) {\n}\nconsole.log(typeof i);",
+      "opcoes": [
+        {
+          "texto": "number",
+          "confusao": "acha que o contador do for continua existindo depois do laço"
+        },
+        { "texto": "3", "confusao": "acha que typeof mostra o último valor do contador" },
+        "undefined",
+        { "texto": "0", "confusao": "acha que o contador volta ao valor inicial" }
+      ],
+      "correta": 2,
+      "dica": "Onde a variável i foi declarada?",
+      "explicacao": "Com let no for, i só existe dentro do laço. Depois dele, typeof i é undefined."
+    },
+    {
+      "id": "loc-corrija-o-uso-fora",
+      "tipo": "corrigir",
+      "titulo": "Variável de outra função",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 },
+        { "id": "m7-return", "peso": 2 }
+      ],
+      "enunciado": "A função `mostrarDobro(n)` deveria devolver o dobro de n usando a função `calcular`, mas tenta usar uma variável que só existe dentro de `calcular` e dá erro. Corrija o defeito.",
+      "funcao": "mostrarDobro",
+      "codigoInicial": "function calcular(n) {\n  const dobro = n * 2;\n  return dobro;\n}\n\nfunction mostrarDobro(n) {\n  calcular(n);\n  return dobro;\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 8 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-1], "esperado": -2 }
+      ],
+      "dica": "Como levar o valor de dentro de calcular para fora dela?",
+      "comentario": "dobro é local de calcular. Para usar o valor, é preciso guardar (ou devolver) o resultado da chamada: return calcular(n)."
+    },
+    {
+      "id": "loc-corrija-o-acumulador",
+      "tipo": "corrigir",
+      "titulo": "Acumulador que não reinicia",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 },
+        { "id": "m5-acumuladores", "peso": 2 }
+      ],
+      "enunciado": "A função `somaDosQuadrados(n)` deveria devolver a soma dos quadrados de 1 até n (14 para n = 3), mas na segunda chamada o resultado vem acumulado com o da primeira. Corrija o defeito.",
+      "funcao": "somaDosQuadrados",
+      "codigoInicial": "let total = 0;\n\nfunction somaDosQuadrados(n) {\n  for (let i = 1; i <= n; i++) {\n    total += i * i;\n  }\n  return total;\n}\n",
+      "testes": [
+        { "entrada": [3], "esperado": 14 },
+        { "entrada": [1], "esperado": 1 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [2], "esperado": 5 }
+      ],
+      "dica": "Onde o acumulador deveria ser declarado para recomeçar a cada chamada?",
+      "comentario": "total era global e guardava o resultado das chamadas anteriores. Declarado dentro da função, ele recomeça em 0 a cada chamada."
+    },
+    {
+      "id": "loc-parametro-esconde-global",
+      "tipo": "interpretacao",
+      "titulo": "O parâmetro esconde a global",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m7-escopo-local", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 },
+        { "id": "m7-escopo-global", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let n = 10;\nfunction f(n) {\n  n = n + 1;\n  return n;\n}\nconsole.log(f(1), n);",
+      "opcoes": [
+        {
+          "texto": "11 11",
+          "confusao": "acha que alterar o parâmetro altera a variável global de mesmo nome"
+        },
+        "2 10",
+        {
+          "texto": "2 2",
+          "confusao": "acha que a global também passa a valer o resultado da função"
+        },
+        {
+          "texto": "11 10",
+          "confusao": "usa o valor da variável global dentro da função em vez do argumento"
+        }
+      ],
+      "correta": 1,
+      "dica": "Dentro de f, n é o parâmetro. Fora, n é a global.",
+      "explicacao": "O parâmetro n recebe 1 e vira 2; isso não toca na global. A função devolve 2 e a global continua valendo 10."
+    }
+  ]
+}

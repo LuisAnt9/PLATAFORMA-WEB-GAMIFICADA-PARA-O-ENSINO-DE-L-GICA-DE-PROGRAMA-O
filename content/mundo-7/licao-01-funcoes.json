@@ -3,7 +3,7 @@
   "mundo": "mundo-7",
   "titulo": "Funções",
   "foco": "Dividir um problema em partes reutilizáveis",
-  "posicao": 701,
+  "posicao": 790,
   "diagnostica": false,
   "intro": "Quando um trecho de código se repete, vale transformá-lo numa função e reutilizá-la. Uma função boa faz uma coisa só e tem um nome que diz o que ela faz.\n\nfunction ehPar(n) {\n  return n % 2 === 0;\n}\n\nUma função pode chamar outras funções: assim você divide um problema grande em partes pequenas que dá para testar separadamente.",
   "exemplo": "",

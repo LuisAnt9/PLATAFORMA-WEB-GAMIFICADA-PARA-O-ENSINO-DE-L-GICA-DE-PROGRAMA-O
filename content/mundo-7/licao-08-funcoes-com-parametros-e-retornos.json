@@ -1,0 +1,240 @@
+{
+  "id": "funcoes-com-parametros-e-retornos",
+  "mundo": "mundo-7",
+  "titulo": "Funções com parâmetros e retornos",
+  "foco": "Combinar entrada e saída para criar funções reutilizáveis",
+  "posicao": 707,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "As funções mais úteis combinam as duas ideias: recebem dados por parâmetros e devolvem o resultado com return. É como uma máquina: você coloca ingredientes na entrada (parâmetros) e recebe o produto na saída (retorno), sem precisar saber como ela funciona por dentro.\n\nfunction calcularTotal(preco, quantidade) {\n  return preco * quantidade;\n}\n\nUma função assim é reutilizável porque:\n- usa só o que recebeu por parâmetros (não depende de variáveis soltas pelo programa);\n- devolve o resultado em vez de apenas mostrá-lo;\n- sempre dá a mesma resposta para os mesmos argumentos.\n\nComo o retorno é um valor, ele pode alimentar outra função:\n\nconsole.log(dobro(soma(1, 2)));   // soma devolve 3; dobro devolve 6\n\nMontar o programa em funções pequenas que se encaixam é a base da modularização: cada função resolve um pedaço do problema e o programa final junta os pedaços.\n\nCuidado: se a função tiver vários caminhos (if, else), todos devem terminar em um return. Um caminho sem return devolve undefined.",
+  "exemplo": "function media(a, b) {\n  return (a + b) / 2;\n}\n\nfunction situacao(a, b) {\n  return media(a, b) >= 7 ? \"aprovado\" : \"reprovado\";\n}\n\nconsole.log(situacao(8, 7));\nconsole.log(situacao(4, 6));\n\nPasso a passo:\n1. situacao(8, 7) chama media(8, 7), que devolve 7.5.\n2. 7.5 >= 7 é true: devolve \"aprovado\".\n3. situacao(4, 6): media devolve 5, 5 >= 7 é false: devolve \"reprovado\".\n\nDuas funções pequenas, cada uma com uma tarefa, resolvem o problema juntas.",
+  "revisao": "- Parâmetros levam dados para dentro; return traz o resultado para fora.\n- Uma função reutilizável depende só dos parâmetros e devolve o resultado.\n- O retorno de uma função pode ser usado como argumento de outra.\n- Todos os caminhos da função devem terminar em um return.\n- Modularizar é dividir o problema em funções pequenas que se encaixam.",
+  "exercicios": [
+    {
+      "id": "pr-o-que-torna-reutilizavel",
+      "tipo": "escolha",
+      "titulo": "Função reutilizável",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 }
+      ],
+      "enunciado": "O que torna uma função fácil de reutilizar em vários lugares?",
+      "opcoes": [
+        {
+          "texto": "Usar variáveis soltas do programa em vez de parâmetros",
+          "confusao": "acha que depender de variáveis externas facilita o reaproveitamento"
+        },
+        {
+          "texto": "Só mostrar o resultado na tela com console.log",
+          "confusao": "confunde mostrar com devolver o resultado"
+        },
+        {
+          "texto": "Ter o maior número possível de instruções",
+          "confusao": "acha que funções maiores são mais reutilizáveis"
+        },
+        "Receber os dados por parâmetros e devolver o resultado com return"
+      ],
+      "correta": 3,
+      "dica": "Pense em uma máquina com entrada e saída.",
+      "explicacao": "Com parâmetros e return, a função funciona com quaisquer valores e entrega o resultado a quem a chamar."
+    },
+    {
+      "id": "pr-media",
+      "tipo": "interpretacao",
+      "titulo": "Média de dois",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m3-precedencia", "peso": 1 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function media(a, b) {\n  return (a + b) / 2;\n}\nconsole.log(media(4, 8));",
+      "opcoes": [
+        "6",
+        { "texto": "12", "confusao": "soma os valores e esquece de dividir" },
+        { "texto": "10", "confusao": "calcula 4 + 8 / 2 sem os parênteses" },
+        { "texto": "2", "confusao": "divide só o primeiro parâmetro por 2" }
+      ],
+      "correta": 0,
+      "dica": "Os parênteses fazem a soma acontecer primeiro.",
+      "explicacao": "(4 + 8) / 2 = 6."
+    },
+    {
+      "id": "pr-complete-o-retorno",
+      "tipo": "lacuna",
+      "titulo": "Complete o retorno",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m4-if", "peso": 1 }
+      ],
+      "enunciado": "Complete o valor devolvido quando a é maior que b.",
+      "modelo": "function maior(a, b) {\n  if (a > b) {\n    return {{1}};\n  }\n  return b;\n}",
+      "lacunas": [
+        { "respostas": ["a"] }
+      ],
+      "dica": "Se a é maior, é ele que a função deve devolver.",
+      "explicacao": "Quando a > b, devolvemos a; caso contrário, o return final devolve b."
+    },
+    {
+      "id": "pr-calcular-total",
+      "tipo": "codigo",
+      "titulo": "Total da compra",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m4-if-else", "peso": 2 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `calcularTotal(preco, quantidade)` que devolve o total da compra. Se a quantidade for 10 ou mais, o cliente ganha 10% de desconto sobre o total.",
+      "funcao": "calcularTotal",
+      "codigoInicial": "function calcularTotal(preco, quantidade) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [5, 2], "esperado": 10 },
+        { "entrada": [5, 10], "esperado": 45 },
+        { "entrada": [2.5, 4], "esperado": 10 },
+        { "entrada": [0, 20], "esperado": 0 }
+      ],
+      "dica": "Calcule o total primeiro; depois aplique o desconto se a quantidade chegar a 10.",
+      "comentario": "O total é preco * quantidade. Com 10 ou mais, subtrai-se 10% dele; os dois caminhos terminam em return."
+    },
+    {
+      "id": "pr-contar-vogais-com-ajudante",
+      "tipo": "codigo",
+      "titulo": "Vogais com uma ajudante",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 1 },
+        { "id": "m5-contadores", "peso": 2 }
+      ],
+      "enunciado": "A função `ehVogal(letra)` já existe. Escreva a função `contarVogais(texto)` que devolve quantas vogais o texto tem, usando `ehVogal`.",
+      "funcao": "contarVogais",
+      "codigoInicial": "function ehVogal(letra) {\n  return \"aeiou\".includes(letra.toLowerCase());\n}\n\nfunction contarVogais(texto) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": ["banana"], "esperado": 3 },
+        { "entrada": ["Ola"], "esperado": 2 },
+        { "entrada": ["sky"], "esperado": 0 },
+        { "entrada": [""], "esperado": 0 }
+      ],
+      "dica": "Percorra o texto e conte quando ehVogal(texto[i]) for true.",
+      "comentario": "O laço percorre as letras e um contador soma 1 sempre que ehVogal devolve true."
+    },
+    {
+      "id": "pr-composicao",
+      "tipo": "interpretacao",
+      "titulo": "Resultado como argumento",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function soma(a, b) {\n  return a + b;\n}\nfunction dobro(n) {\n  return n * 2;\n}\nconsole.log(dobro(soma(1, 2)));",
+      "opcoes": [
+        { "texto": "5", "confusao": "dobra só o segundo argumento e soma com o primeiro" },
+        { "texto": "3", "confusao": "esquece de aplicar a função dobro" },
+        "6",
+        { "texto": "4", "confusao": "dobra o 1 e soma 2 sem resolver a chamada de dentro" }
+      ],
+      "correta": 2,
+      "dica": "Resolva primeiro a chamada de dentro.",
+      "explicacao": "soma(1, 2) devolve 3; dobro(3) devolve 6."
+    },
+    {
+      "id": "pr-corrija-o-caminho",
+      "tipo": "corrigir",
+      "titulo": "Um caminho sem retorno",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m7-return", "peso": 3 }
+      ],
+      "enunciado": "A função `ehPar(n)` deveria devolver true para pares e false para ímpares, mas devolve undefined para os ímpares. Corrija o defeito.",
+      "funcao": "ehPar",
+      "codigoInicial": "function ehPar(n) {\n  if (n % 2 === 0) {\n    return true;\n  }\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": true },
+        { "entrada": [7], "esperado": false },
+        { "entrada": [0], "esperado": true },
+        { "entrada": [-3], "esperado": false }
+      ],
+      "dica": "O que a função devolve quando o if não entra?",
+      "comentario": "Quando n é ímpar, nenhum return é executado e a função devolve undefined. Falta devolver false nesse caminho."
+    },
+    {
+      "id": "pr-duas-funcoes-com-ternario",
+      "tipo": "interpretacao",
+      "titulo": "Funções e ternário",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m4-ternario", "peso": 1 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function f(x) {\n  return x > 5 ? \"alto\" : \"baixo\";\n}\nfunction g(x) {\n  return f(x) + f(x + 5);\n}\nconsole.log(g(1));",
+      "opcoes": [
+        { "texto": "baixobaixo", "confusao": "usa x = 1 nas duas chamadas e esquece o x + 5" },
+        "baixoalto",
+        { "texto": "altoalto", "confusao": "avalia as duas chamadas como \"alto\"" },
+        { "texto": "altobaixo", "confusao": "inverte a ordem das duas chamadas" }
+      ],
+      "correta": 1,
+      "dica": "Calcule f(1) e f(6) separadamente.",
+      "explicacao": "f(1) devolve \"baixo\" (1 não é maior que 5) e f(6) devolve \"alto\". Os textos são juntados: baixoalto."
+    },
+    {
+      "id": "pr-menor-e-maior",
+      "tipo": "codigo",
+      "titulo": "Menor e maior",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 9,
+      "conceitos": [
+        { "id": "m7-parametros-retorno", "peso": 3 },
+        { "id": "m6-percorrer-for", "peso": 2 },
+        { "id": "m6-arrays", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `menorEMaior(v)` que devolve um array com dois elementos: o menor e o maior valor do array `v` (que tem pelo menos 1 elemento). Por exemplo, menorEMaior([3, 1, 2]) devolve [1, 3].",
+      "funcao": "menorEMaior",
+      "codigoInicial": "function menorEMaior(v) {\n  // seu código aqui\n}\n",
+      "testes": [
+        {
+          "entrada": [[3, 1, 2]],
+          "esperado": [1, 3]
+        },
+        {
+          "entrada": [[5]],
+          "esperado": [5, 5]
+        },
+        {
+          "entrada": [[-1, -9, 4]],
+          "esperado": [-9, 4]
+        },
+        {
+          "entrada": [[2, 2, 2]],
+          "esperado": [2, 2]
+        }
+      ],
+      "dica": "Guarde o menor e o maior vistos até agora, começando pelo primeiro elemento.",
+      "comentario": "O laço atualiza o menor e o maior valor; no final, a função devolve os dois em um array."
+    }
+  ]
+}

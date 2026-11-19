@@ -1,0 +1,196 @@
+{
+  "id": "parametros",
+  "mundo": "mundo-7",
+  "titulo": "Parâmetros",
+  "foco": "Receber dados de fora para dentro da função",
+  "posicao": 704,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "Até agora, nossas funções faziam sempre a mesma coisa. Com parâmetros, a função recebe informações de fora e pode trabalhar com valores diferentes a cada chamada.\n\nParâmetros são as variáveis listadas entre parênteses na declaração da função:\n\nfunction saudar(nome) {\n  console.log(\"Oi, \" + nome);\n}\n\nAqui, nome é um parâmetro. Dentro da função, ele funciona como uma variável comum, que começa valendo o que foi enviado na chamada.\n\nUma função pode ter vários parâmetros, separados por vírgula: function area(base, altura). A ordem importa: o primeiro valor enviado vai para o primeiro parâmetro, o segundo para o segundo, e assim por diante.\n\nOutro detalhe importante: o parâmetro é uma variável local da função. Se você alterar o parâmetro dentro da função, a variável original, de fora, não muda (para números, textos e booleanos).\n\nPense no parâmetro como um espaço reservado na receita: \"coloque X colheres de açúcar\". O valor de X só é conhecido na hora de preparar.",
+  "exemplo": "function mostrar(nome) {\n  console.log(\"Oi, \" + nome);\n}\n\nmostrar(\"Ana\");\nmostrar(\"Bia\");\n\nPasso a passo:\n1. nome é o parâmetro de mostrar: um espaço que receberá um valor.\n2. Na primeira chamada, nome vale \"Ana\" e o programa mostra Oi, Ana.\n3. Na segunda chamada, nome vale \"Bia\" e o programa mostra Oi, Bia.\n\nA mesma função, com resultados diferentes.",
+  "revisao": "- Parâmetros são as variáveis entre parênteses na declaração da função.\n- Eles recebem os valores enviados na chamada, pela ordem.\n- Uma função pode ter vários parâmetros, separados por vírgula.\n- O parâmetro é local: alterá-lo não muda a variável de fora (números, textos e booleanos).\n- Parâmetros tornam a função flexível: o mesmo código trabalha com valores diferentes.",
+  "exercicios": [
+    {
+      "id": "par-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é um parâmetro?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 },
+        { "id": "m7-argumentos", "peso": 1 }
+      ],
+      "enunciado": "O que é um parâmetro?",
+      "opcoes": [
+        {
+          "texto": "O valor enviado na chamada da função",
+          "confusao": "confunde parâmetro com argumento"
+        },
+        {
+          "texto": "O resultado que a função devolve",
+          "confusao": "confunde parâmetro com retorno"
+        },
+        "Uma variável listada nos parênteses da declaração, que recebe o valor da chamada",
+        { "texto": "O nome da função", "confusao": "acha que o parâmetro é o nome da função" }
+      ],
+      "correta": 2,
+      "dica": "Ele aparece na declaração, não na chamada.",
+      "explicacao": "O parâmetro é a variável da declaração; o valor enviado na chamada é o argumento."
+    },
+    {
+      "id": "par-oi-ana",
+      "tipo": "interpretacao",
+      "titulo": "Oi, Ana",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function mostrar(nome) {\n  console.log(\"Oi, \" + nome);\n}\nmostrar(\"Ana\");",
+      "opcoes": [
+        { "texto": "Oi, nome", "confusao": "acha que o parâmetro é mostrado como texto literal" },
+        "Oi, Ana",
+        { "texto": "Oi, ", "confusao": "acha que o parâmetro fica vazio na chamada" },
+        { "texto": "Ana", "confusao": "acha que a função mostra só o argumento" }
+      ],
+      "correta": 1,
+      "dica": "Dentro da função, nome vale o que foi enviado.",
+      "explicacao": "O parâmetro nome recebe \"Ana\", e a mensagem fica Oi, Ana."
+    },
+    {
+      "id": "par-complete-o-primeiro",
+      "tipo": "lacuna",
+      "titulo": "Complete o parâmetro",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 }
+      ],
+      "enunciado": "Complete o nome do primeiro parâmetro, usado no corpo da função.",
+      "modelo": "function somar({{1}}, b) {\n  return a + b;\n}",
+      "lacunas": [
+        { "respostas": ["a"] }
+      ],
+      "dica": "Olhe o que é somado no corpo.",
+      "explicacao": "O corpo usa a e b, então os parâmetros precisam ter esses nomes."
+    },
+    {
+      "id": "par-ordem-importa",
+      "tipo": "interpretacao",
+      "titulo": "A ordem importa",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 },
+        { "id": "m7-argumentos", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function dividir(a, b) {\n  return a / b;\n}\nconsole.log(dividir(10, 2));",
+      "opcoes": [
+        { "texto": "0.2", "confusao": "troca a ordem: calcula 2 dividido por 10" },
+        { "texto": "10", "confusao": "acha que a função devolve só o primeiro parâmetro" },
+        { "texto": "12", "confusao": "soma os parâmetros em vez de dividir" },
+        "5"
+      ],
+      "correta": 3,
+      "dica": "O primeiro valor vai para a e o segundo para b.",
+      "explicacao": "a vale 10 e b vale 2: 10 / 2 = 5."
+    },
+    {
+      "id": "par-area-do-retangulo",
+      "tipo": "codigo",
+      "titulo": "Área do retângulo",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 },
+        { "id": "m3-aritmeticos", "peso": 1 }
+      ],
+      "enunciado": "Escreva a função `area(base, altura)` que devolve a área do retângulo (base vezes altura).",
+      "funcao": "area",
+      "codigoInicial": "function area(base, altura) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [3, 4], "esperado": 12 },
+        { "entrada": [5, 5], "esperado": 25 },
+        { "entrada": [0, 8], "esperado": 0 }
+      ],
+      "dica": "Use os dois parâmetros na conta.",
+      "comentario": "A função multiplica base por altura."
+    },
+    {
+      "id": "par-media-de-tres",
+      "tipo": "codigo",
+      "titulo": "Média de três",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 },
+        { "id": "m3-precedencia", "peso": 2 }
+      ],
+      "enunciado": "Escreva a função `mediaDeTres(a, b, c)` que devolve a média aritmética dos três números.",
+      "funcao": "mediaDeTres",
+      "codigoInicial": "function mediaDeTres(a, b, c) {\n  // seu código aqui\n}\n",
+      "testes": [
+        { "entrada": [4, 6, 8], "esperado": 6 },
+        { "entrada": [10, 10, 10], "esperado": 10 },
+        { "entrada": [0, 0, 9], "esperado": 3 }
+      ],
+      "dica": "Não esqueça dos parênteses na soma antes de dividir.",
+      "comentario": "(a + b + c) / 3: os parênteses garantem que a soma é feita antes da divisão."
+    },
+    {
+      "id": "par-corrija-o-parametro",
+      "tipo": "corrigir",
+      "titulo": "Corrija o parâmetro",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 }
+      ],
+      "enunciado": "A função `calcularArea(base, altura)` deveria devolver a área do retângulo, mas ignora um dos parâmetros. Corrija o defeito.",
+      "funcao": "calcularArea",
+      "codigoInicial": "function calcularArea(base, altura) {\n  return base * base;\n}\n",
+      "testes": [
+        { "entrada": [3, 4], "esperado": 12 },
+        { "entrada": [5, 2], "esperado": 10 },
+        { "entrada": [6, 6], "esperado": 36 }
+      ],
+      "dica": "Todos os parâmetros estão sendo usados?",
+      "comentario": "O corpo usava base duas vezes e deixava altura de fora. O correto é base * altura."
+    },
+    {
+      "id": "par-parametro-e-copia",
+      "tipo": "interpretacao",
+      "titulo": "O parâmetro é uma cópia",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-parametros", "peso": 3 },
+        { "id": "m7-escopo-local", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "function mudar(x) {\n  x = x + 1;\n  return x;\n}\nlet n = 5;\nmudar(n);\nconsole.log(n);",
+      "opcoes": [
+        "5",
+        { "texto": "6", "confusao": "acha que alterar o parâmetro altera a variável de fora" },
+        { "texto": "1", "confusao": "acha que a chamada zera a variável original" },
+        {
+          "texto": "undefined",
+          "confusao": "acha que a variável n deixa de existir depois da chamada"
+        }
+      ],
+      "correta": 0,
+      "dica": "O parâmetro x é uma variável da função, separada de n.",
+      "explicacao": "x recebe uma cópia do valor de n. Alterar x não muda n, que continua valendo 5."
+    }
+  ]
+}

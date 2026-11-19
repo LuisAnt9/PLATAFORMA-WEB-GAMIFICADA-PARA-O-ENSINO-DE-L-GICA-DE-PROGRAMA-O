@@ -1,0 +1,205 @@
+{
+  "id": "arrow-functions",
+  "mundo": "mundo-7",
+  "titulo": "Arrow functions",
+  "foco": "Conhecer uma forma mais curta de escrever funções",
+  "posicao": 710,
+  "diagnostica": true,
+  "formato": "completa",
+  "complementar": true,
+  "intro": "Este é um conteúdo complementar: ele não bloqueia a liberação do que vem a seguir. Vale estudar, mas você pode seguir em frente sem concluí-lo.\n\nAs arrow functions (\"funções seta\") são uma forma mais curta de escrever funções. Em vez da palavra function, usamos uma seta (=>) e guardamos a função em uma variável:\n\nconst dobro = (n) => n * 2;\n\nÉ equivalente a:\n\nfunction dobro(n) {\n  return n * 2;\n}\n\nRegras da forma curta:\n- Sem chaves, o valor depois da seta é devolvido automaticamente (retorno implícito): (n) => n * 2.\n- Com chaves { }, você precisa escrever return: (n) => { return n * 2; }. Sem o return, a função devolve undefined.\n- Com um único parâmetro, os parênteses são opcionais (n => n * 2); com vários ou nenhum, são obrigatórios: (a, b) => a + b, () => 5.\n\nA chamada é igual à de qualquer função: dobro(4).\n\nQuando usar? Em funções curtas, a seta deixa o código mais enxuto. Para funções maiores, a declaração com function costuma ser mais clara. O resultado é o mesmo.",
+  "exemplo": "const soma = (a, b) => a + b;\nconst dobrar = (n) => n * 2;\n\nconsole.log(dobrar(soma(1, 2)));\n\nPasso a passo:\n1. soma é uma função que recebe a e b e devolve a + b (retorno implícito, sem chaves).\n2. dobrar recebe n e devolve n * 2.\n3. soma(1, 2) devolve 3 e dobrar(3) devolve 6.\n4. O programa mostra 6.",
+  "revisao": "- Arrow function: (parâmetros) => expressão, guardada em uma variável.\n- Sem chaves, o valor da expressão é devolvido automaticamente.\n- Com chaves, é preciso usar return (senão devolve undefined).\n- Com um só parâmetro, os parênteses são opcionais.\n- É uma forma mais curta: funciona como uma função comum.",
+  "exercicios": [
+    {
+      "id": "arrow-equivalente",
+      "tipo": "escolha",
+      "titulo": "A forma equivalente",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 }
+      ],
+      "enunciado": "Qual arrow function é equivalente a function dobro(n) { return n * 2; }?",
+      "opcoes": [
+        {
+          "texto": "const dobro = (n) => { n * 2 };",
+          "confusao": "usa chaves sem return: a função devolve undefined"
+        },
+        {
+          "texto": "const dobro => (n) n * 2;",
+          "confusao": "coloca a seta e os parênteses na ordem errada"
+        },
+        {
+          "texto": "const dobro = function => n * 2;",
+          "confusao": "mistura a palavra function com a seta"
+        },
+        "const dobro = (n) => n * 2;"
+      ],
+      "correta": 3,
+      "dica": "Sem chaves, o resultado é devolvido sozinho.",
+      "explicacao": "(n) => n * 2 tem retorno implícito e equivale à função com return n * 2."
+    },
+    {
+      "id": "arrow-soma",
+      "tipo": "interpretacao",
+      "titulo": "Soma com seta",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const soma = (a, b) => a + b;\nconsole.log(soma(2, 3));",
+      "opcoes": [
+        "5",
+        { "texto": "23", "confusao": "acha que os valores são juntados como texto" },
+        {
+          "texto": "undefined",
+          "confusao": "acha que a função não devolve nada sem a palavra return"
+        },
+        { "texto": "a + b", "confusao": "acha que a função devolve o texto da expressão" }
+      ],
+      "correta": 0,
+      "dica": "Sem chaves, o valor depois da seta é devolvido.",
+      "explicacao": "A arrow function devolve a + b automaticamente: 2 + 3 = 5."
+    },
+    {
+      "id": "arrow-complete-a-seta",
+      "tipo": "lacuna",
+      "titulo": "Complete a seta",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 }
+      ],
+      "enunciado": "Complete o símbolo que separa os parâmetros do corpo da arrow function.",
+      "modelo": "const triplo = (n) {{1}} n * 3;",
+      "lacunas": [
+        { "respostas": ["=>", "= >"] }
+      ],
+      "dica": "É a \"seta\" que dá nome a este tipo de função.",
+      "explicacao": "O símbolo => separa os parâmetros do que a função devolve."
+    },
+    {
+      "id": "arrow-chaves-sem-return",
+      "tipo": "interpretacao",
+      "titulo": "Chaves sem return",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m7-return", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const f = (n) => { n * 2 };\nconsole.log(f(4));",
+      "opcoes": [
+        { "texto": "8", "confusao": "acha que o retorno implícito vale também quando há chaves" },
+        { "texto": "4", "confusao": "acha que a função devolve o argumento" },
+        "undefined",
+        {
+          "texto": "Erro e o programa para",
+          "confusao": "acha que chaves sem return é erro de sintaxe"
+        }
+      ],
+      "correta": 2,
+      "dica": "Com chaves, a função precisa de return.",
+      "explicacao": "Com chaves não há retorno implícito. Sem o return, a função devolve undefined."
+    },
+    {
+      "id": "arrow-quadrado",
+      "tipo": "codigo",
+      "titulo": "Quadrado com seta",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m7-return", "peso": 2 }
+      ],
+      "enunciado": "Escreva a arrow function `quadrado` que recebe um número e devolve o quadrado dele.",
+      "funcao": "quadrado",
+      "codigoInicial": "const quadrado = (n) => {\n  // seu código aqui\n};\n",
+      "testes": [
+        { "entrada": [3], "esperado": 9 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-4], "esperado": 16 }
+      ],
+      "dica": "Com chaves, use return; sem chaves, escreva só a expressão.",
+      "comentario": "(n) => n * n devolve o quadrado de n."
+    },
+    {
+      "id": "arrow-par-ou-impar",
+      "tipo": "codigo",
+      "titulo": "Par ou ímpar com seta",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m4-ternario", "peso": 2 }
+      ],
+      "enunciado": "Escreva a arrow function `parOuImpar` que recebe um número e devolve o texto \"par\" ou \"impar\".",
+      "funcao": "parOuImpar",
+      "codigoInicial": "const parOuImpar = (n) => {\n  // seu código aqui\n};\n",
+      "testes": [
+        { "entrada": [4], "esperado": "par" },
+        { "entrada": [7], "esperado": "impar" },
+        { "entrada": [0], "esperado": "par" }
+      ],
+      "dica": "O operador ternário cabe bem em uma arrow function curta.",
+      "comentario": "(n) => n % 2 === 0 ? \"par\" : \"impar\" devolve o texto conforme a condição."
+    },
+    {
+      "id": "arrow-corrija-o-retorno",
+      "tipo": "corrigir",
+      "titulo": "Corrija o retorno",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m7-return", "peso": 2 }
+      ],
+      "enunciado": "A função `dobro(n)` usa uma arrow function interna para calcular o dobro de n, mas devolve undefined. Corrija o defeito.",
+      "funcao": "dobro",
+      "codigoInicial": "function dobro(n) {\n  const calcular = (x) => { x * 2 };\n  return calcular(n);\n}\n",
+      "testes": [
+        { "entrada": [4], "esperado": 8 },
+        { "entrada": [0], "esperado": 0 },
+        { "entrada": [-3], "esperado": -6 }
+      ],
+      "dica": "O que muda com as chaves: o retorno é implícito?",
+      "comentario": "Com chaves, o return é obrigatório. Basta remover as chaves ((n) => n * 2) ou escrever return n * 2."
+    },
+    {
+      "id": "arrow-compondo",
+      "tipo": "interpretacao",
+      "titulo": "Compondo setas",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-arrow", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 },
+        { "id": "m7-parametros-retorno", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const somar1 = (n) => n + 1;\nconst dobrar = (n) => n * 2;\nconsole.log(dobrar(somar1(3)));",
+      "opcoes": [
+        { "texto": "7", "confusao": "calcula somar1(dobrar(3)), invertendo a ordem das funções" },
+        "8",
+        { "texto": "6", "confusao": "aplica só a função dobrar ao argumento original" },
+        { "texto": "4", "confusao": "aplica só a função somar1 e esquece de dobrar" }
+      ],
+      "correta": 1,
+      "dica": "Resolva primeiro a chamada de dentro.",
+      "explicacao": "somar1(3) devolve 4; dobrar(4) devolve 8."
+    }
+  ]
+}

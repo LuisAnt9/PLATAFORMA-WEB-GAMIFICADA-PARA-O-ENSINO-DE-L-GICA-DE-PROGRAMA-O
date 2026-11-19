@@ -1,0 +1,206 @@
+{
+  "id": "escopo-global",
+  "mundo": "mundo-7",
+  "titulo": "Escopo global",
+  "foco": "Entender variáveis visíveis em todo o programa",
+  "posicao": 708,
+  "diagnostica": true,
+  "formato": "completa",
+  "intro": "O escopo é a região do programa onde uma variável pode ser usada. Uma variável declarada fora de qualquer função tem escopo global: ela existe em todo o programa e pode ser lida por qualquer função.\n\nconst taxa = 0.1;                 // global\n\nfunction imposto(valor) {\n  return valor * taxa;            // a função enxerga taxa\n}\n\nFunções podem não só ler, mas também alterar variáveis globais:\n\nlet contador = 0;\nfunction incrementar() {\n  contador = contador + 1;        // altera a variável de fora\n}\n\nIsso funciona, mas traz riscos. Quando uma variável pode ser mudada por qualquer função, fica difícil saber quem a alterou e quando. É a origem de muitos erros difíceis de achar: duas funções mexendo na mesma variável sem se darem conta.\n\nA prática recomendada:\n- use constantes globais para valores que nunca mudam (const taxa = 0.1);\n- passe os dados que a função precisa por parâmetros e devolva o resultado com return, em vez de alterar variáveis globais;\n- evite que funções dependam de valores soltos pelo programa.",
+  "exemplo": "let n = 1;\n\nfunction dobrar() {\n  n = n * 2;\n}\n\ndobrar();\ndobrar();\nconsole.log(n);\n\nPasso a passo:\n1. n é global e vale 1.\n2. A primeira chamada de dobrar altera a variável de fora: n passa a valer 2.\n3. A segunda chamada altera de novo: n passa a valer 4.\n4. O console.log mostra 4.\n\nComo a função mexeu na variável global, o valor ficou \"lembrado\" entre as chamadas.",
+  "revisao": "- Escopo global: variável declarada fora de qualquer função, visível em todo o programa.\n- Funções podem ler e também alterar variáveis globais.\n- Alterar globais dentro de funções é arriscado: qualquer parte do programa pode mudar o valor sem querer.\n- Prefira passar dados por parâmetros e devolver com return.\n- Constantes globais (const) são seguras para valores que não mudam.",
+  "exercicios": [
+    {
+      "id": "glob-o-que-e",
+      "tipo": "escolha",
+      "titulo": "O que é uma variável global?",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 1,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "O que é uma variável global?",
+      "opcoes": [
+        {
+          "texto": "Uma variável declarada dentro de uma função",
+          "confusao": "confunde variável global com variável local"
+        },
+        {
+          "texto": "Uma variável que só existe durante uma chamada da função",
+          "confusao": "descreve uma variável local, não uma global"
+        },
+        { "texto": "Um parâmetro de uma função", "confusao": "acha que todo parâmetro é global" },
+        "Uma variável declarada fora de qualquer função, visível em todo o programa"
+      ],
+      "correta": 3,
+      "dica": "Onde ela é declarada?",
+      "explicacao": "A variável global é declarada fora das funções e pode ser usada em qualquer parte do programa."
+    },
+    {
+      "id": "glob-ler-uma-global",
+      "tipo": "interpretacao",
+      "titulo": "Lendo uma global",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 2,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "const taxa = 0.1;\nfunction imposto(valor) {\n  return valor * taxa;\n}\nconsole.log(imposto(100));",
+      "opcoes": [
+        "10",
+        { "texto": "100", "confusao": "acha que a função não enxerga a variável global taxa" },
+        { "texto": "0.1", "confusao": "acha que a função devolve o valor da taxa" },
+        {
+          "texto": "undefined",
+          "confusao": "acha que a variável global não existe dentro da função"
+        }
+      ],
+      "correta": 0,
+      "dica": "A função consegue ler a variável de fora?",
+      "explicacao": "A função enxerga a variável global taxa: 100 * 0.1 = 10."
+    },
+    {
+      "id": "glob-complete-o-nome",
+      "tipo": "lacuna",
+      "titulo": "Complete o comentário",
+      "dificuldade": "facil",
+      "publicado": false,
+      "posicao": 3,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "Complete com o tipo de escopo da variável total.",
+      "modelo": "// variável {{1}}: declarada fora de qualquer função\nlet total = 0;",
+      "lacunas": [
+        { "respostas": ["global"] }
+      ],
+      "dica": "Fora das funções, ela vale para todo o programa.",
+      "explicacao": "Uma variável declarada fora de qualquer função tem escopo global."
+    },
+    {
+      "id": "glob-alterada-pela-funcao",
+      "tipo": "interpretacao",
+      "titulo": "Alterada pela função",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 4,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let n = 1;\nfunction incrementar() {\n  n = n + 1;\n}\nincrementar();\nincrementar();\nconsole.log(n);",
+      "opcoes": [
+        { "texto": "1", "confusao": "acha que a função não consegue alterar a variável de fora" },
+        { "texto": "2", "confusao": "acha que só a primeira chamada altera a variável" },
+        "3",
+        { "texto": "4", "confusao": "acha que cada chamada dobra o valor" }
+      ],
+      "correta": 2,
+      "dica": "Cada chamada altera a mesma variável global.",
+      "explicacao": "n começa em 1 e a função soma 1 a cada chamada: duas chamadas levam n a 3."
+    },
+    {
+      "id": "glob-valor-atual",
+      "tipo": "interpretacao",
+      "titulo": "O valor na hora da chamada",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 5,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let a = 5;\nfunction f() {\n  return a * 2;\n}\na = 10;\nconsole.log(f());",
+      "opcoes": [
+        {
+          "texto": "10",
+          "confusao": "acha que a função guarda o valor de a do momento em que foi declarada"
+        },
+        "20",
+        { "texto": "5", "confusao": "acha que a função usa o primeiro valor atribuído a a" },
+        { "texto": "15", "confusao": "soma os dois valores de a" }
+      ],
+      "correta": 1,
+      "dica": "A função lê a variável quando é chamada.",
+      "explicacao": "f lê a no momento da chamada, quando a vale 10: 10 * 2 = 20."
+    },
+    {
+      "id": "glob-risco",
+      "tipo": "escolha",
+      "titulo": "O risco das globais",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 6,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 }
+      ],
+      "enunciado": "Por que é arriscado alterar variáveis globais dentro de funções?",
+      "opcoes": [
+        {
+          "texto": "Porque o JavaScript proíbe alterar variáveis globais",
+          "confusao": "acha que alterar globais é um erro da linguagem"
+        },
+        {
+          "texto": "Porque a função fica mais lenta a cada alteração",
+          "confusao": "acha que o risco é de desempenho"
+        },
+        {
+          "texto": "Porque a variável global é apagada ao fim da função",
+          "confusao": "acha que o valor alterado se perde no fim da chamada"
+        },
+        "Porque qualquer parte do programa pode mudar o valor sem que percebamos, dificultando achar erros"
+      ],
+      "correta": 3,
+      "dica": "Quem mais pode estar mexendo na mesma variável?",
+      "explicacao": "Com globais alteráveis, várias funções podem modificá-las sem aviso, o que torna os erros difíceis de localizar."
+    },
+    {
+      "id": "glob-corrija-a-dependencia",
+      "tipo": "corrigir",
+      "titulo": "Dependência escondida",
+      "dificuldade": "medio",
+      "publicado": false,
+      "posicao": 7,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 },
+        { "id": "m7-parametros", "peso": 2 }
+      ],
+      "enunciado": "A função `precoFinal(valor, taxa)` deveria somar ao valor a taxa recebida (por exemplo, 120 para valor 100 e taxa 0.2), mas usa uma variável global em vez do parâmetro. Corrija o defeito.",
+      "funcao": "precoFinal",
+      "codigoInicial": "let taxa = 0.1;\n\nfunction precoFinal(valor, taxa2) {\n  return valor + valor * taxa;\n}\n",
+      "testes": [
+        { "entrada": [100, 0.2], "esperado": 120 },
+        { "entrada": [200, 0.5], "esperado": 300 },
+        { "entrada": [50, 0], "esperado": 50 }
+      ],
+      "dica": "A taxa que vale é a recebida na chamada ou a global?",
+      "comentario": "A função ignorava o parâmetro e lia a variável global taxa (0.1). Usando o parâmetro, ela depende só do que recebe."
+    },
+    {
+      "id": "glob-duas-funcoes-uma-variavel",
+      "tipo": "interpretacao",
+      "titulo": "Duas funções, uma variável",
+      "dificuldade": "dificil",
+      "publicado": false,
+      "posicao": 8,
+      "conceitos": [
+        { "id": "m7-escopo-global", "peso": 3 },
+        { "id": "m7-chamada", "peso": 2 }
+      ],
+      "enunciado": "O que o programa abaixo mostra na tela?",
+      "codigo": "let x = 1;\nfunction a() {\n  x = x * 2;\n}\nfunction b() {\n  x = x + 3;\n}\na();\nb();\na();\nconsole.log(x);",
+      "opcoes": [
+        "10",
+        { "texto": "5", "confusao": "esquece a última chamada de a()" },
+        { "texto": "8", "confusao": "calcula 1 * 2 * 2 + 3 + 1, errando a ordem das operações" },
+        { "texto": "7", "confusao": "soma 3 duas vezes em vez de dobrar de novo" }
+      ],
+      "correta": 0,
+      "dica": "Acompanhe x depois de cada chamada: 2, 5, 10.",
+      "explicacao": "x vale 1; a() leva a 2; b() leva a 5; a() leva a 10."
+    }
+  ]
+}

@@ -946,6 +946,11 @@ describe("importação em 4 partes (para colar no SQL Editor)", () => {
     const completo = await createDb();
     await completo.exec(sql);
     expect(await conta(outro)).toEqual(await conta(completo));
+    // o mundo provisório da migration 0010 some depois da importação (não vira cartão vazio no site)
+    const provisorio = await completo.query("select count(*)::int as n from public.worlds where id = 'trilha-atual'");
+    expect(provisorio.rows[0].n).toBe(0);
+    const mundos = await completo.query("select count(*)::int as n from public.worlds");
+    expect(mundos.rows[0].n).toBe(7);
     // e as partes arquivadas no repositório são as geradas agora
     const dir = path.resolve(import.meta.dirname, "../");
     partes.forEach((p, i) => {

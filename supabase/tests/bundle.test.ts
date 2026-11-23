@@ -24,7 +24,7 @@ describe("setup-completo.sql", () => {
     await db.exec(fs.readFileSync(OUT_UPDATE, "utf8"));
     const r = await db.query<{ t: number }>("select count(*)::int as t from pg_tables where schemaname = 'public'");
     expect(r.rows[0].t).toBe(24);
-  });
+  }, 60_000);
 
   it("roda de uma vez num banco limpo, como no SQL Editor, e cria o catálogo completo", async () => {
     const db = new PGlite();

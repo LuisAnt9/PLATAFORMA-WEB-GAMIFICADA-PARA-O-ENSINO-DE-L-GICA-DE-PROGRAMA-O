@@ -683,6 +683,12 @@ join public.exercises e on e.id = v.exercise_id and e.origem = 'arquivo'
 on conflict (exercise_id, concept_id) do update set weight = excluded.weight;
 `);
 
+  // O mundo provisório da migration 0010 só existia para abrigar lições antigas; com as lições nos mundos
+  // oficiais, ele ficaria como um cartão vazio no site. Só é removido se estiver sem nenhuma lição.
+  out.push(`delete from public.worlds w
+where w.id = 'trilha-atual' and not exists (select 1 from public.modules m where m.world_id = w.id);
+`);
+
   out.push(`do $$
 declare n integer;
 begin

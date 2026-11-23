@@ -5,6 +5,7 @@ import {
   buildImportSql,
   buildPublishSql,
   loadContent,
+  splitImportSql,
 } from "../../scripts/content-lib.mjs";
 import { createDb } from "./helpers";
 
@@ -924,5 +925,32 @@ describe("Mundo 7 (E14): importação, rascunho e publicação", () => {
     expect((await doMundo7()).every((e) => e.published)).toBe(true);
     await db.exec(buildPublishSql(content(), "mundo-7", { publish: false }));
     expect((await doMundo7()).some((e) => e.published)).toBe(false);
+  });
+});
+
+describe("importação em 4 partes (para colar no SQL Editor)", () => {
+  it("as partes, em ordem, deixam o banco igual ao SQL completo", async () => {
+    const sql = buildImportSql(content());
+    const partes = splitImportSql(sql);
+    expect(partes).toHaveLength(4);
+    expect(partes.join("")).toBe(sql);
+    const outro = await createDb();
+    for (const p of partes) await outro.exec(p);
+    const conta = async (d) =>
+      (
+        await d.query(
+          `select (select count(*) from public.modules)::int m, (select count(*) from public.exercises)::int e,
+                  (select count(*) from public.exercise_solutions)::int s, (select count(*) from public.exercise_concepts)::int c`,
+        )
+      ).rows[0];
+    const completo = await createDb();
+    await completo.exec(sql);
+    expect(await conta(outro)).toEqual(await conta(completo));
+    // e as partes arquivadas no repositório são as geradas agora
+    const dir = path.resolve(import.meta.dirname, "../");
+    partes.forEach((p, i) => {
+      const f = fs.readFileSync(path.join(dir, `importar-conteudo-parte-${i + 1}.sql`), "utf8");
+      expect(f.endsWith(p), `parte ${i + 1} desatualizada: rode npm run content:build`).toBe(true);
+    });
   });
 });

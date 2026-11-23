@@ -4,7 +4,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  PART_TITLES,
   buildImportSql,
+  splitImportSql,
   loadContent,
   validateContent,
 } from "./content-lib.mjs";
@@ -22,6 +24,17 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     );
     process.exit(1);
   }
-  fs.writeFileSync(OUT, buildImportSql(content));
+  const sql = buildImportSql(content);
+  fs.writeFileSync(OUT, sql);
   console.log(`ok: ${path.relative(path.resolve(here, ".."), OUT)}`);
+  // As mesmas instruções em 4 partes menores, para colar no SQL Editor (rode em ordem).
+  const parts = splitImportSql(sql);
+  parts.forEach((p, i) => {
+    const file = path.resolve(here, `../supabase/importar-conteudo-parte-${i + 1}.sql`);
+    fs.writeFileSync(
+      file,
+      `-- PARTE ${i + 1} de ${parts.length}: ${PART_TITLES[i]}. Rode as partes em ordem (1, 2, 3, 4); cada uma pode ser repetida sem duplicar nada.\n\n${p}`,
+    );
+    console.log(`ok: ${path.relative(path.resolve(here, ".."), file)}`);
+  });
 }

@@ -573,6 +573,23 @@ export function exerciseRow(e) {
  *  - lições e exercícios existentes: só atualizados se ainda são `origem = 'arquivo'` (ninguém editou no painel);
  *    `published` e `position` de exercícios já existentes nunca são alterados pelo importador.
  */
+/**
+ * Divide o SQL de importação em 4 partes que devem ser rodadas em ordem (lições, exercícios, soluções e
+ * vínculos com conceitos), para colar no SQL Editor sem travar o navegador. Juntas, são o SQL completo.
+ */
+export function splitImportSql(sql) {
+  const marks = ["insert into public.exercises\n", "-- Soluções comentadas (só", "-- Vínculos exercício-conceito: só"];
+  const cuts = marks.map((m) => {
+    const i = sql.indexOf(m);
+    if (i < 0) throw new Error(`Marcador não encontrado no SQL de importação: ${m.trim()}`);
+    return i;
+  });
+  if (!cuts.every((c, i) => i === 0 || c > cuts[i - 1])) throw new Error("Marcadores do SQL de importação fora de ordem.");
+  return [sql.slice(0, cuts[0]), sql.slice(cuts[0], cuts[1]), sql.slice(cuts[1], cuts[2]), sql.slice(cuts[2])];
+}
+
+export const PART_TITLES = ["mundos, conceitos e lições", "exercícios", "soluções comentadas", "vínculos com os conceitos"];
+
 export function buildImportSql(content) {
   const exercises = content.lessons.flatMap(({ data: l }) =>
     l.exercicios.map((e) => ({ lesson: l, e, row: exerciseRow(e) })),
@@ -581,7 +598,7 @@ export function buildImportSql(content) {
   const out = [];
   out.push(`-- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0013. Não altera "published" nem "position" de exercícios que já existem
+-- Aplique todas as migrations (até a 0017) antes. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 `);
 

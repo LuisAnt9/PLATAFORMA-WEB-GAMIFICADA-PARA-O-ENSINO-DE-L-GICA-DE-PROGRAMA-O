@@ -1,6 +1,6 @@
 -- GERADO por "npm run content:build" a partir de content/. Não edite à mão.
 -- Importa mundos, conceitos, lições e exercícios. Pode ser executado várias vezes (idempotente).
--- Requer as migrations até a 0013. Não altera "published" nem "position" de exercícios que já existem
+-- Aplique todas as migrations (até a 0017) antes. Não altera "published" nem "position" de exercícios que já existem
 -- e não toca em lições/exercícios que o professor editou no painel (origem = 'painel').
 
 insert into public.worlds (id, title, objective, position) values

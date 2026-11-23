@@ -8,7 +8,7 @@ describe("setup-completo.sql", () => {
     expect(fs.readFileSync(OUT, "utf8")).toBe(buildBundle());
   });
 
-  it("atualizar-0010-em-diante.sql está em dia e leva um banco 0009 ao mesmo resultado do banco completo", async () => {
+  it("atualizar-0009-em-diante.sql está em dia e leva um banco 0008 ao mesmo resultado do banco completo", async () => {
     expect(fs.readFileSync(OUT_UPDATE, "utf8")).toBe(buildUpdate());
     const dir = new URL("../migrations/", import.meta.url).pathname;
     const db = new PGlite();
@@ -20,7 +20,7 @@ describe("setup-completo.sql", () => {
       create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
       grant usage on schema auth to authenticated, anon; grant execute on function auth.uid() to authenticated, anon;
     `);
-    for (const f of fs.readdirSync(dir).sort().filter((x) => x < "0010")) await db.exec(fs.readFileSync(dir + f, "utf8"));
+    for (const f of fs.readdirSync(dir).sort().filter((x) => x < "0009")) await db.exec(fs.readFileSync(dir + f, "utf8"));
     await db.exec(fs.readFileSync(OUT_UPDATE, "utf8"));
     const r = await db.query<{ t: number }>("select count(*)::int as t from pg_tables where schemaname = 'public'");
     expect(r.rows[0].t).toBe(24);

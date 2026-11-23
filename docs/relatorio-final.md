@@ -39,7 +39,7 @@ Data: 19/11/2026. Branch `claude/development-needed-6vi6j1`.
 Em navegador real: laço infinito (tempo esgotado), `fetch`, `XMLHttpRequest`, `WebSocket`, `importScripts`, `import()`, `new Function`, construtor de função assíncrona, `localStorage`, `sendBeacon`, `document`, `postMessage` forjado, 200 mil linhas de saída e consumo de memória sem fim. Tudo bloqueado ou interrompido, a página continua viva, **nenhuma requisição saiu para a internet** e o código normal volta a funcionar depois.
 
 ## 2. O que NÃO foi verificado (e por quê)
-- **Nada foi testado no Supabase e na Vercel reais.** Todos os testes usam Postgres embutido (PGlite) e backend simulado nos testes de navegador. As migrations 0010 a 0017 ainda precisam ser aplicadas e conferidas por você.
+- **Nada foi testado no Supabase e na Vercel reais.** Todos os testes usam Postgres embutido (PGlite) e backend simulado nos testes de navegador. As migrations 0009 a 0017 ainda precisam ser aplicadas e conferidas por você.
 - **Nenhum dado real de alunos.** Painéis, relatórios, SUS e comparação com IA foram validados com dados simulados.
 - **Dica com IA ao vivo** (Gemini real): a rota está coberta por testes simulados; a chamada real depende da chave configurada na Vercel e não foi testada por mim.
 - **Fluxo de confirmação de e-mail e recuperação de senha** do Supabase Auth: não testados.
@@ -51,7 +51,7 @@ Em navegador real: laço infinito (tempo esgotado), `fetch`, `XMLHttpRequest`, `
 - Um teste de navegador (`tipos-e-sequencia`, "registra a atividade do dia") falhou uma vez na rodada completa e passou ao repetir: é instável perto da virada do dia/fuso (compara a data do navegador com a de Fortaleza). Não é defeito do site.
 
 ## 3. Ações manuais (nesta ordem)
-1. **Supabase → SQL Editor:** aplicar as migrations pendentes, em ordem: `0010`, `0011`, `0012`, `0013`, `0014`, `0015`, `0016`, `0017` (ou, num banco novo, `supabase/setup-completo.sql`).
+1. **Supabase → SQL Editor:** aplicar as migrations pendentes, em ordem: `0009`, `0010`, `0011`, `0012`, `0013`, `0014`, `0015`, `0016`, `0017` (ou, num banco novo, `supabase/setup-completo.sql`).
 2. Importar o conteúdo: `supabase/importar-conteudo.sql` (entra como **rascunho**).
 3. **Revisar** os documentos `docs/revisao/mundo-1.md` a `mundo-7.md` e registrar o que foi aprovado e ajustado.
 4. Publicar o que for aprovado: `supabase/publicar-mundo-1.sql` a `publicar-mundo-7.sql`.

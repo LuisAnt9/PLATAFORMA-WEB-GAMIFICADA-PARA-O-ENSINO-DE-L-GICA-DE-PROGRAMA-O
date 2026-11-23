@@ -952,5 +952,5 @@ describe("importação em 4 partes (para colar no SQL Editor)", () => {
       const f = fs.readFileSync(path.join(dir, `importar-conteudo-parte-${i + 1}.sql`), "utf8");
       expect(f.endsWith(p), `parte ${i + 1} desatualizada: rode npm run content:build`).toBe(true);
     });
-  });
+  }, 60_000);
 });

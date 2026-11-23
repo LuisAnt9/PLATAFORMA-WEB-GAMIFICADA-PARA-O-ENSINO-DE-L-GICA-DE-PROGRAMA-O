@@ -1,11 +1,29 @@
 import { PGlite } from "@electric-sql/pglite";
 import fs from "node:fs";
 import { describe, expect, it } from "vitest";
-import { OUT, buildBundle } from "../../scripts/bundle-migrations.mjs";
+import { OUT, OUT_UPDATE, buildBundle, buildUpdate } from "../../scripts/bundle-migrations.mjs";
 
 describe("setup-completo.sql", () => {
   it("está em dia com as migrations (rode `npm run db:bundle` se falhar)", () => {
     expect(fs.readFileSync(OUT, "utf8")).toBe(buildBundle());
+  });
+
+  it("atualizar-0010-em-diante.sql está em dia e leva um banco 0009 ao mesmo resultado do banco completo", async () => {
+    expect(fs.readFileSync(OUT_UPDATE, "utf8")).toBe(buildUpdate());
+    const dir = new URL("../migrations/", import.meta.url).pathname;
+    const db = new PGlite();
+    await db.exec(`
+      create role anon nologin; create role authenticated nologin;
+      grant usage on schema public to anon, authenticated;
+      create schema auth;
+      create table auth.users (id uuid primary key default gen_random_uuid(), email text, raw_user_meta_data jsonb default '{}');
+      create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+      grant usage on schema auth to authenticated, anon; grant execute on function auth.uid() to authenticated, anon;
+    `);
+    for (const f of fs.readdirSync(dir).sort().filter((x) => x < "0010")) await db.exec(fs.readFileSync(dir + f, "utf8"));
+    await db.exec(fs.readFileSync(OUT_UPDATE, "utf8"));
+    const r = await db.query<{ t: number }>("select count(*)::int as t from pg_tables where schemaname = 'public'");
+    expect(r.rows[0].t).toBe(24);
   });
 
   it("roda de uma vez num banco limpo, como no SQL Editor, e cria o catálogo completo", async () => {

@@ -19,7 +19,22 @@ export function buildBundle() {
   );
 }
 
+/** Só as migrations a partir da 0010, para quem já tem o banco até a 0009 (rode o diagnóstico antes). */
+export const OUT_UPDATE = path.join(root, "supabase/atualizar-0010-em-diante.sql");
+export function buildUpdate() {
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".sql") && f >= "0010").sort();
+  const parts = files.map((f) => `-- ============================================================\n-- ${f}\n-- ============================================================\n\n${fs.readFileSync(path.join(dir, f), "utf8").trimEnd()}\n`);
+  return (
+    `-- GERADO por "npm run db:bundle" a partir de supabase/migrations. Não edite à mão.\n` +
+    `-- Para um projeto que JÁ tem o banco até a migration 0009. Rode supabase/diagnostico.sql antes para conferir.\n` +
+    `-- Roda tudo numa única transação: se algo falhar, nada é aplicado e você pode corrigir e tentar de novo.\n\n` +
+    parts.join("\n")
+  );
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fs.writeFileSync(OUT, buildBundle());
+  fs.writeFileSync(OUT_UPDATE, buildUpdate());
   console.log(`ok: ${path.relative(root, OUT)}`);
+  console.log(`ok: ${path.relative(root, OUT_UPDATE)}`);
 }
